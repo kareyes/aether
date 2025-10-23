@@ -7,23 +7,112 @@
 
   // More on how to set up stories at: https://storybook.js.org/docs/writing-stories
   const { Story } = defineMeta({
-    title: 'Example/Button',
+    title: 'Components/Button',
     component: Button,
     tags: ['autodocs'],
     argTypes: {
-      size: {
-        control: { type: 'select' },
-        options: Sizes,
-      },
+      // Main props we want to control
       variant: {
         control: { type: 'select' },
         options: Variants,
-    }
-    
-  },
+        description: 'Visual variant of the button',
+        table: {
+          type: { summary: 'string' },
+          defaultValue: { summary: 'default' },
+        },
+      },
+      size: {
+        control: { type: 'select' },
+        options: Sizes,
+        description: 'Size of the button',
+        table: {
+          type: { summary: 'string' },
+          defaultValue: { summary: 'default' },
+        },
+      },
+      text: {
+        control: { type: 'text' },
+        description: 'Button text content',
+        table: {
+          type: { summary: 'string' },
+          defaultValue: { summary: 'undefined' },
+        },
+      },
+      loading: {
+        control: { type: 'boolean' },
+        description: 'Whether the button is in loading state',
+        table: {
+          type: { summary: 'boolean' },
+          defaultValue: { summary: 'false' },
+        },
+      },
+      loadingText: {
+        control: { type: 'text' },
+        description: 'Text to show during loading state',
+        table: {
+          type: { summary: 'string' },
+          defaultValue: { summary: 'Loading...' },
+        },
+      },
+      iconPosition: {
+        control: { type: 'select' },
+        options: ['left', 'right'],
+        description: 'Position of the icon relative to text',
+        table: {
+          type: { summary: 'string' },
+          defaultValue: { summary: 'left' },
+        },
+      },
+      disabled: {
+        control: { type: 'boolean' },
+        description: 'Whether the button is disabled',
+        table: {
+          type: { summary: 'boolean' },
+          defaultValue: { summary: 'false' },
+        },
+      },
+      
+      // Hide unwanted props from controls
+      class: {
+        control: false,
+        table: { disable: true },
+      },
+      ref: {
+        control: false,
+        table: { disable: true },
+      },
+      href: {
+        control: false,
+        table: { disable: true },
+      },
+      type: {
+        control: false,
+        table: { disable: true },
+      },
+      onclick: {
+        control: false,
+        table: { disable: true },
+      },
+      children: {
+        control: false,
+        table: { disable: true },
+      },
+      icon: {
+        control: false,
+        table: { disable: true },
+        description: 'Lucide Icon component (not controllable in Storybook)',
+      },
+    },
     args: {
       onclick: fn(),
-    }
+    },
+    
+    // Disable automatic prop extraction
+    parameters: {
+      docs: {
+        extractArgTypes: false,
+      },
+    },
   });
 </script>
 
@@ -41,7 +130,7 @@
 
 
 <Story name="Loading State" args={{ variant: 'default', text: 'Loading...', loading: true }} />
-<Story name="Icon Only" args={{ variant: 'default', icon: DownloadIcon, size: 'icon' }} />
+<Story name="Icon Only" args={{ variant: 'default', icon: DownloadIcon, size: 'icon'}} />
 
 <Story name="Custom Content" args={{ variant: 'outline' }}>
     <DownloadIcon class="size-4 mr-2" />

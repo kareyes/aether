@@ -101,11 +101,11 @@
   --code-border: oklch(0.26 0.008 264.376);
   --radius: 0.5rem;
   --danger: oklch(0.637 0.237 25.331);
-  --danger-foreground: oklch(0.971 0.013 17.38);
-  --warning: oklch(0.852 0.199 91.936);
-  --warning-foreground: oklch(0.421 0.095 57.708);
+  --danger-foreground: oklch(0.02 0.1896 25.331);
+  --warning: oklch(0.795 0.184 86.047);
+  --warning-foreground: oklch(0.02 0.1472 86.047);
   --success: oklch(0.648 0.2 131.684);
-  --success-foreground: oklch(0.986 0.031 120.757);
+  --success-foreground: oklch(0.02 0.16000000000000003 131.684);
 }
 
 @theme inline {

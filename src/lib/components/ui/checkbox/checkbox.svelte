@@ -16,9 +16,9 @@
 			},
 			variant: {
 				default: "",
-				destructive: "data-[state=checked]:bg-destructive data-[state=checked]:border-destructive dark:data-[state=checked]:bg-destructive/80",
-				success: "data-[state=checked]:bg-green-600 data-[state=checked]:border-green-600 dark:data-[state=checked]:bg-green-700",
-				warning: "data-[state=checked]:bg-yellow-600 data-[state=checked]:border-yellow-600 dark:data-[state=checked]:bg-yellow-700",
+				destructive: "data-[state=checked]:text-danger-foreground data-[state=checked]:bg-destructive data-[state=checked]:border-destructive dark:data-[state=checked]:bg-destructive/80",
+				success: "data-[state=checked]:text-success-foreground data-[state=checked]:bg-success data-[state=checked]:border-success dark:data-[state=checked]:bg-success/80",
+				warning: "data-[state=checked]:text-warning-foreground data-[state=checked]:bg-warning data-[state=checked]:border-warning dark:data-[state=checked]:bg-warning/80",
 			},
 		},
 		defaultVariants: {

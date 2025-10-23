@@ -8,25 +8,107 @@
     component: Checkbox,
     tags: ['autodocs'],
     argTypes: {
+      // Main props we want to control
       size: {
         control: { type: 'select' },
         options: ['sm', 'default', 'lg', 'xl'],
+        description: 'Size of the checkbox',
+        table: {
+          type: { summary: 'string' },
+          defaultValue: { summary: 'default' },
+        },
       },
       variant: {
         control: { type: 'select' },
         options: ['default', 'destructive', 'success', 'warning'],
+        description: 'Visual variant of the checkbox',
+        table: {
+          type: { summary: 'string' },
+          defaultValue: { summary: 'default' },
+        },
       },
       checked: {
         control: { type: 'boolean' },
+        description: 'Whether the checkbox is checked',
+        table: {
+          type: { summary: 'boolean' },
+          defaultValue: { summary: 'false' },
+        },
       },
       indeterminate: {
         control: { type: 'boolean' },
+        description: 'Whether the checkbox is in indeterminate state',
+        table: {
+          type: { summary: 'boolean' },
+          defaultValue: { summary: 'false' },
+        },
       },
       lineThrough: {
         control: { type: 'boolean' },
+        description: 'Whether to apply line-through style when checked',
+        table: {
+          type: { summary: 'boolean' },
+          defaultValue: { summary: 'false' },
+        },
       },
       disabled: {
         control: { type: 'boolean' },
+        description: 'Whether the checkbox is disabled',
+        table: {
+          type: { summary: 'boolean' },
+          defaultValue: { summary: 'false' },
+        },
+      },
+      label: {
+        control: { type: 'text' },
+        description: 'Label text for the checkbox',
+        table: {
+          type: { summary: 'string' },
+          defaultValue: { summary: 'undefined' },
+        },
+      },
+      description: {
+        control: { type: 'text' },
+        description: 'Description text below the label',
+        table: {
+          type: { summary: 'string' },
+          defaultValue: { summary: 'undefined' },
+        },
+      },
+      
+      // Hide unwanted props from controls
+      class: {
+        control: false,
+        table: { disable: true },
+      },
+      ref: {
+        control: false,
+        table: { disable: true },
+      },
+      id: {
+        control: false,
+        table: { disable: true },
+      },
+      name: {
+        control: false,
+        table: { disable: true },
+      },
+      value: {
+        control: false,
+        table: { disable: true },
+      },
+      required: {
+        control: false,
+        table: { disable: true },
+      },
+      onCheckedChange: {
+        control: false,
+        table: { disable: true },
+      },
+      // Hide any other internal props
+      children: {
+        control: false,
+        table: { disable: true },
       },
     },
     args: {
@@ -34,7 +116,17 @@
       indeterminate: false,
       lineThrough: false,
       disabled: false,
-    }
+      size: 'default',
+      variant: 'default',
+      label: undefined,
+      description: undefined,
+    },
+    
+    parameters: {
+      docs: {
+        extractArgTypes: false, // Disable automatic prop extraction
+      },
+    },
   });
 </script>
 
@@ -72,12 +164,7 @@
   description: 'This action requires attention'
 }} />
 
-<!-- Line Through -->
-<Story name="Line Through Unchecked" args={{ 
-  lineThrough: true,
-  label: 'Task to complete',
-  description: 'This will be crossed out when checked'
-}} />
+
 <Story name="Line Through Checked" args={{ 
   checked: true,
   lineThrough: true,
@@ -85,12 +172,7 @@
   description: 'This text is crossed out'
 }} />
 
-<!-- Disabled States -->
-<Story name="Disabled Unchecked" args={{ 
-  disabled: true,
-  label: 'Disabled checkbox',
-  description: 'This checkbox is disabled'
-}} />
+
 <Story name="Disabled Checked" args={{ 
   checked: true,
   disabled: true,
