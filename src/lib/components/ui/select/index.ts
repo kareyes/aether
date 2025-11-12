@@ -9,8 +9,12 @@ import Separator from "./select-separator.svelte";
 import ScrollDownButton from "./select-scroll-down-button.svelte";
 import ScrollUpButton from "./select-scroll-up-button.svelte";
 import GroupHeading from "./select-group-heading.svelte";
+import UnifiedSelect from "./select.svelte";
 
 const Root = SelectPrimitive.Root;
+
+export type { SelectTriggerVariant, SelectTriggerSize } from "./select-trigger.svelte";
+export type { SelectVariant, SelectSize, SelectOption, SelectOptionGroup } from "./select.svelte";
 
 export {
 	Root,
@@ -23,8 +27,9 @@ export {
 	ScrollDownButton,
 	ScrollUpButton,
 	GroupHeading,
+	UnifiedSelect,
 	//
-	Root as Select,
+	Root as SelectRoot,
 	Group as SelectGroup,
 	Label as SelectLabel,
 	Item as SelectItem,
@@ -34,4 +39,5 @@ export {
 	ScrollDownButton as SelectScrollDownButton,
 	ScrollUpButton as SelectScrollUpButton,
 	GroupHeading as SelectGroupHeading,
+	UnifiedSelect as Select,
 };
