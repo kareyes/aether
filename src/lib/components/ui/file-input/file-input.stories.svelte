@@ -1,39 +1,27 @@
 <script module>
 	import { defineMeta } from '@storybook/addon-svelte-csf';
 	import FileInput from "./file-input.svelte";
+	import FileInputDragDrop from "./file-input-drag-drop.svelte";
+	import FileInputRegular from "./file-input-regular.svelte";
+	import FileInputButton from "./file-input-button.svelte";
 
 	const { Story } = defineMeta({
 		title: 'Components/FileInput',
 		component: FileInput,
 		tags: ['autodocs'],
 		argTypes: {
-			// Main props we want to control
-			variant: {
+			// Mode selection
+			mode: {
 				control: { type: 'select' },
-				options: ['default', 'filled', 'ghost'],
-				description: 'Visual variant of the file input',
+				options: ['drag-drop', 'regular', 'button-only'],
+				description: 'File input UI mode',
 				table: {
 					type: { summary: 'string' },
-					defaultValue: { summary: 'default' },
+					defaultValue: { summary: 'drag-drop' },
 				},
 			},
-			size: {
-				control: { type: 'select' },
-				options: ['sm', 'default', 'lg'],
-				description: 'Size of the file input',
-				table: {
-					type: { summary: 'string' },
-					defaultValue: { summary: 'default' },
-				},
-			},
-			regularMode: {
-				control: { type: 'boolean' },
-				description: 'Use traditional file input UI instead of drag-and-drop',
-				table: {
-					type: { summary: 'boolean' },
-					defaultValue: { summary: 'false' },
-				},
-			},
+			
+			// Common props
 			disabled: {
 				control: { type: 'boolean' },
 				description: 'Whether the file input is disabled',
@@ -42,7 +30,17 @@
 					defaultValue: { summary: 'false' },
 				},
 			},
-			maxFiles: {
+			multiple: {
+				control: { type: 'boolean' },
+				description: 'Allow multiple file selection',
+				table: {
+					type: { summary: 'boolean' },
+					defaultValue: { summary: 'false' },
+				},
+			},
+			
+			// Validation props
+			'validation.maxFiles': {
 				control: { type: 'number' },
 				description: 'Maximum number of files allowed',
 				table: {
@@ -50,7 +48,7 @@
 					defaultValue: { summary: 'undefined (unlimited)' },
 				},
 			},
-			maxSize: {
+			'validation.maxSize': {
 				control: { type: 'number' },
 				description: 'Maximum file size in bytes',
 				table: {
@@ -58,7 +56,7 @@
 					defaultValue: { summary: 'undefined (no limit)' },
 				},
 			},
-			acceptedTypes: {
+			'validation.acceptedTypes': {
 				control: { type: 'object' },
 				description: 'Array of accepted file types',
 				table: {
@@ -66,40 +64,112 @@
 					defaultValue: { summary: 'undefined (all types)' },
 				},
 			},
-			showFileList: {
-				control: { type: 'boolean' },
-				description: 'Whether to show the list of selected files',
-				table: {
-					type: { summary: 'boolean' },
-					defaultValue: { summary: 'true' },
-				},
-			},
-			placeholder: {
+			
+			// Drag-drop specific props
+			'dragDropProps.label': {
 				control: { type: 'text' },
-				description: 'Placeholder text for regular mode',
-				table: {
-					type: { summary: 'string' },
-					defaultValue: { summary: 'Choose files...' },
-				},
-			},
-			dragDropText: {
-				control: { type: 'text' },
-				description: 'Text shown in drag-and-drop area',
+				description: 'Main label for drag-drop area',
 				table: {
 					type: { summary: 'string' },
 					defaultValue: { summary: 'Drop files here or click to browse' },
 				},
 			},
-			browseText: {
+			'dragDropProps.description': {
 				control: { type: 'text' },
-				description: 'Text for the browse button',
+				description: 'Description text for drag-drop area',
 				table: {
 					type: { summary: 'string' },
-					defaultValue: { summary: 'Browse files' },
+					defaultValue: { summary: '' },
+				},
+			},
+			'dragDropProps.showFileList': {
+				control: { type: 'boolean' },
+				description: 'Show selected files in drag-drop mode',
+				table: {
+					type: { summary: 'boolean' },
+					defaultValue: { summary: 'true' },
 				},
 			},
 			
-			// Hide unwanted props from controls
+			// Regular input specific props
+			'regularProps.label': {
+				control: { type: 'text' },
+				description: 'Label for regular input',
+				table: {
+					type: { summary: 'string' },
+					defaultValue: { summary: '' },
+				},
+			},
+			'regularProps.placeholder': {
+				control: { type: 'text' },
+				description: 'Placeholder text for regular input',
+				table: {
+					type: { summary: 'string' },
+					defaultValue: { summary: 'Choose files...' },
+				},
+			},
+			'regularProps.showFileCount': {
+				control: { type: 'boolean' },
+				description: 'Show file count in regular mode',
+				table: {
+					type: { summary: 'boolean' },
+					defaultValue: { summary: 'true' },
+				},
+			},
+			'regularProps.showFileList': {
+				control: { type: 'boolean' },
+				description: 'Show file list in regular mode',
+				table: {
+					type: { summary: 'boolean' },
+					defaultValue: { summary: 'true' },
+				},
+			},
+			
+			// Button specific props
+			'buttonProps.buttonText': {
+				control: { type: 'text' },
+				description: 'Text for the button',
+				table: {
+					type: { summary: 'string' },
+					defaultValue: { summary: 'Choose Files' },
+				},
+			},
+			'buttonProps.variant': {
+				control: { type: 'select' },
+				options: ['default', 'filled', 'ghost'],
+				description: 'Button variant',
+				table: {
+					type: { summary: 'string' },
+					defaultValue: { summary: 'default' },
+				},
+			},
+			'buttonProps.size': {
+				control: { type: 'select' },
+				options: ['sm', 'default', 'lg'],
+				description: 'Button size',
+				table: {
+					type: { summary: 'string' },
+					defaultValue: { summary: 'default' },
+				},
+			},
+			'buttonProps.showCount': {
+				control: { type: 'boolean' },
+				description: 'Show file count in button text',
+				table: {
+					type: { summary: 'boolean' },
+					defaultValue: { summary: 'true' },
+				},
+			},
+			'buttonProps.showFileList': {
+				control: { type: 'boolean' },
+				description: 'Show file list below button',
+				table: {
+					type: { summary: 'boolean' },
+					defaultValue: { summary: 'true' },
+				},
+			},
+			
+			// Hide internal props from controls
 			class: {
 				control: false,
 				table: { disable: true },
@@ -112,86 +182,335 @@
 				control: false,
 				table: { disable: true },
 			},
-			onFileChange: {
+			files: {
 				control: false,
 				table: { disable: true },
 			},
-			onFileRemove: {
+			onFilesChange: {
+				control: false,
+				table: { disable: true },
+			},
+			onError: {
 				control: false,
 				table: { disable: true },
 			},
 		},
+		
 		args: {
-			variant: 'default',
-			size: 'default',
-			regularMode: false,
+			mode: 'drag-drop',
 			disabled: false,
-			showFileList: true,
-			dragDropText: 'Drop files here or click to browse',
-			browseText: 'Browse files',
-			placeholder: 'Choose files...',
+			multiple: true,
+			validation: {},
+			dragDropProps: {
+				label: 'Drop files here or click to browse',
+				description: '',
+				showFileList: true
+			},
+			regularProps: {
+				placeholder: 'Choose files...',
+				showFileCount: true,
+				showFileList: true
+			},
+			buttonProps: {
+				buttonText: 'Choose Files',
+				variant: 'default',
+				size: 'default',
+				showCount: true,
+				showFileList: true
+			}
 		},
 		
 		parameters: {
 			layout: 'centered',
 			docs: {
-				extractArgTypes: false, // Disable automatic prop extraction
+				extractArgTypes: false,
 			},
 		},
 	});
 
-
+	// Shared validation examples
+	const imageValidation = {
+		acceptedTypes: ['image/*'],
+		maxSize: 5 * 1024 * 1024 // 5MB
+	};
+	
+	const documentValidation = {
+		acceptedTypes: ['.pdf', '.doc', '.docx', '.txt'],
+		maxFiles: 3
+	};
+	
+	const singleFileValidation = {
+		maxFiles: 1
+	};
 </script>
 
-<!-- Basic States -->
-<Story name="Default" args={{}} />
-<Story name="Disabled" args={{ disabled: true, dragDropText: 'File upload disabled' }} />
+<!-- ========================================= -->
+<!-- UNIFIED COMPONENT MODES -->
+<!-- ========================================= -->
 
-<!-- Variants -->
-<Story name="Default Variant" args={{ variant: 'default' }} />
-<Story name="Filled Variant" args={{ variant: 'filled' }} />
-<Story name="Ghost Variant" args={{ variant: 'ghost' }} />
+<!-- Basic Mode Examples -->
+<Story name="Drag & Drop Mode" args={{ mode: 'drag-drop' }} />
 
-<!-- Sizes -->
-<Story name="Small Size" args={{ size: 'sm' }} />
-<Story name="Default Size" args={{ size: 'default' }} />
-<Story name="Large Size" args={{ size: 'lg' }} />
-
-<!-- Regular Mode -->
-<Story name="Regular Mode Default" args={{ regularMode: true, placeholder: 'Choose files...' }} />
-<Story name="Regular Mode Filled" args={{ regularMode: true, variant: 'filled', placeholder: 'Choose files...' }} />
-<Story name="Regular Mode Ghost" args={{ regularMode: true, variant: 'ghost', placeholder: 'Choose files...' }} />
-
-<!-- File Constraints -->
-<Story name="Single File Only" args={{ 
-  maxFiles: 1, 
-  dragDropText: 'Drop a single file here or click to browse' 
-}} />
-<Story name="Images Only" args={{ 
-  acceptedTypes: ['image/*'], 
-  maxSize: 2097152,
-  dragDropText: 'Drop images here (Max 2MB)'
-}} />
-<Story name="Documents Only" args={{ 
-  acceptedTypes: ['.pdf', '.doc', '.docx', '.txt'], 
-  maxFiles: 3,
-  dragDropText: 'Drop up to 3 documents here'
-}} />
-<Story name="PDF Only Single" args={{ 
-  acceptedTypes: ['.pdf'], 
-  maxFiles: 1, 
-  maxSize: 10485760,
-  dragDropText: 'Drop a PDF file here (Max 10MB)'
+<Story name="Regular Input Mode" args={{ 
+	mode: 'regular',
+	regularProps: {
+		label: 'Upload Files',
+		placeholder: 'Select your files...',
+		showFileCount: true,
+		showFileList: true
+	}
 }} />
 
-<!-- Regular Mode with Constraints -->
-<Story name="Regular Single PDF" args={{ 
-  regularMode: true,
-  acceptedTypes: ['.pdf'], 
-  maxFiles: 1,
-  placeholder: 'Choose PDF file...'
+<Story name="Button Only Mode" args={{ 
+	mode: 'button-only',
+	buttonProps: {
+		buttonText: 'Upload Files',
+		variant: 'default',
+		size: 'default',
+		showCount: true,
+		showFileList: true
+	}
 }} />
 
-<!-- Without File List -->
-<Story name="No File List" args={{ showFileList: false }} />
+<!-- ========================================= -->
+<!-- DRAG & DROP MODE VARIATIONS -->
+<!-- ========================================= -->
+
+<Story name="Drag Drop - Images Only" args={{ 
+	mode: 'drag-drop',
+	validation: imageValidation,
+	dragDropProps: {
+		label: 'Drop images here or click to browse',
+		description: 'PNG, JPG, GIF up to 5MB',
+		showFileList: true
+	}
+}} />
+
+<Story name="Drag Drop - Single File" args={{ 
+	mode: 'drag-drop',
+	validation: singleFileValidation,
+	multiple: false,
+	dragDropProps: {
+		label: 'Drop a single file here',
+		description: 'Only one file allowed',
+		showFileList: true
+	}
+}} />
+
+<Story name="Drag Drop - Documents" args={{ 
+	mode: 'drag-drop',
+	validation: documentValidation,
+	dragDropProps: {
+		label: 'Drop documents here',
+		description: 'PDF, DOC, DOCX, TXT files (max 3)',
+		showFileList: true
+	}
+}} />
+
+<Story name="Drag Drop - No File List" args={{ 
+	mode: 'drag-drop',
+	dragDropProps: {
+		label: 'Drop files here or click to browse',
+		description: 'Files will be processed immediately',
+		showFileList: false
+	}
+}} />
+
+<!-- ========================================= -->
+<!-- REGULAR INPUT MODE VARIATIONS -->
+<!-- ========================================= -->
+
+<Story name="Regular - With Label" args={{ 
+	mode: 'regular',
+	regularProps: {
+		label: 'Project Files',
+		placeholder: 'Choose project files...',
+		showFileCount: true,
+		showFileList: true
+	}
+}} />
+
+<Story name="Regular - Images Only" args={{ 
+	mode: 'regular',
+	validation: imageValidation,
+	regularProps: {
+		label: 'Profile Photos',
+		placeholder: 'Choose images...',
+		showFileCount: false,
+		showFileList: true
+	}
+}} />
+
+<Story name="Regular - Single Document" args={{ 
+	mode: 'regular',
+	validation: { ...singleFileValidation, acceptedTypes: ['.pdf'] },
+	multiple: false,
+	regularProps: {
+		label: 'Upload Resume',
+		placeholder: 'Choose PDF file...',
+		showFileCount: true,
+		showFileList: false
+	}
+}} />
+
+<Story name="Regular - Required Field" args={{ 
+	mode: 'regular',
+	required: true,
+	regularProps: {
+		label: 'Required Documents',
+		placeholder: 'Select required files...',
+		showFileCount: true,
+		showFileList: true
+	}
+}} />
+
+<!-- ========================================= -->
+<!-- BUTTON MODE VARIATIONS -->
+<!-- ========================================= -->
+
+<Story name="Button - Default Variant" args={{ 
+	mode: 'button-only',
+	buttonProps: {
+		buttonText: 'Choose Files',
+		variant: 'default',
+		size: 'default',
+		showCount: true,
+		showFileList: true
+	}
+}} />
+
+<Story name="Button - Filled Variant" args={{ 
+	mode: 'button-only',
+	buttonProps: {
+		buttonText: 'Upload Media',
+		variant: 'filled',
+		size: 'lg',
+		showCount: true,
+		showFileList: true
+	}
+}} />
+
+<Story name="Button - Ghost Variant" args={{ 
+	mode: 'button-only',
+	buttonProps: {
+		buttonText: 'Add Files',
+		variant: 'ghost',
+		size: 'sm',
+		showCount: false,
+		showFileList: true
+	}
+}} />
+
+<Story name="Button - Avatar Upload" args={{ 
+	mode: 'button-only',
+	validation: { ...imageValidation, maxFiles: 1 },
+	multiple: false,
+	buttonProps: {
+		buttonText: 'Upload Avatar',
+		variant: 'filled',
+		size: 'lg',
+		showCount: false,
+		showFileList: false
+	}
+}} />
+
+<Story name="Button - Document Upload" args={{ 
+	mode: 'button-only',
+	validation: documentValidation,
+	buttonProps: {
+		buttonText: 'Upload Documents',
+		variant: 'default',
+		size: 'default',
+		showCount: true,
+		showFileList: true
+	}
+}} />
+
+<!-- ========================================= -->
+<!-- STATES & VALIDATION -->
+<!-- ========================================= -->
+
+<Story name="Disabled State - Drag Drop" args={{ 
+	mode: 'drag-drop',
+	disabled: true,
+	dragDropProps: {
+		label: 'File upload is disabled',
+		description: 'Please contact administrator',
+		showFileList: true
+	}
+}} />
+
+<Story name="Disabled State - Regular" args={{ 
+	mode: 'regular',
+	disabled: true,
+	regularProps: {
+		label: 'Upload Disabled',
+		placeholder: 'Upload not available...',
+		showFileCount: true,
+		showFileList: true
+	}
+}} />
+
+<Story name="Disabled State - Button" args={{ 
+	mode: 'button-only',
+	disabled: true,
+	buttonProps: {
+		buttonText: 'Upload Disabled',
+		variant: 'ghost',
+		size: 'default',
+		showCount: true,
+		showFileList: true
+	}
+}} />
+
+<!-- ========================================= -->
+<!-- DEDICATED COMPONENT STORIES -->
+<!-- ========================================= -->
+
+<Story 
+	name="FileInputDragDrop Component" 
+	tags={['!autodocs']}
+>
+	<FileInputDragDrop 
+		validation={imageValidation}
+		label="Drop images here"
+		description="PNG, JPG, GIF up to 5MB"
+		multiple={true}
+		onFilesChange={(files) => console.log('Files changed:', files)}
+		onError={(error) => console.log('Error:', error)}
+	/>
+</Story>
+
+<Story 
+	name="FileInputRegular Component" 
+	tags={['!autodocs']}
+>
+	<FileInputRegular 
+		validation={documentValidation}
+		label="Upload Documents"
+		placeholder="Choose up to 3 files..."
+		showFileCount={true}
+		showFileList={true}
+		multiple={true}
+		onFilesChange={(files) => console.log('Files changed:', files)}
+		onError={(error) => console.log('Error:', error)}
+	/>
+</Story>
+
+<Story 
+	name="FileInputButton Component" 
+	tags={['!autodocs']}
+>
+	<FileInputButton 
+		validation={singleFileValidation}
+		buttonText="Upload Avatar"
+		variant="filled"
+		size="lg"
+		showCount={false}
+		showFileList={false}
+		multiple={false}
+		onFilesChange={(files) => console.log('Files changed:', files)}
+		onError={(error) => console.log('Error:', error)}
+	/>
+</Story>
 

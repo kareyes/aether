@@ -8,6 +8,9 @@ const preview: Preview = {
        color: /(background|color)$/i,
        date: /Date$/i,
       },
+       docs: {
+        theme: (context: any) => context.globals.darkMode === 'dark' ? 'dark' : 'light'
+       }
     },
 
     a11y: {
