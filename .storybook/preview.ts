@@ -1,73 +1,65 @@
 import type { Preview } from '@storybook/sveltekit'
+import { themes } from 'storybook/internal/theming'
 import '../src/app.css'
+
+// Decorator to sync dark mode with Tailwind
+const withDarkMode = (story: any, context: any) => {
+  const darkMode = context.globals?.darkMode === 'dark'
+
+  // Apply dark class to document root for Tailwind dark mode
+  if (typeof document !== 'undefined') {
+    document.documentElement.classList.toggle('dark', darkMode)
+  }
+
+  return story()
+}
 
 const preview: Preview = {
   parameters: {
     controls: {
       matchers: {
-       color: /(background|color)$/i,
-       date: /Date$/i,
+        color: /(background|color)$/i,
+        date: /Date$/i,
       },
-       docs: {
-        theme: (context: any) => context.globals.darkMode === 'dark' ? 'dark' : 'light'
-       }
     },
-
-    a11y: {
-      // 'todo' - show a11y violations in the test UI only
-      // 'error' - fail CI on a11y violations
-      // 'off' - skip a11y checks entirely
-      test: 'todo'
+    docs: {
+      theme: themes.dark,
     },
-
     backgrounds: {
       default: 'light',
       values: [
         {
           name: 'light',
-          value: 'oklch(1 0 0)', // --background from your CSS
+          value: 'oklch(1 0 0)',
         },
         {
           name: 'dark',
-          value: 'oklch(0.105 0 0)', // dark background
+          value: 'oklch(0.105 0 0)',
         },
       ],
     },
   },
-  
+
   globalTypes: {
     darkMode: {
       description: 'Toggle dark mode',
-      defaultValue: 'light',
       toolbar: {
-        title: 'Dark mode',
+        title: 'Theme',
         icon: 'contrast',
         items: [
-          { value: 'light', title: 'Light mode', icon: 'sun' },
-          { value: 'dark', title: 'Dark mode', icon: 'moon' },
+          { value: 'light', title: 'Light', icon: 'sun' },
+          { value: 'dark', title: 'Dark', icon: 'moon' },
         ],
         dynamicTitle: true,
       },
     },
   },
 
+  decorators: [withDarkMode],
 
-  decorators: [
-    (story, context) => {
-      const darkMode = context.globals.darkMode || 'light';
-      
-      // Apply dark class to document root for Tailwind dark mode
-      if (typeof document !== 'undefined') {
-        if (darkMode === 'dark') {
-          document.documentElement.classList.add('dark');
-        } else {
-          document.documentElement.classList.remove('dark');
-        }
-      }
+  initialGlobals: {
+    darkMode: 'light',
+  },
+}
 
-      return story();
-    },
-  ],
-};
-
-export default preview;
+export default preview

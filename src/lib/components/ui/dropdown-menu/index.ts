@@ -12,13 +12,14 @@ import Trigger from "./dropdown-menu-trigger.svelte";
 import SubContent from "./dropdown-menu-sub-content.svelte";
 import SubTrigger from "./dropdown-menu-sub-trigger.svelte";
 import GroupHeading from "./dropdown-menu-group-heading.svelte";
+import Simple from "./dropdown-menu.svelte";
 const Sub = DropdownMenuPrimitive.Sub;
 const Root = DropdownMenuPrimitive.Root;
 
 export {
 	CheckboxItem,
 	Content,
-	Root as DropdownMenu,
+	Root as DropdownMenuRoot,
 	CheckboxItem as DropdownMenuCheckboxItem,
 	Content as DropdownMenuContent,
 	Group as DropdownMenuGroup,
@@ -33,6 +34,7 @@ export {
 	SubTrigger as DropdownMenuSubTrigger,
 	Trigger as DropdownMenuTrigger,
 	GroupHeading as DropdownMenuGroupHeading,
+	Simple as DropdownMenu,
 	Group,
 	GroupHeading,
 	Item,
@@ -46,4 +48,5 @@ export {
 	SubContent,
 	SubTrigger,
 	Trigger,
+	Simple,
 };

@@ -1,23 +1,50 @@
 <script lang="ts">
-	import { cn, type WithElementRef, type WithoutChildren } from "$core/utils.js";
-	import type { HTMLTextareaAttributes } from "svelte/elements";
+	import { cn } from "$core/utils.js";
+	import { textareaVariants } from "./utils/textarea-variants.js";
+	import { useAutoResize, getCharacterCount } from "./utils/textarea-hooks.js";
+	import type { TextareaProps } from "./utils/textarea-types.js";
 
 	let {
 		ref = $bindable(null),
 		value = $bindable(),
+		variant = "default",
+		size = "default",
+		resize = "vertical",
+		maxLength,
+		showCount = false,
+		autoResize = false,
+		minRows,
+		maxRows,
 		class: className,
 		"data-slot": dataSlot = "textarea",
 		...restProps
-	}: WithoutChildren<WithElementRef<HTMLTextareaAttributes>> = $props();
+	}: TextareaProps = $props();
+
+	const classes = $derived(textareaVariants({ variant, size, resize: autoResize ? "none" : resize }));
+	const characterCount = $derived(getCharacterCount(typeof value === 'string' ? value : undefined, maxLength));
+
+	// Auto-resize effect
+	let cleanup: (() => void) | undefined;
+	$effect(() => {
+		cleanup?.();
+		cleanup = useAutoResize(ref as HTMLTextAreaElement | null, autoResize, minRows, maxRows);
+		return () => cleanup?.();
+	});
 </script>
 
-<textarea
-	bind:this={ref}
-	data-slot={dataSlot}
-	class={cn(
-		"border-input placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:bg-input/30 field-sizing-content shadow-xs flex min-h-16 w-full rounded-md border bg-transparent px-3 py-2 text-base outline-none transition-[color,box-shadow] focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",
-		className
-	)}
-	bind:value
-	{...restProps}
-></textarea>
+<div class="relative w-full">
+	<textarea
+		bind:this={ref}
+		data-slot={dataSlot}
+		class={cn(classes, showCount && maxLength && "pb-6", className)}
+		bind:value
+		maxlength={maxLength}
+		{...restProps}
+	></textarea>
+	
+	{#if showCount}
+		<div class="pointer-events-none absolute bottom-2 right-3 text-xs text-muted-foreground">
+			{characterCount}
+		</div>
+	{/if}
+</div>

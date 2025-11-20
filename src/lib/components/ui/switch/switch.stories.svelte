@@ -132,30 +132,6 @@
 
 
 
-<Story name="Large Success" args={{ 
-	variant: 'success', 
-	size: 'lg', 
-	checked: true 
-}} />
-
-<Story name="Small Warning" args={{ 
-	variant: 'warning', 
-	size: 'sm', 
-	checked: true 
-}} />
-
-<Story name="Large Danger" args={{ 
-	variant: 'danger', 
-	size: 'lg', 
-	checked: true 
-}} />
-
-<Story name="Large Ghost" args={{ 
-	variant: 'ghost', 
-	size: 'lg', 
-	checked: true 
-}} />
-
 <!-- ========================================= -->
 <!-- FORM INTEGRATION -->
 <!-- ========================================= -->
