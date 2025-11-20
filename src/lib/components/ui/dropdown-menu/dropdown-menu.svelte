@@ -1,18 +1,8 @@
 <script lang="ts">
 	import { Button, type ButtonProps } from "$lib/components/ui/button";
-	import Content from "./dropdown-menu-content.svelte";
-	import Item from "./dropdown-menu-item.svelte";
-	import Separator from "./dropdown-menu-separator.svelte";
-	import CheckboxItem from "./dropdown-menu-checkbox-item.svelte";
-	import RadioGroup from "./dropdown-menu-radio-group.svelte";
-	import RadioItem from "./dropdown-menu-radio-item.svelte";
-	import Label from "./dropdown-menu-label.svelte";
-	import Shortcut from "./dropdown-menu-shortcut.svelte";
-	import SubTrigger from "./dropdown-menu-sub-trigger.svelte";
-	import SubContent from "./dropdown-menu-sub-content.svelte";
 	import { ChevronDown } from "@lucide/svelte";
 	import type { Snippet } from "svelte";
-	import * as DropdownMenuPrimitive from "./index"
+	import * as DropdownMenu from "$core/components/ui/dropdown-menu/index.js";
 
 	type DropdownItem = {
 		type?: "item" | "separator" | "label" | "checkbox" | "radio" | "submenu";
@@ -78,28 +68,28 @@
 
 {#snippet renderShortcut(shortcut?: string)}
 	{#if shortcut}
-		<Shortcut>{shortcut}</Shortcut>
+		<DropdownMenu.Shortcut>{shortcut}</DropdownMenu.Shortcut>
 	{/if}
 {/snippet}
 
 {#snippet renderMenuItem(item: DropdownItem)}
 	{#if item.type === "separator"}
-		<Separator />
+		<DropdownMenu.Separator />
 	{:else if item.type === "label"}
-		<Label>{item.label}</Label>
+		<DropdownMenu.Label>{item.label}</DropdownMenu.Label>
 	{:else if item.type === "checkbox"}
-		<CheckboxItem
+		<DropdownMenu.CheckboxItem
 			checked={item.checked}
 			disabled={item.disabled}
 			onSelect={item.onSelect}
 		>
 			{item.label}
 			{@render renderShortcut(item.shortcut)}
-		</CheckboxItem>
+		</DropdownMenu.CheckboxItem>
 	{:else if item.type === "submenu" && item.items}
 		{@render renderSubmenu(item)}
 	{:else}
-		<Item
+		<DropdownMenu.Item
 			variant={item.variant}
 			disabled={item.disabled}
 			onSelect={item.onSelect}
@@ -109,31 +99,31 @@
 			{/if}
 			{item.label}
 			{@render renderShortcut(item.shortcut)}
-		</Item>
+		</DropdownMenu.Item>
 	{/if}
 {/snippet}
 
 {#snippet renderSubmenu(item: DropdownItem)}
-	<DropdownMenuPrimitive.Sub>
-		<SubTrigger disabled={item.disabled}>
+	<DropdownMenu.Sub>
+		<DropdownMenu.SubTrigger disabled={item.disabled}>
 			{#if item.icon}
 				{@render renderIcon(item.icon)}
 			{/if}
 			{item.label}
-		</SubTrigger>
-		<SubContent>
+		</DropdownMenu.SubTrigger>
+		<DropdownMenu.SubContent>
 			{#each item.items || [] as subItem}
 				{@render renderMenuItem(subItem)}
 			{/each}
-		</SubContent>
-	</DropdownMenuPrimitive.Sub>
+		</DropdownMenu.SubContent>
+	</DropdownMenu.Sub>
 {/snippet}
 
-<DropdownMenuPrimitive.Root bind:open>
+<DropdownMenu.Root bind:open>
 	{#if trigger}
 		{@render trigger()}
 	{:else}
-		<DropdownMenuPrimitive.Trigger>
+		<DropdownMenu.Trigger>
 			{#snippet child({ props })}
 				<Button
 					{...props}
@@ -148,33 +138,39 @@
 					{/if}
 				</Button>
 			{/snippet}
-		</DropdownMenuPrimitive.Trigger>
+		</DropdownMenu.Trigger>
 	{/if}
 
-	<Content {align} {side} {sideOffset} class={contentClass}>
+	<DropdownMenu.Content {align} {side} {sideOffset} class={`min-w-56 ${contentClass}`}>
 		{#each items as item}
 			{#if isGroup(item)}
+				<DropdownMenu.Group>
 				{#if item.label}
-					<Label>{item.label}</Label>
+					<DropdownMenu.Label>{item.label}</DropdownMenu.Label>
 				{/if}
-				
 				{#if item.type === "radio"}
-					<RadioGroup value={item.value} onValueChange={item.onValueChange}>
+					<DropdownMenu.RadioGroup value={item.value} onValueChange={item.onValueChange}>
 						{#each item.items as radioItem}
-							<RadioItem value={radioItem.value || ""} disabled={radioItem.disabled}>
+							<DropdownMenu.RadioItem value={radioItem.value || ""} disabled={radioItem.disabled}>
 								{radioItem.label}
 								{@render renderShortcut(radioItem.shortcut)}
-							</RadioItem>
+							</DropdownMenu.RadioItem>
 						{/each}
-					</RadioGroup>
+					</DropdownMenu.RadioGroup>
 				{:else}
-					{#each item.items as groupItem}
-						{@render renderMenuItem(groupItem)}
-					{/each}
+					{#if item.type === "submenu"}
+						{@render renderMenuItem(item)}
+					{:else}
+						{#each item.items as groupItem}
+							{@render renderMenuItem(groupItem)}
+						{/each}
+					{/if}
+
 				{/if}
+				</DropdownMenu.Group>
 			{:else}
 				{@render renderMenuItem(item)}
 			{/if}
 		{/each}
-	</Content>
-</DropdownMenuPrimitive.Root>
+	</DropdownMenu.Content>
+</DropdownMenu.Root>
