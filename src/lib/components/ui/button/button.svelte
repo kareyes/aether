@@ -17,7 +17,7 @@
 				secondary: "bg-secondary text-secondary-foreground shadow-xs hover:bg-secondary/80",
 				ghost: "hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50",
 				link: "text-primary underline-offset-4 hover:underline",
-				bordered: "bg-transparent border-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground focus-visible:ring-primary/20 dark:focus-visible:ring-primary/40 transition-colors",
+				bordered: "bg-transparent border-2 text-primary hover:bg-primary hover:text-primary-foreground focus-visible:ring-primary/20 dark:focus-visible:ring-primary/40 transition-colors",
 				flat: "bg-primary/10 text-primary hover:bg-primary/20 focus-visible:ring-primary/20 dark:focus-visible:ring-primary/40 dark:bg-primary/20 dark:hover:bg-primary/30",
 			},
 			size: {
@@ -28,20 +28,139 @@
 				"icon-sm": "size-8",
 				"icon-lg": "size-10",
 			},
+			color: {
+				default: "",
+				primary: "",
+				secondary: "",
+				success: "",
+				warning: "",
+				danger: "",
+				info: "",
+			},
 		},
+		compoundVariants: [
+			// Default variant colors
+			{
+				variant: "default",
+				color: "success",
+				class: "bg-green-600 hover:bg-green-700 text-white",
+			},
+			{
+				variant: "default",
+				color: "warning",
+				class: "bg-yellow-600 hover:bg-yellow-700 text-white",
+			},
+			{
+				variant: "default",
+				color: "danger",
+				class: "bg-red-600 hover:bg-red-700 text-white",
+			},
+			{
+				variant: "default",
+				color: "info",
+				class: "bg-blue-600 hover:bg-blue-700 text-white",
+			},
+			// Outline variant colors
+			{
+				variant: "outline",
+				color: "success",
+				class: "border-green-600 text-green-600 hover:bg-green-50 dark:hover:bg-green-950/30",
+			},
+			{
+				variant: "outline",
+				color: "warning",
+				class: "border-yellow-600 text-yellow-600 hover:bg-yellow-50 dark:hover:bg-yellow-950/30",
+			},
+			{
+				variant: "outline",
+				color: "danger",
+				class: "border-red-600 text-red-600 hover:bg-red-50 dark:hover:bg-red-950/30",
+			},
+			{
+				variant: "outline",
+				color: "info",
+				class: "border-blue-600 text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-950/30",
+			},
+			// Bordered variant colors
+			{
+				variant: "bordered",
+				color: "success",
+				class: "border-green-600 text-green-600 hover:bg-green-600 hover:text-white",
+			},
+			{
+				variant: "bordered",
+				color: "warning",
+				class: "border-yellow-600 text-yellow-600 hover:bg-yellow-600 hover:text-white",
+			},
+			{
+				variant: "bordered",
+				color: "danger",
+				class: "border-red-600 text-red-600 hover:bg-red-600 hover:text-white",
+			},
+			{
+				variant: "bordered",
+				color: "info",
+				class: "border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white",
+			},
+			// Flat variant colors
+			{
+				variant: "flat",
+				color: "success",
+				class: "bg-green-600/10 text-green-600 hover:bg-green-600/20 dark:bg-green-600/20 dark:hover:bg-green-600/30",
+			},
+			{
+				variant: "flat",
+				color: "warning",
+				class: "bg-yellow-600/10 text-yellow-600 hover:bg-yellow-600/20 dark:bg-yellow-600/20 dark:hover:bg-yellow-600/30",
+			},
+			{
+				variant: "flat",
+				color: "danger",
+				class: "bg-red-600/10 text-red-600 hover:bg-red-600/20 dark:bg-red-600/20 dark:hover:bg-red-600/30",
+			},
+			{
+				variant: "flat",
+				color: "info",
+				class: "bg-blue-600/10 text-blue-600 hover:bg-blue-600/20 dark:bg-blue-600/20 dark:hover:bg-blue-600/30",
+			},
+			// Ghost variant colors
+			{
+				variant: "ghost",
+				color: "success",
+				class: "text-green-600 hover:bg-green-50 dark:hover:bg-green-950/30",
+			},
+			{
+				variant: "ghost",
+				color: "warning",
+				class: "text-yellow-600 hover:bg-yellow-50 dark:hover:bg-yellow-950/30",
+			},
+			{
+				variant: "ghost",
+				color: "danger",
+				class: "text-red-600 hover:bg-red-50 dark:hover:bg-red-950/30",
+			},
+			{
+				variant: "ghost",
+				color: "info",
+				class: "text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-950/30",
+			},
+		],
 		defaultVariants: {
 			variant: "default",
 			size: "default",
+			color: "default",
 		},
 	});
 
 	export type ButtonVariant = VariantProps<typeof buttonVariants>["variant"];
 	export type ButtonSize = VariantProps<typeof buttonVariants>["size"];
+	export type ButtonColor = VariantProps<typeof buttonVariants>["color"];
 
 	export type ButtonProps = WithElementRef<HTMLButtonAttributes> &
 		WithElementRef<HTMLAnchorAttributes> & {
 			variant?: ButtonVariant;
 			size?: ButtonSize;
+			color?: ButtonColor;
 			text?: string;
 			icon?: Component<IconProps, {}, "">;
 			iconPosition?: "left" | "right";
@@ -60,6 +179,7 @@
 		class: className,
 		variant = "default",
 		size = "default",
+		color = "default",
 		ref = $bindable(null),
 		href = undefined,
 		type = "button",
@@ -76,7 +196,7 @@
 	const isDisabled = $derived(disabled || loading);
 	const displayText = $derived(loading ? loadingText : text);
 	const displayIcon = $derived(loading ? LoaderIcon : icon);
-	const buttonClass = $derived(cn(buttonVariants({ variant, size }), className));
+	const buttonClass = $derived(cn(buttonVariants({ variant, size, color }), className));
 
 
 	const commonProps = $derived({

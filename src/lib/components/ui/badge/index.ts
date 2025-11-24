@@ -1,10 +1,11 @@
-import Root, {
-	type BadgeProps,
+import Root from "./badge.svelte";
+import {
 	type BadgeVariant,
 	type BadgeColor,
 	type BadgeSize,
+	type BadgeProps,
 	badgeVariants,
-} from "./badge.svelte";
+} from "./badge-variants.js";
 
 const Variants: BadgeVariant[] = Object.keys(badgeVariants.variants.variant) as BadgeVariant[];
 const Colors: BadgeColor[] = Object.keys(badgeVariants.variants.color) as BadgeColor[];

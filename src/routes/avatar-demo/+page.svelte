@@ -553,7 +553,7 @@
 							color={member.color}
 							variant="bordered"
 							size="lg"
-							status={["online", "busy", "away", "offline"][i]}
+							status={["online", "busy", "away", "offline"][i] as "online" | "busy" | "away" | "offline"}
 							showNotification={i % 2 === 0}
 							notificationCount={i % 2 === 0 ? (i + 1) * 3 : undefined}
 						/>

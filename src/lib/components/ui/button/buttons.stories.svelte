@@ -3,7 +3,7 @@
 	import Button from "./button.svelte";
   import { fn } from 'storybook/test';
   	import DownloadIcon from "@lucide/svelte/icons/download";
-    import { Sizes, Variants } from '.';
+    import { Sizes, Variants, Colors } from '.';
 
   // More on how to set up stories at: https://storybook.js.org/docs/writing-stories
   const { Story } = defineMeta({
@@ -25,6 +25,15 @@
         control: { type: 'select' },
         options: Sizes,
         description: 'Size of the button',
+        table: {
+          type: { summary: 'string' },
+          defaultValue: { summary: 'default' },
+        },
+      },
+      color: {
+        control: { type: 'select' },
+        options: Colors,
+        description: 'Color variant of the button',
         table: {
           type: { summary: 'string' },
           defaultValue: { summary: 'default' },
@@ -124,6 +133,36 @@
 <Story name="Link" args={{ variant: 'link', text: 'Button' }} />
 <Story name="Bordered" args={{ variant: 'bordered', text: 'Button' }} />
 <Story name="Flat" args={{ variant: 'flat', text: 'Button' }} />
+
+<!-- Color Variants -->
+<Story name="Success" args={{ variant: 'default', color: 'success', text: 'Success' }} />
+<Story name="Warning" args={{ variant: 'default', color: 'warning', text: 'Warning' }} />
+<Story name="Danger" args={{ variant: 'default', color: 'danger', text: 'Danger' }} />
+<Story name="Info" args={{ variant: 'default', color: 'info', text: 'Info' }} />
+
+<!-- Outline Colors -->
+<Story name="Outline Success" args={{ variant: 'outline', color: 'success', text: 'Success' }} />
+<Story name="Outline Warning" args={{ variant: 'outline', color: 'warning', text: 'Warning' }} />
+<Story name="Outline Danger" args={{ variant: 'outline', color: 'danger', text: 'Danger' }} />
+<Story name="Outline Info" args={{ variant: 'outline', color: 'info', text: 'Info' }} />
+
+<!-- Bordered Colors -->
+<Story name="Bordered Success" args={{ variant: 'bordered', color: 'success', text: 'Success' }} />
+<Story name="Bordered Warning" args={{ variant: 'bordered', color: 'warning', text: 'Warning' }} />
+<Story name="Bordered Danger" args={{ variant: 'bordered', color: 'danger', text: 'Danger' }} />
+<Story name="Bordered Info" args={{ variant: 'bordered', color: 'info', text: 'Info' }} />
+
+<!-- Flat Colors -->
+<Story name="Flat Success" args={{ variant: 'flat', color: 'success', text: 'Success' }} />
+<Story name="Flat Warning" args={{ variant: 'flat', color: 'warning', text: 'Warning' }} />
+<Story name="Flat Danger" args={{ variant: 'flat', color: 'danger', text: 'Danger' }} />
+<Story name="Flat Info" args={{ variant: 'flat', color: 'info', text: 'Info' }} />
+
+<!-- Ghost Colors -->
+<Story name="Ghost Success" args={{ variant: 'ghost', color: 'success', text: 'Success' }} />
+<Story name="Ghost Warning" args={{ variant: 'ghost', color: 'warning', text: 'Warning' }} />
+<Story name="Ghost Danger" args={{ variant: 'ghost', color: 'danger', text: 'Danger' }} />
+<Story name="Ghost Info" args={{ variant: 'ghost', color: 'info', text: 'Info' }} />
 
 <Story name="With Icon" args={{ variant: 'default', text: 'Button', icon: DownloadIcon }} />
 <Story name="With Icon Position" args={{ variant: 'default', text: 'Button', icon: DownloadIcon, iconPosition: 'right' }} />

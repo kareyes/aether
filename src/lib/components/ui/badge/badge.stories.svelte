@@ -11,7 +11,7 @@
       // Main props we want to control
       variant: {
         control: { type: 'select' },
-        options: ['default', 'secondary', 'destructive', 'outline', 'ghost', 'success', 'warning', 'info'],
+        options: ['default', 'secondary', 'flat', 'outline', 'dashed'],
         description: 'Visual variant of the badge',
         table: {
           type: { summary: 'string' },
@@ -110,12 +110,9 @@
 <!-- Basic Variants -->
 <Story name="Default" args={{ text: "Default" }} />
 <Story name="Secondary" args={{ text: "Secondary", variant: "secondary" }} />
-<Story name="Destructive" args={{ text: "Destructive", variant: "destructive" }} />
+<Story name="Flat" args={{ text: "Flat", variant: "flat" }} />
 <Story name="Outline" args={{ text: "Outline", variant: "outline" }} />
-<Story name="Ghost" args={{ text: "Ghost", variant: "ghost" }} />
-<Story name="Success" args={{ text: "Success", variant: "success" }} />
-<Story name="Warning" args={{ text: "Warning", variant: "warning" }} />
-<Story name="Info" args={{ text: "Info", variant: "info" }} />
+<Story name="Dashed" args={{ text: "Dashed", variant: "dashed" }} />
 
 <!-- Color Variants -->
 <Story name="Red Color" args={{ text: "Red", color: "red" }} />
@@ -124,6 +121,20 @@
 <Story name="Purple Color" args={{ text: "Purple", color: "purple" }} />
 <Story name="Orange Color" args={{ text: "Orange", color: "orange" }} />
 
+<!-- Variant + Color Combinations -->
+<Story name="Default Red" args={{ text: "Default Red", variant: "default", color: "red" }} />
+<Story name="Secondary Blue" args={{ text: "Secondary Blue", variant: "secondary", color: "blue" }} />
+<Story name="Flat Green" args={{ text: "Flat Green", variant: "flat", color: "green" }} />
+<Story name="Outline Purple" args={{ text: "Outline Purple", variant: "outline", color: "purple" }} />
+<Story name="Dashed Orange" args={{ text: "Dashed Orange", variant: "dashed", color: "orange" }} />
+
+<!-- More Combinations -->
+<Story name="Default Blue" args={{ text: "Default Blue", variant: "default", color: "blue" }} />
+<Story name="Secondary Red" args={{ text: "Secondary Red", variant: "secondary", color: "red" }} />
+<Story name="Flat Purple" args={{ text: "Flat Purple", variant: "flat", color: "purple" }} />
+<Story name="Outline Green" args={{ text: "Outline Green", variant: "outline", color: "green" }} />
+<Story name="Dashed Pink" args={{ text: "Dashed Pink", variant: "dashed", color: "pink" }} />
+
 <!-- Sizes -->
 <Story name="Small" args={{ text: "Small", size: "sm" }} />
 <Story name="Large" args={{ text: "Large", size: "lg" }} />
@@ -131,6 +142,30 @@
 <!-- Interactive Features -->
 <Story name="Clickable" args={{ 
   text: "Click me", 
+  clickable: true,
+  onclick: fn()
+}} />
+
+<Story name="Clickable Default Red" args={{ 
+  text: "Click Red", 
+  variant: "default",
+  color: "red",
+  clickable: true,
+  onclick: fn()
+}} />
+
+<Story name="Clickable Secondary Blue" args={{ 
+  text: "Click Blue", 
+  variant: "secondary",
+  color: "blue",
+  clickable: true,
+  onclick: fn()
+}} />
+
+<Story name="Clickable Flat Green" args={{ 
+  text: "Click Green", 
+  variant: "flat",
+  color: "green",
   clickable: true,
   onclick: fn()
 }} />
@@ -163,22 +198,28 @@
   onDismiss: fn()
 }} />
 
-<!-- Status Examples -->
+<!-- Status Examples with Colors -->
 <Story name="Online Status" args={{ 
   text: "Online", 
-  variant: "success",
+  color: "green",
   size: "sm"
 }} />
 
 <Story name="Error Status" args={{ 
   text: "Error", 
-  variant: "destructive",
+  color: "red",
   size: "sm"
 }} />
 
 <Story name="Warning Status" args={{ 
   text: "Warning", 
-  variant: "warning",
+  color: "yellow",
+  size: "sm"
+}} />
+
+<Story name="Info Status" args={{ 
+  text: "Info", 
+  color: "blue",
   size: "sm"
 }} />
 
