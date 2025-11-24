@@ -11,9 +11,9 @@
 
 	const team = [
 		{ name: "Sarah Connor", role: "Designer", color: "primary" as const },
-		{ name: "Michael Scott", role: "Manager", color: "success" as const },
+		{ name: "Michael Scott", role: "Manager", color: "green" as const },
 		{ name: "Pam Beesly", role: "Developer", color: "purple" as const },
-		{ name: "Jim Halpert", role: "Sales", color: "info" as const },
+		{ name: "Jim Halpert", role: "Sales", color: "blue" as const },
 	];
 </script>
 
@@ -112,20 +112,20 @@
 					<p class="text-xs mt-2">Secondary</p>
 				</div>
 				<div class="text-center">
-					<Avatar color="success" fallback="SU" />
-					<p class="text-xs mt-2">Success</p>
+					<Avatar color="green" fallback="SU" />
+					<p class="text-xs mt-2">Green</p>
 				</div>
 				<div class="text-center">
-					<Avatar color="warning" fallback="WA" />
-					<p class="text-xs mt-2">Warning</p>
+					<Avatar color="yellow" fallback="WA" />
+					<p class="text-xs mt-2">Yellow</p>
 				</div>
 				<div class="text-center">
-					<Avatar color="danger" fallback="DA" />
-					<p class="text-xs mt-2">Danger</p>
+					<Avatar color="red" fallback="DA" />
+					<p class="text-xs mt-2">Red</p>
 				</div>
 				<div class="text-center">
-					<Avatar color="info" fallback="IN" />
-					<p class="text-xs mt-2">Info</p>
+					<Avatar color="blue" fallback="IN" />
+					<p class="text-xs mt-2">Blue</p>
 				</div>
 				<div class="text-center">
 					<Avatar color="purple" fallback="PU" />
@@ -162,20 +162,20 @@
 					<p class="text-xs mt-2">Secondary</p>
 				</div>
 				<div class="text-center">
-					<Avatar variant="bordered" color="success" fallback="SU" size="lg" />
-					<p class="text-xs mt-2">Success</p>
+					<Avatar variant="bordered" color="green" fallback="SU" size="lg" />
+					<p class="text-xs mt-2">Green</p>
 				</div>
 				<div class="text-center">
-					<Avatar variant="bordered" color="warning" fallback="WA" size="lg" />
-					<p class="text-xs mt-2">Warning</p>
+					<Avatar variant="bordered" color="yellow" fallback="WA" size="lg" />
+					<p class="text-xs mt-2">Yellow</p>
 				</div>
 				<div class="text-center">
-					<Avatar variant="bordered" color="danger" fallback="DA" size="lg" />
-					<p class="text-xs mt-2">Danger</p>
+					<Avatar variant="bordered" color="red" fallback="DA" size="lg" />
+					<p class="text-xs mt-2">Red</p>
 				</div>
 				<div class="text-center">
-					<Avatar variant="bordered" color="info" fallback="IN" size="lg" />
-					<p class="text-xs mt-2">Info</p>
+					<Avatar variant="bordered" color="blue" fallback="IN" size="lg" />
+					<p class="text-xs mt-2">Blue</p>
 				</div>
 				<div class="text-center">
 					<Avatar variant="bordered" color="purple" fallback="PU" size="lg" />
@@ -208,11 +208,11 @@
 					<p class="text-xs mt-2">Primary</p>
 				</div>
 				<div class="text-center">
-					<Avatar variant="bordered" color="success" src={users[2].image} alt="User" fallback="U3" size="lg" />
+					<Avatar variant="bordered" color="green" src={users[2].image} alt="User" fallback="U3" size="lg" />
 					<p class="text-xs mt-2">Success</p>
 				</div>
 				<div class="text-center">
-					<Avatar variant="bordered" color="danger" src={users[3].image} alt="User" fallback="U4" size="lg" />
+					<Avatar variant="bordered" color="red" src={users[3].image} alt="User" fallback="U4" size="lg" />
 					<p class="text-xs mt-2">Danger</p>
 				</div>
 				<div class="text-center">
@@ -240,11 +240,11 @@
 					<Avatar 
 						variant="bordered" 
 						shape="rounded" 
-						color="success" 
+						color="green" 
 						fallback="RO" 
 						size="xl" 
 					/>
-					<p class="text-sm mt-2">Rounded + Success</p>
+					<p class="text-sm mt-2">Rounded + Green</p>
 				</div>
 				<div class="text-center">
 					<Avatar 
@@ -278,7 +278,7 @@
 					<p class="text-sm mt-2">Initials from Name</p>
 				</div>
 				<div class="text-center">
-					<Avatar fallback="AB" color="success" size="lg" />
+					<Avatar fallback="AB" color="green" size="lg" />
 					<p class="text-sm mt-2">Custom Initials</p>
 				</div>
 				<div class="text-center">
@@ -294,6 +294,172 @@
 						{/snippet}
 					</Avatar>
 					<p class="text-sm mt-2">Custom Icon</p>
+				</div>
+			</div>
+		</section>
+
+		<!-- Status Indicators -->
+		<section>
+			<h2 class="text-2xl font-semibold mb-4">Status Indicators</h2>
+			<p class="text-sm text-muted-foreground mb-4">
+				Display online, offline, away, and busy status with colored indicators.
+			</p>
+			<div class="flex flex-wrap gap-6">
+				<div class="text-center">
+					<Avatar 
+						status="online" 
+						src={users[0].image} 
+						alt="User" 
+						fallback="ON" 
+						size="xl" 
+					/>
+					<p class="text-sm mt-2">Online</p>
+				</div>
+				<div class="text-center">
+					<Avatar 
+						status="offline" 
+						src={users[1].image} 
+						alt="User" 
+						fallback="OF" 
+						size="xl" 
+					/>
+					<p class="text-sm mt-2">Offline</p>
+				</div>
+				<div class="text-center">
+					<Avatar 
+						status="away" 
+						src={users[2].image} 
+						alt="User" 
+						fallback="AW" 
+						size="xl" 
+					/>
+					<p class="text-sm mt-2">Away</p>
+				</div>
+				<div class="text-center">
+					<Avatar 
+						status="busy" 
+						src={users[3].image} 
+						alt="User" 
+						fallback="BS" 
+						size="xl" 
+					/>
+					<p class="text-sm mt-2">Busy</p>
+				</div>
+			</div>
+		</section>
+
+		<!-- Notifications -->
+		<section>
+			<h2 class="text-2xl font-semibold mb-4">Notification Badges</h2>
+			<p class="text-sm text-muted-foreground mb-4">
+				Show notification badges with optional counts. Displays "99+" for counts over 99.
+			</p>
+			<div class="flex flex-wrap gap-6">
+				<div class="text-center">
+					<Avatar 
+						showNotification 
+						src={users[0].image} 
+						alt="User" 
+						fallback="NT" 
+						size="xl" 
+					/>
+					<p class="text-sm mt-2">No Count</p>
+				</div>
+				<div class="text-center">
+					<Avatar 
+						showNotification 
+						notificationCount={3}
+						src={users[1].image} 
+						alt="User" 
+						fallback="NC" 
+						size="xl" 
+					/>
+					<p class="text-sm mt-2">Count: 3</p>
+				</div>
+				<div class="text-center">
+					<Avatar 
+						showNotification 
+						notificationCount={25}
+						src={users[2].image} 
+						alt="User" 
+						fallback="HC" 
+						size="xl" 
+					/>
+					<p class="text-sm mt-2">Count: 25</p>
+				</div>
+				<div class="text-center">
+					<Avatar 
+						showNotification 
+						notificationCount={150}
+						src={users[3].image} 
+						alt="User" 
+						fallback="OF" 
+						size="xl" 
+					/>
+					<p class="text-sm mt-2">Count: 99+</p>
+				</div>
+			</div>
+		</section>
+
+		<!-- Combined Features -->
+		<section>
+			<h2 class="text-2xl font-semibold mb-4">Combined Features</h2>
+			<p class="text-sm text-muted-foreground mb-4">
+				Combine status indicators, notifications, borders, and colors for rich user presence display.
+			</p>
+			<div class="flex flex-wrap gap-6">
+				<div class="text-center">
+					<Avatar 
+						status="online"
+						showNotification
+						notificationCount={5}
+						src={users[0].image} 
+						alt="User" 
+						fallback="ON" 
+						size="xl" 
+					/>
+					<p class="text-sm mt-2">Online + Badge</p>
+				</div>
+				<div class="text-center">
+					<Avatar 
+						variant="bordered"
+						color="primary"
+						status="busy"
+						src={users[1].image} 
+						alt="User" 
+						fallback="BS" 
+						size="xl" 
+					/>
+					<p class="text-sm mt-2">Bordered + Busy</p>
+				</div>
+				<div class="text-center">
+					<Avatar 
+						variant="bordered"
+						color="green"
+						status="away"
+						showNotification
+						notificationCount={12}
+						src={users[2].image} 
+						alt="User" 
+						fallback="AF" 
+						size="xl" 
+					/>
+					<p class="text-sm mt-2">All Features</p>
+				</div>
+				<div class="text-center">
+					<Avatar 
+						shape="rounded"
+						variant="bordered"
+						color="purple"
+						status="online"
+						showNotification
+						notificationCount={99}
+						src={users[3].image} 
+						alt="User" 
+						fallback="RA" 
+						size="xl" 
+					/>
+					<p class="text-sm mt-2">Rounded + All</p>
 				</div>
 			</div>
 		</section>
@@ -326,7 +492,7 @@
 								alt={user.name} 
 								fallback={user.name}
 								variant="bordered"
-                                color="success"
+                                color="green"
 							/>
 						{/each}
 					</AvatarGroup>
@@ -380,13 +546,16 @@
 		<section>
 			<h2 class="text-2xl font-semibold mb-4">User Cards</h2>
 			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-				{#each team as member}
+				{#each team as member, i}
 					<div class="p-4 border rounded-lg flex items-center gap-3">
 						<Avatar
 							fallback={member.name}
 							color={member.color}
 							variant="bordered"
 							size="lg"
+							status={["online", "busy", "away", "offline"][i]}
+							showNotification={i % 2 === 0}
+							notificationCount={i % 2 === 0 ? (i + 1) * 3 : undefined}
 						/>
 						<div>
 							<p class="font-medium">{member.name}</p>
@@ -434,11 +603,11 @@
 				<div class="text-center">
 					<Avatar
 						shape="square"
-						color="danger"
+						color="red"
 						fallback="SD"
 						size="xl"
 					/>
-					<p class="text-sm mt-2">Square Danger</p>
+					<p class="text-sm mt-2">Square Red</p>
 				</div>
 			</div>
 		</section>

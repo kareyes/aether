@@ -4,7 +4,7 @@
 	import AvatarGroup from "./avatar-group.svelte";
 
 	const { Story } = defineMeta({
-		title: "Components/Avatar",
+		title: "Components/Avatar/Single",
 		component: Avatar,
 		tags: ["autodocs"],
 		argTypes: {
@@ -22,7 +22,20 @@
 			},
 			color: {
 				control: "select",
-				options: ["default", "primary", "secondary", "success", "warning", "danger", "info", "purple", "pink", "gradient"],
+				options: ["default", "primary", "secondary", "green", "yellow", "red", "blue", "purple", "pink", "gradient"],
+			},
+			status: {
+				control: "select",
+				options: [undefined, "online", "offline", "away", "busy"],
+				description: "Status indicator",
+			},
+			showNotification: {
+				control: "boolean",
+				description: "Show notification badge",
+			},
+			notificationCount: {
+				control: "number",
+				description: "Notification count",
 			},
 		},
 	});
@@ -182,30 +195,30 @@
 	}}
 />
 
-<Story name="Success Color"
+<Story name="Green Color"
 	args={{
-		color: "success",
+		color: "green",
 		fallback: "SU"
 	}}
 />
 
-<Story name="Warning Color"
+<Story name="Yellow Color"
 	args={{
-		color: "warning",
+		color: "yellow",
 		fallback: "WA"
 	}}
 />
 
-<Story name="Danger Color"
+<Story name="Red Color"
 	args={{
-		color: "danger",
+		color: "red",
 		fallback: "DA"
 	}}
 />
 
-<Story name="Info Color"
+<Story name="Blue Color"
 	args={{
-		color: "info",
+		color: "blue",
 		fallback: "IN"
 	}}
 />
@@ -342,6 +355,130 @@
 		alt: "User",
 		fallback: "SB",
 		size: "lg"
+	}}
+/>
+
+<!-- Status Indicators -->
+<Story name="Online Status"
+	args={{
+		status: "online",
+		src: userImage,
+		alt: "User",
+		fallback: "ON",
+		size: "lg"
+	}}
+/>
+
+<Story name="Offline Status"
+	args={{
+		status: "offline",
+		src: userImage,
+		alt: "User",
+		fallback: "OF",
+		size: "lg"
+	}}
+/>
+
+<Story name="Away Status"
+	args={{
+		status: "away",
+		src: userImage,
+		alt: "User",
+		fallback: "AW",
+		size: "lg"
+	}}
+/>
+
+<Story name="Busy Status"
+	args={{
+		status: "busy",
+		src: userImage,
+		alt: "User",
+		fallback: "BS",
+		size: "lg"
+	}}
+/>
+
+<!-- Notifications -->
+<Story name="With Notification"
+	args={{
+		showNotification: true,
+		src: userImage,
+		alt: "User",
+		fallback: "NT",
+		size: "lg"
+	}}
+/>
+
+<Story name="Notification with Count"
+	args={{
+		showNotification: true,
+		notificationCount: 5,
+		src: userImage,
+		alt: "User",
+		fallback: "NC",
+		size: "lg"
+	}}
+/>
+
+<Story name="Notification High Count"
+	args={{
+		showNotification: true,
+		notificationCount: 99,
+		src: userImage,
+		alt: "User",
+		fallback: "HC",
+		size: "lg"
+	}}
+/>
+
+<Story name="Notification Overflow"
+	args={{
+		showNotification: true,
+		notificationCount: 150,
+		src: userImage,
+		alt: "User",
+		fallback: "OF",
+		size: "lg"
+	}}
+/>
+
+<!-- Combined Features -->
+<Story name="Status with Notification"
+	args={{
+		status: "busy",
+		showNotification: true,
+		notificationCount: 3,
+		src: userImage,
+		alt: "User",
+		fallback: "SN",
+		size: "lg"
+	}}
+/>
+
+<Story name="Bordered with Status"
+	args={{
+		variant: "bordered",
+		color: "primary",
+		status: "online",
+		src: userImage,
+		alt: "User",
+		fallback: "BS",
+		size: "xl"
+	}}
+/>
+
+<Story name="All Features Combined"
+	args={{
+		variant: "bordered",
+		color: "purple",
+		status: "away",
+		showNotification: true,
+		notificationCount: 12,
+		src: userImage,
+		alt: "User",
+		fallback: "AF",
+		size: "xl"
 	}}
 />
 

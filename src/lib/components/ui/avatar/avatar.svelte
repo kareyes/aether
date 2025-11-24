@@ -63,16 +63,16 @@
 			secondary: {
 				fallback: "bg-secondary text-secondary-foreground",
 			},
-			success: {
+			green: {
 				fallback: "bg-success text-white",
 			},
-			warning: {
+			yellow: {
 				fallback: "bg-warning text-white",
 			},
-			danger: {
+			red: {
 				fallback: "bg-danger text-white",
 			},
-			info: {
+			blue: {
 				fallback: "bg-blue-500 text-white",
 			},
 			purple: {
@@ -114,7 +114,7 @@
 		// Bordered + Success color
 		{
 			variant: "bordered",
-			color: "success",
+			color: "green",
 			class: {
 				root: "ring-success/50",
 			},
@@ -122,7 +122,7 @@
 		// Bordered + Warning color
 		{
 			variant: "bordered",
-			color: "warning",
+			color: "yellow",
 			class: {
 				root: "ring-warning/50",
 			},
@@ -130,7 +130,7 @@
 		// Bordered + Danger color
 		{
 			variant: "bordered",
-			color: "danger",
+			color: "red",
 			class: {
 				root: "ring-danger/50",
 			},
@@ -138,7 +138,7 @@
 		// Bordered + Info color
 		{
 			variant: "bordered",
-			color: "info",
+			color: "blue",
 			class: {
 				root: "ring-blue-500/50",
 			},
@@ -209,6 +209,9 @@
 		fallbackClass?: string;
 		customFallback?: Snippet;
 		delayMs?: number;
+		status?: "online" | "offline" | "away" | "busy";
+		showNotification?: boolean;
+		notificationCount?: number;
 	}
 
 	let {
@@ -224,6 +227,9 @@
 		fallbackClass,
 		customFallback,
 		delayMs = 0,
+		status,
+		showNotification = false,
+		notificationCount,
 	}: Props = $props();
 
 	const styles = $derived(avatarVariants({ size, shape, variant, color }));
@@ -239,27 +245,83 @@
 					.slice(0, 2)
 			: ""
 	);
+
+	// Status indicator colors
+	const statusColors = {
+		online: "bg-green-500",
+		offline: "bg-gray-400",
+		away: "bg-yellow-500",
+		busy: "bg-red-500",
+	};
+
+	// Size-based indicator dimensions
+	const indicatorSizes = {
+		xs: "size-1.5",
+		sm: "size-2",
+		default: "size-2.5",
+		lg: "size-3",
+		xl: "size-3.5",
+		"2xl": "size-4",
+	};
+
+	// Size-based notification badge dimensions
+	const notificationSizes = {
+		xs: "text-[8px] min-w-3 h-3",
+		sm: "text-[9px] min-w-3.5 h-3.5",
+		default: "text-[10px] min-w-4 h-4",
+		lg: "text-xs min-w-5 h-5",
+		xl: "text-xs min-w-5 h-5",
+		"2xl": "text-sm min-w-6 h-6",
+	};
 </script>
 
-<Avatar.Root class={cn(styles.root(), className)}>
-	{#if src}
-		<Avatar.Image {src} {alt} class={cn(styles.image(), imageClass)} />
-	{/if}
-	<Avatar.Fallback class={cn(styles.fallback(), fallbackClass)}>
-		{#if customFallback}
-			{@render customFallback()}
-		{:else if initials}
-			{initials}
-		{:else}
-			<svg
-				class="size-1/2 text-muted-foreground/40"
-				fill="currentColor"
-				viewBox="0 0 24 24"
-			>
-				<path
-					d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
-				/>
-			</svg>
+<div class="relative inline-block">
+	<Avatar.Root class={cn(styles.root(), className)}>
+		{#if src}
+			<Avatar.Image {src} {alt} class={cn(styles.image(), imageClass)} />
 		{/if}
-	</Avatar.Fallback>
-</Avatar.Root>
+		<Avatar.Fallback class={cn(styles.fallback(), fallbackClass)}>
+			{#if customFallback}
+				{@render customFallback()}
+			{:else if initials}
+				{initials}
+			{:else}
+				<svg
+					class="size-1/2 text-muted-foreground/40"
+					fill="currentColor"
+					viewBox="0 0 24 24"
+				>
+					<path
+						d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
+					/>
+				</svg>
+			{/if}
+		</Avatar.Fallback>
+	</Avatar.Root>
+
+	<!-- Status Indicator -->
+	{#if status}
+		<span
+			class={cn(
+				"absolute bottom-0 right-0 block rounded-full ring-2 ring-background",
+				indicatorSizes[size],
+				statusColors[status]
+			)}
+		></span>
+	{/if}
+
+	<!-- Notification Badge -->
+	{#if showNotification}
+		<span
+			class={cn(
+				"absolute -top-1 -right-1 flex items-center justify-center rounded-full bg-red-500 text-white font-semibold ring-2 ring-background",
+				notificationSizes[size],
+				notificationCount && notificationCount > 99 ? "px-1" : "px-0.5"
+			)}
+		>
+			{#if notificationCount}
+				{notificationCount > 99 ? "99+" : notificationCount}
+			{/if}
+		</span>
+	{/if}
+</div>
