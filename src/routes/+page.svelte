@@ -3,6 +3,8 @@
 	import PlusIcon from "@lucide/svelte/icons/plus";
 	import SaveIcon from "@lucide/svelte/icons/save";
 	import DownloadIcon from "@lucide/svelte/icons/download";
+    import { AlertDialogProvider,
+		getAlertDialogContext, type AlertDialogContext } from "$core/components/ui/alert-dialog";
 
 	let loading = $state(false);
 
@@ -11,6 +13,18 @@
 		await new Promise((resolve) => setTimeout(resolve, 2000));
 		loading = false;
 	};
+	let result = $state<string>("");
+	function showDefaultAlert(dialog: AlertDialogContext) {
+		dialog.open({
+			variant: "default",
+			title: "Default Alert",
+			description: "This is a default alert dialog with standard styling.",
+			onAction: () => {
+				result = "Default: Action clicked";
+			},
+		});
+	}
+
 </script>
 
 <div class="container mx-auto p-8 space-y-8">
@@ -76,4 +90,9 @@
 		</div>
 	</section>
 </div>
+
+<AlertDialogProvider>
+	{@const dialog =  getAlertDialogContext()}
+	<Button onclick={() => dialog && showDefaultAlert(dialog)}>Default</Button>
+</AlertDialogProvider>
 

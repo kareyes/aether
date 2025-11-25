@@ -8,6 +8,8 @@ import Header from "./alert-dialog-header.svelte";
 import Overlay from "./alert-dialog-overlay.svelte";
 import Content from "./alert-dialog-content.svelte";
 import Description from "./alert-dialog-description.svelte";
+import Impl from "./alert-dialog-impl.svelte";
+import Provider from "./alert-dialog-provider.svelte";
 
 const Root = AlertDialogPrimitive.Root;
 const Portal = AlertDialogPrimitive.Portal;
@@ -24,6 +26,8 @@ export {
 	Overlay,
 	Content,
 	Description,
+	Impl,
+	Provider,
 	//
 	Root as AlertDialog,
 	Title as AlertDialogTitle,
@@ -36,4 +40,10 @@ export {
 	Overlay as AlertDialogOverlay,
 	Content as AlertDialogContent,
 	Description as AlertDialogDescription,
+	Impl as AlertDialogImpl,
+	Provider as AlertDialogProvider,
 };
+
+export { getAlertDialogContext } from "./alert-dialog-provider.svelte";
+export type { AlertDialogConfig, AlertDialogContext } from "./alert-dialog-provider.svelte";
+export type { AlertDialogVariant, AlertDialogSize } from "./alert-dialog-variants.js";
