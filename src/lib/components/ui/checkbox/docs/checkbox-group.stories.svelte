@@ -23,7 +23,7 @@
   ];
 
   const { Story } = defineMeta({
-    title: 'Components/CheckboxGroup',
+    title: 'Components/Checkbox/Group',
     component: CheckboxGroup,
     tags: ['autodocs'],
     argTypes: {

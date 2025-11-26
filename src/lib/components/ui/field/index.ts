@@ -1,4 +1,4 @@
-import Field from "./field.svelte";
+import Root from "./field-root.svelte";
 import Set from "./field-set.svelte";
 import Legend from "./field-legend.svelte";
 import Group from "./field-group.svelte";
@@ -8,10 +8,10 @@ import Title from "./field-title.svelte";
 import Description from "./field-description.svelte";
 import Separator from "./field-separator.svelte";
 import Error from "./field-error.svelte";
-import Impl from "./field-impl.svelte";
+import Field from "./field.svelte";
 
 export {
-	Field,
+	Root,
 	Set,
 	Legend,
 	Group,
@@ -21,8 +21,9 @@ export {
 	Description,
 	Separator,
 	Error,
-	Impl,
+	Field,
 	//
+	Root as FieldRoot,
 	Set as FieldSet,
 	Legend as FieldLegend,
 	Group as FieldGroup,
@@ -32,5 +33,5 @@ export {
 	Description as FieldDescription,
 	Separator as FieldSeparator,
 	Error as FieldError,
-	Impl as FieldImpl,
+	Field as FieldComponent
 };

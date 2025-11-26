@@ -20,7 +20,7 @@ A unified Select component that combines all shadcn select functionality into a 
 
 ```svelte
 <script>
-  import { SelectUnified } from "$core/components/ui/select";
+  import { Select } from "$core/components/ui/select";
   
   let value = $state("");
   
@@ -31,7 +31,7 @@ A unified Select component that combines all shadcn select functionality into a 
   ];
 </script>
 
-<SelectUnified
+<Select
   bind:value
   {options}
   placeholder="Select a fruit..."
@@ -52,7 +52,7 @@ A unified Select component that combines all shadcn select functionality into a 
   ];
 </script>
 
-<SelectUnified
+<Select
   bind:value={selectedFrameworks}
   options={frameworks}
   multiple={true}
@@ -87,7 +87,7 @@ A unified Select component that combines all shadcn select functionality into a 
   ];
 </script>
 
-<SelectUnified
+<Select
   bind:value={selectedFramework}
   {groups}
   placeholder="Select a framework..."
@@ -99,42 +99,42 @@ A unified Select component that combines all shadcn select functionality into a 
 
 ```svelte
 <!-- Default -->
-<SelectUnified {options} variant="default" />
+<Select {options} variant="default" />
 
 <!-- Outline -->
-<SelectUnified {options} variant="outline" />
+<Select {options} variant="outline" />
 
 <!-- Filled -->
-<SelectUnified {options} variant="filled" />
+<Select {options} variant="filled" />
 
 <!-- Ghost -->
-<SelectUnified {options} variant="ghost" />
+<Select {options} variant="ghost" />
 
 <!-- Underline -->
-<SelectUnified {options} variant="underline" />
+<Select {options} variant="underline" />
 ```
 
 ## Sizes
 
 ```svelte
 <!-- Small -->
-<SelectUnified {options} size="sm" />
+<Select {options} size="sm" />
 
 <!-- Default -->
-<SelectUnified {options} size="default" />
+<Select {options} size="default" />
 
 <!-- Large -->
-<SelectUnified {options} size="lg" />
+<Select {options} size="lg" />
 ```
 
 ## Disabled States
 
 ```svelte
 <!-- Disabled component -->
-<SelectUnified {options} disabled={true} />
+<Select {options} disabled={true} />
 
 <!-- Some options disabled -->
-<SelectUnified
+<Select
   options={[
     { value: "apple", label: "Apple" },
     { value: "banana", label: "Banana", disabled: true },
@@ -153,7 +153,7 @@ A unified Select component that combines all shadcn select functionality into a 
   }
 </script>
 
-<SelectUnified
+<Select
   {options}
   onSelectionChange={handleSelectionChange}
 />
@@ -217,7 +217,7 @@ type SelectSize = "sm" | "default" | "lg";
 
 ### After (Unified)
 ```svelte
-<SelectUnified
+<Select
   bind:value
   options={[
     { value: "apple", label: "Apple" },
@@ -240,16 +240,16 @@ type SelectSize = "sm" | "default" | "lg";
 
 ## When to Use
 
-- ✅ Use **SelectUnified** when you have data-driven options
-- ✅ Use **SelectUnified** for simple to moderately complex select needs
-- ✅ Use **SelectUnified** when you want type safety and clean API
+- ✅ Use **Select** when you have data-driven options
+- ✅ Use **Select** for simple to moderately complex select needs
+- ✅ Use **Select** when you want type safety and clean API
 - ⚠️ Use **composed components** when you need completely custom item rendering
 - ⚠️ Use **composed components** when you have very complex nested structures
 
 ## Advanced Customization
 
 ```svelte
-<SelectUnified
+<Select
   bind:value
   {options}
   variant="outline"

@@ -120,7 +120,7 @@
 		onSelectionChange?: (value: string[]) => void;
 	}
 
-	type SelectProps = SingleSelectProps | MultiSelectProps;
+	export type SelectProps = SingleSelectProps | MultiSelectProps;
 
 	let {
 		ref = $bindable(null),

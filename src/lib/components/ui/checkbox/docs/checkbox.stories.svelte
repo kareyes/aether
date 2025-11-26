@@ -4,7 +4,7 @@
   import { fn } from 'storybook/test';
 
   const { Story } = defineMeta({
-    title: 'Components/Checkbox',
+    title: 'Components/Checkbox/Single',
     component: Checkbox,
     tags: ['autodocs'],
     argTypes: {

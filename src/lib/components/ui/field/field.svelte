@@ -1,53 +1,79 @@
-<script lang="ts" module>
-	import { tv, type VariantProps } from "tailwind-variants";
-
-	export const fieldVariants = tv({
-		base: "group/field data-[invalid=true]:text-destructive flex w-full gap-3",
-		variants: {
-			orientation: {
-				vertical: "flex-col [&>*]:w-full [&>.sr-only]:w-auto",
-				horizontal: [
-					"flex-row items-center",
-					"[&>[data-slot=field-label]]:flex-auto",
-					"has-[>[data-slot=field-content]]:[&>[role=checkbox],[role=radio]]:mt-px has-[>[data-slot=field-content]]:items-start",
-				],
-				responsive: [
-					"@md/field-group:flex-row @md/field-group:items-center @md/field-group:[&>*]:w-auto flex-col [&>*]:w-full [&>.sr-only]:w-auto",
-					"@md/field-group:[&>[data-slot=field-label]]:flex-auto",
-					"@md/field-group:has-[>[data-slot=field-content]]:items-start @md/field-group:has-[>[data-slot=field-content]]:[&>[role=checkbox],[role=radio]]:mt-px",
-				],
-			},
-		},
-		defaultVariants: {
-			orientation: "vertical",
-		},
-	});
-
-	export type FieldOrientation = VariantProps<typeof fieldVariants>["orientation"];
-</script>
-
 <script lang="ts">
-	import { cn, type WithElementRef } from "$core/utils.js";
-	import type { HTMLAttributes } from "svelte/elements";
+	import Root from "./field-root.svelte";
+	import Content from "./field-content.svelte";
+	import Label from "./field-label.svelte";
+	import Description from "./field-description.svelte";
+	import Error from "./field-error.svelte";
+	import type { FieldOrientation } from "./field-root.svelte";
+	import type { Snippet } from "svelte";
+
+	type FieldImplProps = {
+		label: string;
+		description?: string;
+		error?: string;
+		required?: boolean;
+		disabled?: boolean;
+		orientation?: FieldOrientation;
+		class?: string;
+		/**
+		 * The form control to render (Input, Textarea, Checkbox, Switch, Select, etc.)
+		 */
+		children: Snippet;
+		/**
+		 * Optional snippet for rendering before the label in horizontal layouts
+		 */
+		beforeLabel?: Snippet;
+	};
 
 	let {
-		ref = $bindable(null),
-		class: className,
+		label,
+		description,
+		error,
+		required = false,
+		disabled = false,
 		orientation = "vertical",
+		class: className,
 		children,
-		...restProps
-	}: WithElementRef<HTMLAttributes<HTMLDivElement>> & {
-		orientation?: FieldOrientation;
-	} = $props();
+		beforeLabel
+	}: FieldImplProps = $props();
+
+	const hasError = $derived(!!error);
+	const isInvalid = $derived(hasError);
+
+	// Determine if field should use horizontal layout with content wrapper
+	const useContent = $derived(
+		orientation === "horizontal" || (orientation === "responsive" && description)
+	);
 </script>
 
-<div
-	bind:this={ref}
-	role="group"
-	data-slot="field"
-	data-orientation={orientation}
-	class={cn(fieldVariants({ orientation }), className)}
-	{...restProps}
->
-	{@render children?.()}
-</div>
+<Root {orientation} data-invalid={isInvalid} data-disabled={disabled} class={className}>
+	{#if beforeLabel}
+		{@render beforeLabel()}
+	{/if}
+
+	{#if useContent}
+		<Content>
+			<Label>
+				{label}
+				{#if required}<span class="text-destructive">*</span>{/if}
+			</Label>
+		{#if description && !hasError}
+			<Description>{description}</Description>
+		{/if}
+	</Content>
+	{:else}
+		<Label>
+			{label}
+			{#if required}<span class="text-destructive">*</span>{/if}
+		</Label>
+		{#if description && !hasError}
+			<Description>{description}</Description>
+		{/if}
+	{/if}
+
+	{@render children()}
+
+	{#if hasError}
+		<Error>{error}</Error>
+	{/if}
+</Root>

@@ -27,7 +27,6 @@ export {
 	ScrollDownButton,
 	ScrollUpButton,
 	GroupHeading,
-	UnifiedSelect,
 	//
 	Root as SelectRoot,
 	Group as SelectGroup,
