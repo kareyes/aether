@@ -265,4 +265,15 @@
   body {
     @apply bg-background text-foreground;
   }
+
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+  @apply appearance-none;
+}
+
+/* Remove spinner in Firefox */
+input[type="number"] {
+  @apply appearance-none;
+  -moz-appearance: textfield;
+}
 }
