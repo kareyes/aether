@@ -40,9 +40,14 @@
 		...restProps
 	}: SelectProps = $props();
 
-	// Use hooks for option lookup and display value
-	const findOptionByValue = useFindOption(options, groups);
-	const getDisplayValue = useDisplayValue(value, multiple, placeholder, findOptionByValue);
+	// Use hooks for option lookup and display value - pass getters for reactivity
+	const findOptionByValue = useFindOption(() => options, () => groups);
+	const getDisplayValue = useDisplayValue(
+		() => value, 
+		() => multiple, 
+		() => placeholder, 
+		findOptionByValue
+	);
 	const displayValue = $derived(getDisplayValue());
 
 	// Handle value changes
@@ -53,6 +58,7 @@
 			} else if (!multiple && typeof value === 'string') {
 				(onSelectionChange as (value: string | undefined) => void)(value);
 			}
+
 		}
 	});
 
@@ -62,6 +68,7 @@
 			onError(error);
 		}
 	});
+
 </script>
 
 {#snippet triggerContent()}
