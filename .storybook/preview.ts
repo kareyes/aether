@@ -5,10 +5,16 @@ import '../src/app.css'
 // Decorator to sync dark mode with Tailwind
 const withDarkMode = (story: any, context: any) => {
   const darkMode = context.globals?.darkMode === 'dark'
+  
 
   // Apply dark class to document root for Tailwind dark mode
   if (typeof document !== 'undefined') {
     document.documentElement.classList.toggle('dark', darkMode)
+  }
+
+  // Update docs theme based on dark mode
+  if (context.parameters.docs) {
+    context.parameters.docs.theme = darkMode ? themes.dark : themes.light
   }
 
   return story()
@@ -23,7 +29,7 @@ const preview: Preview = {
       },
     },
     docs: {
-      theme: themes.dark,
+      theme: themes.light,
     },
     backgrounds: {
       default: 'light',
