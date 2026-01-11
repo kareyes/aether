@@ -201,23 +201,6 @@
 			disabled: false,
 			multiple: true,
 			validation: {},
-			dragDropProps: {
-				label: 'Drop files here or click to browse',
-				description: '',
-				showFileList: true
-			},
-			regularProps: {
-				placeholder: 'Choose files...',
-				showFileCount: true,
-				showFileList: true
-			},
-			buttonProps: {
-				buttonText: 'Choose Files',
-				variant: 'default',
-				size: 'default',
-				showCount: true,
-				showFileList: true
-			}
 		},
 		
 		parameters: {
@@ -244,12 +227,10 @@
 	};
 </script>
 
-<!-- ========================================= -->
-<!-- UNIFIED COMPONENT MODES -->
-<!-- ========================================= -->
 
 <!-- Basic Mode Examples -->
-<Story name="Drag & Drop Mode" args={{ mode: 'drag-drop' }} />
+<Story name="Drag & Drop Mode" args={{ mode: 'drag-drop', description: '',
+				showFileList: true }} />
 
 <Story name="Regular Input Mode" args={{ 
 	mode: 'regular',
@@ -272,9 +253,7 @@
 	}
 }} />
 
-<!-- ========================================= -->
-<!-- DRAG & DROP MODE VARIATIONS -->
-<!-- ========================================= -->
+
 
 <Story name="Drag Drop - Images Only" args={{ 
 	mode: 'drag-drop',
@@ -316,9 +295,7 @@
 	}
 }} />
 
-<!-- ========================================= -->
-<!-- REGULAR INPUT MODE VARIATIONS -->
-<!-- ========================================= -->
+
 
 <Story name="Regular - With Label" args={{ 
 	mode: 'regular',
@@ -364,9 +341,7 @@
 	}
 }} />
 
-<!-- ========================================= -->
-<!-- BUTTON MODE VARIATIONS -->
-<!-- ========================================= -->
+
 
 <Story name="Button - Default Variant" args={{ 
 	mode: 'button-only',
@@ -426,9 +401,7 @@
 	}
 }} />
 
-<!-- ========================================= -->
-<!-- STATES & VALIDATION -->
-<!-- ========================================= -->
+
 
 <Story name="Disabled State - Drag Drop" args={{ 
 	mode: 'drag-drop',
@@ -463,9 +436,7 @@
 	}
 }} />
 
-<!-- ========================================= -->
-<!-- DEDICATED COMPONENT STORIES -->
-<!-- ========================================= -->
+
 
 <Story 
 	name="FileInputDragDrop Component" 

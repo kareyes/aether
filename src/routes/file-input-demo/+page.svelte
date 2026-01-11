@@ -99,14 +99,16 @@
 	<!-- Separate Components -->
 	<section class="space-y-4">
 		<h2 class="text-2xl font-semibold">Dedicated Components</h2>
-		
+		<p class="text-sm text-muted-foreground">Each component optimized for specific use cases with sleek UI</p>
+
 		<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
 			<div class="space-y-2">
 				<h3 class="text-sm font-medium">FileInputDragDrop</h3>
+				<p class="text-xs text-muted-foreground">Best for large file uploads with visual feedback</p>
 				<FileInputDragDrop
-					validation={{ 
-						maxSize: 10 * 1024 * 1024, 
-						acceptedTypes: ['image/*', 'video/*'] 
+					validation={{
+						maxSize: 10 * 1024 * 1024,
+						acceptedTypes: ['image/*', 'video/*']
 					}}
 					onFilesChange={handleFilesChange('Direct Drag Drop')}
 					onError={handleError('Direct Drag Drop')}
@@ -117,11 +119,12 @@
 			</div>
 
 			<div class="space-y-2">
-				<h3 class="text-sm font-medium">FileInputRegular</h3>
+				<h3 class="text-sm font-medium">FileInputRegular (Sleek UI)</h3>
+				<p class="text-xs text-muted-foreground">Input-group based design with clear/browse actions</p>
 				<FileInputRegular
-					validation={{ 
+					validation={{
 						maxFiles: 5,
-						acceptedTypes: ['.csv', '.xlsx', '.json'] 
+						acceptedTypes: ['.csv', '.xlsx', '.json']
 					}}
 					onFilesChange={handleFilesChange('Direct Regular')}
 					onError={handleError('Direct Regular')}
@@ -134,11 +137,12 @@
 
 			<div class="space-y-2">
 				<h3 class="text-sm font-medium">FileInputButton</h3>
+				<p class="text-xs text-muted-foreground">Minimal footprint for inline forms</p>
 				<FileInputButton
-					validation={{ 
+					validation={{
 						maxFiles: 1,
 						maxSize: 2 * 1024 * 1024,
-						acceptedTypes: ['.png', '.jpg', '.jpeg', '.gif'] 
+						acceptedTypes: ['.png', '.jpg', '.jpeg', '.gif']
 					}}
 					onFilesChange={handleFilesChange('Direct Button')}
 					onError={handleError('Direct Button')}
@@ -146,6 +150,83 @@
 					variant="ghost"
 					showCount={false}
 					showFileList={true}
+				/>
+			</div>
+		</div>
+	</section>
+
+	<!-- Regular Input Showcase -->
+	<section class="space-y-4">
+		<h2 class="text-2xl font-semibold">Regular Input - Sleek UI Showcase</h2>
+		<p class="text-sm text-muted-foreground">Enhanced with input-group component for a modern, polished experience</p>
+
+		<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+			<div class="space-y-2">
+				<h3 class="text-sm font-medium">Single File Upload</h3>
+				<FileInputRegular
+					validation={{
+						maxFiles: 1,
+						maxSize: 5 * 1024 * 1024,
+						acceptedTypes: ['image/*', '.pdf']
+					}}
+					onFilesChange={handleFilesChange('Single File')}
+					onError={handleError('Single File')}
+					label="Profile Picture"
+					placeholder="Select an image or PDF..."
+					showFileCount={false}
+					showFileList={true}
+					multiple={false}
+				/>
+			</div>
+
+			<div class="space-y-2">
+				<h3 class="text-sm font-medium">Multiple Files with Count</h3>
+				<FileInputRegular
+					validation={{
+						maxFiles: 10,
+						acceptedTypes: ['.jpg', '.png', '.gif', '.webp']
+					}}
+					onFilesChange={handleFilesChange('Multiple Images')}
+					onError={handleError('Multiple Images')}
+					label="Gallery Images"
+					placeholder="Select up to 10 images..."
+					showFileCount={true}
+					showFileList={true}
+					multiple={true}
+				/>
+			</div>
+
+			<div class="space-y-2">
+				<h3 class="text-sm font-medium">Without File List</h3>
+				<FileInputRegular
+					validation={{
+						acceptedTypes: ['.doc', '.docx', '.txt']
+					}}
+					onFilesChange={handleFilesChange('Documents')}
+					onError={handleError('Documents')}
+					label="Documents"
+					placeholder="Choose document files..."
+					showFileCount={true}
+					showFileList={false}
+					multiple={true}
+				/>
+			</div>
+
+			<div class="space-y-2">
+				<h3 class="text-sm font-medium">Required Field</h3>
+				<FileInputRegular
+					validation={{
+						maxFiles: 1,
+						acceptedTypes: ['.pdf']
+					}}
+					onFilesChange={handleFilesChange('Resume')}
+					onError={handleError('Resume')}
+					label="Resume"
+					placeholder="Upload your resume (PDF only)..."
+					showFileCount={false}
+					showFileList={true}
+					multiple={false}
+					required={true}
 				/>
 			</div>
 		</div>

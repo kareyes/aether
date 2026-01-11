@@ -28,8 +28,9 @@
 	let internalFiles = $state<File[]>([]);
 	let isDragOver = $state(false);
 	let currentState = $state<'default' | 'dragover' | 'error' | 'disabled'>('default');
+	let fileInputRef: HTMLInputElement;
 
-	const fileHandlers = createFileInputHandlers(validation, { 
+	const fileHandlers = createFileInputHandlers(validation, {
 		onFilesChange: (newFiles) => {
 			if (newFiles) {
 				internalFiles = Array.from(newFiles);
@@ -37,12 +38,12 @@
 				internalFiles = [];
 			}
 			onFilesChange?.(newFiles);
-		}, 
+		},
 		onError: (error) => {
 			onError?.(error);
 			currentState = "error";
-			setTimeout(() => { 
-				currentState = disabled ? "disabled" : "default"; 
+			setTimeout(() => {
+				currentState = disabled ? "disabled" : "default";
 			}, 3000);
 		}
 	});
@@ -76,8 +77,8 @@
 	}));
 
 	function handleClick() {
-		if (!disabled) {
-			document.getElementById(id || 'file-input-drag-drop')?.click();
+		if (!disabled && fileInputRef) {
+			fileInputRef.click();
 		}
 	}
 
@@ -135,6 +136,7 @@
 	{...restProps}
 >
 	<input
+		bind:this={fileInputRef}
 		type="file"
 		{id}
 		{name}

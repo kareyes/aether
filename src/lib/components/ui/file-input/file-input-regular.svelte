@@ -3,7 +3,9 @@
 	import { createFileInputHandlers, removeFileFromArray } from './utils/file-input-hooks.js';
 	import { createAcceptAttribute } from './utils/file-input-utils.js';
 	import type { RegularFileInputProps } from './utils/file-input-types.js';
-	import { File as FileIcon } from '@lucide/svelte';
+	import { File as FileIcon, Upload, X } from '@lucide/svelte';
+	import { InputGroup, InputGroupInput, InputGroupAddon, InputGroupButton } from '$core/components/ui/input-group';
+	import { cn } from '$core/utils.js';
 
 	let {
 		files = $bindable(null),
@@ -29,7 +31,7 @@
 	let currentState = $state<'default' | 'error' | 'disabled'>('default');
 	let fileInputRef: HTMLInputElement;
 
-	const fileHandlers = createFileInputHandlers(validation, { 
+	const fileHandlers = createFileInputHandlers(validation, {
 		onFilesChange: (newFiles) => {
 			if (newFiles) {
 				internalFiles = Array.from(newFiles);
@@ -37,12 +39,12 @@
 				internalFiles = [];
 			}
 			onFilesChange?.(newFiles);
-		}, 
+		},
 		onError: (error) => {
 			onError?.(error);
 			currentState = "error";
-			setTimeout(() => { 
-				currentState = disabled ? "disabled" : "default"; 
+			setTimeout(() => {
+				currentState = disabled ? "disabled" : "default";
 			}, 3000);
 		}
 	});
@@ -71,8 +73,8 @@
 
 	const fileCount = $derived(internalFiles.length);
 	const displayText = $derived(
-		fileCount > 0 
-			? showFileCount 
+		fileCount > 0
+			? showFileCount
 				? `${fileCount} file${fileCount !== 1 ? 's' : ''} selected`
 				: internalFiles.map(f => f.name).join(', ')
 			: placeholder
@@ -81,9 +83,17 @@
 	function removeFile(index: number) {
 		internalFiles = removeFileFromArray(internalFiles, index, onFilesChange);
 	}
+
+	function clearAllFiles() {
+		internalFiles = [];
+		if (fileInputRef) {
+			fileInputRef.value = '';
+		}
+		onFilesChange?.(null);
+	}
 </script>
 
-<div class={variants.regularContainer({ class: className })}>
+<div class={cn("space-y-2", className)}>
 	{#if label}
 		<label for={id} class="text-sm font-medium text-foreground">
 			{label}
@@ -109,42 +119,93 @@
 			{...restProps}
 		/>
 
-		<button
-			type="button"
-			class={variants.regularInput()}
-			onclick={() => fileInputRef?.click()}
-			{disabled}
-			aria-describedby={fileCount > 0 ? `${id}-files` : undefined}
+		<InputGroup
+			class={cn(
+				"transition-all",
+				currentState === "error" && "border-destructive ring-destructive/20",
+				disabled && "opacity-50 cursor-not-allowed"
+			)}
 		>
-			<FileIcon class="h-5 w-5 text-muted-foreground mr-2" />
-			<span class="flex-1 text-left truncate">
-				{displayText}
-			</span>
-			<span class="text-xs text-muted-foreground ml-2">
-				Browse
-			</span>
-		</button>
+			<InputGroupAddon align="inline-start">
+				<FileIcon class="size-4" />
+			</InputGroupAddon>
+
+			<button
+				type="button"
+				onclick={() => fileInputRef?.click()}
+				{disabled}
+				aria-describedby={fileCount > 0 ? `${id}-files` : undefined}
+				class={cn(
+					"flex-1 px-3 py-2 text-left bg-transparent text-sm outline-none transition-colors",
+					"focus:outline-none",
+					disabled && "cursor-not-allowed",
+					!disabled && "cursor-pointer"
+				)}
+			>
+				<span class={cn(
+					"truncate block",
+					fileCount === 0 && "text-muted-foreground"
+				)}>
+					{displayText}
+				</span>
+			</button>
+
+			{#if fileCount > 0}
+				<InputGroupAddon align="inline-end">
+					<InputGroupButton
+						size="icon-xs"
+						variant="ghost"
+						onclick={clearAllFiles}
+						disabled={disabled}
+						aria-label="Clear all files"
+					>
+						<X class="size-3.5" />
+					</InputGroupButton>
+				</InputGroupAddon>
+			{/if}
+
+			<InputGroupAddon align="inline-end">
+				<InputGroupButton
+					size="xs"
+					onclick={() => fileInputRef?.click()}
+					disabled={disabled}
+				>
+					<Upload class="size-3.5" />
+					Browse
+				</InputGroupButton>
+			</InputGroupAddon>
+		</InputGroup>
 	</div>
 
 	{#if showFileList && internalFiles.length > 0}
 		<div class={variants.fileList()} id="{id}-files">
 			{#each internalFiles as file, index}
-				<div class={variants.fileItem()}>
+				<div class={cn(
+					"flex items-center gap-3 p-2.5 rounded-md border border-border bg-muted/30 hover:bg-muted/50 transition-colors",
+					"group"
+				)}>
+					<div class="flex items-center justify-center w-8 h-8 rounded bg-primary/10">
+						<FileIcon class="size-4 text-primary" />
+					</div>
+
 					<div class="flex-1 min-w-0">
 						<p class="text-sm font-medium text-foreground truncate">{file.name}</p>
 						<p class="text-xs text-muted-foreground">
 							{(file.size / 1024 / 1024).toFixed(2)} MB
 						</p>
 					</div>
+
 					<button
 						type="button"
-						class={variants.removeButton()}
+						class={cn(
+							"flex items-center justify-center w-6 h-6 rounded hover:bg-destructive/10",
+							"text-muted-foreground hover:text-destructive transition-colors",
+							"opacity-0 group-hover:opacity-100"
+						)}
 						onclick={() => removeFile(index)}
 						aria-label="Remove {file.name}"
 					>
-						<svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-						</svg>
+						<X class="size-4" />
 					</button>
 				</div>
 			{/each}
