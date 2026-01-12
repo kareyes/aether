@@ -2,6 +2,8 @@
   import { defineMeta } from '@storybook/addon-svelte-csf';
 	import { RadioGroup } from "$core/components/ui/radio";
   import type { RadioGroupOption } from "$core/components/ui/radio";
+  import * as Field from '$core/components/ui/field';
+  import { Button } from '$core/components/ui/button';
 
   type Args = {
     options: RadioGroupOption[];
@@ -464,22 +466,149 @@
   {/snippet}
 </Story>
 
-<!-- <Story name="Playground" args={{ 
-  options: [
-    { id: 'playground1', label: 'Option 1', value: 'option1' },
-    { id: 'playground2', label: 'Option 2', value: 'option2' },
-    { id: 'playground3', label: 'Option 3', value: 'option3' },
-  ],
-  value: 'option1',
-  label: 'Playground Radio Group',
-  orientation: 'vertical',
-  radioSize: 'default',
-  variant: 'default',
-  required: false,
-  disabled: false,
-  error: false,
-}}>
-  {#snippet children(args)}
-    <RadioGroup {...args} />
+
+<Story name="Field with Basic RadioGroup">
+  {#snippet template()}
+    <Field.Field
+      label="Subscription Plan"
+      description="Choose the plan that fits your needs"
+      required
+    >
+      <RadioGroup 
+        options={[
+          { id: "free", label: "Free Plan", value: "free", description: "$0/month" },
+          { id: "pro", label: "Pro Plan", value: "pro", description: "$29/month" },
+          { id: "enterprise", label: "Enterprise", value: "enterprise", description: "$99/month" },
+        ]}
+        value="pro"
+      />
+    </Field.Field>
   {/snippet}
-</Story> -->
+</Story>
+
+<Story name="Field with Validation">
+  {#snippet template()}
+    <Field.Field
+      label="Payment Method"
+      description="Select your preferred payment method"
+      required
+      error="Please select a payment method"
+    >
+      <RadioGroup 
+        options={[
+          { id: "card", label: "Credit Card", value: "card" },
+          { id: "paypal", label: "PayPal", value: "paypal" },
+          { id: "bank", label: "Bank Transfer", value: "bank" },
+        ]}
+        value=""
+        error={true}
+      />
+    </Field.Field>
+  {/snippet}
+</Story>
+
+<Story name="Field with Card Variant">
+  {#snippet template()}
+    <Field.Field
+      label="Choose Your Plan"
+      description="Select the subscription tier that best fits your needs"
+    >
+      <RadioGroup 
+        options={[
+          { id: "free", label: "Free Plan", value: "free", description: "Basic features for personal use - $0/month" },
+          { id: "pro", label: "Pro Plan", value: "pro", description: "Advanced features for professionals - $29/month" },
+          { id: "enterprise", label: "Enterprise", value: "enterprise", description: "Custom solutions for large teams - $99/month" },
+        ]}
+        value="pro"
+        isCard={true}
+        variant="success"
+      />
+    </Field.Field>
+  {/snippet}
+</Story>
+
+<Story name="Field with Horizontal Layout">
+  {#snippet template()}
+    <Field.Field
+      label="Notification Frequency"
+      description="How often would you like to receive updates?"
+    >
+      <RadioGroup 
+        options={[
+          { id: "realtime", label: "Real-time", value: "realtime" },
+          { id: "daily", label: "Daily", value: "daily" },
+          { id: "weekly", label: "Weekly", value: "weekly" },
+        ]}
+        orientation="horizontal"
+        radioSize="lg"
+      />
+    </Field.Field>
+  {/snippet}
+</Story>
+
+<Story name="Complete Subscription Form">
+  {#snippet template()}
+    <div class="w-full max-w-2xl">
+      <Field.Set>
+        <Field.Legend>Subscription Settings</Field.Legend>
+        <Field.Description>Configure your subscription preferences</Field.Description>
+        
+        <Field.Separator />
+        
+        <Field.Group class="gap-6">
+          <Field.Field
+            label="Plan Selection"
+            description="Choose your subscription tier"
+            required
+          >
+            <RadioGroup 
+              options={[
+                { id: "free", label: "Free", value: "free", description: "$0/month" },
+                { id: "pro", label: "Pro", value: "pro", description: "$29/month" },
+                { id: "enterprise", label: "Enterprise", value: "enterprise", description: "$99/month" },
+              ]}
+              value="pro"
+              isCard={true}
+            />
+          </Field.Field>
+          
+          <Field.Field
+            label="Billing Cycle"
+            description="Select how you'd like to be billed"
+            required
+          >
+            <RadioGroup 
+              options={[
+                { id: "monthly", label: "Monthly", value: "monthly", description: "Pay monthly" },
+                { id: "yearly", label: "Yearly", value: "yearly", description: "Save 20%" },
+              ]}
+              value="monthly"
+              orientation="horizontal"
+              radioSize="lg"
+            />
+          </Field.Field>
+          
+          <Field.Field
+            label="Support Channel"
+            description="Preferred method for customer support"
+          >
+            <RadioGroup 
+              options={[
+                { id: "email", label: "Email Support", value: "email" },
+                { id: "chat", label: "Live Chat", value: "chat" },
+                { id: "phone", label: "Phone Support", value: "phone" },
+              ]}
+              value="email"
+              variant="success"
+            />
+          </Field.Field>
+        </Field.Group>
+        
+        <div class="flex gap-4 pt-4">
+          <Button type="submit">Save Preferences</Button>
+          <Button variant="outline" type="button">Cancel</Button>
+        </div>
+      </Field.Set>
+    </div>
+  {/snippet}
+</Story>

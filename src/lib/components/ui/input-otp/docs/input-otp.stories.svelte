@@ -1,7 +1,9 @@
 <script module lang="ts">
     import { defineMeta } from '@storybook/addon-svelte-csf';
     import InputOTP from "../input-otp.svelte";
-    import Field from '../../field/field.svelte';
+    import * as Field from '$core/components/ui/field';
+    import { Button } from '$core/components/ui/button';
+    import { REGEXP_ONLY_DIGITS, REGEXP_ONLY_DIGITS_AND_CHARS } from "bits-ui";
 
     
     const { Story } = defineMeta({
@@ -149,8 +151,133 @@
 
 <Story name="With Field Component" >
     {#snippet template()}
-        <Field label="Input OTP" error={"Invalid OTP"}>
+        <Field.Field label="Input OTP" error={"Invalid OTP"}>
             <InputOTP maxlength={6} groups={2} variant="outline" size="lg" error={true} />
-        </Field>
+        </Field.Field>
+    {/snippet}
+</Story>
+
+<!-- With Field Component Examples -->
+<Story name="Field with Label and Description">
+    {#snippet template()}
+        <Field.Field
+            label="Verification Code"
+            description="Enter the 6-digit code sent to your phone"
+        >
+            <InputOTP maxlength={6} groups={2} />
+        </Field.Field>
+    {/snippet}
+</Story>
+
+<Story name="Field with Validation">
+    {#snippet template()}
+        <Field.Field
+            label="OTP Code"
+            description="Please enter the complete 6-digit code"
+            required
+            error="Code must be 6 digits"
+        >
+            <InputOTP 
+                maxlength={6} 
+                groups={2}
+                pattern={REGEXP_ONLY_DIGITS}
+                error={true}
+            />
+        </Field.Field>
+    {/snippet}
+</Story>
+
+<Story name="Field with Outline Variant">
+    {#snippet template()}
+        <Field.Field
+            label="Security Code"
+            description="Outline variant for better visibility"
+        >
+            <InputOTP 
+                maxlength={6} 
+                variant="outline"
+                groups={3}
+                size="lg"
+            />
+        </Field.Field>
+    {/snippet}
+</Story>
+
+<Story name="Field with Underline Variant">
+    {#snippet template()}
+        <Field.Field
+            label="Access Code"
+            description="Underline variant for minimal design"
+        >
+            <InputOTP 
+                maxlength={4} 
+                variant="underline"
+                groups={1}
+            />
+        </Field.Field>
+    {/snippet}
+</Story>
+
+<Story name="Field with Alphanumeric Pattern">
+    {#snippet template()}
+        <Field.Field
+            label="Backup Code"
+            description="Enter your 8-character backup code"
+        >
+            <InputOTP 
+                maxlength={8} 
+                groups={2}
+                pattern={REGEXP_ONLY_DIGITS_AND_CHARS}
+                variant="outline"
+            />
+        </Field.Field>
+    {/snippet}
+</Story>
+
+<Story name="Complete Two-Factor Form">
+    {#snippet template()}
+        <div class="w-full max-w-md space-y-6">
+            <Field.Set>
+                <Field.Legend>Two-Factor Authentication</Field.Legend>
+                <Field.Description>
+                    Enter the verification codes to access your account
+                </Field.Description>
+                
+                <Field.Separator />
+                
+                <Field.Group class="gap-4">
+                    <Field.Field
+                        label="Verification Code"
+                        description="Enter the 6-digit code from your authenticator app"
+                        required
+                    >
+                        <InputOTP
+                            maxlength={6}
+                            groups={2}
+                            pattern={REGEXP_ONLY_DIGITS}
+                            variant="outline"
+                            size="lg"
+                        />
+                    </Field.Field>
+                    
+                    <Field.Field
+                        label="Backup Code (Optional)"
+                        description="Use a backup code if you don't have access to your authenticator"
+                    >
+                        <InputOTP
+                            maxlength={8}
+                            groups={2}
+                            pattern={REGEXP_ONLY_DIGITS_AND_CHARS}
+                            variant="underline"
+                        />
+                    </Field.Field>
+                </Field.Group>
+                
+                <div class="flex gap-4 pt-4">
+                    <Button type="submit">Verify & Login</Button>
+                    <Button variant="outline" type="button">Resend Code</Button>
+                </div>
+            </Field.Set>
+        </div>
     {/snippet}
 </Story>

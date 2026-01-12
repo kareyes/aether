@@ -3,6 +3,8 @@
 	import { InputGroupButton } from '$core/components/ui/input-group';
 	import { Search, Mail, DollarSign, Lock, Eye, EyeOff, Copy, Check, Send, User, Phone, CreditCard } from '@lucide/svelte';
 	import { Card } from '$core/components/ui/card';
+	import * as Field from '$core/components/ui/field';
+	import { Button } from '$core/components/ui/button';
 
 	let searchValue = $state('');
 	let emailValue = $state('');
@@ -13,6 +15,19 @@
 	let urlValue = $state('https://example.com');
 	let messageValue = $state('');
 	let usernameValue = $state('');
+	
+	// Field demo state
+	let formData = $state({
+		email: '',
+		password: '',
+		username: '',
+		phone: '',
+		price: '',
+		apiKey: 'sk_live_1234567890abcdef',
+	});
+	
+	let errors = $state<Record<string, string>>({});
+	let showFormPassword = $state(false);
 
 	function handleCopy() {
 		navigator.clipboard.writeText(urlValue);
@@ -23,6 +38,15 @@
 	function handleSend() {
 		console.log('Sending message:', messageValue);
 		messageValue = '';
+	}
+	
+	function validateForm() {
+		errors = {};
+		if (!formData.email) errors.email = 'Email is required';
+		else if (!formData.email.includes('@')) errors.email = 'Invalid email address';
+		if (!formData.password) errors.password = 'Password is required';
+		else if (formData.password.length < 8) errors.password = 'Password must be at least 8 characters';
+		if (!formData.username) errors.username = 'Username is required';
 	}
 </script>
 
@@ -493,6 +517,263 @@
 					</Input>
 				</div>
 			</div>
+		</Card>
+	</section>
+
+	<!-- With Field Component -->
+	<section class="space-y-4">
+		<div class="space-y-1">
+			<h2 class="text-2xl font-semibold">Using Input with Field Component</h2>
+			<p class="text-sm text-muted-foreground">Recommended pattern for forms with labels, descriptions, and error handling</p>
+		</div>
+
+		<Card class="p-6">
+			<div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl">
+				<Field.Field
+					label="Email"
+					description="We'll never share your email"
+					required
+					error={errors.email}
+				>
+					<Input 
+						type="email" 
+						bind:value={formData.email}
+						placeholder="you@example.com"
+						error={!!errors.email}
+					>
+						{#snippet startIcon()}
+							<Mail class="size-4" />
+						{/snippet}
+					</Input>
+				</Field.Field>
+
+				<Field.Field
+					label="Username"
+					description="Choose a unique username"
+					required
+					error={errors.username}
+				>
+					<Input 
+						bind:value={formData.username}
+						placeholder="johndoe"
+						error={!!errors.username}
+					>
+						{#snippet startIcon()}
+							<User class="size-4" />
+						{/snippet}
+					</Input>
+				</Field.Field>
+
+				<Field.Field
+					label="Password"
+					description="Must be at least 8 characters"
+					required
+					error={errors.password}
+				>
+					<Input 
+						type={showFormPassword ? "text" : "password"}
+						bind:value={formData.password}
+						placeholder="••••••••"
+						error={!!errors.password}
+					>
+						{#snippet startIcon()}
+							<Lock class="size-4" />
+						{/snippet}
+						{#snippet endButton()}
+							<InputGroupButton
+								size="icon-xs"
+								variant="ghost"
+								onclick={() => showFormPassword = !showFormPassword}
+							>
+								{#if showFormPassword}
+									<EyeOff class="size-4" />
+								{:else}
+									<Eye class="size-4" />
+								{/if}
+							</InputGroupButton>
+						{/snippet}
+					</Input>
+				</Field.Field>
+
+				<Field.Field
+					label="Phone Number"
+					description="Enter your phone number"
+				>
+					<Input 
+						bind:value={formData.phone}
+						mask="phone"
+						placeholder="(555) 555-5555"
+					>
+						{#snippet startIcon()}
+							<Phone class="size-4" />
+						{/snippet}
+					</Input>
+				</Field.Field>
+
+				<Field.Field
+					label="Price"
+					description="Enter the product price"
+				>
+					<Input 
+						type="number"
+						bind:value={formData.price}
+						placeholder="0.00"
+						startText="$"
+						endText="USD"
+					/>
+				</Field.Field>
+
+				<Field.Field
+					label="API Key"
+					description="Your secret API key (read-only)"
+				>
+					<Input 
+						value={formData.apiKey}
+						readonly
+					>
+						{#snippet endButton()}
+							<InputGroupButton 
+								size="icon-xs"
+								onclick={() => navigator.clipboard.writeText(formData.apiKey)}
+							>
+								<Copy class="size-4" />
+							</InputGroupButton>
+						{/snippet}
+					</Input>
+				</Field.Field>
+			</div>
+
+			<div class="mt-6">
+				<Button onclick={validateForm}>Validate Form</Button>
+			</div>
+		</Card>
+	</section>
+
+	<!-- Complete Form Example -->
+	<section class="space-y-4">
+		<div class="space-y-1">
+			<h2 class="text-2xl font-semibold">Complete Form with Field Component</h2>
+			<p class="text-sm text-muted-foreground">Full form using Field.Set and Field.Group for proper structure</p>
+		</div>
+
+		<Card class="p-6">
+			<form class="max-w-2xl" onsubmit={(e) => { e.preventDefault(); validateForm(); }}>
+				<Field.Set>
+					<Field.Legend>Create Account</Field.Legend>
+					<Field.Description>
+						Enter your details to create a new account
+					</Field.Description>
+
+					<Field.Separator />
+
+					<Field.Group class="gap-6">
+						<Field.Field
+							label="Email Address"
+							description="We'll send a verification email"
+							required
+							error={errors.email}
+						>
+							<Input 
+								type="email"
+								bind:value={formData.email}
+								placeholder="you@example.com"
+								error={!!errors.email}
+							>
+								{#snippet startIcon()}
+									<Mail class="size-4" />
+								{/snippet}
+							</Input>
+						</Field.Field>
+
+						<Field.Field
+							label="Username"
+							description="Choose a unique username (3-20 characters)"
+							required
+							error={errors.username}
+						>
+							<Input 
+								bind:value={formData.username}
+								placeholder="johndoe"
+								error={!!errors.username}
+								minlength={3}
+								maxlength={20}
+							>
+								{#snippet startIcon()}
+									<User class="size-4" />
+								{/snippet}
+							</Input>
+						</Field.Field>
+
+						<Field.Field
+							label="Password"
+							description="Must be at least 8 characters with a mix of letters and numbers"
+							required
+							error={errors.password}
+						>
+							<Input 
+								type={showFormPassword ? "text" : "password"}
+								bind:value={formData.password}
+								placeholder="••••••••"
+								error={!!errors.password}
+							>
+								{#snippet startIcon()}
+									<Lock class="size-4" />
+								{/snippet}
+								{#snippet endButton()}
+									<InputGroupButton
+										size="icon-xs"
+										variant="ghost"
+										onclick={() => showFormPassword = !showFormPassword}
+										aria-label={showFormPassword ? "Hide password" : "Show password"}
+									>
+										{#if showFormPassword}
+											<EyeOff class="size-4" />
+										{:else}
+											<Eye class="size-4" />
+										{/if}
+									</InputGroupButton>
+								{/snippet}
+							</Input>
+						</Field.Field>
+
+						<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+							<Field.Field
+								label="Phone Number"
+								description="For account verification"
+							>
+								<Input 
+									bind:value={formData.phone}
+									mask="phone"
+									placeholder="(555) 555-5555"
+								>
+									{#snippet startIcon()}
+										<Phone class="size-4" />
+									{/snippet}
+								</Input>
+							</Field.Field>
+
+							<Field.Field
+								label="Credit Card"
+								description="Payment information"
+							>
+								<Input 
+									mask="creditCard"
+									placeholder="1234 5678 9012 3456"
+								>
+									{#snippet startIcon()}
+										<CreditCard class="size-4" />
+									{/snippet}
+								</Input>
+							</Field.Field>
+						</div>
+					</Field.Group>
+
+					<div class="flex gap-4 pt-4">
+						<Button type="submit">Create Account</Button>
+						<Button type="button" variant="outline">Cancel</Button>
+					</div>
+				</Field.Set>
+			</form>
 		</Card>
 	</section>
 </div>

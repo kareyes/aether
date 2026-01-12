@@ -243,3 +243,211 @@ Files can be removed individually, and the component automatically updates the F
 ## Examples
 
 See the [FileInput Demo](/file-input-demo) page for interactive examples of all variants, sizes, and validation features.
+
+## Using FileInput with Field Component
+
+The Field component provides a consistent way to add labels, descriptions, and error handling to your FileInput components.
+
+### Basic Field Usage
+
+```svelte
+<script>
+  import { FileInput } from "$core/components/ui/file-input";
+  import * as Field from "$core/components/ui/field";
+  
+  let files = $state(null);
+</script>
+
+<Field.Field
+  label="Upload Documents"
+  description="Supported formats: PDF, DOC, DOCX (Max 5MB)"
+>
+  <FileInput 
+    bind:files
+    acceptedTypes={[".pdf", ".doc", ".docx"]}
+    maxSize={5 * 1024 * 1024}
+  />
+</Field.Field>
+```
+
+### With Validation
+
+```svelte
+<script>
+  import { FileInput } from "$core/components/ui/file-input";
+  import * as Field from "$core/components/ui/field";
+  
+  let files = $state(null);
+  let error = $state("");
+  
+  function handleError(err: string) {
+    error = err;
+    setTimeout(() => error = "", 3000);
+  }
+</script>
+
+<Field.Field
+  label="Profile Picture"
+  description="Upload your profile photo (JPG, PNG)"
+  required
+  error={error || undefined}
+>
+  <FileInput 
+    bind:files
+    maxFiles={1}
+    acceptedTypes={["image/*"]}
+    maxSize={2 * 1024 * 1024}
+    onError={handleError}
+    error={!!error}
+  />
+</Field.Field>
+```
+
+### Regular Mode with Field
+
+```svelte
+<Field.Field
+  label="Resume"
+  description="Upload your resume in PDF format"
+  required
+>
+  <FileInput 
+    regularMode={true}
+    maxFiles={1}
+    acceptedTypes={[".pdf"]}
+    placeholder="Choose PDF file..."
+    variant="filled"
+  />
+</Field.Field>
+```
+
+### Different Variants with Field
+
+```svelte
+<Field.Field
+  label="Project Files"
+  description="Upload project documents and assets"
+>
+  <FileInput 
+    variant="filled"
+    maxFiles={5}
+    acceptedTypes={[".pdf", ".doc", ".zip"]}
+  />
+</Field.Field>
+
+<Field.Field
+  label="Images"
+  description="Upload product images"
+>
+  <FileInput 
+    variant="ghost"
+    maxFiles={10}
+    acceptedTypes={["image/*"]}
+    size="lg"
+  />
+</Field.Field>
+```
+
+### Complete Upload Form
+
+```svelte
+<script>
+  import { FileInput } from "$core/components/ui/file-input";
+  import * as Field from "$core/components/ui/field";
+  import { Button } from "$core/components/ui/button";
+  
+  let resume = $state(null);
+  let coverLetter = $state(null);
+  let portfolio = $state(null);
+  
+  let errors = $state({
+    resume: "",
+    coverLetter: "",
+    portfolio: "",
+  });
+  
+  function handleResumeError(err: string) {
+    errors.resume = err;
+  }
+  
+  function handleCoverLetterError(err: string) {
+    errors.coverLetter = err;
+  }
+  
+  function handlePortfolioError(err: string) {
+    errors.portfolio = err;
+  }
+  
+  function handleSubmit() {
+    console.log("Files:", { resume, coverLetter, portfolio });
+  }
+</script>
+
+<Field.Set>
+  <Field.Legend>Job Application</Field.Legend>
+  <Field.Description>Upload your application documents</Field.Description>
+  
+  <Field.Separator />
+  
+  <Field.Group class="gap-6">
+    <Field.Field
+      label="Resume"
+      description="Upload your resume (PDF only, max 5MB)"
+      required
+      error={errors.resume || undefined}
+    >
+      <FileInput 
+        bind:files={resume}
+        maxFiles={1}
+        acceptedTypes={[".pdf"]}
+        maxSize={5 * 1024 * 1024}
+        onError={handleResumeError}
+        error={!!errors.resume}
+        variant="outline"
+        size="lg"
+      />
+    </Field.Field>
+    
+    <Field.Field
+      label="Cover Letter"
+      description="Upload your cover letter (PDF or DOC)"
+      required
+      error={errors.coverLetter || undefined}
+    >
+      <FileInput 
+        bind:files={coverLetter}
+        maxFiles={1}
+        acceptedTypes={[".pdf", ".doc", ".docx"]}
+        maxSize={3 * 1024 * 1024}
+        onError={handleCoverLetterError}
+        error={!!errors.coverLetter}
+        variant="filled"
+      />
+    </Field.Field>
+    
+    <Field.Field
+      label="Portfolio (Optional)"
+      description="Upload portfolio samples (Images or PDFs, max 10MB total)"
+      error={errors.portfolio || undefined}
+    >
+      <FileInput 
+        bind:files={portfolio}
+        maxFiles={5}
+        acceptedTypes={["image/*", ".pdf"]}
+        maxSize={10 * 1024 * 1024}
+        onError={handlePortfolioError}
+        error={!!errors.portfolio}
+      />
+    </Field.Field>
+  </Field.Group>
+  
+  <div class="flex gap-4 pt-4">
+    <Button onclick={handleSubmit} disabled={!resume || !coverLetter}>
+      Submit Application
+    </Button>
+    <Button variant="outline" type="button">
+      Save Draft
+    </Button>
+  </div>
+</Field.Set>
+```

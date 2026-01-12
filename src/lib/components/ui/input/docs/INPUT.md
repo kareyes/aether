@@ -443,8 +443,383 @@ import type {
 4. **Accessibility**: Always include `aria-label` on icon buttons
 5. **Error Handling**: Combine with the `error` prop for validation feedback
 
+## Using Input with Field Component
+
+The Field component provides labels, descriptions, and error handling. This is the recommended way to use Input in forms.
+
+### Basic Field Usage
+
+```svelte
+<script lang="ts">
+  import * as Field from '$core/components/ui/field';
+  import { Input } from '$core/components/ui/input';
+
+  let email = $state('');
+</script>
+
+<Field.Field
+  label="Email"
+  description="Enter your email address"
+>
+  <Input type="email" bind:value={email} placeholder="you@example.com" />
+</Field.Field>
+```
+
+### Field with Icon Addons
+
+```svelte
+<script lang="ts">
+  import * as Field from '$core/components/ui/field';
+  import { Input } from '$core/components/ui/input';
+  import { Mail, Lock, User } from '@lucide/svelte';
+
+  let email = $state('');
+  let password = $state('');
+  let username = $state('');
+</script>
+
+<!-- Email with Icon -->
+<Field.Field
+  label="Email"
+  description="We'll never share your email"
+  required
+>
+  <Input type="email" bind:value={email} placeholder="you@example.com">
+    {#snippet startIcon()}
+      <Mail class="size-4" />
+    {/snippet}
+  </Input>
+</Field.Field>
+
+<!-- Password with Icon -->
+<Field.Field
+  label="Password"
+  description="Must be at least 8 characters"
+  required
+>
+  <Input type="password" bind:value={password} placeholder="••••••••">
+    {#snippet startIcon()}
+      <Lock class="size-4" />
+    {/snippet}
+  </Input>
+</Field.Field>
+
+<!-- Username with Icon -->
+<Field.Field
+  label="Username"
+  description="Choose a unique username"
+>
+  <Input bind:value={username} placeholder="johndoe">
+    {#snippet startIcon()}
+      <User class="size-4" />
+    {/snippet}
+  </Input>
+</Field.Field>
+```
+
+### Field with Validation Errors
+
+```svelte
+<script lang="ts">
+  import * as Field from '$core/components/ui/field';
+  import { Input } from '$core/components/ui/input';
+
+  let email = $state('');
+  let errors = $state<Record<string, string>>({});
+
+  function validateEmail() {
+    if (!email) {
+      errors.email = 'Email is required';
+    } else if (!email.includes('@')) {
+      errors.email = 'Please enter a valid email address';
+    } else {
+      delete errors.email;
+    }
+  }
+</script>
+
+<Field.Field
+  label="Email"
+  description="Enter a valid email address"
+  required
+  error={errors.email}
+>
+  <Input 
+    type="email" 
+    bind:value={email} 
+    placeholder="you@example.com"
+    error={!!errors.email}
+    onblur={validateEmail}
+  />
+</Field.Field>
+```
+
+### Field with Text Addons
+
+```svelte
+<script lang="ts">
+  import * as Field from '$core/components/ui/field';
+  import { Input } from '$core/components/ui/input';
+
+  let price = $state('');
+  let website = $state('');
+</script>
+
+<!-- Price Input -->
+<Field.Field
+  label="Price"
+  description="Enter the product price"
+>
+  <Input 
+    type="number" 
+    bind:value={price} 
+    placeholder="0.00"
+    startText="$"
+    endText="USD"
+  />
+</Field.Field>
+
+<!-- Website Input -->
+<Field.Field
+  label="Website"
+  description="Enter your website URL"
+>
+  <Input 
+    bind:value={website} 
+    placeholder="example"
+    startText="https://"
+    endText=".com"
+  />
+</Field.Field>
+```
+
+### Field with Button Addons
+
+```svelte
+<script lang="ts">
+  import * as Field from '$core/components/ui/field';
+  import { Input } from '$core/components/ui/input';
+  import { InputGroupButton } from '$core/components/ui/input-group';
+  import { Copy, Eye, EyeOff } from '@lucide/svelte';
+
+  let apiKey = $state('sk_live_...');
+  let password = $state('');
+  let showPassword = $state(false);
+  let copied = $state(false);
+
+  function handleCopy() {
+    navigator.clipboard.writeText(apiKey);
+    copied = true;
+    setTimeout(() => copied = false, 2000);
+  }
+</script>
+
+<!-- API Key with Copy Button -->
+<Field.Field
+  label="API Key"
+  description="Your secret API key"
+>
+  <Input value={apiKey} readonly>
+    {#snippet endButton()}
+      <InputGroupButton size="icon-xs" onclick={handleCopy}>
+        <Copy class="size-4" />
+      </InputGroupButton>
+    {/snippet}
+  </Input>
+</Field.Field>
+
+<!-- Password with Toggle Button -->
+<Field.Field
+  label="Password"
+  description="Enter your password"
+  required
+>
+  <Input 
+    type={showPassword ? "text" : "password"}
+    bind:value={password}
+    placeholder="••••••••"
+  >
+    {#snippet endButton()}
+      <InputGroupButton
+        size="icon-xs"
+        variant="ghost"
+        onclick={() => showPassword = !showPassword}
+      >
+        {#if showPassword}
+          <EyeOff class="size-4" />
+        {:else}
+          <Eye class="size-4" />
+        {/if}
+      </InputGroupButton>
+    {/snippet}
+  </Input>
+</Field.Field>
+```
+
+### Field with Input Masks
+
+```svelte
+<script lang="ts">
+  import * as Field from '$core/components/ui/field';
+  import { Input } from '$core/components/ui/input';
+  import { Phone, CreditCard } from '@lucide/svelte';
+
+  let phone = $state('');
+  let ssn = $state('');
+</script>
+
+<!-- Phone Number -->
+<Field.Field
+  label="Phone Number"
+  description="Enter your phone number"
+  required
+>
+  <Input 
+    bind:value={phone}
+    mask="phone"
+    placeholder="(555) 555-5555"
+  >
+    {#snippet startIcon()}
+      <Phone class="size-4" />
+    {/snippet}
+  </Input>
+</Field.Field>
+
+<!-- SSN -->
+<Field.Field
+  label="Social Security Number"
+  description="Your SSN is encrypted and secure"
+>
+  <Input 
+    bind:value={ssn}
+    mask="ssn"
+    placeholder="***-**-****"
+  />
+</Field.Field>
+```
+
+### Complete Form Example with Field
+
+```svelte
+<script lang="ts">
+  import * as Field from '$core/components/ui/field';
+  import { Input } from '$core/components/ui/input';
+  import { Button } from '$core/components/ui/button';
+  import { Mail, Lock, User, Phone } from '@lucide/svelte';
+
+  let formData = $state({
+    username: '',
+    email: '',
+    password: '',
+    phone: '',
+  });
+
+  let errors = $state<Record<string, string>>({});
+
+  function handleSubmit(e: Event) {
+    e.preventDefault();
+    errors = {};
+
+    if (!formData.username) errors.username = 'Username is required';
+    if (!formData.email) errors.email = 'Email is required';
+    if (!formData.password) errors.password = 'Password is required';
+    if (!formData.phone) errors.phone = 'Phone is required';
+
+    if (Object.keys(errors).length === 0) {
+      console.log('Form submitted:', formData);
+    }
+  }
+</script>
+
+<form onsubmit={handleSubmit} class="space-y-6">
+  <Field.Set>
+    <Field.Legend>Create Account</Field.Legend>
+    <Field.Description>
+      Enter your details to create a new account
+    </Field.Description>
+
+    <Field.Separator />
+
+    <Field.Group class="gap-6">
+      <Field.Field
+        label="Username"
+        description="Choose a unique username"
+        required
+        error={errors.username}
+      >
+        <Input 
+          bind:value={formData.username}
+          placeholder="johndoe"
+          error={!!errors.username}
+        >
+          {#snippet startIcon()}
+            <User class="size-4" />
+          {/snippet}
+        </Input>
+      </Field.Field>
+
+      <Field.Field
+        label="Email"
+        description="We'll never share your email"
+        required
+        error={errors.email}
+      >
+        <Input 
+          type="email"
+          bind:value={formData.email}
+          placeholder="you@example.com"
+          error={!!errors.email}
+        >
+          {#snippet startIcon()}
+            <Mail class="size-4" />
+          {/snippet}
+        </Input>
+      </Field.Field>
+
+      <Field.Field
+        label="Password"
+        description="Must be at least 8 characters"
+        required
+        error={errors.password}
+      >
+        <Input 
+          type="password"
+          bind:value={formData.password}
+          placeholder="••••••••"
+          error={!!errors.password}
+        >
+          {#snippet startIcon()}
+            <Lock class="size-4" />
+          {/snippet}
+        </Input>
+      </Field.Field>
+
+      <Field.Field
+        label="Phone Number"
+        description="Enter your phone number"
+        required
+        error={errors.phone}
+      >
+        <Input 
+          bind:value={formData.phone}
+          mask="phone"
+          placeholder="(555) 555-5555"
+          error={!!errors.phone}
+        >
+          {#snippet startIcon()}
+            <Phone class="size-4" />
+          {/snippet}
+        </Input>
+      </Field.Field>
+    </Field.Group>
+  </Field.Set>
+
+  <Button type="submit">Create Account</Button>
+</form>
+```
+
 ## Related Components
 
 - **Input**: Base input component
 - **InputGroup**: Manual input group composition
-- **Field**: Form field wrapper with label and error messages
+- **Field**: Form field wrapper with label and error messages (recommended for forms)

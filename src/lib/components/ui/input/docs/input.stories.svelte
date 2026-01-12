@@ -12,7 +12,7 @@
     import Eye from '@lucide/svelte/icons/eye';
     import EyeOff from '@lucide/svelte/icons/eye-off';
     import X from '@lucide/svelte/icons/x';
-    import { Field } from '$core/components/ui/field';
+    import * as Field from '$core/components/ui/field';
 
     const { Story } = defineMeta({
         title: 'Components/Input',
@@ -162,19 +162,6 @@
 <Story name="Ghost Variant" args={{ variant: 'ghost', placeholder: 'Ghost variant' }} />
 <Story name="Underline Variant" args={{ variant: 'underline', placeholder: 'Underline variant' }} />
 
-
-<Story name="Small Size" args={{ size: 'sm', placeholder: 'Small input' }} />
-<Story name="Default Size" args={{ size: 'default', placeholder: 'Default input' }} />
-<Story name="Large Size" args={{ size: 'lg', placeholder: 'Large input' }} />
-
-
-<Story name="Email Input" args={{ type: 'email', placeholder: 'Enter email address' }} />
-<Story name="Password Input" args={{ type: 'password', placeholder: 'Enter password' }} />
-<Story name="Number Input" args={{ type: 'number', placeholder: 'Enter number' }} />
-<Story name="Telephone Input" args={{ type: 'tel', placeholder: 'Enter phone number' }} />
-<Story name="URL Input" args={{ type: 'url', placeholder: 'Enter website URL' }} />
-
-
 <Story name="Phone Mask" args={{ mask: 'phone', placeholder: '(555) 123-4567' }} />
 <Story name="SSN Mask" args={{ mask: 'ssn', placeholder: '123-45-6789' }} />
 <Story name="Credit Card Mask" args={{ mask: 'creditCard', placeholder: '1234 5678 9012 3456' }} />
@@ -192,14 +179,6 @@
   },
   placeholder: 'Hex color'
 }} />
-
-<Story name="Large Underline Password" args={{
-  variant: 'underline',
-  size: 'lg',
-  type: 'password',
-  placeholder: 'Enter secure password'
-}} />
-
 
 <Story name="With Start Icon">
   {#snippet template()}
@@ -284,17 +263,6 @@
   {/snippet}
 </Story>
 
-<Story name="With Send Button">
-    {#snippet template()}
-    <Input placeholder="Type your message...">
-        {#snippet endButton()}
-        <InputGroupButton size="icon-xs">
-            <Send class="size-4" />
-        </InputGroupButton>
-        {/snippet}
-    </Input>
-  {/snippet}
-</Story>
 
 
 <Story name="Phone with Icon and Mask">
@@ -316,35 +284,6 @@
     </Input>
     {/snippet}
 </Story>
-
-<Story name="API Key with Icon and Copy">
-  {#snippet template()}
-    <Input value="sk_live_1234567890abcdef" readonly>
-        {#snippet startIcon()}
-        <Lock class="size-4" />
-        {/snippet}
-        {#snippet endButton()}
-        <InputGroupButton size="icon-xs" variant="ghost">
-            <Copy class="size-4" />
-        </InputGroupButton>
-        {/snippet}
-    </Input>
-  {/snippet}
-</Story>
-
-<Story name="Price Input with Icon and Text">
-   {#snippet template()}
-    <Input type="number" placeholder="0.00">
-        {#snippet startIcon()}
-        <span class="text-lg">$</span>
-        {/snippet}
-        {#snippet endText()}
-        <span class="text-xs text-muted-foreground">USD</span>
-        {/snippet}
-    </Input>
-    {/snippet}
-</Story>
-
 
 
 
@@ -433,14 +372,70 @@
 
 <Story name="With Field Error">
     {#snippet template()}
-    <Field label="Email" error="Invalid email address">
+    <Field.Field label="Email" error="Invalid email address" required>
         <Input error={true} value="invalid@" placeholder="Enter email">
             {#snippet startIcon()}
             <Mail class="size-4" />
             {/snippet}
         </Input>
-  </Field>
+  </Field.Field>
   {/snippet}
+</Story>
+
+<Story name="Field with Description">
+    {#snippet template()}
+    <Field.Field 
+        label="Username" 
+        description="Choose a unique username for your account"
+        required
+    >
+        <Input placeholder="johndoe">
+            {#snippet startIcon()}
+            <Search class="size-4" />
+            {/snippet}
+        </Input>
+    </Field.Field>
+    {/snippet}
+</Story>
+
+
+<Story name="Complete Form with Field">
+    {#snippet template()}
+    <div class="w-full max-w-lg space-y-4">
+        <Field.Set>
+            <Field.Legend>Account Information</Field.Legend>
+            <Field.Description>Create your account</Field.Description>
+            
+            <Field.Separator />
+            
+            <Field.Group class="gap-4">
+                <Field.Field label="Email" description="We'll never share your email" required>
+                    <Input type="email" placeholder="you@example.com">
+                        {#snippet startIcon()}
+                        <Mail class="size-4" />
+                        {/snippet}
+                    </Input>
+                </Field.Field>
+                
+                <Field.Field label="Password" description="At least 8 characters" required>
+                    <Input type="password" placeholder="••••••••">
+                        {#snippet startIcon()}
+                        <Lock class="size-4" />
+                        {/snippet}
+                    </Input>
+                </Field.Field>
+                
+                <Field.Field label="Phone" description="For account verification">
+                    <Input mask="phone" placeholder="(555) 555-5555">
+                        {#snippet startIcon()}
+                        <Phone class="size-4" />
+                        {/snippet}
+                    </Input>
+                </Field.Field>
+            </Field.Group>
+        </Field.Set>
+    </div>
+    {/snippet}
 </Story>
 
 

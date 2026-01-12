@@ -1,6 +1,8 @@
 <script module>
   import { defineMeta } from '@storybook/addon-svelte-csf';
 	import  Checkbox  from "../checkbox.svelte";
+  import * as Field from '$core/components/ui/field';
+  import { Button } from '$core/components/ui/button';
   import { fn } from 'storybook/test';
 
   const { Story } = defineMeta({
@@ -204,3 +206,158 @@
   label: 'Complete project documentation',
   description: 'Write comprehensive docs for all components'
 }} />
+
+<!-- With Field Component -->
+<Story name="Field with Single Checkbox">
+  {#snippet template()}
+    <Field.Field
+      label="Agreements"
+      description="Please review and accept our policies"
+      required
+    >
+      <Checkbox 
+        label="I accept the terms and conditions"
+      />
+    </Field.Field>
+  {/snippet}
+</Story>
+
+<Story name="Field with Checkbox Group">
+  {#snippet template()}
+    <Field.Set>
+      <Field.Legend>Email Preferences</Field.Legend>
+      <Field.Description>Choose which emails you'd like to receive</Field.Description>
+      
+      <Field.Separator />
+      
+      <Field.Group class="gap-4">
+        <Checkbox 
+          label="Notifications"
+          description="Receive notifications about account activity"
+        />
+        
+        <Checkbox 
+          label="Marketing Emails"
+          description="Get updates about new products and features"
+        />
+        
+        <Checkbox 
+          label="Product Updates"
+          description="Stay informed about product improvements"
+        />
+      </Field.Group>
+    </Field.Set>
+  {/snippet}
+</Story>
+
+<Story name="Field with Error">
+  {#snippet template()}
+    <Field.Field
+      label="Terms & Conditions"
+      required
+      error="You must accept the terms to continue"
+    >
+      <Checkbox 
+        label="I accept the terms and conditions"
+        variant="destructive"
+      />
+    </Field.Field>
+  {/snippet}
+</Story>
+
+<Story name="Field with Task Checklist">
+  {#snippet template()}
+    <Field.Set>
+      <Field.Legend>Project Checklist</Field.Legend>
+      <Field.Description>Track your project progress</Field.Description>
+      
+      <Field.Separator />
+      
+      <Field.Group class="gap-4">
+        <Checkbox 
+          label="Complete Design"
+          description="UI/UX design and mockups"
+          lineThrough={true}
+          variant="default"
+        />
+        
+        <Checkbox 
+          label="Development Phase"
+          description="Code implementation"
+          lineThrough={true}
+          variant="default"
+        />
+        
+        <Checkbox 
+          checked={true}
+          label="Deployment"
+          description="Deploy to production"
+          lineThrough={true}
+          variant="success"
+        />
+      </Field.Group>
+    </Field.Set>
+  {/snippet}
+</Story>
+
+<Story name="Complete Form with Field">
+  {#snippet template()}
+    <div class="w-full max-w-md space-y-6">
+      <Field.Set>
+        <Field.Legend>Account Setup</Field.Legend>
+        <Field.Description>Complete your account registration</Field.Description>
+        
+        <Field.Separator />
+        
+        <Field.Group class="gap-4">
+          <Field.Field
+            label="Required Agreements"
+            required
+            error="You must accept the terms"
+          >
+            <Checkbox 
+              label="I accept the terms and conditions"
+              variant="destructive"
+              size="lg"
+            />
+          </Field.Field>
+          
+          <Field.Field
+            label="Age Verification"
+            required
+          >
+            <Checkbox 
+              checked={true}
+              label="I confirm I am 18 years or older"
+              variant="success"
+              size="lg"
+            />
+          </Field.Field>
+          
+          <Field.Field
+            label="Optional Subscriptions"
+            description="Choose which communications you'd like to receive"
+          >
+            <div class="space-y-2">
+              <Checkbox 
+                label="Subscribe to newsletter"
+                description="Weekly updates and tips"
+              />
+              
+              <Checkbox 
+                checked={true}
+                label="Product updates"
+                description="New features and improvements"
+              />
+            </div>
+          </Field.Field>
+        </Field.Group>
+        
+        <div class="flex gap-4 pt-4">
+          <Button type="submit">Create Account</Button>
+          <Button variant="outline" type="button">Cancel</Button>
+        </div>
+      </Field.Set>
+    </div>
+  {/snippet}
+</Story>

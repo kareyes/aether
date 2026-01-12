@@ -196,3 +196,253 @@ The component uses Tailwind CSS and supports:
 - Character counter appears in the bottom-right corner when `showCount` is true
 - The component wraps the textarea in a `div` when `showCount` is enabled
 - Auto-resize uses `minRows` and `maxRows` to constrain height
+
+## Using Textarea with Field Component
+
+The Field component provides labels, descriptions, and error handling. This is the recommended way to use Textarea in forms.
+
+### Basic Field Usage
+
+```svelte
+<script lang="ts">
+  import * as Field from '$core/components/ui/field';
+  import { Textarea } from '$core/components/ui/textarea';
+
+  let bio = $state('');
+</script>
+
+<Field.Field
+  label="Biography"
+  description="Tell us about yourself"
+>
+  <Textarea bind:value={bio} placeholder="Write your bio here..." rows={4} />
+</Field.Field>
+```
+
+### Field with Character Counter
+
+```svelte
+<script lang="ts">
+  import * as Field from '$core/components/ui/field';
+  import { Textarea } from '$core/components/ui/textarea';
+
+  let description = $state('');
+</script>
+
+<Field.Field
+  label="Description"
+  description="Maximum 200 characters"
+>
+  <Textarea 
+    bind:value={description}
+    maxLength={200}
+    showCount
+    placeholder="Enter description..."
+  />
+</Field.Field>
+```
+
+### Field with Auto-Resize
+
+```svelte
+<script lang="ts">
+  import * as Field from '$core/components/ui/field';
+  import { Textarea } from '$core/components/ui/textarea';
+
+  let notes = $state('');
+</script>
+
+<Field.Field
+  label="Notes"
+  description="Automatically grows with content"
+>
+  <Textarea 
+    bind:value={notes}
+    autoResize
+    minRows={2}
+    maxRows={8}
+    placeholder="Start typing..."
+  />
+</Field.Field>
+```
+
+### Field with Validation
+
+```svelte
+<script lang="ts">
+  import * as Field from '$core/components/ui/field';
+  import { Textarea } from '$core/components/ui/textarea';
+
+  let message = $state('');
+  let errors = $state<Record<string, string>>({});
+
+  function validateMessage() {
+    if (!message) {
+      errors.message = 'Message is required';
+    } else if (message.length < 50) {
+      errors.message = 'Message must be at least 50 characters';
+    } else {
+      delete errors.message;
+    }
+  }
+</script>
+
+<Field.Field
+  label="Message"
+  description="Minimum 50 characters"
+  required
+  error={errors.message}
+>
+  <Textarea 
+    bind:value={message}
+    placeholder="Type your message..."
+    aria-invalid={!!errors.message}
+    onblur={validateMessage}
+    rows={4}
+  />
+</Field.Field>
+```
+
+### Field with Different Variants
+
+```svelte
+<script lang="ts">
+  import * as Field from '$core/components/ui/field';
+  import { Textarea } from '$core/components/ui/textarea';
+
+  let formData = $state({
+    bio: '',
+    comments: '',
+    feedback: '',
+  });
+</script>
+
+<div class="space-y-6">
+  <!-- Outline Variant -->
+  <Field.Field
+    label="Bio"
+    description="Tell us about yourself"
+  >
+    <Textarea 
+      variant="outline"
+      bind:value={formData.bio}
+      placeholder="Write your bio..."
+      rows={4}
+    />
+  </Field.Field>
+
+  <!-- Filled Variant with Counter -->
+  <Field.Field
+    label="Comments"
+    description="Share your thoughts (max 500 characters)"
+  >
+    <Textarea 
+      variant="filled"
+      bind:value={formData.comments}
+      maxLength={500}
+      showCount
+      rows={3}
+    />
+  </Field.Field>
+
+  <!-- Auto-resize with Underline -->
+  <Field.Field
+    label="Feedback"
+    description="Your feedback helps us improve"
+  >
+    <Textarea 
+      variant="underline"
+      bind:value={formData.feedback}
+      autoResize
+      minRows={2}
+      maxRows={6}
+      placeholder="Start typing..."
+    />
+  </Field.Field>
+</div>
+```
+
+### Complete Form Example
+
+```svelte
+<script lang="ts">
+  import * as Field from '$core/components/ui/field';
+  import { Textarea } from '$core/components/ui/textarea';
+  import { Button } from '$core/components/ui/button';
+
+  let formData = $state({
+    title: '',
+    description: '',
+    additionalNotes: '',
+  });
+
+  let errors = $state<Record<string, string>>({});
+
+  function handleSubmit(e: Event) {
+    e.preventDefault();
+    errors = {};
+
+    if (!formData.description) {
+      errors.description = 'Description is required';
+    } else if (formData.description.length < 50) {
+      errors.description = 'Description must be at least 50 characters';
+    }
+
+    if (Object.keys(errors).length === 0) {
+      console.log('Form submitted:', formData);
+    }
+  }
+</script>
+
+<form onsubmit={handleSubmit} class="space-y-6">
+  <Field.Set>
+    <Field.Legend>Project Details</Field.Legend>
+    <Field.Description>
+      Provide information about your project
+    </Field.Description>
+
+    <Field.Separator />
+
+    <Field.Group class="gap-6">
+      <Field.Field
+        label="Description"
+        description="Detailed description of your project (minimum 50 characters)"
+        required
+        error={errors.description}
+      >
+        <Textarea 
+          bind:value={formData.description}
+          variant="outline"
+          size="lg"
+          maxLength={1000}
+          showCount
+          autoResize
+          minRows={4}
+          maxRows={10}
+          placeholder="Describe your project..."
+          aria-invalid={!!errors.description}
+        />
+      </Field.Field>
+
+      <Field.Field
+        label="Additional Notes"
+        description="Any other information you'd like to share"
+      >
+        <Textarea 
+          bind:value={formData.additionalNotes}
+          variant="filled"
+          autoResize
+          minRows={3}
+          maxRows={6}
+          placeholder="Optional notes..."
+        />
+      </Field.Field>
+    </Field.Group>
+
+    <div class="flex gap-4 pt-4">
+      <Button type="submit">Submit</Button>
+      <Button type="button" variant="outline">Cancel</Button>
+    </div>
+  </Field.Set>
+</form>
+```

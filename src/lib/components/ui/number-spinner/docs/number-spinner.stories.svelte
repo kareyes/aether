@@ -1,6 +1,8 @@
 <script context="module" lang="ts">
 	import { defineMeta } from "@storybook/addon-svelte-csf";
 	import { NumberSpinner } from "../index.js";
+	import * as Field from '$core/components/ui/field';
+	import { Button } from '$core/components/ui/button';
 	import type {
 		NumberSpinnerVariant,
 		NumberSpinnerSize,
@@ -146,9 +148,6 @@
 	};
 </script>
 
-<script lang="ts">
-	import * as Field from "$core/components/ui/field";
-</script>
 
 <Story name="Default">
 	{#snippet template(args: Args)}
@@ -351,6 +350,84 @@
 					<NumberSpinner variant="ghost" value={10} orientation="horizontal" />
 				</div>
 			</div>
+		</div>
+	{/snippet}
+</Story>
+
+
+
+<Story name="Complete Product Form">
+	{#snippet template()}
+		<div class="w-full max-w-md">
+			<Field.Set>
+				<Field.Legend>Product Details</Field.Legend>
+				<Field.Description>Configure product pricing and inventory</Field.Description>
+				
+				<Field.Separator />
+				
+				<Field.Group class="gap-4">
+					<Field.Field
+						label="Price (USD)"
+						description="Set the product price"
+						required
+					>
+						<NumberSpinner 
+							value={29.99}
+							min={0}
+							max={9999.99}
+							step={0.01}
+							precision={2}
+							variant="outline"
+							size="lg"
+						/>
+					</Field.Field>
+					
+					<Field.Field
+						label="Quantity"
+						description="Available stock quantity"
+						required
+					>
+						<NumberSpinner 
+							value={1}
+							min={1}
+							max={10000}
+							variant="filled"
+						/>
+					</Field.Field>
+					
+					<Field.Field
+						label="Discount (%)"
+						description="Optional discount percentage"
+					>
+						<NumberSpinner 
+							value={0}
+							min={0}
+							max={100}
+							step={5}
+							orientation="horizontal"
+						/>
+					</Field.Field>
+					
+					<Field.Field
+						label="Weight (kg)"
+						description="Product weight for shipping"
+					>
+						<NumberSpinner 
+							value={1.5}
+							min={0}
+							max={1000}
+							step={0.1}
+							precision={1}
+							variant="ghost"
+						/>
+					</Field.Field>
+				</Field.Group>
+				
+				<div class="flex gap-4 pt-4">
+					<Button type="submit">Save Product</Button>
+					<Button variant="outline" type="button">Cancel</Button>
+				</div>
+			</Field.Set>
 		</div>
 	{/snippet}
 </Story>

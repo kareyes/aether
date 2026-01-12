@@ -1,6 +1,8 @@
 <script module>
 	import { defineMeta } from "@storybook/addon-svelte-csf";
 	import Textarea from "../textarea.svelte";
+	import * as Field from '$core/components/ui/field';
+	import { Button } from '$core/components/ui/button';
 
 	const { Story } = defineMeta({
 		title: "Components/Textarea",
@@ -191,4 +193,101 @@
 <Story name="With Character Count" args={{ showCount: true, placeholder: "Type to see character count..." }} />
 <Story name="With Max Length" args={{ maxLength: 200, showCount: true, placeholder: "Maximum 200 characters..." }} />
 <Story name="Auto Resize" args={{ autoResize: true, minRows: 2, maxRows: 6, placeholder: "Type multiple lines to see auto-resize..." }} />
+
+<!-- With Field Component -->
+<Story name="Field with Label">
+  {#snippet template()}
+    <Field.Field
+      label="Biography"
+      description="Tell us about yourself"
+    >
+      <Textarea placeholder="Write your bio here..." rows={4} />
+    </Field.Field>
+  {/snippet}
+</Story>
+
+<Story name="Field with Character Counter">
+  {#snippet template()}
+    <Field.Field
+      label="Description"
+      description="Maximum 200 characters"
+    >
+      <Textarea 
+        maxLength={200}
+        showCount
+        placeholder="Enter description..."
+      />
+    </Field.Field>
+  {/snippet}
+</Story>
+
+
+
+<Story name="Field with Error">
+  {#snippet template()}
+    <Field.Field
+      label="Message"
+      description="Minimum 50 characters"
+      required
+      error="Message must be at least 50 characters"
+    >
+      <Textarea 
+        placeholder="Type your message..."
+        aria-invalid={true}
+        rows={4}
+      />
+    </Field.Field>
+  {/snippet}
+</Story>
+
+
+<Story name="Complete Form with Field">
+  {#snippet template()}
+    <div class="w-full max-w-md space-y-6">
+      <Field.Set>
+        <Field.Legend>Project Details</Field.Legend>
+        <Field.Description>Provide information about your project</Field.Description>
+        
+        <Field.Separator />
+        
+        <Field.Group class="gap-4">
+          <Field.Field
+            label="Description"
+            description="Detailed description (minimum 50 characters)"
+            required
+          >
+            <Textarea 
+              variant="outline"
+              size="lg"
+              maxLength={1000}
+              showCount
+              autoResize
+              minRows={4}
+              maxRows={10}
+              placeholder="Describe your project..."
+            />
+          </Field.Field>
+          
+          <Field.Field
+            label="Additional Notes"
+            description="Any other information"
+          >
+            <Textarea 
+              variant="filled"
+              autoResize
+              minRows={3}
+              maxRows={6}
+              placeholder="Optional notes..."
+            />
+          </Field.Field>
+        </Field.Group>
+        
+        <div class="flex gap-4 pt-4">
+          <Button type="submit">Submit</Button>
+          <Button type="button" variant="outline">Cancel</Button>
+        </div>
+      </Field.Set>
+    </div>
+  {/snippet}
+</Story>
 

@@ -413,3 +413,250 @@ Use integer values with reasonable min/max constraints.
 ## Browser Support
 
 Works in all modern browsers with full accessibility support.
+
+## Using NumberSpinner with Field Component
+
+The Field component provides a consistent way to add labels, descriptions, and error handling to your NumberSpinner components.
+
+### Basic Field Usage
+
+```svelte
+<script>
+  import { NumberSpinner } from "$core/components/ui/number-spinner";
+  import * as Field from "$core/components/ui/field";
+  
+  let quantity = $state(1);
+</script>
+
+<Field.Field
+  label="Quantity"
+  description="Select the number of items"
+>
+  <NumberSpinner 
+    bind:value={quantity}
+    min={1}
+    max={100}
+  />
+</Field.Field>
+```
+
+### With Validation
+
+```svelte
+<script>
+  import { NumberSpinner } from "$core/components/ui/number-spinner";
+  import * as Field from "$core/components/ui/field";
+  
+  let age = $state(null);
+  let error = $derived(age === null || age < 18);
+</script>
+
+<Field.Field
+  label="Age"
+  description="You must be 18 or older"
+  required
+  error={error ? "You must be at least 18 years old" : undefined}
+>
+  <NumberSpinner 
+    bind:value={age}
+    min={0}
+    max={120}
+    placeholder="Enter age"
+    error={error}
+  />
+</Field.Field>
+```
+
+### Price Input with Field
+
+```svelte
+<script>
+  import { NumberSpinner } from "$core/components/ui/number-spinner";
+  import * as Field from "$core/components/ui/field";
+  
+  let price = $state(9.99);
+</script>
+
+<Field.Field
+  label="Product Price"
+  description="Set the price in USD"
+  required
+>
+  <NumberSpinner 
+    bind:value={price}
+    min={0}
+    max={9999.99}
+    step={0.01}
+    precision={2}
+    variant="outline"
+    size="lg"
+  />
+</Field.Field>
+```
+
+### Horizontal Layout with Field
+
+```svelte
+<Field.Field
+  label="Temperature"
+  description="Set temperature in Celsius"
+>
+  <NumberSpinner 
+    bind:value={temperature}
+    min={-50}
+    max={50}
+    step={0.5}
+    precision={1}
+    orientation="horizontal"
+    variant="filled"
+  />
+</Field.Field>
+```
+
+### Different Variants with Field
+
+```svelte
+<Field.Field
+  label="Stock Quantity"
+  description="Available inventory"
+>
+  <NumberSpinner 
+    variant="filled"
+    size="lg"
+    bind:value={stock}
+    min={0}
+    max={10000}
+  />
+</Field.Field>
+
+<Field.Field
+  label="Discount Percentage"
+  description="Enter discount value"
+>
+  <NumberSpinner 
+    variant="ghost"
+    bind:value={discount}
+    min={0}
+    max={100}
+    step={5}
+  />
+</Field.Field>
+```
+
+### Complete Product Form
+
+```svelte
+<script>
+  import { NumberSpinner } from "$core/components/ui/number-spinner";
+  import * as Field from "$core/components/ui/field";
+  import { Button } from "$core/components/ui/button";
+  
+  let formData = $state({
+    price: 29.99,
+    quantity: 1,
+    discount: 0,
+    weight: 1.5,
+  });
+  
+  let priceError = $derived(
+    formData.price === null || formData.price <= 0
+      ? "Price must be greater than 0"
+      : undefined
+  );
+  
+  let quantityError = $derived(
+    formData.quantity === null || formData.quantity < 1
+      ? "Quantity must be at least 1"
+      : undefined
+  );
+  
+  function handleSubmit() {
+    if (!priceError && !quantityError) {
+      console.log("Product data:", formData);
+    }
+  }
+</script>
+
+<div class="w-full max-w-md">
+  <Field.Set>
+    <Field.Legend>Product Details</Field.Legend>
+    <Field.Description>Configure product pricing and inventory</Field.Description>
+    
+    <Field.Separator />
+    
+    <Field.Group class="gap-4">
+      <Field.Field
+        label="Price (USD)"
+        description="Set the product price"
+        required
+        error={priceError}
+      >
+        <NumberSpinner 
+          bind:value={formData.price}
+          min={0}
+          max={9999.99}
+          step={0.01}
+          precision={2}
+          variant="outline"
+          size="lg"
+          error={!!priceError}
+        />
+      </Field.Field>
+      
+      <Field.Field
+        label="Quantity"
+        description="Available stock quantity"
+        required
+        error={quantityError}
+      >
+        <NumberSpinner 
+          bind:value={formData.quantity}
+          min={1}
+          max={10000}
+          variant="filled"
+          error={!!quantityError}
+        />
+      </Field.Field>
+      
+      <Field.Field
+        label="Discount (%)"
+        description="Optional discount percentage"
+      >
+        <NumberSpinner 
+          bind:value={formData.discount}
+          min={0}
+          max={100}
+          step={5}
+          orientation="horizontal"
+        />
+      </Field.Field>
+      
+      <Field.Field
+        label="Weight (kg)"
+        description="Product weight for shipping"
+      >
+        <NumberSpinner 
+          bind:value={formData.weight}
+          min={0}
+          max={1000}
+          step={0.1}
+          precision={1}
+          variant="ghost"
+        />
+      </Field.Field>
+    </Field.Group>
+    
+    <div class="flex gap-4 pt-4">
+      <Button 
+        onclick={handleSubmit} 
+        disabled={!!priceError || !!quantityError}
+      >
+        Save Product
+      </Button>
+      <Button variant="outline" type="button">
+        Cancel
+      </Button>
+    </div>
+  </Field.Set>
+</div>
+```

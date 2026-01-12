@@ -1,6 +1,8 @@
 <script lang="ts" context="module">
   import { defineMeta } from '@storybook/addon-svelte-csf';
   import { Select } from '../index';
+  import * as Field from '$core/components/ui/field';
+  import { Button } from '$core/components/ui/button';
 
   const { Story } = defineMeta({
     title: 'Components/Select',
@@ -218,3 +220,130 @@
     class: "w-[200px]",
     placeholder: "Large select with error"
   }} />
+
+<!-- With Field Component -->
+<Story name="Field with Label">
+  {#snippet template()}
+    <Field.Field
+      label="Country"
+      description="Select your country of residence"
+    >
+      <Select 
+        options={fruits}
+        placeholder="Select a country..."
+        class="w-[250px]"
+      />
+    </Field.Field>
+  {/snippet}
+</Story>
+
+<Story name="Field with Error">
+  {#snippet template()}
+    <Field.Field
+      label="Framework"
+      description="Choose your preferred framework"
+      required
+      error="Please select a framework"
+    >
+      <Select 
+        options={frameworks}
+        placeholder="Select framework..."
+        error={true}
+        class="w-[250px]"
+      />
+    </Field.Field>
+  {/snippet}
+</Story>
+
+<Story name="Field with Grouped Options">
+  {#snippet template()}
+    <Field.Field
+      label="Technology Stack"
+      description="Select your primary framework"
+      required
+    >
+      <Select 
+        groups={groupedOptions}
+        placeholder="Select a framework..."
+        class="w-[250px]"
+      />
+    </Field.Field>
+  {/snippet}
+</Story>
+
+<Story name="Field with Multiple Selection">
+  {#snippet template()}
+    <Field.Field
+      label="Skills"
+      description="Select all that apply"
+    >
+      <Select 
+        options={frameworks}
+        multiple={true}
+        placeholder="Select skills..."
+        class="w-[250px]"
+      />
+    </Field.Field>
+  {/snippet}
+</Story>
+
+
+
+<Story name="Complete Form with Field">
+  {#snippet template()}
+    <div class="w-full max-w-md space-y-6">
+      <Field.Set>
+        <Field.Legend>Profile Information</Field.Legend>
+        <Field.Description>Complete your profile</Field.Description>
+        
+        <Field.Separator />
+        
+        <Field.Group class="gap-4">
+          <Field.Field
+            label="Country"
+            description="Your country of residence"
+            required
+          >
+            <Select 
+              options={fruits}
+              placeholder="Select country..."
+              class="w-full"
+            />
+          </Field.Field>
+          
+          <Field.Field
+            label="Primary Framework"
+            description="Your preferred frontend framework"
+            required
+          >
+            <Select 
+              options={frameworks}
+              placeholder="Select framework..."
+              variant="outline"
+              size="lg"
+              class="w-full"
+            />
+          </Field.Field>
+          
+          <Field.Field
+            label="Skills"
+            description="Select all languages you know"
+            required
+          >
+            <Select 
+              options={frameworks}
+              multiple={true}
+              placeholder="Select languages..."
+              class="w-full"
+            />
+          </Field.Field>
+        </Field.Group>
+        
+        <div class="flex gap-4 pt-4">
+          <Button type="submit">Save Profile</Button>
+          <Button type="button" variant="outline">Cancel</Button>
+        </div>
+      </Field.Set>
+    </div>
+  {/snippet}
+</Story>

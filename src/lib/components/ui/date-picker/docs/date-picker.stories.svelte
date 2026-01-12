@@ -3,6 +3,8 @@
 	import { DatePicker, DateRangePicker, DatePickerWithPresets, DateRangePickerWithPresets } from "$core/components/ui/date-picker";
 	import { type DateValue, today, getLocalTimeZone } from "@internationalized/date";
 	import type { DateRange } from "bits-ui";
+	import * as Field from '$core/components/ui/field';
+	import { Button } from '$core/components/ui/button';
 	import Layout from "$core/components/layout-story/layout.svelte";
 
 	const { Story } = defineMeta({
@@ -24,7 +26,7 @@
 	let secondaryVariantDate = $state<DateValue | undefined>();
 </script>
 
-<!-- Single Date Picker -->
+
 <Story name="Single Date Picker">
 	<div class="max-w-md">
 		<DatePicker bind:value={singleDate} />
@@ -36,7 +38,7 @@
 	</div>
 </Story>
 
-<!-- Date Range Picker -->
+
 <Story name="Date Range Picker">
 	<div class="max-w-md">
 		<DateRangePicker bind:value={dateRange} />
@@ -48,7 +50,7 @@
 	</div>
 </Story>
 
-<!-- Date Picker with Presets -->
+
 <Story name="With Presets">
 	<div class="max-w-md">
 		<DatePickerWithPresets bind:value={presetDate} />
@@ -60,7 +62,7 @@
 	</div>
 </Story>
 
-<!-- Date Range Picker with Presets -->
+
 <Story name="Range With Presets">
 	<div class="max-w-md">
 		<DateRangePickerWithPresets bind:value={presetRange} />
@@ -72,7 +74,7 @@
 	</div>
 </Story>
 
-<!-- With Initial Value -->
+
 <Story name="With Initial Value">
 	<div class="max-w-md">
 		<DatePicker value={today(getLocalTimeZone())} />
@@ -82,7 +84,7 @@
 	</div>
 </Story>
 
-<!-- Disabled State -->
+
 <Story name="Disabled">
 	<div class="max-w-md">
 		<DatePicker bind:value={disabledDate} disabled />
@@ -92,7 +94,7 @@
 	</div>
 </Story>
 
-<!-- Custom Format -->
+
 <Story name="Custom Format">
 	<div class="max-w-md">
 		<DatePicker 
@@ -115,7 +117,7 @@
 	</div>
 </Story>
 
-<!-- Button Variant: Default -->
+
 <Story name="Variant - Default">
 	<div class="max-w-md">
 		<DatePicker bind:value={defaultVariantDate} buttonVariant="default" />
@@ -125,7 +127,7 @@
 	</div>
 </Story>
 
-<!-- Button Variant: Ghost -->
+
 <Story name="Variant - Ghost">
 	<div class="max-w-md">
 		<DatePicker bind:value={ghostVariantDate} buttonVariant="ghost" />
@@ -135,7 +137,7 @@
 	</div>
 </Story>
 
-<!-- Button Variant: Secondary -->
+
 <Story name="Variant - Secondary">
 	<div class="max-w-md">
 		<DatePicker bind:value={secondaryVariantDate} buttonVariant="secondary" />
@@ -145,7 +147,7 @@
 	</div>
 </Story>
 
-<!-- All Variants Comparison -->
+
 <Story name="All Button Variants">
 	<div class="space-y-4 max-w-md">
 		<div class="space-y-2">
@@ -171,7 +173,7 @@
 	</div>
 </Story>
 
-<!-- Custom Button Class -->
+
 <Story name="Custom Button Styling">
 	<div class="max-w-md">
 		<DatePicker 
@@ -183,7 +185,6 @@
 	</div>
 </Story>
 
-<!-- Range with Custom Presets -->
 <Story name="Custom Range Presets">
 	<div class="max-w-md">
 		<DateRangePickerWithPresets
@@ -217,7 +218,6 @@
 	</div>
 </Story>
 
-<!-- Single Date with Custom Presets -->
 <Story name="Custom Single Date Presets">
 	<div class="max-w-md">
 		<DatePickerWithPresets
@@ -234,12 +234,107 @@
 	</div>
 </Story>
 
-<!-- Full Width -->
-<Story name="Full Width">
-	<div class="w-full">
-		<DatePicker class="w-full" />
-		<div class="mt-2 text-sm text-muted-foreground">
-			Full width date picker
-		</div>
-	</div>
+
+<Story name="Field with Basic DatePicker">
+	{#snippet template()}
+		<Field.Field
+			label="Date of Birth"
+			description="Select your birth date"
+		>
+			<DatePicker />
+		</Field.Field>
+	{/snippet}
 </Story>
+
+<Story name="Field with Validation">
+	{#snippet template()}
+		<Field.Field
+			label="Project Start Date"
+			description="When will your project begin?"
+			required
+			error="Please select a start date"
+		>
+			<DatePicker 
+				error={true}
+			/>
+		</Field.Field>
+	{/snippet}
+</Story>
+
+<Story name="Field with DateRangePicker">
+	{#snippet template()}
+		<Field.Field
+			label="Event Duration"
+			description="Select the start and end dates for your event"
+			required
+		>
+			<DateRangePicker />
+		</Field.Field>
+	{/snippet}
+</Story>
+
+<Story name="Field with Presets">
+	{#snippet template()}
+		<Field.Field
+			label="Appointment Date"
+			description="Choose a date or select from quick options"
+		>
+			<DatePickerWithPresets />
+		</Field.Field>
+	{/snippet}
+</Story>
+
+
+
+<Story name="Complete Booking Form">
+	{#snippet template()}
+		<div class="w-full max-w-md">
+			<Field.Set>
+				<Field.Legend>Hotel Booking</Field.Legend>
+				<Field.Description>Select your stay dates and personal information</Field.Description>
+				
+				<Field.Separator />
+				
+				<Field.Group class="gap-4">
+					<Field.Field
+						label="Check-in Date"
+						description="Select your arrival date"
+						required
+					>
+						<DatePicker 
+							buttonVariant="outline"
+							buttonClass="w-full"
+						/>
+					</Field.Field>
+					
+					<Field.Field
+						label="Stay Duration"
+						description="Select check-in and check-out dates"
+						required
+					>
+						<DateRangePicker 
+							buttonVariant="outline"
+							buttonClass="w-full"
+						/>
+					</Field.Field>
+					
+					<Field.Field
+						label="Date of Birth"
+						description="For age verification (optional)"
+					>
+						<DatePicker 
+							buttonVariant="ghost"
+						/>
+					</Field.Field>
+				</Field.Group>
+				
+				<div class="flex gap-4 pt-4">
+					<Button type="submit">Book Now</Button>
+					<Button variant="outline" type="button">Clear Dates</Button>
+				</div>
+			</Field.Set>
+		</div>
+	{/snippet}
+</Story>
+
+

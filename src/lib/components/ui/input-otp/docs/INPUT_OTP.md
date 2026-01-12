@@ -236,3 +236,154 @@ Bits UI provides helpful pattern constants:
   } from "bits-ui";
 </script>
 ```
+
+## Using InputOTP with Field Component
+
+The Field component provides a consistent way to add labels, descriptions, and error handling to your InputOTP components.
+
+### Basic Field Usage
+
+```svelte
+<script>
+  import { InputOTP } from "$core/components/ui/input-otp";
+  import * as Field from "$core/components/ui/field";
+  
+  let code = $state("");
+</script>
+
+<Field.Field
+  label="Verification Code"
+  description="Enter the 6-digit code sent to your phone"
+>
+  <InputOTP maxlength={6} groups={2} bind:value={code} />
+</Field.Field>
+```
+
+### With Validation
+
+```svelte
+<script>
+  import { InputOTP } from "$core/components/ui/input-otp";
+  import * as Field from "$core/components/ui/field";
+  import { REGEXP_ONLY_DIGITS } from "bits-ui";
+  
+  let code = $state("");
+  let error = $derived(code.length > 0 && code.length < 6);
+</script>
+
+<Field.Field
+  label="OTP Code"
+  description="Please enter the complete 6-digit code"
+  required
+  error={error ? "Code must be 6 digits" : undefined}
+>
+  <InputOTP 
+    maxlength={6} 
+    groups={2}
+    pattern={REGEXP_ONLY_DIGITS}
+    bind:value={code}
+    error={error}
+  />
+</Field.Field>
+```
+
+### Different Variants with Field
+
+```svelte
+<Field.Field
+  label="Security Code"
+  description="Outline variant for better visibility"
+>
+  <InputOTP 
+    maxlength={6} 
+    variant="outline"
+    groups={3}
+    size="lg"
+  />
+</Field.Field>
+
+<Field.Field
+  label="Access Code"
+  description="Underline variant for minimal design"
+>
+  <InputOTP 
+    maxlength={4} 
+    variant="underline"
+    groups={1}
+  />
+</Field.Field>
+```
+
+### Complete Form Example
+
+```svelte
+<script>
+  import { InputOTP } from "$core/components/ui/input-otp";
+  import * as Field from "$core/components/ui/field";
+  import { Button } from "$core/components/ui/button";
+  import { REGEXP_ONLY_DIGITS } from "bits-ui";
+  
+  let verificationCode = $state("");
+  let backupCode = $state("");
+  
+  let codeError = $derived(
+    verificationCode.length > 0 && verificationCode.length < 6
+      ? "Verification code must be 6 digits"
+      : undefined
+  );
+  
+  function handleSubmit() {
+    console.log("Codes:", { verificationCode, backupCode });
+  }
+</script>
+
+<Field.Set>
+  <Field.Legend>Two-Factor Authentication</Field.Legend>
+  <Field.Description>
+    Enter the verification codes to access your account
+  </Field.Description>
+  
+  <Field.Separator />
+  
+  <Field.Group class="gap-4">
+    <Field.Field
+      label="Verification Code"
+      description="Enter the 6-digit code from your authenticator app"
+      required
+      error={codeError}
+    >
+      <InputOTP
+        maxlength={6}
+        groups={2}
+        pattern={REGEXP_ONLY_DIGITS}
+        bind:value={verificationCode}
+        error={!!codeError}
+        variant="outline"
+        size="lg"
+      />
+    </Field.Field>
+    
+    <Field.Field
+      label="Backup Code (Optional)"
+      description="Use a backup code if you don't have access to your authenticator"
+    >
+      <InputOTP
+        maxlength={8}
+        groups={2}
+        pattern={REGEXP_ONLY_DIGITS_AND_CHARS}
+        bind:value={backupCode}
+        variant="underline"
+      />
+    </Field.Field>
+  </Field.Group>
+  
+  <div class="flex gap-4 pt-4">
+    <Button onclick={handleSubmit} disabled={!!codeError}>
+      Verify & Login
+    </Button>
+    <Button variant="outline" type="button">
+      Resend Code
+    </Button>
+  </div>
+</Field.Set>
+```

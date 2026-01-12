@@ -534,3 +534,217 @@ Use inline variant for view modes and sorting options.
 
 ### Surveys
 Use appropriate variant based on question complexity.
+
+## Using RadioGroup with Field Component
+
+The Field component provides a consistent way to add labels, descriptions, and error handling to your RadioGroup components. RadioGroup already has built-in label and description props, but Field adds additional structure and validation capabilities.
+
+### Basic Field Usage
+
+```svelte
+<script>
+  import { RadioGroup } from "$core/components/ui/radio";
+  import type { RadioGroupOption } from "$core/components/ui/radio";
+  import * as Field from "$core/components/ui/field";
+  
+  let selectedPlan = $state("pro");
+  
+  const planOptions: RadioGroupOption[] = [
+    { id: "free", label: "Free Plan", value: "free", description: "$0/month" },
+    { id: "pro", label: "Pro Plan", value: "pro", description: "$29/month" },
+    { id: "enterprise", label: "Enterprise", value: "enterprise", description: "$99/month" },
+  ];
+</script>
+
+<Field.Field
+  label="Subscription Plan"
+  description="Choose the plan that fits your needs"
+  required
+>
+  <RadioGroup 
+    options={planOptions}
+    bind:value={selectedPlan}
+  />
+</Field.Field>
+```
+
+### With Validation
+
+```svelte
+<script>
+  import { RadioGroup } from "$core/components/ui/radio";
+  import * as Field from "$core/components/ui/field";
+  
+  let paymentMethod = $state("");
+  let error = $derived(paymentMethod === "");
+  
+  const paymentOptions = [
+    { id: "card", label: "Credit Card", value: "card" },
+    { id: "paypal", label: "PayPal", value: "paypal" },
+    { id: "bank", label: "Bank Transfer", value: "bank" },
+  ];
+</script>
+
+<Field.Field
+  label="Payment Method"
+  description="Select your preferred payment method"
+  required
+  error={error ? "Please select a payment method" : undefined}
+>
+  <RadioGroup 
+    options={paymentOptions}
+    bind:value={paymentMethod}
+    error={error}
+  />
+</Field.Field>
+```
+
+### Card Variant with Field
+
+```svelte
+<script>
+  import { RadioGroup } from "$core/components/ui/radio";
+  import * as Field from "$core/components/ui/field";
+  
+  let selectedPlan = $state("pro");
+  
+  const planOptions = [
+    { 
+      id: "free", 
+      label: "Free Plan", 
+      value: "free", 
+      description: "Basic features for personal use - $0/month" 
+    },
+    { 
+      id: "pro", 
+      label: "Pro Plan", 
+      value: "pro", 
+      description: "Advanced features for professionals - $29/month" 
+    },
+    { 
+      id: "enterprise", 
+      label: "Enterprise", 
+      value: "enterprise", 
+      description: "Custom solutions for large teams - $99/month" 
+    },
+  ];
+</script>
+
+<Field.Field
+  label="Choose Your Plan"
+  description="Select the subscription tier that best fits your needs"
+>
+  <RadioGroup 
+    options={planOptions}
+    bind:value={selectedPlan}
+    isCard={true}
+    variant="success"
+  />
+</Field.Field>
+```
+
+### Horizontal Layout with Field
+
+```svelte
+<Field.Field
+  label="Notification Frequency"
+  description="How often would you like to receive updates?"
+>
+  <RadioGroup 
+    options={[
+      { id: "realtime", label: "Real-time", value: "realtime" },
+      { id: "daily", label: "Daily", value: "daily" },
+      { id: "weekly", label: "Weekly", value: "weekly" },
+    ]}
+    orientation="horizontal"
+    radioSize="lg"
+  />
+</Field.Field>
+```
+
+### Multiple RadioGroups in Form
+
+```svelte
+<script>
+  import { RadioGroup } from "$core/components/ui/radio";
+  import * as Field from "$core/components/ui/field";
+  import { Button } from "$core/components/ui/button";
+  
+  let formData = $state({
+    plan: "pro",
+    billing: "monthly",
+    support: "email",
+  });
+  
+  const planOptions = [
+    { id: "free", label: "Free", value: "free", description: "$0/month" },
+    { id: "pro", label: "Pro", value: "pro", description: "$29/month" },
+    { id: "enterprise", label: "Enterprise", value: "enterprise", description: "$99/month" },
+  ];
+  
+  const billingOptions = [
+    { id: "monthly", label: "Monthly", value: "monthly", description: "Pay monthly" },
+    { id: "yearly", label: "Yearly", value: "yearly", description: "Save 20%" },
+  ];
+  
+  const supportOptions = [
+    { id: "email", label: "Email Support", value: "email" },
+    { id: "chat", label: "Live Chat", value: "chat" },
+    { id: "phone", label: "Phone Support", value: "phone" },
+  ];
+  
+  function handleSubmit() {
+    console.log("Form data:", formData);
+  }
+</script>
+
+<Field.Set>
+  <Field.Legend>Subscription Settings</Field.Legend>
+  <Field.Description>Configure your subscription preferences</Field.Description>
+  
+  <Field.Separator />
+  
+  <Field.Group class="gap-6">
+    <Field.Field
+      label="Plan Selection"
+      description="Choose your subscription tier"
+      required
+    >
+      <RadioGroup 
+        options={planOptions}
+        bind:value={formData.plan}
+        isCard={true}
+      />
+    </Field.Field>
+    
+    <Field.Field
+      label="Billing Cycle"
+      description="Select how you'd like to be billed"
+      required
+    >
+      <RadioGroup 
+        options={billingOptions}
+        bind:value={formData.billing}
+        orientation="horizontal"
+        radioSize="lg"
+      />
+    </Field.Field>
+    
+    <Field.Field
+      label="Support Channel"
+      description="Preferred method for customer support"
+    >
+      <RadioGroup 
+        options={supportOptions}
+        bind:value={formData.support}
+        variant="success"
+      />
+    </Field.Field>
+  </Field.Group>
+  
+  <div class="flex gap-4 pt-4">
+    <Button onclick={handleSubmit}>Save Preferences</Button>
+    <Button variant="outline" type="button">Cancel</Button>
+  </div>
+</Field.Set>
+```

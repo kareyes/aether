@@ -227,3 +227,240 @@ The component uses Tailwind variants for consistent styling:
 ## Browser Support
 
 Works in all modern browsers with full feature support.
+
+## Using Checkbox with Field Component
+
+The Field component provides a consistent way to add labels, descriptions, and error handling to your Checkbox components. Note that Checkbox already has built-in label and description props, so Field is most useful for grouping multiple checkboxes or when you need the advanced Field features.
+
+### Basic Field Usage
+
+```svelte
+<script>
+  import { Checkbox } from "$core/components/ui/checkbox";
+  import * as Field from "$core/components/ui/field";
+  
+  let acceptTerms = $state(false);
+</script>
+
+<Field.Field
+  label="Agreements"
+  description="Please review and accept our policies"
+  required
+>
+  <Checkbox 
+    bind:checked={acceptTerms}
+    label="I accept the terms and conditions"
+  />
+</Field.Field>
+```
+
+### Checkbox Group with Field
+
+```svelte
+<script>
+  import { Checkbox } from "$core/components/ui/checkbox";
+  import * as Field from "$core/components/ui/field";
+  
+  let notifications = $state(false);
+  let marketing = $state(false);
+  let updates = $state(false);
+</script>
+
+<Field.Set>
+  <Field.Legend>Email Preferences</Field.Legend>
+  <Field.Description>Choose which emails you'd like to receive</Field.Description>
+  
+  <Field.Separator />
+  
+  <Field.Group class="gap-4">
+    <Checkbox 
+      bind:checked={notifications}
+      label="Notifications"
+      description="Receive notifications about account activity"
+    />
+    
+    <Checkbox 
+      bind:checked={marketing}
+      label="Marketing Emails"
+      description="Get updates about new products and features"
+    />
+    
+    <Checkbox 
+      bind:checked={updates}
+      label="Product Updates"
+      description="Stay informed about product improvements"
+    />
+  </Field.Group>
+</Field.Set>
+```
+
+### With Error State
+
+```svelte
+<script>
+  import { Checkbox } from "$core/components/ui/checkbox";
+  import * as Field from "$core/components/ui/field";
+  
+  let acceptTerms = $state(false);
+  let error = $derived(!acceptTerms);
+</script>
+
+<Field.Field
+  label="Terms & Conditions"
+  required
+  error={error ? "You must accept the terms to continue" : undefined}
+>
+  <Checkbox 
+    bind:checked={acceptTerms}
+    label="I accept the terms and conditions"
+    variant={error ? "destructive" : "default"}
+  />
+</Field.Field>
+```
+
+### Multiple Checkboxes with Variants
+
+```svelte
+<script>
+  import { Checkbox } from "$core/components/ui/checkbox";
+  import * as Field from "$core/components/ui/field";
+  
+  let tasks = $state({
+    design: false,
+    development: false,
+    testing: false,
+    deployment: true,
+  });
+</script>
+
+<Field.Set>
+  <Field.Legend>Project Checklist</Field.Legend>
+  <Field.Description>Track your project progress</Field.Description>
+  
+  <Field.Separator />
+  
+  <Field.Group class="gap-4">
+    <Checkbox 
+      bind:checked={tasks.design}
+      label="Complete Design"
+      description="UI/UX design and mockups"
+      lineThrough={true}
+      variant="default"
+    />
+    
+    <Checkbox 
+      bind:checked={tasks.development}
+      label="Development Phase"
+      description="Code implementation"
+      lineThrough={true}
+      variant="default"
+    />
+    
+    <Checkbox 
+      bind:checked={tasks.testing}
+      label="Testing & QA"
+      description="Quality assurance testing"
+      lineThrough={true}
+      variant="warning"
+    />
+    
+    <Checkbox 
+      bind:checked={tasks.deployment}
+      label="Deployment"
+      description="Deploy to production"
+      lineThrough={true}
+      variant="success"
+    />
+  </Field.Group>
+</Field.Set>
+```
+
+### Complete Form with Field
+
+```svelte
+<script>
+  import { Checkbox } from "$core/components/ui/checkbox";
+  import * as Field from "$core/components/ui/field";
+  import { Button } from "$core/components/ui/button";
+  
+  let formData = $state({
+    acceptTerms: false,
+    ageConfirmation: false,
+    newsletter: false,
+    updates: false,
+  });
+  
+  let hasError = $derived(!formData.acceptTerms || !formData.ageConfirmation);
+  
+  function handleSubmit() {
+    if (!hasError) {
+      console.log("Form submitted:", formData);
+    }
+  }
+</script>
+
+<div class="w-full max-w-md space-y-6">
+  <Field.Set>
+    <Field.Legend>Account Setup</Field.Legend>
+    <Field.Description>Complete your account registration</Field.Description>
+    
+    <Field.Separator />
+    
+    <Field.Group class="gap-4">
+      <Field.Field
+        label="Required Agreements"
+        required
+        error={!formData.acceptTerms ? "You must accept the terms" : undefined}
+      >
+        <Checkbox 
+          bind:checked={formData.acceptTerms}
+          label="I accept the terms and conditions"
+          variant={!formData.acceptTerms ? "destructive" : "success"}
+          size="lg"
+        />
+      </Field.Field>
+      
+      <Field.Field
+        label="Age Verification"
+        required
+        error={!formData.ageConfirmation ? "Age confirmation required" : undefined}
+      >
+        <Checkbox 
+          bind:checked={formData.ageConfirmation}
+          label="I confirm I am 18 years or older"
+          variant={!formData.ageConfirmation ? "destructive" : "success"}
+          size="lg"
+        />
+      </Field.Field>
+      
+      <Field.Field
+        label="Optional Subscriptions"
+        description="Choose which communications you'd like to receive"
+      >
+        <div class="space-y-2">
+          <Checkbox 
+            bind:checked={formData.newsletter}
+            label="Subscribe to newsletter"
+            description="Weekly updates and tips"
+          />
+          
+          <Checkbox 
+            bind:checked={formData.updates}
+            label="Product updates"
+            description="New features and improvements"
+          />
+        </div>
+      </Field.Field>
+    </Field.Group>
+    
+    <div class="flex gap-4 pt-4">
+      <Button onclick={handleSubmit} disabled={hasError}>
+        Create Account
+      </Button>
+      <Button variant="outline" type="button">
+        Cancel
+      </Button>
+    </div>
+  </Field.Set>
+</div>
+```

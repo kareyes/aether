@@ -4,6 +4,8 @@
 	import FileInputDragDrop from "../file-input-drag-drop.svelte";
 	import FileInputRegular from "../file-input-regular.svelte";
 	import FileInputButton from "../file-input-button.svelte";
+	import * as Field from '$core/components/ui/field';
+	import { Button } from '$core/components/ui/button';
 
 	const { Story } = defineMeta({
 		title: 'Components/FileInput',
@@ -483,5 +485,126 @@
 		onFilesChange={(files) => console.log('Files changed:', files)}
 		onError={(error) => console.log('Error:', error)}
 	/>
+</Story>
+
+<!-- With Field Component -->
+<Story name="Field with Basic FileInput">
+	{#snippet template()}
+		<Field.Field
+			label="Upload Documents"
+			description="Supported formats: PDF, DOC, DOCX (Max 5MB)"
+		>
+			<FileInput 
+				validation={{
+					maxFiles: 3,
+					maxSize: 5 * 1024 * 1024,
+					acceptedTypes: ['.pdf', '.doc', '.docx']
+				}}
+			/>
+		</Field.Field>
+	{/snippet}
+</Story>
+
+<Story name="Field with Image Upload">
+	{#snippet template()}
+		<Field.Field
+			label="Profile Picture"
+			description="Upload your profile photo (JPG, PNG)"
+			required
+		>
+			<FileInput 
+				mode="drag-drop"
+				validation={{
+					maxFiles: 1,
+					maxSize: 2 * 1024 * 1024,
+					acceptedTypes: ['image/*']
+				}}
+			/>
+		</Field.Field>
+	{/snippet}
+</Story>
+
+<Story name="Field with Regular Mode">
+	{#snippet template()}
+		<Field.Field
+			label="Resume"
+			description="Upload your resume in PDF format"
+			required
+		>
+			<FileInput 
+				mode="regular"
+				validation={{
+					maxFiles: 1,
+					acceptedTypes: ['.pdf']
+				}}
+				regularProps={{
+					placeholder: 'Choose PDF file...',
+					
+				}}
+			/>
+		</Field.Field>
+	{/snippet}
+</Story>
+
+
+<Story name="Complete Upload Form with Field">
+	{#snippet template()}
+		<div class="w-full max-w-2xl">
+			<Field.Set>
+				<Field.Legend>Job Application</Field.Legend>
+				<Field.Description>Upload your application documents</Field.Description>
+				
+				<Field.Separator />
+				
+				<Field.Group class="gap-6">
+					<Field.Field
+						label="Resume"
+						description="Upload your resume (PDF only, max 5MB)"
+						required
+					>
+						<FileInput 
+							validation={{
+								maxFiles: 1,
+								maxSize: 5 * 1024 * 1024,
+								acceptedTypes: ['.pdf']
+							}}
+						/>
+					</Field.Field>
+					
+					<Field.Field
+						label="Cover Letter"
+						description="Upload your cover letter (PDF or DOC)"
+						required
+					>
+						<FileInput 
+							validation={{
+								maxFiles: 1,
+								maxSize: 3 * 1024 * 1024,
+								acceptedTypes: ['.pdf', '.doc', '.docx']
+							}}
+						/>
+					</Field.Field>
+					
+					<Field.Field
+						label="Portfolio (Optional)"
+						description="Upload portfolio samples (Images or PDFs, max 10MB total)"
+					>
+						<FileInput 
+							validation={{
+								maxFiles: 5,
+								maxSize: 10 * 1024 * 1024,
+								acceptedTypes: ['image/*', '.pdf']
+							}}
+						/>
+					</Field.Field>
+				</Field.Group>
+				
+				<div class="flex gap-4 pt-4">
+					<Button type="submit">Submit Application</Button>
+					<Button variant="outline" type="button">Save Draft</Button>
+				</div>
+			</Field.Set>
+		</div>
+	{/snippet}
 </Story>
 

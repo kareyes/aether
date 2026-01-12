@@ -270,3 +270,248 @@ The date picker uses `@internationalized/date` for date handling:
 - `@internationalized/date` - Date handling
 - `@lucide/svelte` - Icons
 - Tailwind CSS - Styling
+
+## Using DatePicker with Field Component
+
+The Field component provides a consistent way to add labels, descriptions, and error handling to your DatePicker components.
+
+### Basic Field Usage
+
+```svelte
+<script>
+  import { DatePicker } from "$core/components/ui/date-picker";
+  import * as Field from "$core/components/ui/field";
+  import type { DateValue } from "@internationalized/date";
+  
+  let birthdate = $state<DateValue | undefined>();
+</script>
+
+<Field.Field
+  label="Date of Birth"
+  description="Select your birth date"
+>
+  <DatePicker bind:value={birthdate} />
+</Field.Field>
+```
+
+### With Validation
+
+```svelte
+<script>
+  import { DatePicker } from "$core/components/ui/date-picker";
+  import * as Field from "$core/components/ui/field";
+  import type { DateValue } from "@internationalized/date";
+  
+  let startDate = $state<DateValue | undefined>();
+  let error = $derived(!startDate);
+</script>
+
+<Field.Field
+  label="Project Start Date"
+  description="When will your project begin?"
+  required
+  error={error ? "Please select a start date" : undefined}
+>
+  <DatePicker 
+    bind:value={startDate}
+    error={error}
+  />
+</Field.Field>
+```
+
+### Date Range with Field
+
+```svelte
+<script>
+  import { DateRangePicker } from "$core/components/ui/date-picker";
+  import * as Field from "$core/components/ui/field";
+  import type { DateRange } from "bits-ui";
+  
+  let dateRange = $state<DateRange | undefined>();
+</script>
+
+<Field.Field
+  label="Event Duration"
+  description="Select the start and end dates for your event"
+  required
+>
+  <DateRangePicker bind:value={dateRange} />
+</Field.Field>
+```
+
+### With Presets and Field
+
+```svelte
+<script>
+  import { DatePickerWithPresets } from "$core/components/ui/date-picker";
+  import * as Field from "$core/components/ui/field";
+  
+  let appointmentDate = $state();
+</script>
+
+<Field.Field
+  label="Appointment Date"
+  description="Choose a date or select from quick options"
+>
+  <DatePickerWithPresets bind:value={appointmentDate} />
+</Field.Field>
+```
+
+### Different Button Variants
+
+```svelte
+<Field.Field
+  label="Deadline"
+  description="Project completion deadline"
+>
+  <DatePicker 
+    bind:value={deadline}
+    buttonVariant="outline"
+    buttonClass="w-full"
+  />
+</Field.Field>
+
+<Field.Field
+  label="Meeting Date"
+  description="Schedule your meeting"
+>
+  <DatePicker 
+    bind:value={meetingDate}
+    buttonVariant="ghost"
+  />
+</Field.Field>
+```
+
+### Complete Booking Form
+
+```svelte
+<script>
+  import { DatePicker, DateRangePicker } from "$core/components/ui/date-picker";
+  import * as Field from "$core/components/ui/field";
+  import { Button } from "$core/components/ui/button";
+  import type { DateValue, DateRange } from "@internationalized/date";
+  
+  let formData = $state({
+    checkIn: undefined as DateValue | undefined,
+    checkOut: undefined as DateRange | undefined,
+    birthdate: undefined as DateValue | undefined,
+  });
+  
+  let checkInError = $derived(!formData.checkIn ? "Check-in date is required" : undefined);
+  let checkOutError = $derived(!formData.checkOut ? "Check-out date is required" : undefined);
+  
+  function handleSubmit() {
+    if (!checkInError && !checkOutError) {
+      console.log("Booking data:", formData);
+    }
+  }
+</script>
+
+<div class="w-full max-w-md">
+  <Field.Set>
+    <Field.Legend>Hotel Booking</Field.Legend>
+    <Field.Description>Select your stay dates and personal information</Field.Description>
+    
+    <Field.Separator />
+    
+    <Field.Group class="gap-4">
+      <Field.Field
+        label="Check-in Date"
+        description="Select your arrival date"
+        required
+        error={checkInError}
+      >
+        <DatePicker 
+          bind:value={formData.checkIn}
+          error={!!checkInError}
+          buttonVariant="outline"
+          buttonClass="w-full"
+        />
+      </Field.Field>
+      
+      <Field.Field
+        label="Stay Duration"
+        description="Select check-in and check-out dates"
+        required
+        error={checkOutError}
+      >
+        <DateRangePicker 
+          bind:value={formData.checkOut}
+          error={!!checkOutError}
+          buttonVariant="outline"
+          buttonClass="w-full"
+        />
+      </Field.Field>
+      
+      <Field.Field
+        label="Date of Birth"
+        description="For age verification (optional)"
+      >
+        <DatePicker 
+          bind:value={formData.birthdate}
+          buttonVariant="ghost"
+        />
+      </Field.Field>
+    </Field.Group>
+    
+    <div class="flex gap-4 pt-4">
+      <Button 
+        onclick={handleSubmit} 
+        disabled={!!checkInError || !!checkOutError}
+      >
+        Book Now
+      </Button>
+      <Button variant="outline" type="button">
+        Clear Dates
+      </Button>
+    </div>
+  </Field.Set>
+</div>
+```
+
+### With Custom Presets
+
+```svelte
+<script>
+  import { DateRangePickerWithPresets } from "$core/components/ui/date-picker";
+  import * as Field from "$core/components/ui/field";
+  import { today, getLocalTimeZone } from "@internationalized/date";
+  
+  const customPresets = [
+    {
+      label: "Next 7 Days",
+      value: {
+        start: today(getLocalTimeZone()),
+        end: today(getLocalTimeZone()).add({ days: 7 }),
+      },
+    },
+    {
+      label: "Next 30 Days",
+      value: {
+        start: today(getLocalTimeZone()),
+        end: today(getLocalTimeZone()).add({ days: 30 }),
+      },
+    },
+    {
+      label: "Next Quarter",
+      value: {
+        start: today(getLocalTimeZone()),
+        end: today(getLocalTimeZone()).add({ months: 3 }),
+      },
+    },
+  ];
+  
+  let reportRange = $state();
+</script>
+
+<Field.Field
+  label="Report Period"
+  description="Select the date range for your report"
+  required
+>
+  <DateRangePickerWithPresets 
+    bind:value={reportRange}
+    presets={customPresets}
+  />
+</Field.Field>
+```
