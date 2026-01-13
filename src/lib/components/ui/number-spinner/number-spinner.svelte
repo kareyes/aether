@@ -7,6 +7,7 @@
 		NumberSpinnerOrientation,
 	} from "./number-spinner-variants.js";
 	import { ChevronUp, ChevronDown, Plus, Minus } from "@lucide/svelte";
+	import LoaderIcon from "@lucide/svelte/icons/loader-2";
 	import type { HTMLInputAttributes } from "svelte/elements";
 
 	interface NumberSpinnerProps extends Omit<HTMLInputAttributes, "size" | "type"> {
@@ -59,6 +60,10 @@
 		 */
 		error?: boolean;
 		/**
+		 * Loading state - when true, shows a spinner and disables the input
+		 */
+		loading?: boolean;
+		/**
 		 * Callback function called when error state changes
 		 */
 		onError?: (error: boolean) => void;
@@ -96,6 +101,7 @@
 		disabled = false,
 		required = false,
 		error = false,
+		loading = false,
 		onError,
 		onValueChange,
 		class: className,
@@ -122,7 +128,7 @@
 	});
 
 	function increment() {
-		if (disabled) return;
+		if (disabled || loading) return;
 
 		let newValue = (value ?? 0) + step;
 
@@ -138,7 +144,7 @@
 	}
 
 	function decrement() {
-		if (disabled) return;
+		if (disabled || loading) return;
 
 		let newValue = (value ?? 0) - step;
 
@@ -184,7 +190,7 @@
 	}
 
 	function handleKeyDown(event: KeyboardEvent) {
-		if (disabled) return;
+		if (disabled || loading) return;
 
 		if (event.key === "ArrowUp") {
 			event.preventDefault();
@@ -195,8 +201,8 @@
 		}
 	}
 
-	const canIncrement = $derived(!disabled && (max === undefined || (value ?? 0) < max));
-	const canDecrement = $derived(!disabled && (min === undefined || (value ?? 0) > min));
+	const canIncrement = $derived(!disabled && !loading && (max === undefined || (value ?? 0) < max));
+	const canDecrement = $derived(!disabled && !loading && (min === undefined || (value ?? 0) > min));
 </script>
 
 <div class={cn(styles.root(), className)} data-orientation={orientation}>
@@ -209,7 +215,11 @@
 			tabindex="-1"
 			aria-label="Decrease value"
 		>
-			<Minus class={styles.button()} />
+			{#if loading}
+				<LoaderIcon class="size-4 animate-spin" />
+			{:else}
+				<Minus class={styles.button()} />
+			{/if}
 		</button>
 	{/if}
 
@@ -223,7 +233,7 @@
 		{min}
 		{max}
 		{step}
-		{disabled}
+		disabled={disabled || loading}
 		{required}
 		{placeholder}
 		aria-invalid={error}
@@ -240,7 +250,11 @@
 				tabindex="-1"
 				aria-label="Increase value"
 			>
-				<ChevronUp class="size-full" />
+				{#if loading}
+					<LoaderIcon class="size-3 animate-spin" />
+				{:else}
+					<ChevronUp class="size-full" />
+				{/if}
 			</button>
 			<button
 				type="button"
@@ -250,7 +264,11 @@
 				tabindex="-1"
 				aria-label="Decrease value"
 			>
-				<ChevronDown class="size-full" />
+				{#if loading}
+					<LoaderIcon class="size-3 animate-spin" />
+				{:else}
+					<ChevronDown class="size-full" />
+				{/if}
 			</button>
 		</div>
 	{:else}
@@ -262,7 +280,11 @@
 			tabindex="-1"
 			aria-label="Increase value"
 		>
-			<Plus class={styles.button()} />
+			{#if loading}
+				<LoaderIcon class="size-4 animate-spin" />
+			{:else}
+				<Plus class={styles.button()} />
+			{/if}
 		</button>
 	{/if}
 </div>

@@ -16,6 +16,10 @@ export type TextareaProps = WithoutChildren<WithElementRef<HTMLTextareaAttribute
 	 */
 	error?: boolean;
 	/**
+	 * Loading state - when true, shows a spinner and disables the textarea
+	 */
+	loading?: boolean;
+	/**
 	 * Callback function called when an error state is detected
 	 */
 	onError?: (error: boolean) => void;

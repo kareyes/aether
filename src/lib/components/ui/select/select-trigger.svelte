@@ -42,6 +42,7 @@
 <script lang="ts">
 	import { Select as SelectPrimitive } from "bits-ui";
 	import ChevronDownIcon from "@lucide/svelte/icons/chevron-down";
+	import LoaderIcon from "@lucide/svelte/icons/loader-2";
 	import { cn, type WithoutChild } from "$core/utils.js";
 
 	let {
@@ -51,6 +52,7 @@
 		size = "default",
 		variant = "default",
 		error = false,
+		loading = false,
 		onError,
 		...restProps
 	}: WithoutChild<SelectPrimitive.TriggerProps> & {
@@ -60,6 +62,10 @@
 		 * Error state - when true, applies error styling via aria-invalid
 		 */
 		error?: boolean;
+		/**
+		 * Loading state - when true, shows a spinner
+		 */
+		loading?: boolean;
 		/**
 		 * Callback function called when an error state is detected
 		 */
@@ -88,5 +94,9 @@
 	{...restProps}
 >
 	{@render children?.()}
-	<ChevronDownIcon class="size-4 opacity-50" />
+	{#if loading}
+		<LoaderIcon class="size-4 animate-spin opacity-50" />
+	{:else}
+		<ChevronDownIcon class="size-4 opacity-50" />
+	{/if}
 </SelectPrimitive.Trigger>

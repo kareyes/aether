@@ -89,6 +89,14 @@
 					defaultValue: { summary: "false" },
 				},
 			},
+			loading: {
+				control: "boolean",
+				description: "Loading state - when true, shows spinners and disables the input",
+				table: {
+					type: { summary: "boolean" },
+					defaultValue: { summary: "false" },
+				},
+			},
 			required: {
 				control: "boolean",
 				description: "Whether the field is required",
@@ -121,6 +129,7 @@
 			orientation: "vertical",
 			step: 1,
 			disabled: false,
+			loading: false,
 			required: false,
 			error: false,
 		},
@@ -290,6 +299,21 @@
 			<div>
 				<h3 class="mb-2 text-sm font-medium">Horizontal Disabled</h3>
 				<NumberSpinner value={10} disabled={true} orientation="horizontal" />
+			</div>
+		</div>
+	{/snippet}
+</Story>
+
+<Story name="Loading State">
+	{#snippet template(args: Args)}
+		<div class="space-y-4">
+			<div>
+				<h3 class="mb-2 text-sm font-medium">Loading</h3>
+				<NumberSpinner value={10} loading={true} />
+			</div>
+			<div>
+				<h3 class="mb-2 text-sm font-medium">Horizontal Loading</h3>
+				<NumberSpinner value={10} loading={true} orientation="horizontal" />
 			</div>
 		</div>
 	{/snippet}

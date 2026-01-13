@@ -35,6 +35,7 @@
 		itemClass,
 		sideOffset = 4,
 		error = false,
+		loading = false,
 		onError,
 		onSelectionChange,
 		...restProps
@@ -77,6 +78,7 @@
 		{size}
 		{variant}
 		{error}
+		{loading}
 		{onError}
 		class={cn(triggerClass, className)}
 	>
@@ -131,7 +133,7 @@
 <SelectRoot
 	bind:value={value as string[]}
 	type="multiple"
-	{disabled}
+	disabled={loading || disabled}
 	{required}
 	{name}
 	{...restProps}
@@ -143,7 +145,7 @@
 <SelectRoot
 	bind:value={value as string | undefined}
 	type="single"
-	{disabled}
+	disabled={loading || disabled}
 	{required}
 	{name}
 	{...restProps}

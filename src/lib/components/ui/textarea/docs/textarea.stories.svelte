@@ -85,6 +85,14 @@
 					defaultValue: { summary: "false" },
 				},
 			},
+			loading: {
+				control: { type: "boolean" },
+				description: "Loading state - when true, shows a spinner and disables the textarea",
+				table: {
+					type: { summary: "boolean" },
+					defaultValue: { summary: "false" },
+				},
+			},
 			placeholder: {
 				control: { type: "text" },
 				description: "Placeholder text",
@@ -151,7 +159,6 @@
 			variant: "default",
 			size: "default",
 			resize: "vertical",
-			disabled: false,
 			showCount: false,
 			autoResize: false,
 			placeholder: "Type your message here...",
@@ -168,6 +175,7 @@
 <!-- Basic States -->
 <Story name="Default" args={{}} />
 <Story name="Disabled" args={{ disabled: true, value: "This textarea is disabled" }} />
+<Story name="Loading State" args={{ loading: true, value: "Loading...", placeholder: "Loading textarea" }} />
 <Story name="Error State" args={{ error: true, placeholder: "This field has an error" }} />
 <Story name="Error with Count" args={{ error: true, maxLength: 100, showCount: true, value: "This message has an error and shows character count" }} />
 

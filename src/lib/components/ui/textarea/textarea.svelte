@@ -3,6 +3,7 @@
 	import { textareaVariants } from "./utils/textarea-variants.js";
 	import { useAutoResize, getCharacterCount } from "./utils/textarea-hooks.js";
 	import type { TextareaProps } from "./utils/textarea-types.js";
+	import LoaderIcon from "@lucide/svelte/icons/loader-2";
 
 	let {
 		ref = $bindable(null),
@@ -16,6 +17,7 @@
 		minRows,
 		maxRows,
 		error = false,
+		loading = false,
 		onError,
 		class: className,
 		"data-slot": dataSlot = "textarea",
@@ -49,8 +51,15 @@
 		bind:value
 		maxlength={maxLength}
 		aria-invalid={error}
+		disabled={loading || restProps.disabled}
 		{...restProps}
 	></textarea>
+	
+	{#if loading}
+		<div class="pointer-events-none absolute top-2 right-3">
+			<LoaderIcon class="size-4 animate-spin text-muted-foreground" />
+		</div>
+	{/if}
 	
 	{#if showCount}
 		<div class="pointer-events-none absolute bottom-2 right-3 text-xs text-muted-foreground">

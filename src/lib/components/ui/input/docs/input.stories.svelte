@@ -64,6 +64,14 @@
                     defaultValue: { summary: 'false' },
                 },
             },
+            loading: {
+                control: { type: 'boolean' },
+                description: 'Loading state - when true, shows a spinner and disables the input',
+                table: {
+                    type: { summary: 'boolean' },
+                    defaultValue: { summary: 'false' },
+                },
+            },
             placeholder: {
                 control: { type: 'text' },
                 description: 'Placeholder text',
@@ -134,7 +142,6 @@
             variant: 'default',
             size: 'default',
             type: 'text',
-            disabled: false,
             placeholder: 'Enter text...',
         },
         
@@ -153,6 +160,7 @@
 
 <Story name="Default" args={{}} />
 <Story name="Disabled" args={{ disabled: true, value: 'Cannot edit this', placeholder: 'Disabled input' }} />
+<Story name="Loading State" args={{ loading: true, value: 'Loading...', placeholder: 'Loading input' }} />
 <Story name="Error State" args={{ error: true, placeholder: 'This field has an error' }} />
 <Story name="Error with Value" args={{ error: true, value: 'invalid@email', placeholder: 'Email address' }} />
 

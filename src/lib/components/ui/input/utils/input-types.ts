@@ -24,6 +24,10 @@ export interface InputProps extends WithElementRef<Omit<HTMLInputAttributes, "ty
 	 */
 	error?: boolean;
 	/**
+	 * Loading state - when true, shows a spinner and disables the input
+	 */
+	loading?: boolean;
+	/**
 	 * Callback function called when an error state is detected
 	 */
 	onError?: (error: boolean) => void;

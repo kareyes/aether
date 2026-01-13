@@ -31,6 +31,10 @@ interface BaseProps {
 	 */
 	error?: boolean;
 	/**
+	 * Loading state - when true, shows a spinner and disables the select
+	 */
+	loading?: boolean;
+	/**
 	 * Callback function called when error state changes
 	 */
 	onError?: (error: boolean) => void;

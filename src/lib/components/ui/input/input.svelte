@@ -4,6 +4,7 @@
 	import { useMaskedInput } from './utils/input-hooks.js';
 	import type { InputWithAddonsProps } from './utils/input-types.js';
 	import { InputGroup, InputGroupInput, InputGroupAddon, InputGroupButton, InputGroupText } from '$core/components/ui/input-group';
+	import LoaderIcon from "@lucide/svelte/icons/loader-2";
 
 	let {
 		ref = $bindable(null),
@@ -13,6 +14,7 @@
 		size = "default",
 		mask,
 		error = false,
+		loading = false,
 		onError,
 		class: className,
 		"data-slot": dataSlot = "input",
@@ -53,7 +55,7 @@
 
 	// Determine if we need to wrap with InputGroup
 	const needsWrapper = $derived(
-		!!(startIcon || endIcon || startText || endText || startButton || endButton || startAddon || endAddon)
+		!!(startIcon || endIcon || startText || endText || startButton || endButton || startAddon || endAddon || loading)
 	);
 </script>
 
@@ -97,6 +99,7 @@
 			placeholder={placeholderText()}
 			oninput={onInput}
 			aria-invalid={error}
+			disabled={loading || restProps.disabled}
 			{...restProps}
 		/>
 
@@ -105,8 +108,11 @@
 			<InputGroupAddon align={endAddonAlign}>
 				{@render endAddon()}
 			</InputGroupAddon>
-		{:else if endIcon || endText || endButton}
+		{:else if endIcon || endText || endButton || loading}
 			<InputGroupAddon align={endAddonAlign}>
+				{#if loading}
+					<LoaderIcon class="size-4 animate-spin text-muted-foreground" />
+				{/if}
 				{#if endIcon}
 					{@render endIcon()}
 				{/if}
@@ -134,6 +140,7 @@
 		placeholder={placeholderText()}
 		oninput={onInput}
 		aria-invalid={error}
+		disabled={loading || restProps.disabled}
 		{...restProps}
 	/>
 {/if}

@@ -4,8 +4,8 @@
 	import { createAcceptAttribute } from './utils/file-input-utils.js';
 	import type { DragDropFileInputProps } from './utils/file-input-types.js';
 	// import { Upload, AlertCircle } from '@lucide/svelte';
-	import Upload from '@lucide/svelte/icons/upload.svelte';
-	import AlertCircle from '@lucide/svelte/icons/circle-alert.svelte';
+	import Upload from '@lucide/svelte/icons/upload';
+	import AlertCircle from '@lucide/svelte/icons/circle-alert';
 	import { cn } from '$lib/utils.js';
 
 	let {

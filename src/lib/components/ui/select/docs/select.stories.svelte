@@ -44,6 +44,10 @@
         control: { type: 'boolean' },
         description: 'Error state - when true, applies error styling via aria-invalid',
       },
+      loading: {
+        control: { type: 'boolean' },
+        description: 'Loading state - when true, shows a spinner and disables the select',
+      },
       onError: {
         control: false,
         description: 'Callback function called when error state changes',
@@ -56,7 +60,8 @@
       disabled: false,
       required: false,
       placeholder: 'Select an option...',
-      error: false
+      error: false,
+      loading: false
     }
   });
 
@@ -184,6 +189,13 @@
     disabled: true,
     class: "w-[200px]",
     placeholder: "Disabled Select"
+  }} />
+
+<Story name="Loading State" args={{ 
+    options: fruits,
+    loading: true,
+    class: "w-[200px]",
+    placeholder: "Loading..."
   }} />
 
 <Story name="With Disabled Options" args={{ 
