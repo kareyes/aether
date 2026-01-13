@@ -117,9 +117,17 @@ A powerful component for managing multiple related checkboxes with shared state 
 ### With Field Component
 ```svelte
 <script>
+  import { CheckboxGroup } from "$core/components/ui/checkbox";
+  import type { CheckboxGroupOption } from "$core/components/ui/checkbox";
   import * as Field from "$core/components/ui/field";
   
   let interests = $state([]);
+  
+  const interestOptions: CheckboxGroupOption[] = [
+    { id: "tech", label: "Technology", value: "tech" },
+    { id: "design", label: "Design", value: "design" },
+    { id: "business", label: "Business", value: "business" },
+  ];
 </script>
 
 <Field.Field
@@ -132,6 +140,84 @@ A powerful component for managing multiple related checkboxes with shared state 
     options={interestOptions}
     bind:values={interests}
     error={interests.length === 0}
+  />
+</Field.Field>
+```
+
+### Multiple CheckboxGroups with Field.Set
+```svelte
+<script>
+  import { CheckboxGroup } from "$core/components/ui/checkbox";
+  import * as Field from "$core/components/ui/field";
+  
+  let communication = $state(["email"]);
+  let interests = $state([]);
+</script>
+
+<Field.Set>
+  <Field.Legend>Account Preferences</Field.Legend>
+  <Field.Description>Configure your account settings</Field.Description>
+  
+  <Field.Separator />
+  
+  <Field.Group class="gap-6">
+    <Field.Field
+      label="Communication Preferences"
+      description="How should we contact you?"
+      required
+    >
+      <CheckboxGroup
+        options={[
+          { id: "email", label: "Email", value: "email", description: "Receive updates via email" },
+          { id: "sms", label: "SMS", value: "sms", description: "Receive text messages" },
+          { id: "push", label: "Push Notifications", value: "push", description: "Browser notifications" },
+        ]}
+        bind:values={communication}
+      />
+    </Field.Field>
+
+    <Field.Field
+      label="Interests"
+      description="What topics interest you?"
+    >
+      <CheckboxGroup
+        options={[
+          { id: "tech", label: "Technology", value: "tech" },
+          { id: "design", label: "Design", value: "design" },
+          { id: "business", label: "Business", value: "business" },
+        ]}
+        bind:values={interests}
+        orientation="horizontal"
+      />
+    </Field.Field>
+  </Field.Group>
+</Field.Set>
+```
+
+### With Validation
+```svelte
+<script>
+  import { CheckboxGroup } from "$core/components/ui/checkbox";
+  import * as Field from "$core/components/ui/field";
+  
+  let permissions = $state([]);
+  let error = $derived(permissions.length === 0);
+</script>
+
+<Field.Field
+  label="User Permissions"
+  description="Select at least one permission to continue"
+  required
+  error={error ? "Please select at least one permission" : undefined}
+>
+  <CheckboxGroup 
+    options={[
+      { id: "read", label: "Read", value: "read" },
+      { id: "write", label: "Write", value: "write" },
+      { id: "delete", label: "Delete", value: "delete" },
+    ]}
+    bind:values={permissions}
+    error={error}
   />
 </Field.Field>
 ```

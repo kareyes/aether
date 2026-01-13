@@ -1,6 +1,7 @@
 <script module>
 	import { defineMeta } from '@storybook/addon-svelte-csf';
 	import { Switch } from '$core/components/ui/switch';
+	import * as Field from '$core/components/ui/field';
 
 	const { Story } = defineMeta({
 		title: 'Components/Switch',
@@ -235,3 +236,88 @@
 		</div>
 	</div>
 </Story> -->
+
+<!-- ========================================= -->
+<!-- FIELD INTEGRATION -->
+<!-- ========================================= -->
+
+<Story name="Field with Basic Switch">
+	{#snippet template()}
+		<Field.Field
+			label="Enable notifications"
+			description="Receive email notifications for updates"
+			orientation="horizontal"
+			labelPosition="before"
+		>
+			<Switch checked={false} />
+		</Field.Field>
+	{/snippet}
+</Story>
+
+<Story name="Field with Validation">
+	{#snippet template()}
+		<Field.Field
+			label="Beta features"
+			description="Enable experimental features"
+			orientation="horizontal"
+			labelPosition="before"
+			required
+			error="You must enable beta features to continue"
+		>
+			<Switch checked={false} error={true} />
+		</Field.Field>
+	{/snippet}
+</Story>
+
+<Story name="Field with Success Variant">
+	{#snippet template()}
+		<Field.Field
+			label="Auto-save enabled"
+			description="Automatically save your work"
+			orientation="horizontal"
+			labelPosition="before"
+		>
+			<Switch variant="success" checked={true} />
+		</Field.Field>
+	{/snippet}
+</Story>
+
+<Story name="Field with Multiple Switches">
+	{#snippet template()}
+		<Field.Set>
+			<Field.Legend>Notification Settings</Field.Legend>
+			<Field.Description>Configure how you receive notifications</Field.Description>
+			
+			<Field.Separator />
+			
+			<Field.Group class="gap-4">
+				<Field.Field
+					label="Email Notifications"
+					description="Get notified via email"
+					orientation="horizontal"
+					labelPosition="before"
+				>
+					<Switch variant="success" checked={true} />
+				</Field.Field>
+				
+				<Field.Field
+					label="Push Notifications"
+					description="Get browser push notifications"
+					orientation="horizontal"
+					labelPosition="before"
+				>
+					<Switch variant="default" checked={false} />
+				</Field.Field>
+				
+				<Field.Field
+					label="SMS Notifications"
+					description="Get text message alerts"
+					orientation="horizontal"
+					labelPosition="before"
+				>
+					<Switch variant="warning" checked={false} />
+				</Field.Field>
+			</Field.Group>
+		</Field.Set>
+	{/snippet}
+</Story>

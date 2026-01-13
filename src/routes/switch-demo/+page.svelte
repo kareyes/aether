@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { Switch } from '$core/components/ui/switch';
 	import type { SwitchVariant, SwitchSize } from '$core/components/ui/switch';
+	import * as Field from '$core/components/ui/field';
 
 	let states = $state({
 		basicSwitch: false,
@@ -101,11 +102,11 @@
 						<div class="flex items-center space-x-2">
 							<Switch
 								{variant}
-								bind:checked={states.variants[variant]}
-								onCheckedChange={(checked) => handleSwitchChange(variant, checked)}
+								bind:checked={states.variants[variant as keyof typeof states.variants]}
+								onCheckedChange={(checked) => handleSwitchChange(variant ?? 'default', checked)}
 							/>
 							<span class="text-xs text-muted-foreground">
-								{states.variants[variant] ? 'On' : 'Off'}
+								{states.variants[variant as keyof typeof states.variants] ? 'On' : 'Off'}
 							</span>
 						</div>
 					</div>
@@ -120,16 +121,16 @@
 				{#each sizes as size}
 					<div class="space-y-2">
 						<h3 class="text-sm font-medium capitalize">
-							{size === 'default' ? 'Default' : size.toUpperCase()}
+							{size === 'default' ? 'Default' : size?.toUpperCase() ?? ''}
 						</h3>
 						<div class="flex items-center space-x-2">
 							<Switch
 								{size}
-								bind:checked={states.sizes[size]}
+								bind:checked={states.sizes[size as keyof typeof states.sizes]}
 								onCheckedChange={(checked) => handleSwitchChange(`size-${size}`, checked)}
 							/>
 							<span class="text-xs text-muted-foreground">
-								{states.sizes[size] ? 'On' : 'Off'}
+								{states.sizes[size as keyof typeof states.sizes] ? 'On' : 'Off'}
 							</span>
 						</div>
 					</div>
@@ -268,6 +269,87 @@
 						/>
 					</div>
 				</div>
+			</div>
+		</section>
+
+		<!-- With Field Component -->
+		<section class="space-y-4">
+			<h2 class="text-2xl font-semibold">With Field Component</h2>
+			<p class="text-muted-foreground">
+				Field component provides structured labels, descriptions, and error handling
+			</p>
+
+			<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+				<Field.Field
+					label="Enable notifications"
+					description="Receive email notifications for updates"
+					orientation="horizontal"
+					labelPosition="before"
+				>
+					<Switch bind:checked={states.basicSwitch} variant="success" />
+				</Field.Field>
+
+				<Field.Field
+					label="Auto-save"
+					description="Automatically save your work"
+					orientation="horizontal"
+					labelPosition="before"
+				>
+					<Switch checked={true} variant="success" />
+				</Field.Field>
+			</div>
+
+			<div class="space-y-4">
+				<h3 class="font-medium">With Validation</h3>
+				<Field.Field
+					label="Accept terms and conditions"
+					description="You must accept to continue"
+					required
+					error={!states.formSwitch ? "Please accept the terms to continue" : undefined}
+					orientation="horizontal"
+					labelPosition="before"
+				>
+					<Switch bind:checked={states.formSwitch} error={!states.formSwitch} />
+				</Field.Field>
+			</div>
+
+			<div class="space-y-4">
+				<h3 class="font-medium">Multiple Switches in Field.Set</h3>
+				<Field.Set>
+					<Field.Legend>Notification Preferences</Field.Legend>
+					<Field.Description>Configure how you want to be notified</Field.Description>
+					
+					<Field.Separator />
+					
+					<Field.Group class="gap-4">
+						<Field.Field
+							label="Email Notifications"
+							description="Get notified via email"
+							orientation="horizontal"
+							labelPosition="before"
+						>
+							<Switch variant="success" checked={true} />
+						</Field.Field>
+						
+						<Field.Field
+							label="Push Notifications"
+							description="Get browser push notifications"
+							orientation="horizontal"
+							labelPosition="before"
+						>
+							<Switch variant="default" checked={false} />
+						</Field.Field>
+						
+						<Field.Field
+							label="SMS Notifications"
+							description="Get text message alerts"
+							orientation="horizontal"
+							labelPosition="before"
+						>
+							<Switch variant="warning" checked={false} />
+						</Field.Field>
+					</Field.Group>
+				</Field.Set>
 			</div>
 		</section>
 

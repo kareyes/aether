@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { Checkbox } from "$core/components/ui/checkbox";
+	import * as Field from "$core/components/ui/field";
 
 	let basicChecked = $state(false);
 	let withLabelChecked = $state(false);
@@ -162,6 +163,77 @@
 			/>
 		</div>
 	</section>
+
+	<section class="space-y-6">
+		<h2 class="text-2xl font-semibold">With Field Component</h2>
+		<p class="text-muted-foreground">
+			Field component provides structured labels, descriptions, and error handling
+		</p>
+
+		<div class="space-y-4">
+			<h3 class="text-lg font-medium">Single Checkbox with Field</h3>
+			<Field.Field
+				label="Agreements"
+				description="Please review and accept our policies"
+				required
+			>
+				<Checkbox 
+					label="I accept the terms and conditions"
+					bind:checked={withLabelChecked}
+				/>
+			</Field.Field>
+		</div>
+
+		<div class="space-y-4">
+			<h3 class="text-lg font-medium">With Validation</h3>
+			<Field.Field
+				label="Privacy Policy"
+				description="You must accept to continue"
+				required
+				error={!basicChecked ? "Please accept the privacy policy" : undefined}
+			>
+				<Checkbox 
+					label="I accept the privacy policy"
+					bind:checked={basicChecked}
+					error={!basicChecked}
+				/>
+			</Field.Field>
+		</div>
+
+		<div class="space-y-4">
+			<h3 class="text-lg font-medium">Multiple Checkboxes with Field.Set</h3>
+			<Field.Set>
+				<Field.Legend>Email Preferences</Field.Legend>
+				<Field.Description>Choose which emails you'd like to receive</Field.Description>
+
+<Field.Separator />
+
+<Field.Group class="gap-4">
+<Checkbox 
+label="Notifications"
+description="Receive notifications about account activity"
+variant="default"
+bind:checked={withDescriptionChecked}
+/>
+
+<Checkbox 
+label="Marketing Emails"
+description="Get updates about new products and features"
+variant="default"
+checked={false}
+/>
+
+<Checkbox 
+label="Product Updates"
+description="Stay informed about product improvements"
+variant="success"
+bind:checked={successChecked}
+/>
+</Field.Group>
+</Field.Set>
+</div>
+</section>
+
 
 	<section class="space-y-6">
 		<h2 class="text-2xl font-semibold">Disabled States</h2>

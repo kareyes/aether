@@ -2,6 +2,7 @@
   import { defineMeta } from '@storybook/addon-svelte-csf';
 	import { CheckboxGroup } from "$core/components/ui/checkbox";
   import { fn } from 'storybook/test';
+  import * as Field from '$core/components/ui/field';
 
   const basicOptions = [
     { id: "1", label: "Option 1", value: "option1" },
@@ -300,3 +301,124 @@
   description: "Customize your app experience",
   values: ["notifications"]
 }} />
+<!-- ========================================= -->
+<!-- FIELD INTEGRATION -->
+<!-- ========================================= -->
+
+<Story name="Field with Basic CheckboxGroup">
+  {#snippet template()}
+    <Field.Field
+      label="Select Features"
+      description="Choose the features you want to enable"
+      required
+    >
+      <CheckboxGroup 
+        options={[
+          { id: "feat1", label: "Feature A", value: "feature-a", description: "Enable feature A" },
+          { id: "feat2", label: "Feature B", value: "feature-b", description: "Enable feature B" },
+          { id: "feat3", label: "Feature C", value: "feature-c", description: "Enable feature C" },
+        ]}
+        values={["feature-a"]}
+      />
+    </Field.Field>
+  {/snippet}
+</Story>
+
+<Story name="Field with Validation">
+  {#snippet template()}
+    <Field.Field
+      label="User Permissions"
+      description="Select at least one permission to continue"
+      required
+      error="Please select at least one permission"
+    >
+      <CheckboxGroup 
+        options={[
+          { id: "read", label: "Read", value: "read" },
+          { id: "write", label: "Write", value: "write" },
+          { id: "delete", label: "Delete", value: "delete" },
+        ]}
+        values={[]}
+        error={true}
+      />
+    </Field.Field>
+  {/snippet}
+</Story>
+
+<Story name="Field with Horizontal Layout">
+  {#snippet template()}
+    <Field.Field
+      label="Notification Preferences"
+      description="Choose how you want to be notified"
+    >
+      <CheckboxGroup 
+        options={[
+          { id: "email", label: "Email", value: "email" },
+          { id: "sms", label: "SMS", value: "sms" },
+          { id: "push", label: "Push", value: "push" },
+        ]}
+        orientation="horizontal"
+        values={["email", "push"]}
+      />
+    </Field.Field>
+  {/snippet}
+</Story>
+
+<Story name="Field with Todo List">
+  {#snippet template()}
+    <Field.Field
+      label="Project Tasks"
+      description="Track your progress on these tasks"
+    >
+      <CheckboxGroup 
+        options={todoOptions}
+        lineThrough={true}
+        variant="success"
+        values={["task1"]}
+      />
+    </Field.Field>
+  {/snippet}
+</Story>
+
+<Story name="Complete Form with Field.Set">
+  {#snippet template()}
+    <Field.Set>
+      <Field.Legend>Account Setup</Field.Legend>
+      <Field.Description>Configure your account preferences</Field.Description>
+      
+      <Field.Separator />
+      
+      <Field.Group class="gap-6">
+        <Field.Field
+          label="Communication Preferences"
+          description="How should we contact you?"
+          required
+        >
+          <CheckboxGroup
+            options={[
+              { id: "comm-email", label: "Email", value: "email", description: "Receive updates via email" },
+              { id: "comm-sms", label: "SMS", value: "sms", description: "Receive text messages" },
+              { id: "comm-push", label: "Push Notifications", value: "push", description: "Browser notifications" },
+            ]}
+            values={["email"]}
+          />
+        </Field.Field>
+
+        <Field.Field
+          label="Interests"
+          description="What topics interest you?"
+        >
+          <CheckboxGroup
+            options={[
+              { id: "int-tech", label: "Technology", value: "tech" },
+              { id: "int-design", label: "Design", value: "design" },
+              { id: "int-business", label: "Business", value: "business" },
+            ]}
+            orientation="horizontal"
+            values={["tech", "design"]}
+          />
+        </Field.Field>
+      </Field.Group>
+    </Field.Set>
+  {/snippet}
+</Story>
