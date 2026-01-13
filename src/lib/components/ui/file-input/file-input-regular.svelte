@@ -20,7 +20,7 @@
 		accept,
 		required = false,
 		form,
-		label,
+		error= false,
 		placeholder = 'Choose files...',
 		showFileCount = true,
 		showFileList = true,
@@ -58,9 +58,15 @@
 		}
 	});
 
-	// Update state based on disabled prop
+	// Update state based on disabled and error props
 	$effect(() => {
-		currentState = disabled ? "disabled" : "default";
+		if (disabled) {
+			currentState = "disabled";
+		} else if (error) {
+			currentState = "error";
+		} else {
+			currentState = "default";
+		}
 	});
 
 	const acceptAttribute = accept || createAcceptAttribute(validation.acceptedTypes);
@@ -94,15 +100,6 @@
 </script>
 
 <div class={cn("space-y-2", className)}>
-	{#if label}
-		<label for={id} class="text-sm font-medium text-foreground">
-			{label}
-			{#if required}
-				<span class="text-destructive ml-1">*</span>
-			{/if}
-		</label>
-	{/if}
-
 	<div>
 		<input
 			bind:this={fileInputRef}

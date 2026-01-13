@@ -45,6 +45,9 @@ export interface BaseFileInputProps {
 	
 	/** Form attribute */
 	form?: string;
+
+	/** Whether to show error state */
+	error?: boolean;
 }
 
 /**

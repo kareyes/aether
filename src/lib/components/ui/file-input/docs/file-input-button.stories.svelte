@@ -210,6 +210,7 @@
 			error="Please upload your resume"
 		>
 			<FileInputButton 
+				error={true}
 				validation={{
 					maxFiles: 1,
 					maxSize: 5 * 1024 * 1024,

@@ -3,7 +3,8 @@
 	import { createFileInputHandlers, removeFileFromArray } from './utils/file-input-hooks.js';
 	import { createAcceptAttribute } from './utils/file-input-utils.js';
 	import type { ButtonFileInputProps } from './utils/file-input-types.js';
-	import { Upload } from '@lucide/svelte';
+	import { Upload, AlertCircle } from '@lucide/svelte';
+	import { cn } from '$lib/utils.js';
 
 	let {
 		files = $bindable(null),
@@ -18,6 +19,7 @@
 		accept,
 		required = false,
 		form,
+		error = false,
 		buttonText = 'Choose Files',
 		variant = 'default',
 		size = 'default',
@@ -57,9 +59,15 @@
 		}
 	});
 
-	// Update state based on disabled prop
+	// Update state based on disabled and error props
 	$effect(() => {
-		currentState = disabled ? "disabled" : "default";
+		if (disabled) {
+			currentState = "disabled";
+		} else if (error) {
+			currentState = "error";
+		} else {
+			currentState = "default";
+		}
 	});
 
 	const acceptAttribute = accept || createAcceptAttribute(validation.acceptedTypes);
@@ -106,12 +114,19 @@
 
 	<button
 		type="button"
-		class={variants.button()}
+		class={cn(
+			variants.button(),
+			currentState === 'error' && 'ring-2 ring-destructive/20'
+		)}
 		onclick={handleButtonClick}
 		{disabled}
 		aria-describedby={fileCount > 0 ? `${id}-files` : undefined}
 	>
-		<Upload class="h-4 w-4 mr-2" />
+		{#if currentState === 'error'}
+			<AlertCircle class="h-4 w-4 mr-2 text-destructive" />
+		{:else}
+			<Upload class="h-4 w-4 mr-2" />
+		{/if}
 		{buttonDisplayText}
 	</button>
 

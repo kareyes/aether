@@ -240,7 +240,6 @@
 <Story name="Regular Input Mode" args={{ 
 	mode: 'regular',
 	regularProps: {
-		label: 'Upload Files',
 		placeholder: 'Select your files...',
 		showFileCount: true,
 		showFileList: true
@@ -273,7 +272,6 @@
 	mode: 'regular',
 	validation: documentValidation,
 	regularProps: {
-		label: 'Upload Documents',
 		placeholder: 'Choose up to 3 documents...',
 		showFileCount: true,
 		showFileList: true
@@ -297,7 +295,6 @@
 	mode: 'drag-drop',
 	disabled: true,
 	dragDropProps: {
-		label: 'File upload is disabled',
 		description: 'Please contact administrator',
 		showFileList: true
 	}

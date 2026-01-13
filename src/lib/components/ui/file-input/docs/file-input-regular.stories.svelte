@@ -67,13 +67,11 @@
 <Story name="Default" />
 
 <Story name="With Label" args={{
-        label:"Project Files",
 		placeholder:"Choose project files..."
     }}
     />
 
 <Story name="With Label and Count" args={{
-        label:"Upload Documents",
         placeholder:"Select files...",
         showFileCount:true,
         showFileList:true
@@ -83,7 +81,6 @@
 <!-- Validation Examples -->
 <Story name="Images Only" args={{
     validation: imageValidation,
-    label:"Profile Photos",
     placeholder:"Choose images...",
     showFileCount:false
 }} />
@@ -92,7 +89,6 @@
 <Story name="Single Document" args={{
         validation: { ...singleFileValidation, acceptedTypes: ['.pdf'] },
         multiple: false,
-        label: "Upload Resume",
         placeholder: "Choose a single file...",
         showFileList: false
     }} />
@@ -100,20 +96,17 @@
 
 <Story name="Required Field" args={{
         required: true,
-        label: "Required Documents",
         placeholder: "Select required files..."
     }} />
 
 
 <Story name="Documents Only" args={{
         validation: documentValidation,
-        label: "Upload Documents",
         placeholder: "Choose up to 3 files..."
     }} />
 
 
 <Story name="No File List" args={{
-        label: "Quick Upload",
         placeholder: "Select files...",
         showFileList: false,
         showFileCount: true
@@ -123,7 +116,6 @@
 <!-- States -->
 <Story name="Disabled" args={{
         disabled: true,
-        label: "Upload Disabled",
         placeholder: "Upload not available..."
     }} />
 
@@ -176,6 +168,7 @@
 			error="Please select at least one image"
 		>
 			<FileInputRegular 
+			error={true}
 				validation={{
 					maxFiles: 3,
 					maxSize: 5 * 1024 * 1024,

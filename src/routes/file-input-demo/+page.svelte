@@ -64,7 +64,6 @@
 					}}
 					onError={handleError('Regular')}
 					regularProps={{
-						label: "Choose documents",
 						placeholder: "Select up to 3 files...",
 						showFileCount: true
 					}}
@@ -128,7 +127,6 @@
 					}}
 					onFilesChange={handleFilesChange('Direct Regular')}
 					onError={handleError('Direct Regular')}
-					label="Data Files"
 					placeholder="Choose spreadsheets..."
 					showFileCount={true}
 					multiple={true}
@@ -171,7 +169,6 @@
 					}}
 					onFilesChange={handleFilesChange('Single File')}
 					onError={handleError('Single File')}
-					label="Profile Picture"
 					placeholder="Select an image or PDF..."
 					showFileCount={false}
 					showFileList={true}
@@ -188,7 +185,6 @@
 					}}
 					onFilesChange={handleFilesChange('Multiple Images')}
 					onError={handleError('Multiple Images')}
-					label="Gallery Images"
 					placeholder="Select up to 10 images..."
 					showFileCount={true}
 					showFileList={true}
@@ -204,7 +200,6 @@
 					}}
 					onFilesChange={handleFilesChange('Documents')}
 					onError={handleError('Documents')}
-					label="Documents"
 					placeholder="Choose document files..."
 					showFileCount={true}
 					showFileList={false}
@@ -221,7 +216,6 @@
 					}}
 					onFilesChange={handleFilesChange('Resume')}
 					onError={handleError('Resume')}
-					label="Resume"
 					placeholder="Upload your resume (PDF only)..."
 					showFileCount={false}
 					showFileList={true}

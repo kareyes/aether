@@ -111,6 +111,7 @@
         description: "You can upload several files at once",
         multiple: true,
         showFileList: true
+		
     }}
 />
 
@@ -162,6 +163,7 @@
 			error="Please upload your resume"
 		>
 			<FileInputDragDrop 
+				error={true}
 				validation={{
 					maxFiles: 1,
 					maxSize: 5 * 1024 * 1024,

@@ -3,7 +3,10 @@
 	import { createFileInputHandlers, removeFileFromArray } from './utils/file-input-hooks.js';
 	import { createAcceptAttribute } from './utils/file-input-utils.js';
 	import type { DragDropFileInputProps } from './utils/file-input-types.js';
-	import { Upload } from '@lucide/svelte';
+	// import { Upload, AlertCircle } from '@lucide/svelte';
+	import Upload from '@lucide/svelte/icons/upload.svelte';
+	import AlertCircle from '@lucide/svelte/icons/circle-alert.svelte';
+	import { cn } from '$lib/utils.js';
 
 	let {
 		files = $bindable(null),
@@ -18,6 +21,7 @@
 		accept,
 		required = false,
 		form,
+		error = false,
 		label = 'Drag and drop files here',
 		description = 'or click to select files',
 		showFileList = true,
@@ -28,6 +32,7 @@
 	let internalFiles = $state<File[]>([]);
 	let isDragOver = $state(false);
 	let currentState = $state<'default' | 'dragover' | 'error' | 'disabled'>('default');
+	let errorMessage = $state<string | null>(null);
 	let fileInputRef: HTMLInputElement;
 
 	const fileHandlers = createFileInputHandlers(validation, {
@@ -41,8 +46,10 @@
 		},
 		onError: (error) => {
 			onError?.(error);
+			errorMessage = error;
 			currentState = "error";
 			setTimeout(() => {
+				errorMessage = null;
 				currentState = disabled ? "disabled" : "default";
 			}, 3000);
 		}
@@ -61,6 +68,8 @@
 	$effect(() => {
 		if (disabled) {
 			currentState = "disabled";
+		} else if (error) {
+			currentState = "error";
 		} else if (isDragOver) {
 			currentState = "dragover";
 		} else {
@@ -150,14 +159,21 @@
 	/>
 
 	<div class={variants.dragContent()}>
-		<Upload class="h-8 w-8 text-muted-foreground mb-2" />
-		<p class={variants.dragText()}>{label}</p>
-		{#if description}
+		{#if currentState === 'error'}
+			<AlertCircle class="h-8 w-8 text-destructive mb-2" />
+		{:else}
+			<Upload class="h-8 w-8 text-muted-foreground mb-2" />
+		{/if}
+		<p class={cn(variants.dragText(), currentState === 'error' && 'text-destructive font-medium')}>{label}</p>
+		{#if description && currentState !== 'error'}
 			<p class={variants.dragSubtext()}>{description}</p>
+		{/if}
+		{#if errorMessage}
+			<p class={variants.errorText()}>{errorMessage}</p>
 		{/if}
 	</div>
 
-	{#if isDragOver}
+	{#if isDragOver && currentState !== 'error'}
 		<div class="absolute inset-0 bg-primary/10 rounded-lg flex items-center justify-center">
 			<p class="text-sm font-medium text-primary">Drop files here</p>
 		</div>
