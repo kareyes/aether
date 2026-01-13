@@ -1,6 +1,7 @@
 <script lang="ts">
     import { Avatar } from "$core/components/ui/avatar";
 	import { Badge } from "$core/components/ui/badge";
+	import { Check, Star, Zap, Heart, ShoppingCart, AlertCircle, Bell, User } from "@lucide/svelte";
 
 	type TagType = {
 		id: number;
@@ -158,6 +159,55 @@
 	</section>
 
 	<section class="space-y-6">
+		<h2 class="text-2xl font-semibold">With Icons</h2>
+		<p class="text-muted-foreground">Badges can include custom icons</p>
+		<div class="flex flex-wrap gap-4">
+			<Badge text="Success">
+				{#snippet icon()}
+					<Check class="size-3" />
+				{/snippet}
+			</Badge>
+			<Badge text="Featured" variant="secondary" color="yellow">
+				{#snippet icon()}
+					<Star class="size-3" />
+				{/snippet}
+			</Badge>
+			<Badge text="Fast" variant="flat" color="purple">
+				{#snippet icon()}
+					<Zap class="size-3" />
+				{/snippet}
+			</Badge>
+			<Badge text="Favorite" variant="outline" color="pink">
+				{#snippet icon()}
+					<Heart class="size-3" />
+				{/snippet}
+			</Badge>
+			<Badge text="Cart" variant="dashed" color="blue">
+				{#snippet icon()}
+					<ShoppingCart class="size-3" />
+				{/snippet}
+			</Badge>
+			<Badge text="Alert" color="red">
+				{#snippet icon()}
+					<AlertCircle class="size-3" />
+				{/snippet}
+			</Badge>
+		</div>
+	</section>
+
+	<section class="space-y-6">
+		<h2 class="text-2xl font-semibold">Loading State</h2>
+		<p class="text-muted-foreground">Badges can show a loading spinner</p>
+		<div class="flex flex-wrap gap-4">
+			<Badge text="Loading" loading={true} />
+			<Badge text="Processing" variant="secondary" loading={true} />
+			<Badge text="Saving" variant="flat" color="blue" loading={true} />
+			<Badge text="Updating" variant="outline" color="green" loading={true} />
+			<Badge text="Syncing" variant="dashed" color="purple" loading={true} />
+		</div>
+	</section>
+
+	<section class="space-y-6">
 		<h2 class="text-2xl font-semibold">Clickable Badges</h2>
 		<p class="text-muted-foreground">Hover effects adapt to variant+color combinations</p>
 		<div class="space-y-3">
@@ -278,28 +328,44 @@
 				<div class="p-4 border rounded-lg">
 					<div class="flex items-center justify-between">
 						<span class="font-medium">Server Status</span>
-						<Badge text="Online" color="green" />
+						<Badge text="Online" color="green">
+							{#snippet icon()}
+								<Check class="size-3" />
+							{/snippet}
+						</Badge>
 					</div>
 				</div>
 				
 				<div class="p-4 border rounded-lg">
 					<div class="flex items-center justify-between">
 						<span class="font-medium">Database</span>
-						<Badge text="Maintenance" color="yellow" />
+						<Badge text="Maintenance" color="yellow">
+							{#snippet icon()}
+								<AlertCircle class="size-3" />
+							{/snippet}
+						</Badge>
 					</div>
 				</div>
 				
 				<div class="p-4 border rounded-lg">
 					<div class="flex items-center justify-between">
 						<span class="font-medium">API Service</span>
-						<Badge text="Down" color="red" />
+						<Badge text="Down" color="red">
+							{#snippet icon()}
+								<AlertCircle class="size-3" />
+							{/snippet}
+						</Badge>
 					</div>
 				</div>
 				
 				<div class="p-4 border rounded-lg">
 					<div class="flex items-center justify-between">
 						<span class="font-medium">CDN</span>
-						<Badge text="Operational" color="green" />
+						<Badge text="Operational" color="green">
+							{#snippet icon()}
+								<Check class="size-3" />
+							{/snippet}
+						</Badge>
 					</div>
 				</div>
 			</div>

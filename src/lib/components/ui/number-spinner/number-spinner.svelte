@@ -7,7 +7,7 @@
 		NumberSpinnerOrientation,
 	} from "./number-spinner-variants.js";
 	import { ChevronUp, ChevronDown, Plus, Minus } from "@lucide/svelte";
-	import LoaderIcon from "@lucide/svelte/icons/loader-2";
+	import { Spinner } from '$core/components/ui/spinner';
 	import type { HTMLInputAttributes } from "svelte/elements";
 
 	interface NumberSpinnerProps extends Omit<HTMLInputAttributes, "size" | "type"> {
@@ -216,7 +216,7 @@
 			aria-label="Decrease value"
 		>
 			{#if loading}
-				<LoaderIcon class="size-4 animate-spin" />
+				<Spinner />
 			{:else}
 				<Minus class={styles.button()} />
 			{/if}
@@ -251,7 +251,7 @@
 				aria-label="Increase value"
 			>
 				{#if loading}
-					<LoaderIcon class="size-3 animate-spin" />
+					<Spinner class="size-3" />
 				{:else}
 					<ChevronUp class="size-full" />
 				{/if}
@@ -265,7 +265,7 @@
 				aria-label="Decrease value"
 			>
 				{#if loading}
-					<LoaderIcon class="size-3 animate-spin" />
+					<Spinner class="size-3" />
 				{:else}
 					<ChevronDown class="size-full" />
 				{/if}
@@ -281,7 +281,7 @@
 			aria-label="Increase value"
 		>
 			{#if loading}
-				<LoaderIcon class="size-4 animate-spin" />
+				<Spinner />
 			{:else}
 				<Plus class={styles.button()} />
 			{/if}

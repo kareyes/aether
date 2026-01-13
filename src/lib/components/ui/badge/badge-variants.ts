@@ -1,6 +1,7 @@
 import { type VariantProps, tv } from "tailwind-variants";
 import type { HTMLAnchorAttributes, HTMLButtonAttributes } from "svelte/elements";
 import { type WithElementRef } from "$core/utils.js";
+import type { Snippet } from 'svelte';
 
 export const badgeVariants = tv({
 	base: "focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive inline-flex w-fit shrink-0 items-center justify-center gap-1 overflow-hidden whitespace-nowrap rounded-md border px-2 py-0.5 text-xs font-medium transition-all focus-visible:ring-[3px] [&>svg]:pointer-events-none [&>svg]:size-3",
@@ -379,6 +380,8 @@ export type BadgeProps = WithElementRef<HTMLAnchorAttributes> &
 		size?: BadgeSize;
 		shape?: BadgeShape;
 		text?: string;
+		icon?: Snippet;
+		loading?: boolean;
 		dismissable?: boolean;
 		clickable?: boolean;
 		href?: string;

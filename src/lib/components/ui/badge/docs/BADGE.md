@@ -1,12 +1,14 @@
 # Enhanced Badge Component
 
-A versatile badge component with multiple variants, colors, sizes, and interactive features including dismissable and clickable options.
+A versatile badge component with multiple variants, colors, sizes, and interactive features including dismissable and clickable options, icon support, and loading states.
 
 ## Features
 
 - ✅ **Multiple Variants**: default, secondary, destructive, outline, ghost, success, warning, info
 - ✅ **Color Themes**: 8 predefined color schemes with light/dark mode support
 - ✅ **Three Sizes**: sm, default, lg for different use cases
+- ✅ **Icon Support**: Add custom icons using snippets
+- ✅ **Loading State**: Built-in spinner for async operations
 - ✅ **Dismissable**: Closeable badges with X button for tags and notifications
 - ✅ **Clickable**: Interactive badges with hover effects and click handlers
 - ✅ **Link Support**: Can render as anchor tags with href
@@ -41,6 +43,50 @@ A versatile badge component with multiple variants, colors, sizes, and interacti
 ```
 
 ## Interactive Features
+
+### With Icons
+```svelte
+<script>
+  import { Badge } from "$core/components/ui/badge";
+  import { Check, Star, Heart } from "@lucide/svelte";
+</script>
+
+<Badge text="Success">
+  {#snippet icon()}
+    <Check class="size-3" />
+  {/snippet}
+</Badge>
+
+<Badge text="Featured" color="yellow">
+  {#snippet icon()}
+    <Star class="size-3" />
+  {/snippet}
+</Badge>
+
+<Badge text="Favorite" variant="outline" color="pink">
+  {#snippet icon()}
+    <Heart class="size-3" />
+  {/snippet}
+</Badge>
+```
+
+### Loading State
+```svelte
+<script>
+  let isProcessing = $state(true);
+</script>
+
+<Badge text="Loading" loading={true} />
+<Badge text="Processing" variant="secondary" loading={true} />
+<Badge text="Saving" variant="flat" color="blue" loading={true} />
+
+<!-- Conditional loading -->
+<Badge 
+  text={isProcessing ? "Processing..." : "Done"} 
+  loading={isProcessing}
+  color={isProcessing ? "blue" : "green"}
+/>
+```
 
 ### Clickable Badges
 ```svelte
@@ -133,6 +179,8 @@ Available color options with semantic meaning:
 | `variant` | `BadgeVariant` | `'default'` | Visual style variant |
 | `color` | `BadgeColor` | `'default'` | Color theme |
 | `size` | `BadgeSize` | `'default'` | Size of the badge |
+| `icon` | `Snippet` | `undefined` | Custom icon snippet |
+| `loading` | `boolean` | `false` | Show loading spinner |
 | `dismissable` | `boolean` | `false` | Show dismiss button |
 | `clickable` | `boolean` | `false` | Make badge clickable |
 | `href` | `string` | `undefined` | URL for link badges |
@@ -145,6 +193,8 @@ Available color options with semantic meaning:
 ### Status Indicators
 ```svelte
 <script>
+  import { Check, AlertCircle } from "@lucide/svelte";
+  
   let serverStatus = $state('online');
   let dbStatus = $state('maintenance');
   let apiStatus = $state('down');
@@ -153,17 +203,29 @@ Available color options with semantic meaning:
 <div class="flex gap-4">
   <div class="flex items-center gap-2">
     <span>Server:</span>
-    <Badge text="Online" variant="success" size="sm" />
+    <Badge text="Online" variant="success" size="sm">
+      {#snippet icon()}
+        <Check class="size-3" />
+      {/snippet}
+    </Badge>
   </div>
   
   <div class="flex items-center gap-2">
     <span>Database:</span>
-    <Badge text="Maintenance" variant="warning" size="sm" />
+    <Badge text="Maintenance" variant="warning" size="sm">
+      {#snippet icon()}
+        <AlertCircle class="size-3" />
+      {/snippet}
+    </Badge>
   </div>
   
   <div class="flex items-center gap-2">
     <span>API:</span>
-    <Badge text="Down" variant="destructive" size="sm" />
+    <Badge text="Down" variant="destructive" size="sm">
+      {#snippet icon()}
+        <AlertCircle class="size-3" />
+      {/snippet}
+    </Badge>
   </div>
 </div>
 ```

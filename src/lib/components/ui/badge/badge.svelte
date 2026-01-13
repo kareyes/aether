@@ -5,6 +5,7 @@
 
 <script lang="ts">
 	import XIcon from "@lucide/svelte/icons/x";
+	import { Spinner } from '$core/components/ui/spinner';
 	import { badgeVariants, type BadgeProps } from "./badge-variants";
 	import { cn } from "$core/utils.js";
 	let {
@@ -16,6 +17,8 @@
 		size = "default",
 		shape = "rounded",
 		text,
+		icon,
+		loading = false,
 		dismissable = false,
 		clickable = false,
 		onclick,
@@ -65,8 +68,15 @@
 		className
 	)}
 	onclick={handleClick}
+	disabled={loading || restProps.disabled}
 	{...restProps}
 >
+	{#if loading}
+		<Spinner />
+	{:else if icon}
+		{@render icon()}
+	{/if}
+	
 	{#if text}
 		<span>{text}</span>
 	{/if}
@@ -75,7 +85,7 @@
 		{@render children?.()}
 	{/if}
 	
-	{#if dismissable}
+	{#if dismissable && !loading}
 		<button
 			type="button"
 			class="ml-1 hover:bg-black/10 dark:hover:bg-white/10 rounded-sm p-0.5 transition-colors"

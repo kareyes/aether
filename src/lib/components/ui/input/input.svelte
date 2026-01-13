@@ -4,7 +4,7 @@
 	import { useMaskedInput } from './utils/input-hooks.js';
 	import type { InputWithAddonsProps } from './utils/input-types.js';
 	import { InputGroup, InputGroupInput, InputGroupAddon, InputGroupButton, InputGroupText } from '$core/components/ui/input-group';
-	import LoaderIcon from "@lucide/svelte/icons/loader-2";
+	import { Spinner } from '$core/components/ui/spinner';
 
 	let {
 		ref = $bindable(null),
@@ -111,7 +111,7 @@
 		{:else if endIcon || endText || endButton || loading}
 			<InputGroupAddon align={endAddonAlign}>
 				{#if loading}
-					<LoaderIcon class="size-4 animate-spin text-muted-foreground" />
+					<Spinner class="text-muted-foreground" />
 				{/if}
 				{#if endIcon}
 					{@render endIcon()}

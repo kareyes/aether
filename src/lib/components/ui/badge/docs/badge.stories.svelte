@@ -2,6 +2,7 @@
   import { defineMeta } from '@storybook/addon-svelte-csf';
 	import { Badge } from "$core/components/ui/badge";
   import { fn } from 'storybook/test';
+  import { Check, Star, Heart, Zap, AlertCircle, ShoppingCart, LoaderIcon } from '@lucide/svelte';
 
   const { Story } = defineMeta({
     title: 'Components/Badge',
@@ -56,6 +57,14 @@
       dismissable: {
         control: { type: 'boolean' },
         description: 'Whether the badge can be dismissed',
+        table: {
+          type: { summary: 'boolean' },
+          defaultValue: { summary: 'false' },
+        },
+      },
+      loading: {
+        control: { type: 'boolean' },
+        description: 'Whether the badge shows a loading spinner',
         table: {
           type: { summary: 'boolean' },
           defaultValue: { summary: 'false' },
@@ -118,72 +127,193 @@
 
 <!-- Basic Variants -->
 <Story name="Default" args={{ text: "Default" }} />
-<Story name="Secondary" args={{ text: "Secondary", variant: "secondary" }} />
-<Story name="Flat" args={{ text: "Flat", variant: "flat" }} />
-<Story name="Outline" args={{ text: "Outline", variant: "outline" }} />
-<Story name="Dashed" args={{ text: "Dashed", variant: "dashed" }} />
 
-<!-- Color Variants -->
-<Story name="Red Color" args={{ text: "Red", color: "red" }} />
-<Story name="Blue Color" args={{ text: "Blue", color: "blue" }} />
-<Story name="Green Color" args={{ text: "Green", color: "green" }} />
-<Story name="Purple Color" args={{ text: "Purple", color: "purple" }} />
-<Story name="Orange Color" args={{ text: "Orange", color: "orange" }} />
+<Story name="Default Variants" >
+    {#snippet template()}
+				<div class="flex flex-wrap gap-2">
+					<Badge text="Default" variant="default" />
+					<Badge text="Red" variant="default" color="red" />
+					<Badge text="Orange" variant="default" color="orange" />
+          <Badge text="Yellow" variant="default" color="yellow" />
+					<Badge text="Green" variant="default" color="green" />
+					<Badge text="Blue" variant="default" color="blue" />
+					<Badge text="Purple" variant="default" color="purple" />
+          <Badge text="Pink" variant="default" color="pink" />
+          <Badge text="Gray" variant="default" color="gray" />
+				</div>
+    {/snippet}
+</Story>
 
-<!-- Variant + Color Combinations -->
-<Story name="Default Red" args={{ text: "Default Red", variant: "default", color: "red" }} />
-<Story name="Secondary Blue" args={{ text: "Secondary Blue", variant: "secondary", color: "blue" }} />
-<Story name="Flat Green" args={{ text: "Flat Green", variant: "flat", color: "green" }} />
-<Story name="Outline Purple" args={{ text: "Outline Purple", variant: "outline", color: "purple" }} />
-<Story name="Dashed Orange" args={{ text: "Dashed Orange", variant: "dashed", color: "orange" }} />
 
-<!-- More Combinations -->
-<Story name="Default Blue" args={{ text: "Default Blue", variant: "default", color: "blue" }} />
-<Story name="Secondary Red" args={{ text: "Secondary Red", variant: "secondary", color: "red" }} />
-<Story name="Flat Purple" args={{ text: "Flat Purple", variant: "flat", color: "purple" }} />
-<Story name="Outline Green" args={{ text: "Outline Green", variant: "outline", color: "green" }} />
-<Story name="Dashed Pink" args={{ text: "Dashed Pink", variant: "dashed", color: "pink" }} />
+<Story name="Secondary Variants" >
+    {#snippet template()}
+				<div class="flex flex-wrap gap-2">
+					<Badge text="Default" variant="secondary" />
+					<Badge text="Red" variant="secondary" color="red" />
+					<Badge text="Orange" variant="secondary" color="orange" />
+          <Badge text="Yellow" variant="secondary" color="yellow" />
+					<Badge text="Green" variant="secondary" color="green" />
+					<Badge text="Blue" variant="secondary" color="blue" />
+					<Badge text="Purple" variant="secondary" color="purple" />
+          <Badge text="Pink" variant="secondary" color="pink" />
+          <Badge text="Gray" variant="secondary" color="gray" />
+				</div>
+    {/snippet}
+</Story>
 
-<!-- Sizes -->
-<Story name="Small" args={{ text: "Small", size: "sm" }} />
-<Story name="Large" args={{ text: "Large", size: "lg" }} />
+<Story name="Flat Variants" >
+    {#snippet template()}
+				<div class="flex flex-wrap gap-2">
+					<Badge text="Default" variant="flat" />
+					<Badge text="Red" variant="flat" color="red" />
+					<Badge text="Orange" variant="flat" color="orange" />
+					<Badge text="Yellow" variant="flat" color="yellow" />
+					<Badge text="Green" variant="flat" color="green" />
+					<Badge text="Blue" variant="flat" color="blue" />
+					<Badge text="Purple" variant="flat" color="purple" />
+          <Badge text="Pink" variant="flat" color="pink" />
+          <Badge text="Gray" variant="flat" color="gray" />
+				</div>
+    {/snippet}
+</Story>
 
-<!-- Interactive Features -->
-<Story name="Clickable" args={{ 
-  text: "Click me", 
-  clickable: true,
-  onclick: fn()
-}} />
 
-<Story name="Clickable Default Red" args={{ 
-  text: "Click Red", 
-  variant: "default",
-  color: "red",
-  clickable: true,
-  onclick: fn()
-}} />
+<Story name="Outline Variants" >
+    {#snippet template()}
+        <div class="flex flex-wrap gap-2">
+          <Badge text="Default" variant="outline" />
+          <Badge text="Red" variant="outline" color="red" />
+          <Badge text="Orange" variant="outline" color="orange" />
+          <Badge text="Yellow" variant="outline" color="yellow" />
+          <Badge text="Green" variant="outline" color="green" />
+          <Badge text="Blue" variant="outline" color="blue" />
+          <Badge text="Purple" variant="outline" color="purple" />
+          <Badge text="Pink" variant="outline" color="pink" />
+          <Badge text="Gray" variant="outline" color="gray" />
+        </div>
+    {/snippet}
+</Story>
+<Story name="Dashed Variants" >
+    {#snippet template()}
+        <div class="flex flex-wrap gap-2">
+          <Badge text="Default" variant="dashed" />
+          <Badge text="Red" variant="dashed" color="red" />
+          <Badge text="Orange" variant="dashed" color="orange" />
+          <Badge text="Yellow" variant="dashed" color="yellow" />
+          <Badge text="Green" variant="dashed" color="green" />
+          <Badge text="Blue" variant="dashed" color="blue" />
+          <Badge text="Purple" variant="dashed" color="purple" />
+          <Badge text="Pink" variant="dashed" color="pink" />
+          <Badge text="Gray" variant="dashed" color="gray" />
+        </div>
+    {/snippet}
+</Story>
 
-<Story name="Clickable Secondary Blue" args={{ 
-  text: "Click Blue", 
-  variant: "secondary",
-  color: "blue",
-  clickable: true,
-  onclick: fn()
-}} />
+<Story name="Sizes" >
+    {#snippet template()}
+        <div class="flex flex-wrap gap-2 items-center">
+          <Badge text="Small" size="sm" />
+          <Badge text="Default" size="default" />
+          <Badge text="Large" size="lg" />
+        </div>
+    {/snippet}
+</Story>
 
-<Story name="Clickable Flat Green" args={{ 
-  text: "Click Green", 
-  variant: "flat",
-  color: "green",
-  clickable: true,
-  onclick: fn()
-}} />
+<Story name="Shapes" >
+    {#snippet template()}
+        <div class="flex flex-wrap gap-2 items-center">
+          <Badge text="Rounded" shape="rounded" />
+          <Badge text="Circle" shape="circle" />
+          <Badge text="Square" shape="square" />
+        </div>
+    {/snippet}
+</Story>
 
-<Story name="Dismissable" args={{ 
-  text: "Dismiss me", 
-  dismissable: true,
-  onDismiss: fn()
-}} />
+
+<Story name="With Icons">
+    {#snippet template()}
+        <div class="flex flex-wrap gap-2 items-center">
+          <Badge variant="default">
+            {#snippet icon()}
+              <Check class="size-3" />
+            {/snippet}
+            Verified
+          </Badge>
+          <Badge variant="secondary">
+            {#snippet icon()}
+              <Star class="size-3" />
+            {/snippet}
+            Premium
+          </Badge>
+          <Badge color="yellow">
+            {#snippet icon()}
+              <AlertCircle class="size-3" />
+            {/snippet}
+            Warning
+          </Badge>
+          <Badge text="Favorite" variant="outline" color="pink">
+          {#snippet icon()}
+            <Heart class="size-3" />
+          {/snippet}
+         </Badge>
+
+        	<Badge text="Fast" variant="flat" color="purple">
+          {#snippet icon()}
+            <Zap class="size-3" />
+          {/snippet}
+        </Badge>
+
+      		<Badge text="Cart" variant="dashed" color="blue">
+          {#snippet icon()}
+            <ShoppingCart class="size-3" />
+          {/snippet}
+        </Badge>
+        <Badge text="In Progress" variant="outline" shape="circle" color="default">
+          {#snippet icon()}
+            <LoaderIcon  class="size-3" />
+          {/snippet}
+        </Badge>
+
+        </div>
+    {/snippet}
+</Story>
+
+<Story name="Loading State">
+    {#snippet template()}
+        <div class="flex flex-wrap gap-2 items-center">
+          <Badge text="Loading" loading={true} />
+          <Badge text="Processing" variant="secondary" loading={true} />
+          <Badge text="Saving" variant="flat" color="blue" loading={true} />
+          <Badge text="Updating" variant="outline" color="green" loading={true} />
+          <Badge text="Syncing" variant="dashed" color="purple" loading={true} />
+        </div>
+    {/snippet}
+</Story>
+
+<Story name="Dismissable Badges">
+    {#snippet template()}
+        <div class="flex flex-wrap gap-2 items-center">
+          <Badge text="Dismiss Me" dismissable={true} onDismiss={fn()} />
+          <Badge text="Closeable" variant="secondary" dismissable={true} onDismiss={fn()} />
+          <Badge text="Remove" variant="flat" color="red" dismissable={true} onDismiss={fn()} />
+          <Badge text="Delete" variant="outline" color="orange" dismissable={true} onDismiss={fn()} />
+          <Badge text="Clear" variant="dashed" color="green" dismissable={true} onDismiss={fn()} />
+        </div>
+    {/snippet}
+</Story>
+
+<Story name="Clickable Badges">
+    {#snippet template()}
+        <div class="flex flex-wrap gap-2 items-center">
+          <Badge text="Click Me" clickable={true} onclick={fn()} />
+          <Badge text="Press Here" variant="secondary" clickable={true} onclick={fn()} />
+          <Badge text="Tap This" variant="flat" color="blue" clickable={true} onclick={fn()} />
+          <Badge text="Select" variant="outline" color="purple" clickable={true} onclick={fn()} />
+          <Badge text="Choose" variant="dashed" color="green" clickable={true} onclick={fn()} />
+        </div>
+    {/snippet}
+</Story>
+
 
 <Story name="Link Badge" args={{ 
   text: "Link", 
@@ -191,71 +321,8 @@
   color: "blue"
 }} />
 
-<!-- Combined Features -->
-<Story name="Clickable with Color" args={{ 
-  text: "Clickable Purple", 
-  color: "purple",
-  clickable: true,
-  onclick: fn()
-}} />
-
-<Story name="Large Dismissable" args={{ 
-  text: "Large Dismissable", 
-  size: "lg",
-  variant: "secondary",
-  dismissable: true,
-  onDismiss: fn()
-}} />
-
-<!-- Status Examples with Colors -->
-<Story name="Online Status" args={{ 
-  text: "Online", 
-  color: "green",
-  size: "sm"
-}} />
-
-<Story name="Error Status" args={{ 
-  text: "Error", 
-  color: "red",
-  size: "sm"
-}} />
-
-<Story name="Warning Status" args={{ 
-  text: "Warning", 
-  color: "yellow",
-  size: "sm"
-}} />
-
-<Story name="Info Status" args={{ 
-  text: "Info", 
-  color: "blue",
-  size: "sm"
-}} />
-
-<!-- Tag Examples -->
-<Story name="Tag Red" args={{ 
-  text: "Important", 
-  color: "red",
-  dismissable: true,
-  onDismiss: fn()
-}} />
-
-<Story name="Tag Blue" args={{ 
-  text: "Feature", 
-  color: "blue",
-  dismissable: true,
-  onDismiss: fn()
-}} />
-
-<Story name="Tag Green" args={{ 
-  text: "Bug Fix", 
-  color: "green",
-  dismissable: true,
-  onDismiss: fn()
-}} />
 
 <!-- Custom Content -->
 <Story name="Custom Content" args={{ variant: "outline" }}>
   📊 Analytics
 </Story>
-

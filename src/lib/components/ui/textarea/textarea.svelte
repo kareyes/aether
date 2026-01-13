@@ -3,7 +3,7 @@
 	import { textareaVariants } from "./utils/textarea-variants.js";
 	import { useAutoResize, getCharacterCount } from "./utils/textarea-hooks.js";
 	import type { TextareaProps } from "./utils/textarea-types.js";
-	import LoaderIcon from "@lucide/svelte/icons/loader-2";
+	import { Spinner } from '$core/components/ui/spinner';
 
 	let {
 		ref = $bindable(null),
@@ -57,7 +57,7 @@
 	
 	{#if loading}
 		<div class="pointer-events-none absolute top-2 right-3">
-			<LoaderIcon class="size-4 animate-spin text-muted-foreground" />
+			<Spinner class="text-muted-foreground" />
 		</div>
 	{/if}
 	

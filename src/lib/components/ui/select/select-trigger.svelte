@@ -42,7 +42,7 @@
 <script lang="ts">
 	import { Select as SelectPrimitive } from "bits-ui";
 	import ChevronDownIcon from "@lucide/svelte/icons/chevron-down";
-	import LoaderIcon from "@lucide/svelte/icons/loader-2";
+	import { Spinner } from '$core/components/ui/spinner';
 	import { cn, type WithoutChild } from "$core/utils.js";
 
 	let {
@@ -95,7 +95,7 @@
 >
 	{@render children?.()}
 	{#if loading}
-		<LoaderIcon class="size-4 animate-spin opacity-50" />
+		<Spinner class="opacity-50" />
 	{:else}
 		<ChevronDownIcon class="size-4 opacity-50" />
 	{/if}
