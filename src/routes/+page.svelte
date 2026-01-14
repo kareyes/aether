@@ -3,8 +3,11 @@
 	import PlusIcon from "@lucide/svelte/icons/plus";
 	import SaveIcon from "@lucide/svelte/icons/save";
 	import DownloadIcon from "@lucide/svelte/icons/download";
-    import { AlertDialogProvider,
-		getAlertDialogContext, type AlertDialogContext } from "$core/components/ui/alert-dialog";
+	import {
+		AlertDialogProvider,
+		getAlertDialogContext,
+		type AlertDialogContext,
+	} from "$core/components/ui/alert-dialog";
 
 	let loading = $state(false);
 
@@ -18,30 +21,37 @@
 		dialog.open({
 			variant: "default",
 			title: "Default Alert",
-			description: "This is a default alert dialog with standard styling.",
+			description:
+				"This is a default alert dialog with standard styling.",
 			onAction: () => {
 				result = "Default: Action clicked";
 			},
 		});
 	}
-
 </script>
 
 <div class="container mx-auto p-8 space-y-8">
-	<h1 class="text-4xl font-bold text-center mb-8">Dynamic Button Component</h1>
+	<h1 class="text-4xl font-bold text-center mb-8">
+		Dynamics Button Component
+	</h1>
 
 	<section class="space-y-4">
 		<h2 class="text-2xl font-semibold">Basic Examples</h2>
 		<div class="flex gap-4 flex-wrap">
 			<!-- Text only -->
 			<Button text="Simple Button" />
-			
+
 			<!-- With icon -->
 			<Button text="Add Item" icon={PlusIcon} />
-			
+
 			<!-- Icon on the right -->
-			<Button text="Download" icon={DownloadIcon} iconPosition="right" variant="outline" />
-			
+			<Button
+				text="Download"
+				icon={DownloadIcon}
+				iconPosition="right"
+				variant="outline"
+			/>
+
 			<!-- Icon only -->
 			<Button icon={SaveIcon} size="icon" variant="secondary" />
 		</div>
@@ -50,16 +60,16 @@
 	<section class="space-y-4">
 		<h2 class="text-2xl font-semibold">Loading State</h2>
 		<div class="flex gap-4 flex-wrap">
-			<Button 
-				text="Save Changes" 
-				{loading} 
-				loadingText="Saving..." 
+			<Button
+				text="Save Changes"
+				{loading}
+				loadingText="Saving..."
 				onclick={handleLoadingDemo}
 				icon={SaveIcon}
 			/>
-			
-			<Button 
-				text="Static Loading" 
+
+			<Button
+				text="Static Loading"
 				loading={true}
 				loadingText="Processing..."
 				variant="secondary"
@@ -92,7 +102,6 @@
 </div>
 
 <AlertDialogProvider>
-	{@const dialog =  getAlertDialogContext()}
+	{@const dialog = getAlertDialogContext()}
 	<Button onclick={() => dialog && showDefaultAlert(dialog)}>Default</Button>
 </AlertDialogProvider>
-
