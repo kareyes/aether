@@ -236,11 +236,23 @@ Horizontal progress bar style with labels above.
 </script>
 
 <Stepper bind:activeStep={currentStep}>
-  <StepperStep step={0} icon={User} label="Account" />
+  <StepperStep step={0} label="Account">
+    {#snippet icon()}
+      <User class="size-4" />
+    {/snippet}
+  </StepperStep>
   <StepperSeparator />
-  <StepperStep step={1} icon={CreditCard} label="Payment" />
+  <StepperStep step={1} label="Payment">
+    {#snippet icon()}
+      <CreditCard class="size-4" />
+    {/snippet}
+  </StepperStep>
   <StepperSeparator />
-  <StepperStep step={2} icon={CheckCircle} label="Done" />
+  <StepperStep step={2} label="Done">
+    {#snippet icon()}
+      <CheckCircle class="size-4" />
+    {/snippet}
+  </StepperStep>
 </Stepper>
 ```
 
@@ -314,35 +326,47 @@ Horizontal progress bar style with labels above.
 <Stepper orientation="vertical" bind:activeStep={currentStep}>
   <StepperStep
     step={0}
-    icon={ShoppingCart}
     label="Cart"
     description="Review your items"
     completed
-  />
+  >
+    {#snippet icon()}
+      <ShoppingCart class="size-4" />
+    {/snippet}
+  </StepperStep>
   <StepperSeparator completed />
 
   <StepperStep
     step={1}
-    icon={CreditCard}
     label="Payment"
     description="Enter payment details"
-  />
+  >
+    {#snippet icon()}
+      <CreditCard class="size-4" />
+    {/snippet}
+  </StepperStep>
   <StepperSeparator />
 
   <StepperStep
     step={2}
-    icon={Package}
     label="Shipping"
     description="Choose shipping method"
-  />
+  >
+    {#snippet icon()}
+      <Package class="size-4" />
+    {/snippet}
+  </StepperStep>
   <StepperSeparator />
 
   <StepperStep
     step={3}
-    icon={CheckCircle}
     label="Confirm"
     description="Review and place order"
-  />
+  >
+    {#snippet icon()}
+      <CheckCircle class="size-4" />
+    {/snippet}
+  </StepperStep>
 </Stepper>
 ```
 
@@ -486,7 +510,7 @@ Individual step component.
 | `step` | `number` | **required** | Step index (0-based) |
 | `label` | `string` | - | Step label text |
 | `description` | `string` | - | Step description text |
-| `icon` | `Component` | - | Custom icon component (Lucide) |
+| `icon` | `Snippet` | - | Custom icon snippet (use with Lucide icons) |
 | `completed` | `boolean` | `false` | Manually mark as completed |
 | `ref` | `HTMLDivElement` | - | Step element reference (bindable) |
 | `class` | `string` | - | Additional CSS classes |

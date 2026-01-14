@@ -254,12 +254,14 @@
 				</CardContent>
 			</Card>
 
+
+
 			<Card>
 				<CardHeader>
 					<CardTitle>Flat Variant</CardTitle>
 					<CardDescription>Horizontal progress bar style</CardDescription>
 				</CardHeader>
-				<CardContent class="pt-8">
+				<CardContent class="pt-8 mt-8">
 					<Stepper variant="flat" activeStep={1}>
 						<StepperStep step={0} label="Personal Info" description="Completed" />
 						<StepperSeparator completed />
@@ -311,11 +313,23 @@
 				</CardHeader>
 				<CardContent>
 					<Stepper activeStep={1}>
-						<StepperStep step={0} icon={User} label="Account" description="Create account" />
+						<StepperStep step={0} label="Account" description="Create account">
+							{#snippet icon()}
+								<User class="size-4" />
+							{/snippet}
+						</StepperStep>
 						<StepperSeparator completed />
-						<StepperStep step={1} icon={CreditCard} label="Payment" description="Add payment" />
+						<StepperStep step={1} label="Payment" description="Add payment">
+							{#snippet icon()}
+								<CreditCard class="size-4" />
+							{/snippet}
+						</StepperStep>
 						<StepperSeparator />
-						<StepperStep step={2} icon={CheckCircle} label="Done" description="All set!" />
+						<StepperStep step={2} label="Done" description="All set!">
+							{#snippet icon()}
+								<CheckCircle class="size-4" />
+							{/snippet}
+						</StepperStep>
 					</Stepper>
 				</CardContent>
 			</Card>
@@ -355,11 +369,23 @@
 			</CardHeader>
 			<CardContent class="space-y-6">
 				<Stepper bind:activeStep={registrationStep}>
-					<StepperStep step={0} icon={Mail} label="Account" description="Create your account" />
+					<StepperStep step={0} label="Account" description="Create your account">
+						{#snippet icon()}
+							<Mail class="size-4" />
+						{/snippet}
+					</StepperStep>
 					<StepperSeparator completed={registrationStep > 0} />
-					<StepperStep step={1} icon={User} label="Profile" description="Personal information" />
+					<StepperStep step={1} label="Profile" description="Personal information">
+						{#snippet icon()}
+							<User class="size-4" />
+						{/snippet}
+					</StepperStep>
 					<StepperSeparator completed={registrationStep > 1} />
-					<StepperStep step={2} icon={CheckCircle} label="Complete" description="Review and finish" />
+					<StepperStep step={2} label="Complete" description="Review and finish">
+						{#snippet icon()}
+							<CheckCircle class="size-4" />
+						{/snippet}
+					</StepperStep>
 				</Stepper>
 
 				<div class="min-h-[200px]">
@@ -444,13 +470,29 @@
 			<CardContent class="space-y-6">
 				<div class="grid gap-6 lg:grid-cols-[300px_1fr]">
 					<Stepper orientation="vertical" bind:activeStep={checkoutStep} size="sm">
-						<StepperStep step={0} icon={ShoppingCart} label="Cart" description="Review items" completed />
+						<StepperStep step={0} label="Cart" description="Review items" completed>
+							{#snippet icon()}
+								<ShoppingCart class="size-4" />
+							{/snippet}
+						</StepperStep>
 						<StepperSeparator completed />
-						<StepperStep step={1} icon={CreditCard} label="Payment" description="Payment details" />
+						<StepperStep step={1} label="Payment" description="Payment details">
+							{#snippet icon()}
+								<CreditCard class="size-4" />
+							{/snippet}
+						</StepperStep>
 						<StepperSeparator completed={checkoutStep > 1} />
-						<StepperStep step={2} icon={Package} label="Shipping" description="Shipping method" />
+						<StepperStep step={2} label="Shipping" description="Shipping method">
+							{#snippet icon()}
+								<Package class="size-4" />
+							{/snippet}
+						</StepperStep>
 						<StepperSeparator completed={checkoutStep > 2} />
-						<StepperStep step={3} icon={CheckCircle} label="Confirm" description="Place order" />
+						<StepperStep step={3} label="Confirm" description="Place order">
+							{#snippet icon()}
+								<CheckCircle class="size-4" />
+							{/snippet}
+						</StepperStep>
 					</Stepper>
 
 					<div class="min-h-[300px]">
@@ -551,11 +593,23 @@
 			</CardHeader>
 			<CardContent class="space-y-6">
 				<Stepper bind:activeStep={applicationStep} clickable>
-					<StepperStep step={0} icon={User} label="Personal" description="Basic info" />
+					<StepperStep step={0} label="Personal" description="Basic info">
+						{#snippet icon()}
+							<User class="size-4" />
+						{/snippet}
+					</StepperStep>
 					<StepperSeparator completed={applicationStep > 0} />
-					<StepperStep step={1} icon={Briefcase} label="Experience" description="Work history" />
+					<StepperStep step={1} label="Experience" description="Work history">
+						{#snippet icon()}
+							<Briefcase class="size-4" />
+						{/snippet}
+					</StepperStep>
 					<StepperSeparator completed={applicationStep > 1} />
-					<StepperStep step={2} icon={FileText} label="Review" description="Submit" />
+					<StepperStep step={2} label="Review" description="Submit">
+						{#snippet icon()}
+							<FileText class="size-4" />
+						{/snippet}
+					</StepperStep>
 				</Stepper>
 
 				<div class="min-h-[250px]">
@@ -628,6 +682,191 @@
 				</div>
 			</CardContent>
 		</Card>
+	</section>
+
+	<!-- Custom Content Examples -->
+	<section class="space-y-6">
+		<div class="space-y-2">
+			<h2 class="text-2xl font-semibold">Custom Label & Description</h2>
+			<p class="text-muted-foreground text-sm">Using children snippet for custom step content.</p>
+		</div>
+
+		<Card>
+			<CardHeader>
+				<CardTitle>Custom Rich Content</CardTitle>
+				<CardDescription>Use children snippet to provide custom label and description with rich formatting</CardDescription>
+			</CardHeader>
+			<CardContent class="space-y-6">
+				<Stepper activeStep={1}>
+					<StepperStep step={0}>
+						{#snippet icon()}
+							<User class="size-4" />
+						{/snippet}
+						<div class="space-y-1">
+							<div class="font-medium">Account Setup</div>
+							<div class="text-sm text-muted-foreground">Create your credentials</div>
+						</div>
+					</StepperStep>
+					<StepperSeparator completed />
+					<StepperStep step={1}>
+						{#snippet icon()}
+							<Settings class="size-4" />
+						{/snippet}
+						<div class="space-y-1">
+							<div class="font-medium flex items-center gap-2">
+								Configuration
+								<span class="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded-full">Active</span>
+							</div>
+							<div class="text-sm text-muted-foreground">Customize your settings</div>
+						</div>
+					</StepperStep>
+					<StepperSeparator />
+					<StepperStep step={2}>
+						{#snippet icon()}
+							<CheckCircle class="size-4" />
+						{/snippet}
+						<div class="space-y-1">
+							<div class="font-medium">Completion</div>
+							<div class="text-sm text-muted-foreground">Review and launch</div>
+						</div>
+					</StepperStep>
+				</Stepper>
+			</CardContent>
+		</Card>
+
+		<Card>
+			<CardHeader>
+				<CardTitle>Custom Styling</CardTitle>
+				<CardDescription>Apply custom styles and components within step content</CardDescription>
+			</CardHeader>
+			<CardContent class="space-y-6">
+				<div class="max-w-md">
+					<Stepper orientation="vertical" activeStep={1} size="lg">
+						<StepperStep step={0}>
+							{#snippet icon()}
+								<Package class="size-5" />
+							{/snippet}
+							<div class="space-y-2 pb-4">
+								<div class="font-semibold text-base">Order Placed</div>
+								<div class="text-sm text-muted-foreground">
+									Your order <span class="font-mono text-foreground">#ORD-12345</span> has been confirmed
+								</div>
+								<div class="text-xs text-muted-foreground">Jan 14, 2026 • 10:30 AM</div>
+							</div>
+						</StepperStep>
+						<StepperSeparator completed />
+						<StepperStep step={1}>
+							{#snippet icon()}
+								<ShoppingCart class="size-5" />
+							{/snippet}
+							<div class="space-y-2 pb-4">
+								<div class="font-semibold text-base flex items-center gap-2">
+									Processing
+									<span class="inline-flex h-2 w-2 rounded-full bg-primary animate-pulse"></span>
+								</div>
+								<div class="text-sm text-muted-foreground">
+									Your order is being prepared for shipment
+								</div>
+								<div class="text-xs text-muted-foreground">Estimated: 2-3 hours</div>
+							</div>
+						</StepperStep>
+						<StepperSeparator />
+						<StepperStep step={2}>
+							{#snippet icon()}
+								<MapPin class="size-5" />
+							{/snippet}
+							<div class="space-y-2">
+								<div class="font-semibold text-base">Out for Delivery</div>
+								<div class="text-sm text-muted-foreground">
+									Package will arrive at your address
+								</div>
+								<div class="text-xs text-muted-foreground">Pending</div>
+							</div>
+						</StepperStep>
+					</Stepper>
+				</div>
+			</CardContent>
+		</Card>
+
+		<div class="grid gap-6 md:grid-cols-2">
+			<Card>
+				<CardHeader>
+					<CardTitle>With Status Badges</CardTitle>
+				</CardHeader>
+				<CardContent>
+					<Stepper activeStep={1} variant="outline">
+						<StepperStep step={0}>
+							{#snippet icon()}
+								<FileText class="size-4" />
+							{/snippet}
+							<div class="space-y-1">
+								<div class="font-medium text-sm">Draft</div>
+								<div class="text-xs text-green-600 dark:text-green-400">✓ Completed</div>
+							</div>
+						</StepperStep>
+						<StepperSeparator completed />
+						<StepperStep step={1}>
+							{#snippet icon()}
+								<User class="size-4" />
+							{/snippet}
+							<div class="space-y-1">
+								<div class="font-medium text-sm">Review</div>
+								<div class="text-xs text-blue-600 dark:text-blue-400">⟳ In Progress</div>
+							</div>
+						</StepperStep>
+						<StepperSeparator />
+						<StepperStep step={2}>
+							{#snippet icon()}
+								<CheckCircle class="size-4" />
+							{/snippet}
+							<div class="space-y-1">
+								<div class="font-medium text-sm">Publish</div>
+								<div class="text-xs text-muted-foreground">○ Pending</div>
+							</div>
+						</StepperStep>
+					</Stepper>
+				</CardContent>
+			</Card>
+
+			<Card>
+				<CardHeader>
+					<CardTitle>With Time Estimates</CardTitle>
+				</CardHeader>
+				<CardContent>
+					<Stepper activeStep={0} variant="ghost">
+						<StepperStep step={0}>
+							{#snippet icon()}
+								<Briefcase class="size-4" />
+							{/snippet}
+							<div class="space-y-0.5">
+								<div class="font-medium text-sm">Interview</div>
+								<div class="text-xs text-muted-foreground">~30 minutes</div>
+							</div>
+						</StepperStep>
+						<StepperSeparator />
+						<StepperStep step={1}>
+							{#snippet icon()}
+								<GraduationCap class="size-4" />
+							{/snippet}
+							<div class="space-y-0.5">
+								<div class="font-medium text-sm">Assessment</div>
+								<div class="text-xs text-muted-foreground">~45 minutes</div>
+							</div>
+						</StepperStep>
+						<StepperSeparator />
+						<StepperStep step={2}>
+							{#snippet icon()}
+								<CheckCircle class="size-4" />
+							{/snippet}
+							<div class="space-y-0.5">
+								<div class="font-medium text-sm">Results</div>
+								<div class="text-xs text-muted-foreground">Instant</div>
+							</div>
+						</StepperStep>
+					</Stepper>
+				</CardContent>
+			</Card>
+		</div>
 	</section>
 
 	<!-- Result Display -->

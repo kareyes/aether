@@ -2,6 +2,7 @@
 	import { getContext } from "svelte";
 	import { cn, type WithElementRef } from "$core/utils.js";
 	import type { HTMLAttributes } from "svelte/elements";
+	import type { Snippet } from "svelte";
 	import type { StepState } from "./stepper-variants.js";
 	import { Check } from "@lucide/svelte";
 
@@ -19,7 +20,7 @@
 		step: number;
 		label?: string;
 		description?: string;
-		icon?: any;
+		icon?: Snippet;
 		completed?: boolean;
 	} = $props();
 
@@ -55,7 +56,7 @@
 		{#if isCompleted}
 			<Check class="size-4" />
 		{:else if icon}
-			<svelte:component this={icon} class="size-4" />
+			{@render icon()}
 		{:else}
 			{step + 1}
 		{/if}

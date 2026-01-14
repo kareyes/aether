@@ -32,6 +32,7 @@ export const stepperVariants = tv({
 		],
 		separatorLine: [
 			"bg-border transition-all duration-200",
+			"flex-shrink-0",
 		],
 	},
 	variants: {
@@ -47,8 +48,8 @@ export const stepperVariants = tv({
 				root: "flex-col",
 				step: "flex-row gap-3 last:pb-0",
 				stepContent: "text-left flex-1 pt-1",
-				separator: "flex items-center justify-start py-0 my-0 h-8",
-				separatorLine: "w-[2px] h-full ml-[19px]",
+				separator: "flex items-center justify-start py-2 my-0 min-h-8",
+				separatorLine: "w-0.5 h-full ml-[19px] bg-border",
 			},
 		},
 		size: {
@@ -148,7 +149,7 @@ export const stepperVariants = tv({
 			size: "xs",
 			class: {
 				separatorLine: "ml-[11px]", // (size-6 / 2) - 1px = 11px
-				separator: "h-4",
+				separator: "min-h-6",
 			},
 		},
 		{
@@ -156,7 +157,7 @@ export const stepperVariants = tv({
 			size: "sm",
 			class: {
 				separatorLine: "ml-[15px]", // (size-8 / 2) - 1px = 15px
-				separator: "h-6",
+				separator: "min-h-8",
 			},
 		},
 		{
@@ -164,7 +165,7 @@ export const stepperVariants = tv({
 			size: "default",
 			class: {
 				separatorLine: "ml-[19px]", // (size-10 / 2) - 1px = 19px
-				separator: "h-8",
+				separator: "min-h-10",
 			},
 		},
 		{
@@ -172,7 +173,7 @@ export const stepperVariants = tv({
 			size: "lg",
 			class: {
 				separatorLine: "ml-[23px]", // (size-12 / 2) - 1px = 23px
-				separator: "h-10",
+				separator: "min-h-12",
 			},
 		},
 		// Horizontal orientation - align separator with button center

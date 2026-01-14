@@ -81,11 +81,23 @@ A flexible stepper component for displaying multi-step processes, workflows, and
 </script>
 
 <Stepper>
-  <StepperStep step={0} icon={User} label="Account" />
+  <StepperStep step={0} label="Account">
+    {#snippet icon()}
+      <User class="size-4" />
+    {/snippet}
+  </StepperStep>
   <StepperSeparator />
-  <StepperStep step={1} icon={CreditCard} label="Payment" />
+  <StepperStep step={1} label="Payment">
+    {#snippet icon()}
+      <CreditCard class="size-4" />
+    {/snippet}
+  </StepperStep>
   <StepperSeparator />
-  <StepperStep step={2} icon={CheckCircle} label="Done" />
+  <StepperStep step={2} label="Done">
+    {#snippet icon()}
+      <CheckCircle class="size-4" />
+    {/snippet}
+  </StepperStep>
 </Stepper>
 ```
 
