@@ -35,6 +35,8 @@ import * as Sidebar from "./components/ui/sidebar/index.js";
 import * as Skeleton from "./components/ui/skeleton/index.js";
 import * as Slider from "./components/ui/slider/index.js";
 import * as Sonner from "./components/ui/sonner/index.js";
+import * as Spinner from "./components/ui/spinner/index.js";
+import * as Stepper from "./components/ui/stepper/index.js";
 import * as Switch from "./components/ui/switch/index.js";
 import * as Table from "./components/ui/table/index.js";
 import * as Tabs from "./components/ui/tabs/index.js";
@@ -76,6 +78,8 @@ export {
 	Skeleton,
 	Slider,
 	Sonner,
+	Spinner,
+	Stepper,
 	Switch,
 	Table,
 	Tabs,
