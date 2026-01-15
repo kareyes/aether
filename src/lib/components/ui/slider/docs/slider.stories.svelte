@@ -1,7 +1,7 @@
 <script context="module" lang="ts">
 	import { defineMeta } from "@storybook/addon-svelte-csf";
-	import { Slider } from "$core/components/ui/slider";
-	import type { SliderVariant, SliderSize, SliderMark } from "$core/components/ui/slider";
+	import { Slider } from "$lib/components/ui/slider";
+	import type { SliderVariant, SliderSize, SliderMark } from "$lib/components/ui/slider";
 
 	const { Story } = defineMeta({
 		title: "Components/Slider",

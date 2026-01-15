@@ -21,7 +21,7 @@
 
 <script lang="ts">
 	import { Accordion as AccordionPrimitive } from "bits-ui";
-	import { cn } from "$core/utils.js";
+	import { cn } from "$lib/utils.js";
 	import { setContext } from "svelte";
 
 	let {

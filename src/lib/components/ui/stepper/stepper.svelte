@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { setContext } from "svelte";
-	import { cn, type WithElementRef } from "$core/utils.js";
+	import { cn, type WithElementRef } from "$lib/utils.js";
 	import type { HTMLAttributes } from "svelte/elements";
 	import { stepperVariants, type StepperVariants } from "./stepper-variants.js";
 

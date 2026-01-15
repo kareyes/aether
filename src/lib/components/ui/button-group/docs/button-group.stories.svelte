@@ -1,9 +1,9 @@
 <script module lang="ts">
   import { defineMeta } from '@storybook/addon-svelte-csf';
-	import { ButtonGroup, ButtonGroupText, ButtonGroupSeparator } from "$core/components/ui/button-group";
-  import { Button } from "$core/components/ui/button";
+	import { ButtonGroup, ButtonGroupText, ButtonGroupSeparator } from "$lib/components/ui/button-group";
+  import { Button } from "$lib/components/ui/button";
   import { fn } from 'storybook/test';
-  import type { ButtonGroupVariant } from "$core/components/ui/button-group/button-group.svelte";
+  import type { ButtonGroupVariant } from "$lib/components/ui/button-group/button-group.svelte";
     import { type Args } from 'storybook/internal/types';
 
   const { Story } = defineMeta({

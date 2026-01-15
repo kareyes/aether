@@ -1,7 +1,7 @@
 <script lang="ts" module>
 	import { RadioGroup as RadioGroupPrimitive } from "bits-ui";
 	import CircleIcon from "@lucide/svelte/icons/circle";
-	import { cn, type WithoutChildrenOrChild } from "$core/utils.js";
+	import { cn, type WithoutChildrenOrChild } from "$lib/utils.js";
 	import { type VariantProps, tv } from "tailwind-variants";
 
 	export const radioVariants = tv({

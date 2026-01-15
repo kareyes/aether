@@ -10,11 +10,11 @@
 		SheetTitle,
 		SheetDescription,
 		SheetClose
-	} from "$core/components/ui/sheet";
-	import { Button } from "$core/components/ui/button";
-	import { Input } from "$core/components/ui/input";
-	import { Label } from "$core/components/ui/label";
-	import { Textarea } from "$core/components/ui/textarea";
+	} from "$lib/components/ui/sheet";
+	import { Button } from "$lib/components/ui/button";
+	import { Input } from "$lib/components/ui/input";
+	import { Label } from "$lib/components/ui/label";
+	import { Textarea } from "$lib/components/ui/textarea";
 	import { Menu, Settings, Bell, User, Mail, Lock, ShoppingCart } from "@lucide/svelte";
 
 	const { Story } = defineMeta({

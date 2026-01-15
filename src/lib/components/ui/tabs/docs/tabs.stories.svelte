@@ -1,6 +1,6 @@
 <script module>
   import { defineMeta } from '@storybook/addon-svelte-csf';
-	import { Tabs, TabsList, TabsTrigger, TabsContent } from "$core/components/ui/tabs";
+	import { Tabs, TabsList, TabsTrigger, TabsContent } from "$lib/components/ui/tabs";
   import { fn } from 'storybook/test';
   import { Home, User, Settings } from "@lucide/svelte";
 

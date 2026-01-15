@@ -1,10 +1,10 @@
 <script lang="ts">
 	import { Check, ChevronsUpDown } from "@lucide/svelte";
 	import { tick } from "svelte";
-	import { Button, type ButtonProps } from "$core/components/ui/button";
-	import * as Command from "$core/components/ui/command";
-	import * as Popover from "$core/components/ui/popover";
-	import { cn } from "$core/utils";
+	import { Button, type ButtonProps } from "$lib/components/ui/button";
+	import * as Command from "$lib/components/ui/command";
+	import * as Popover from "$lib/components/ui/popover";
+	import { cn } from "$lib/utils";
 	import type { Snippet } from "svelte";
 
 	type ComboboxItem = {

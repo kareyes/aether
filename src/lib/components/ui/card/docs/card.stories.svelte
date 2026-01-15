@@ -1,11 +1,11 @@
 <script module lang="ts">
   import { defineMeta } from '@storybook/addon-svelte-csf';
-	import {Card} from "$core/components/ui/card";
-	import { Button } from "$core/components/ui/button";
-	import { Badge } from "$core/components/ui/badge";
-	import { Input } from "$core/components/ui/input";
-	import { Switch } from "$core/components/ui/switch";
-	import {Field} from "$core/components/ui/field";
+	import {Card} from "$lib/components/ui/card";
+	import { Button } from "$lib/components/ui/button";
+	import { Badge } from "$lib/components/ui/badge";
+	import { Input } from "$lib/components/ui/input";
+	import { Switch } from "$lib/components/ui/switch";
+	import {Field} from "$lib/components/ui/field";
     import {type Args } from 'storybook/internal/types';
 
   const { Story } = defineMeta({

@@ -1,8 +1,8 @@
 <script module>
   import { defineMeta } from '@storybook/addon-svelte-csf';
-	import { CheckboxGroup } from "$core/components/ui/checkbox";
+	import { CheckboxGroup } from "$lib/components/ui/checkbox";
   import { fn } from 'storybook/test';
-  import * as Field from '$core/components/ui/field';
+  import * as Field from '$lib/components/ui/field';
 
   const basicOptions = [
     { id: "1", label: "Option 1", value: "option1" },

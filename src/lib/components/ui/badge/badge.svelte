@@ -1,13 +1,13 @@
 <!-- <script lang="ts" module>
 	import { badgeVariants, type BadgeProps } from "./badge-variants";
-	import { cn } from "$core/utils.js";
+	import { cn } from "$lib/utils.js";
 </script> -->
 
 <script lang="ts">
 	import XIcon from "@lucide/svelte/icons/x";
-	import { Spinner } from '$core/components/ui/spinner';
+	import { Spinner } from '$lib/components/ui/spinner';
 	import { badgeVariants, type BadgeProps } from "./badge-variants";
-	import { cn } from "$core/utils.js";
+	import { cn } from "$lib/utils.js";
 	let {
 		ref = $bindable(null),
 		href,

@@ -1,10 +1,10 @@
 <script lang="ts" generics="TData, TValue">
 	import ChevronDownIcon from "@lucide/svelte/icons/chevron-down";
-	import * as Table from "$core/components/ui/table/index.js";
-	import { Button } from "$core/components/ui/button/index.js";
-	import * as DropdownMenu from "$core/components/ui/dropdown-menu/index.js";
-	import * as Select from "$core/components/ui/select/index.js";
-	import { Input } from "$core/components/ui/input/index.js";
+	import * as Table from "$lib/components/ui/table/index.js";
+	import { Button } from "$lib/components/ui/button/index.js";
+	import * as DropdownMenu from "$lib/components/ui/dropdown-menu/index.js";
+	import * as Select from "$lib/components/ui/select/index.js";
+	import { Input } from "$lib/components/ui/input/index.js";
 	import {
 		type ColumnDef,
 		type ColumnFiltersState,
@@ -23,7 +23,7 @@
 		getSortedRowModel,
 		getExpandedRowModel
 	} from "./index.js";
-	import { cn } from "$core/utils.js";
+	import { cn } from "$lib/utils.js";
 
 	type TableVariant = 'default' | 'striped' | 'bordered' | 'compact';
 

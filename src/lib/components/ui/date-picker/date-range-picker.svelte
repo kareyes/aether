@@ -2,10 +2,10 @@
     import { Calendar as CalendarIcon } from "@lucide/svelte";
     import { getLocalTimeZone } from "@internationalized/date";
     import type { DateRange } from "bits-ui";
-    import { cn } from "$core/utils.js";
-    import { Button } from "$core/components/ui/button/index.js";
-    import { RangeCalendar } from "$core/components/ui/range-calendar/index.js";
-    import * as Popover from "$core/components/ui/popover/index.js";
+    import { cn } from "$lib/utils.js";
+    import { Button } from "$lib/components/ui/button/index.js";
+    import { RangeCalendar } from "$lib/components/ui/range-calendar/index.js";
+    import * as Popover from "$lib/components/ui/popover/index.js";
     import type { DatePickerProps } from ".";
 
     type Props = DatePickerProps & {

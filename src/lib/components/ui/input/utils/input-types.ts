@@ -1,5 +1,5 @@
 import type { HTMLInputAttributes, HTMLInputTypeAttribute } from "svelte/elements";
-import type { WithElementRef } from "$core/utils.js";
+import type { WithElementRef } from "$lib/utils.js";
 import type { InputVariant, InputSize } from './input-variants.js';
 import type { MaskType, MaskPattern } from './input-masks.js';
 import type { Snippet } from 'svelte';

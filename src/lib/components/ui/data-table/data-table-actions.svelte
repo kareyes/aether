@@ -1,8 +1,8 @@
 <script lang="ts">
 	import type { Snippet } from "svelte";
 	import { EllipsisIcon } from "@lucide/svelte";
-	import { Button } from "$core/components/ui/button/index.js";
-	import * as DropdownMenu from "$core/components/ui/dropdown-menu/index.js";
+	import { Button } from "$lib/components/ui/button/index.js";
+	import * as DropdownMenu from "$lib/components/ui/dropdown-menu/index.js";
 
 	type ActionItem = {
 		label: string;

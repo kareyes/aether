@@ -12,8 +12,8 @@
 		InputGroupInput,
 		InputGroupAddon,
 		InputGroupButton,
-	} from "$core/components/ui/input-group";
-	import { cn } from "$core/utils.js";
+	} from "$lib/components/ui/input-group";
+	import { cn } from "$lib/utils.js";
 
 	let {
 		files = $bindable(null),

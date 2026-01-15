@@ -21,7 +21,7 @@
 
 <script lang="ts">
 	import { PinInput as InputOTPPrimitive } from "bits-ui";
-	import { cn } from "$core/utils.js";
+	import { cn } from "$lib/utils.js";
 	import { setContext } from "svelte";
 	import type { InputOTPSlotVariant, InputOTPSlotSize } from "./input-otp-slot.svelte";
 

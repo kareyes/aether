@@ -1,9 +1,9 @@
 <script module lang="ts">
   import { defineMeta } from '@storybook/addon-svelte-csf';
-	import { RadioGroup } from "$core/components/ui/radio";
-  import type { RadioGroupOption } from "$core/components/ui/radio";
-  import * as Field from '$core/components/ui/field';
-  import { Button } from '$core/components/ui/button';
+	import { RadioGroup } from "$lib/components/ui/radio";
+  import type { RadioGroupOption } from "$lib/components/ui/radio";
+  import * as Field from '$lib/components/ui/field';
+  import { Button } from '$lib/components/ui/button';
 
   type Args = {
     options: RadioGroupOption[];

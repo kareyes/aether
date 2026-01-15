@@ -1,6 +1,6 @@
 <script module>
   import { defineMeta } from '@storybook/addon-svelte-csf';
-	import { Badge } from "$core/components/ui/badge";
+	import { Badge } from "$lib/components/ui/badge";
   import { fn } from 'storybook/test';
   import { Check, Star, Heart, Zap, AlertCircle, ShoppingCart, LoaderIcon } from '@lucide/svelte';
 

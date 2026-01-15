@@ -1,10 +1,10 @@
 <script lang="ts">
     import { Calendar as CalendarIcon } from "@lucide/svelte";
     import { type DateValue, getLocalTimeZone } from "@internationalized/date";
-    import { cn } from "$core/utils.js";
-    import { Button } from "$core/components/ui/button/index.js";
-    import { Calendar } from "$core/components/ui/calendar/index.js";
-    import * as Popover from "$core/components/ui/popover/index.js";
+    import { cn } from "$lib/utils.js";
+    import { Button } from "$lib/components/ui/button/index.js";
+    import { Calendar } from "$lib/components/ui/calendar/index.js";
+    import * as Popover from "$lib/components/ui/popover/index.js";
     import type { DatePickerProps } from ".";
     import type { ComponentProps } from "svelte";
 

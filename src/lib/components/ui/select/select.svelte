@@ -13,7 +13,7 @@
 		SelectSeparator 
 	} from "./index.js";
 	import Group from "./select-group.svelte";
-	import { cn } from "$core/utils.js";
+	import { cn } from "$lib/utils.js";
 	import type { SelectProps } from './utils/select-types.js';
 	import { useFindOption, useDisplayValue } from './utils/select-hooks.js';
 

@@ -28,7 +28,7 @@
 </script>
 
 <script lang="ts">
-	import { cn } from "$core/utils.js";
+	import { cn } from "$lib/utils.js";
 	import { Popover as PopoverPrimitive } from "bits-ui";
 
 	let {

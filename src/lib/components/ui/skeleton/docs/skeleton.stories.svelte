@@ -8,8 +8,8 @@
     SkeletonTable, 
     skeletonVariants,
     type SkeletonProps
-  } from "$core/components/ui/skeleton";
-    import { keysOf } from '$core/utils';
+  } from "$lib/components/ui/skeleton";
+    import { keysOf } from '$lib/utils';
 
   	var variants = keysOf(skeletonVariants.variants.variant);
     var animations = keysOf(skeletonVariants.variants.animation);

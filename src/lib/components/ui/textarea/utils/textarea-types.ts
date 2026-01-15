@@ -1,4 +1,4 @@
-import type { WithElementRef, WithoutChildren } from "$core/utils.js";
+import type { WithElementRef, WithoutChildren } from "$lib/utils.js";
 import type { HTMLTextareaAttributes } from "svelte/elements";
 import type { TextareaVariant, TextareaSize, TextareaResize } from "./textarea-variants.js";
 

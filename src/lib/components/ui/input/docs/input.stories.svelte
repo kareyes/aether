@@ -1,7 +1,7 @@
 <script module>
     import { defineMeta } from '@storybook/addon-svelte-csf';
     import Input from "../input.svelte";
-    import { InputGroupButton } from '$core/components/ui/input-group';
+    import { InputGroupButton } from '$lib/components/ui/input-group';
     import Search from '@lucide/svelte/icons/search';
     import Mail from '@lucide/svelte/icons/mail';
     import Lock from '@lucide/svelte/icons/lock';
@@ -12,7 +12,7 @@
     import Eye from '@lucide/svelte/icons/eye';
     import EyeOff from '@lucide/svelte/icons/eye-off';
     import X from '@lucide/svelte/icons/x';
-    import * as Field from '$core/components/ui/field';
+    import * as Field from '$lib/components/ui/field';
 
     const { Story } = defineMeta({
         title: 'Components/Input',

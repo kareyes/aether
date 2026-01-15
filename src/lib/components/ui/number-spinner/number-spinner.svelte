@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { cn } from "$core/utils.js";
+	import { cn } from "$lib/utils.js";
 	import { numberSpinnerVariants } from "./number-spinner-variants.js";
 	import type {
 		NumberSpinnerVariant,
@@ -7,7 +7,7 @@
 		NumberSpinnerOrientation,
 	} from "./number-spinner-variants.js";
 	import { ChevronUp, ChevronDown, Plus, Minus } from "@lucide/svelte";
-	import { Spinner } from '$core/components/ui/spinner';
+	import { Spinner } from '$lib/components/ui/spinner';
 	import type { HTMLInputAttributes } from "svelte/elements";
 
 	interface NumberSpinnerProps extends Omit<HTMLInputAttributes, "size" | "type"> {

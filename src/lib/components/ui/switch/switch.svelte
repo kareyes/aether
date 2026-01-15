@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Switch as SwitchPrimitive } from "bits-ui";
-	import { cn } from "$core/utils.js";
+	import { cn } from "$lib/utils.js";
 	import { switchVariants } from './switch-variants.js';
 	import type { SwitchProps } from './switch-types.js';
 

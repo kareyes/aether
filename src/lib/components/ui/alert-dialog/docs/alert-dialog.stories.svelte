@@ -14,7 +14,7 @@
 </script>
 
 <script lang="ts">
-	import { Button } from '$core/components/ui/button';
+	import { Button } from '$lib/components/ui/button';
 	import {
 		AlertCircle,
 		CheckCircle2,

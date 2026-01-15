@@ -1,10 +1,10 @@
 <script lang="ts">
-	import { cn } from "$core/utils.js";
+	import { cn } from "$lib/utils.js";
 	import { inputVariants } from './utils/input-variants.js';
 	import { useMaskedInput } from './utils/input-hooks.js';
 	import type { InputWithAddonsProps } from './utils/input-types.js';
-	import { InputGroup, InputGroupInput, InputGroupAddon, InputGroupButton, InputGroupText } from '$core/components/ui/input-group';
-	import { Spinner } from '$core/components/ui/spinner';
+	import { InputGroup, InputGroupInput, InputGroupAddon, InputGroupButton, InputGroupText } from '$lib/components/ui/input-group';
+	import { Spinner } from '$lib/components/ui/spinner';
 
 	let {
 		ref = $bindable(null),

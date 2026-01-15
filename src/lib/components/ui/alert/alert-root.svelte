@@ -23,7 +23,7 @@
 <script lang="ts">
 	import type { HTMLAttributes } from "svelte/elements";
 	import type { Snippet } from "svelte";
-	import { cn, type WithElementRef } from "$core/utils.js";
+	import { cn, type WithElementRef } from "$lib/utils.js";
 	import { X } from "@lucide/svelte";
 
 	let {

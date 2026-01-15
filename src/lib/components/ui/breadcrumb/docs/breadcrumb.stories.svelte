@@ -8,7 +8,7 @@
     BreadcrumbSeparator,
     BreadcrumbPage,
     BreadcrumbEllipsis
-  } from "$core/components/ui/breadcrumb";
+  } from "$lib/components/ui/breadcrumb";
   import { Home, Folder, File } from "@lucide/svelte";
 
   const { Story } = defineMeta({

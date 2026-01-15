@@ -1,6 +1,6 @@
 <script lang="ts">
 	import * as Avatar from "./index";
-	import { cn } from "$core/utils";
+	import { cn } from "$lib/utils";
 	import type { Snippet } from "svelte";
 	import { tv, type VariantProps } from "tailwind-variants";
 

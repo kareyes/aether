@@ -1,10 +1,10 @@
 <script lang="ts" module>
 	import { defineMeta } from "@storybook/addon-svelte-csf";
-	import { DatePickerWithPresets, DateRangePickerWithPresets } from "$core/components/ui/date-picker";
+	import { DatePickerWithPresets, DateRangePickerWithPresets } from "$lib/components/ui/date-picker";
 	import { type DateValue, today, getLocalTimeZone } from "@internationalized/date";
 	import type { DateRange } from "bits-ui";
-	import * as Field from '$core/components/ui/field';
-	import { Button } from '$core/components/ui/button';
+	import * as Field from '$lib/components/ui/field';
+	import { Button } from '$lib/components/ui/button';
     
     import {type Args } from "storybook/internal/types";
 

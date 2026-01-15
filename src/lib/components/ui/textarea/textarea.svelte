@@ -1,9 +1,9 @@
 <script lang="ts">
-	import { cn } from "$core/utils.js";
+	import { cn } from "$lib/utils.js";
 	import { textareaVariants } from "./utils/textarea-variants.js";
 	import { useAutoResize, getCharacterCount } from "./utils/textarea-hooks.js";
 	import type { TextareaProps } from "./utils/textarea-types.js";
-	import { Spinner } from '$core/components/ui/spinner';
+	import { Spinner } from '$lib/components/ui/spinner';
 
 	let {
 		ref = $bindable(null),

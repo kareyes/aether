@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { Snippet } from "svelte";
 	import { cardVariants, type CardVariant, type CardPadding } from "./card-variants.js";
-	import { cn } from "$core/utils.js";
+	import { cn } from "$lib/utils.js";
 	import Root from "./card-root.svelte";
 	import Header from "./card-header.svelte";
 	import Title from "./card-title.svelte";

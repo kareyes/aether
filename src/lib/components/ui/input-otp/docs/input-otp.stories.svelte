@@ -1,8 +1,8 @@
 <script module lang="ts">
     import { defineMeta } from '@storybook/addon-svelte-csf';
     import InputOTP from "../input-otp.svelte";
-    import * as Field from '$core/components/ui/field';
-    import { Button } from '$core/components/ui/button';
+    import * as Field from '$lib/components/ui/field';
+    import { Button } from '$lib/components/ui/button';
     import { REGEXP_ONLY_DIGITS, REGEXP_ONLY_DIGITS_AND_CHARS } from "bits-ui";
 
     

@@ -1,8 +1,8 @@
 <script lang="ts" module>
 	import { defineMeta } from "@storybook/addon-svelte-csf";
-	import { DatePicker } from "$core/components/ui/date-picker";
+	import { DatePicker } from "$lib/components/ui/date-picker";
 	import { type DateValue, today, getLocalTimeZone } from "@internationalized/date";
-	import * as Field from '$core/components/ui/field';
+	import * as Field from '$lib/components/ui/field';
     import {type Args } from "storybook/internal/types";
 
 	const { Story } = defineMeta({

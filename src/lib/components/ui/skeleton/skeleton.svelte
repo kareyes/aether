@@ -73,7 +73,7 @@
 </script>
 
 <script lang="ts">
-	import { cn, keysOf } from "$core/utils.js";
+	import { cn, keysOf } from "$lib/utils.js";
 
 	let {
 		ref = $bindable(null),

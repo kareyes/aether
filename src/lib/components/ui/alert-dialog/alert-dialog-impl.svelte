@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { AlertDialog as AlertDialogPrimitive } from "bits-ui";
-	import { buttonVariants } from "$core/components/ui/button/index.js";
+	import { buttonVariants } from "$lib/components/ui/button/index.js";
 	import AlertDialogOverlay from "./alert-dialog-overlay.svelte";
-	import { cn, type WithoutChild, type WithoutChildrenOrChild } from "$core/utils.js";
+	import { cn, type WithoutChild, type WithoutChildrenOrChild } from "$lib/utils.js";
 	import type { Component } from "svelte";
 	import type { IconProps } from "@lucide/svelte";
 	import {

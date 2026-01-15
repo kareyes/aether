@@ -1,17 +1,17 @@
 <script module lang="ts">
   import { defineMeta } from '@storybook/addon-svelte-csf';
   import { Field } from '../index.js';
-  import { Input } from '$core/components/ui/input';
-  import { Textarea } from '$core/components/ui/textarea';
-  import { Checkbox, CheckboxGroup, type CheckboxGroupOption } from '$core/components/ui/checkbox';
-  import { Switch } from '$core/components/ui/switch';
-  import  { Select } from '$core/components/ui/select';
-  import  {RadioGroup, type RadioGroupOption} from '$core/components/ui/radio';
-  import { Slider } from '$core/components/ui/slider';
-  import  {InputOTP} from '$core/components/ui/input-otp';
-  import { NumberSpinner } from '$core/components/ui/number-spinner';
-  import  {FileInput} from '$core/components/ui/file-input';
-  import { DatePicker } from '$core/components/ui/date-picker';
+  import { Input } from '$lib/components/ui/input';
+  import { Textarea } from '$lib/components/ui/textarea';
+  import { Checkbox, CheckboxGroup, type CheckboxGroupOption } from '$lib/components/ui/checkbox';
+  import { Switch } from '$lib/components/ui/switch';
+  import  { Select } from '$lib/components/ui/select';
+  import  {RadioGroup, type RadioGroupOption} from '$lib/components/ui/radio';
+  import { Slider } from '$lib/components/ui/slider';
+  import  {InputOTP} from '$lib/components/ui/input-otp';
+  import { NumberSpinner } from '$lib/components/ui/number-spinner';
+  import  {FileInput} from '$lib/components/ui/file-input';
+  import { DatePicker } from '$lib/components/ui/date-picker';
   import Mail from '@lucide/svelte/icons/mail';
   import Lock from '@lucide/svelte/icons/lock';
   import User from '@lucide/svelte/icons/user';

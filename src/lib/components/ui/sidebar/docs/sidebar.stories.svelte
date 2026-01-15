@@ -24,7 +24,7 @@
 		SidebarRail,
 		SidebarSeparator,
 		SidebarTrigger
-	} from "$core/components/ui/sidebar";
+	} from "$lib/components/ui/sidebar";
 	import {
 		Home,
 		Inbox,

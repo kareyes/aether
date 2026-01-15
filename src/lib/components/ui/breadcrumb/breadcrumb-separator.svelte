@@ -31,7 +31,7 @@
 	import SlashIcon from "@lucide/svelte/icons/slash";
 	import ArrowRightIcon from "@lucide/svelte/icons/arrow-right";
 	import { Circle } from "@lucide/svelte";
-	import { cn, type WithElementRef } from "$core/utils.js";
+	import { cn, type WithElementRef } from "$lib/utils.js";
 	import type { HTMLLiAttributes } from "svelte/elements";
 
 	let {

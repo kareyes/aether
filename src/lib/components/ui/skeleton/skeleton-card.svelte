@@ -21,7 +21,7 @@
 	import Skeleton from "./skeleton.svelte";
 	import SkeletonText from "./skeleton-text.svelte";
 	import SkeletonAvatar from "./skeleton-avatar.svelte";
-	import { cn } from "$core/utils.js";
+	import { cn } from "$lib/utils.js";
 
 	let {
 		withImage = true,

@@ -1,5 +1,5 @@
 <script lang="ts" module>
-	import { cn } from "$core/utils.js";
+	import { cn } from "$lib/utils.js";
 	import { type VariantProps, tv } from "tailwind-variants";
 	import type { RadioSize, RadioVariant } from "./radio.svelte";
 

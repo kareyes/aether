@@ -2,7 +2,7 @@
  * Switch component type definitions
  */
 
-import type { WithoutChildrenOrChild } from "$core/utils.js";
+import type { WithoutChildrenOrChild } from "$lib/utils.js";
 import type { Switch as SwitchPrimitive } from "bits-ui";
 import type { SwitchVariant, SwitchSize } from './switch-variants.js';
 

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Slider as SliderPrimitive } from "bits-ui";
-	import { cn, type WithoutChildrenOrChild } from "$core/utils.js";
+	import { cn, type WithoutChildrenOrChild } from "$lib/utils.js";
 	import { sliderVariants, type SliderVariant, type SliderSize } from "./slider-variants.js";
 
 	export interface SliderMark {

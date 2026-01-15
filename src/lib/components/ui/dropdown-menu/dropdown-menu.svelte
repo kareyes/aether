@@ -1,8 +1,8 @@
 <script lang="ts">
-	import { Button, type ButtonProps } from "$core/components/ui/button";
+	import { Button, type ButtonProps } from "$lib/components/ui/button";
 	import { ChevronDown } from "@lucide/svelte";
 	import type { Snippet } from "svelte";
-	import * as DropdownMenu from "$core/components/ui/dropdown-menu/index.js";
+	import * as DropdownMenu from "$lib/components/ui/dropdown-menu/index.js";
 
 	type DropdownItem = {
 		type?: "item" | "separator" | "label" | "checkbox" | "radio" | "submenu";

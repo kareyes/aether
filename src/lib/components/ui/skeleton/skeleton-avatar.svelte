@@ -16,7 +16,7 @@
 <script lang="ts">
 	import Skeleton from "./skeleton.svelte";
 	import SkeletonText from "./skeleton-text.svelte";
-	import { cn } from "$core/utils.js";
+	import { cn } from "$lib/utils.js";
 
 	let {
 		size = "md",

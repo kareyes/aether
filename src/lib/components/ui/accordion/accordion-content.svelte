@@ -20,7 +20,7 @@
 
 <script lang="ts">
 	import { Accordion as AccordionPrimitive } from "bits-ui";
-	import { cn, type WithoutChild } from "$core/utils.js";
+	import { cn, type WithoutChild } from "$lib/utils.js";
 	import { getContext } from "svelte";
 
 	let {
