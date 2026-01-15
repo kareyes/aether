@@ -20,7 +20,7 @@ A modern drag-and-drop file input component with validation, file type restricti
 
 ```svelte
 <script>
-  import { FileInput } from "$core/components/ui/file-input";
+  import { FileInput } from "$lib/components/ui/file-input";
   
   let files = $state(null);
 </script>
@@ -252,8 +252,8 @@ The Field component provides a consistent way to add labels, descriptions, and e
 
 ```svelte
 <script>
-  import { FileInput } from "$core/components/ui/file-input";
-  import * as Field from "$core/components/ui/field";
+  import { FileInput } from "$lib/components/ui/file-input";
+  import * as Field from "$lib/components/ui/field";
   
   let files = $state(null);
 </script>
@@ -274,8 +274,8 @@ The Field component provides a consistent way to add labels, descriptions, and e
 
 ```svelte
 <script>
-  import { FileInput } from "$core/components/ui/file-input";
-  import * as Field from "$core/components/ui/field";
+  import { FileInput } from "$lib/components/ui/file-input";
+  import * as Field from "$lib/components/ui/field";
   
   let files = $state(null);
   let error = $state("");
@@ -352,9 +352,9 @@ The Field component provides a consistent way to add labels, descriptions, and e
 
 ```svelte
 <script>
-  import { FileInput } from "$core/components/ui/file-input";
-  import * as Field from "$core/components/ui/field";
-  import { Button } from "$core/components/ui/button";
+  import { FileInput } from "$lib/components/ui/file-input";
+  import * as Field from "$lib/components/ui/field";
+  import { Button } from "$lib/components/ui/button";
   
   let resume = $state(null);
   let coverLetter = $state(null);

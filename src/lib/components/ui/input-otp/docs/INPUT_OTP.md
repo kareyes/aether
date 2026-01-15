@@ -20,7 +20,7 @@ An accessible one-time password (OTP) input component with copy/paste functional
 
 ```svelte
 <script>
-  import { InputOTP } from "$core/components/ui/input-otp";
+  import { InputOTP } from "$lib/components/ui/input-otp";
   
   let value = $state("");
 </script>
@@ -68,7 +68,7 @@ Restrict input to specific character patterns using regex strings:
 
 ```svelte
 <script>
-  import { InputOTP } from "$core/components/ui/input-otp";
+  import { InputOTP } from "$lib/components/ui/input-otp";
   import { REGEXP_ONLY_DIGITS, REGEXP_ONLY_DIGITS_AND_CHARS } from "bits-ui";
 </script>
 
@@ -88,7 +88,7 @@ Get notified when all OTP slots are filled:
 
 ```svelte
 <script>
-  import { InputOTP } from "$core/components/ui/input-otp";
+  import { InputOTP } from "$lib/components/ui/input-otp";
   
   let otpValue = $state("");
   
@@ -112,7 +112,7 @@ Display validation errors with visual feedback:
 
 ```svelte
 <script>
-  import { InputOTP } from "$core/components/ui/input-otp";
+  import { InputOTP } from "$lib/components/ui/input-otp";
   
   let otpValue = $state("");
   let hasError = $state(false);
@@ -146,7 +146,7 @@ Track every value change:
 
 ```svelte
 <script>
-  import { InputOTP } from "$core/components/ui/input-otp";
+  import { InputOTP } from "$lib/components/ui/input-otp";
   
   let otpValue = $state("");
   
@@ -187,7 +187,7 @@ For more control, you can use the primitive components directly:
 
 ```svelte
 <script>
-  import * as InputOTP from "$core/components/ui/input-otp";
+  import * as InputOTP from "$lib/components/ui/input-otp";
 </script>
 
 <InputOTP.Root maxlength={6} variant="default" size="default">
@@ -245,8 +245,8 @@ The Field component provides a consistent way to add labels, descriptions, and e
 
 ```svelte
 <script>
-  import { InputOTP } from "$core/components/ui/input-otp";
-  import * as Field from "$core/components/ui/field";
+  import { InputOTP } from "$lib/components/ui/input-otp";
+  import * as Field from "$lib/components/ui/field";
   
   let code = $state("");
 </script>
@@ -263,8 +263,8 @@ The Field component provides a consistent way to add labels, descriptions, and e
 
 ```svelte
 <script>
-  import { InputOTP } from "$core/components/ui/input-otp";
-  import * as Field from "$core/components/ui/field";
+  import { InputOTP } from "$lib/components/ui/input-otp";
+  import * as Field from "$lib/components/ui/field";
   import { REGEXP_ONLY_DIGITS } from "bits-ui";
   
   let code = $state("");
@@ -318,9 +318,9 @@ The Field component provides a consistent way to add labels, descriptions, and e
 
 ```svelte
 <script>
-  import { InputOTP } from "$core/components/ui/input-otp";
-  import * as Field from "$core/components/ui/field";
-  import { Button } from "$core/components/ui/button";
+  import { InputOTP } from "$lib/components/ui/input-otp";
+  import * as Field from "$lib/components/ui/field";
+  import { Button } from "$lib/components/ui/button";
   import { REGEXP_ONLY_DIGITS } from "bits-ui";
   
   let verificationCode = $state("");

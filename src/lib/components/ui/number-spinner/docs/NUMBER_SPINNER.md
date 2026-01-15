@@ -28,7 +28,7 @@ npm install @lucide/svelte tailwind-variants
 
 ```svelte
 <script>
-  import { NumberSpinner } from "$core/components/ui/number-spinner";
+  import { NumberSpinner } from "$lib/components/ui/number-spinner";
   
   let quantity = $state(1);
 </script>
@@ -199,7 +199,7 @@ Control the number of decimal places:
 
 ```svelte
 <script>
-  import * as Field from "$core/components/ui/field";
+  import * as Field from "$lib/components/ui/field";
   
   let quantity = $state(1);
 </script>
@@ -315,7 +315,7 @@ Control the number of decimal places:
 
 ```svelte
 <script>
-  import * as Field from "$core/components/ui/field";
+  import * as Field from "$lib/components/ui/field";
   
   let age = $state(null);
   let quantity = $state(1);
@@ -422,8 +422,8 @@ The Field component provides a consistent way to add labels, descriptions, and e
 
 ```svelte
 <script>
-  import { NumberSpinner } from "$core/components/ui/number-spinner";
-  import * as Field from "$core/components/ui/field";
+  import { NumberSpinner } from "$lib/components/ui/number-spinner";
+  import * as Field from "$lib/components/ui/field";
   
   let quantity = $state(1);
 </script>
@@ -444,8 +444,8 @@ The Field component provides a consistent way to add labels, descriptions, and e
 
 ```svelte
 <script>
-  import { NumberSpinner } from "$core/components/ui/number-spinner";
-  import * as Field from "$core/components/ui/field";
+  import { NumberSpinner } from "$lib/components/ui/number-spinner";
+  import * as Field from "$lib/components/ui/field";
   
   let age = $state(null);
   let error = $derived(age === null || age < 18);
@@ -471,8 +471,8 @@ The Field component provides a consistent way to add labels, descriptions, and e
 
 ```svelte
 <script>
-  import { NumberSpinner } from "$core/components/ui/number-spinner";
-  import * as Field from "$core/components/ui/field";
+  import { NumberSpinner } from "$lib/components/ui/number-spinner";
+  import * as Field from "$lib/components/ui/field";
   
   let price = $state(9.99);
 </script>
@@ -547,9 +547,9 @@ The Field component provides a consistent way to add labels, descriptions, and e
 
 ```svelte
 <script>
-  import { NumberSpinner } from "$core/components/ui/number-spinner";
-  import * as Field from "$core/components/ui/field";
-  import { Button } from "$core/components/ui/button";
+  import { NumberSpinner } from "$lib/components/ui/number-spinner";
+  import * as Field from "$lib/components/ui/field";
+  import { Button } from "$lib/components/ui/button";
   
   let formData = $state({
     price: 29.99,

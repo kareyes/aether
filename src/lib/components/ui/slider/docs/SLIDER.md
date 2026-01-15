@@ -27,7 +27,7 @@ npm install bits-ui tailwind-variants
 
 ```svelte
 <script>
-  import { Slider } from "$core/components/ui/slider";
+  import { Slider } from "$lib/components/ui/slider";
   
   let value = $state([50]);
 </script>

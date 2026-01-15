@@ -26,7 +26,7 @@ The skeleton component is part of the Aether UI library:
     SkeletonAvatar, 
     SkeletonCard, 
     SkeletonTable 
-  } from "$core/components/ui/skeleton";
+  } from "$lib/components/ui/skeleton";
 </script>
 ```
 

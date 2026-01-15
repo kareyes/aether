@@ -18,7 +18,7 @@ An enhanced avatar component for displaying user profile images with support for
 
 ```bash
 # The component is already included in the project
-import { Avatar, AvatarGroup } from "$core/components/ui/avatar";
+import { Avatar, AvatarGroup } from "$lib/components/ui/avatar";
 ```
 
 ## Basic Usage
@@ -27,7 +27,7 @@ import { Avatar, AvatarGroup } from "$core/components/ui/avatar";
 
 ```svelte
 <script>
-  import { Avatar } from "$core/components/ui/avatar";
+  import { Avatar } from "$lib/components/ui/avatar";
 </script>
 
 <Avatar 
@@ -147,7 +147,7 @@ Display multiple avatars in an overlapping layout:
 
 ```svelte
 <script>
-  import { Avatar, AvatarGroup } from "$core/components/ui/avatar";
+  import { Avatar, AvatarGroup } from "$lib/components/ui/avatar";
   
   const users = [
     { image: "/avatar1.jpg", name: "User 1" },

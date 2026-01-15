@@ -25,7 +25,7 @@ npx shadcn-svelte@latest add combobox
 
 ```svelte
 <script lang="ts">
-	import { Combobox } from "$core/components/ui/combobox";
+	import { Combobox } from "$lib/components/ui/combobox";
 
 	const frameworks = [
 		{ value: "sveltekit", label: "SvelteKit" },
@@ -204,9 +204,9 @@ npx shadcn-svelte@latest add combobox
 
 ```svelte
 <script lang="ts">
-	import { Combobox } from "$core/components/ui/combobox";
-	import * as Popover from "$core/components/ui/popover";
-	import { Button } from "$core/components/ui/button";
+	import { Combobox } from "$lib/components/ui/combobox";
+	import * as Popover from "$lib/components/ui/popover";
+	import { Button } from "$lib/components/ui/button";
 	import { ChevronsUpDown } from "@lucide/svelte";
 
 	let selectedFramework = $state("");

@@ -23,7 +23,7 @@ pnpm dlx shadcn-svelte@latest add input
 
 ```svelte
 <script lang="ts">
-  import { Input } from '$core/components/ui/input';
+  import { Input } from '$lib/components/ui/input';
   import { Search } from '@lucide/svelte';
 </script>
 
@@ -75,7 +75,7 @@ All props from the standard `Input` component are supported:
 
 ```svelte
 <script lang="ts">
-  import { Input } from '$core/components/ui/input';
+  import { Input } from '$lib/components/ui/input';
   import { Search, Mail, Lock } from '@lucide/svelte';
 </script>
 
@@ -144,8 +144,8 @@ Add interactive buttons for actions.
 
 ```svelte
 <script lang="ts">
-  import { Input } from '$core/components/ui/input';
-  import { InputGroupButton } from '$core/components/ui/input-group';
+  import { Input } from '$lib/components/ui/input';
+  import { InputGroupButton } from '$lib/components/ui/input-group';
   import { Search, Copy, Send, Eye, EyeOff } from '@lucide/svelte';
 
   let showPassword = $state(false);
@@ -321,7 +321,7 @@ Combine with input mask functionality.
 
 ```svelte
 <script lang="ts">
-  import { Input } from '$core/components/ui/input';
+  import { Input } from '$lib/components/ui/input';
   import { Phone, CreditCard } from '@lucide/svelte';
 </script>
 
@@ -398,7 +398,7 @@ Control addon alignment using the alignment props.
 import type {
   InputWithAddonsProps,
   InputGroupAddonAlign
-} from '$core/components/ui/input';
+} from '$lib/components/ui/input';
 ```
 
 ## Comparison with InputGroup
@@ -451,8 +451,8 @@ The Field component provides labels, descriptions, and error handling. This is t
 
 ```svelte
 <script lang="ts">
-  import * as Field from '$core/components/ui/field';
-  import { Input } from '$core/components/ui/input';
+  import * as Field from '$lib/components/ui/field';
+  import { Input } from '$lib/components/ui/input';
 
   let email = $state('');
 </script>
@@ -469,8 +469,8 @@ The Field component provides labels, descriptions, and error handling. This is t
 
 ```svelte
 <script lang="ts">
-  import * as Field from '$core/components/ui/field';
-  import { Input } from '$core/components/ui/input';
+  import * as Field from '$lib/components/ui/field';
+  import { Input } from '$lib/components/ui/input';
   import { Mail, Lock, User } from '@lucide/svelte';
 
   let email = $state('');
@@ -521,8 +521,8 @@ The Field component provides labels, descriptions, and error handling. This is t
 
 ```svelte
 <script lang="ts">
-  import * as Field from '$core/components/ui/field';
-  import { Input } from '$core/components/ui/input';
+  import * as Field from '$lib/components/ui/field';
+  import { Input } from '$lib/components/ui/input';
 
   let email = $state('');
   let errors = $state<Record<string, string>>({});
@@ -558,8 +558,8 @@ The Field component provides labels, descriptions, and error handling. This is t
 
 ```svelte
 <script lang="ts">
-  import * as Field from '$core/components/ui/field';
-  import { Input } from '$core/components/ui/input';
+  import * as Field from '$lib/components/ui/field';
+  import { Input } from '$lib/components/ui/input';
 
   let price = $state('');
   let website = $state('');
@@ -597,9 +597,9 @@ The Field component provides labels, descriptions, and error handling. This is t
 
 ```svelte
 <script lang="ts">
-  import * as Field from '$core/components/ui/field';
-  import { Input } from '$core/components/ui/input';
-  import { InputGroupButton } from '$core/components/ui/input-group';
+  import * as Field from '$lib/components/ui/field';
+  import { Input } from '$lib/components/ui/input';
+  import { InputGroupButton } from '$lib/components/ui/input-group';
   import { Copy, Eye, EyeOff } from '@lucide/svelte';
 
   let apiKey = $state('sk_live_...');
@@ -660,8 +660,8 @@ The Field component provides labels, descriptions, and error handling. This is t
 
 ```svelte
 <script lang="ts">
-  import * as Field from '$core/components/ui/field';
-  import { Input } from '$core/components/ui/input';
+  import * as Field from '$lib/components/ui/field';
+  import { Input } from '$lib/components/ui/input';
   import { Phone, CreditCard } from '@lucide/svelte';
 
   let phone = $state('');
@@ -702,9 +702,9 @@ The Field component provides labels, descriptions, and error handling. This is t
 
 ```svelte
 <script lang="ts">
-  import * as Field from '$core/components/ui/field';
-  import { Input } from '$core/components/ui/input';
-  import { Button } from '$core/components/ui/button';
+  import * as Field from '$lib/components/ui/field';
+  import { Input } from '$lib/components/ui/input';
+  import { Button } from '$lib/components/ui/button';
   import { Mail, Lock, User, Phone } from '@lucide/svelte';
 
   let formData = $state({

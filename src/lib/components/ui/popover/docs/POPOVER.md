@@ -53,7 +53,7 @@ The Popover component is built using **tailwind-variants** (tv) for a robust var
 
 ```svelte
 <script lang="ts">
-  import { Popover, PopoverTrigger, PopoverContent } from "$core/components/ui/popover";
+  import { Popover, PopoverTrigger, PopoverContent } from "$lib/components/ui/popover";
 </script>
 
 <Popover>
@@ -101,8 +101,8 @@ The Popover component is built using **tailwind-variants** (tv) for a robust var
 
 ```svelte
 <script lang="ts">
-  import { Popover, PopoverTrigger, PopoverContent, PopoverClose } from "$core/components/ui/popover";
-  import { Button } from "$core/components/ui/button";
+  import { Popover, PopoverTrigger, PopoverContent, PopoverClose } from "$lib/components/ui/popover";
+  import { Button } from "$lib/components/ui/button";
 
   let open = $state(false);
 </script>
@@ -297,10 +297,10 @@ Link style with underline on hover.
 
 ```svelte
 <script lang="ts">
-  import { Popover, PopoverTrigger, PopoverContent } from "$core/components/ui/popover";
-  import { Button } from "$core/components/ui/button";
-  import { Input } from "$core/components/ui/input";
-  import { Label } from "$core/components/ui/label";
+  import { Popover, PopoverTrigger, PopoverContent } from "$lib/components/ui/popover";
+  import { Button } from "$lib/components/ui/button";
+  import { Input } from "$lib/components/ui/input";
+  import { Label } from "$lib/components/ui/label";
 
   let width = $state("100%");
   let maxWidth = $state("300px");
@@ -345,9 +345,9 @@ Link style with underline on hover.
 
 ```svelte
 <script lang="ts">
-  import { Popover, PopoverTrigger, PopoverContent } from "$core/components/ui/popover";
-  import { Avatar } from "$core/components/ui/avatar";
-  import { Button } from "$core/components/ui/button";
+  import { Popover, PopoverTrigger, PopoverContent } from "$lib/components/ui/popover";
+  import { Avatar } from "$lib/components/ui/avatar";
+  import { Button } from "$lib/components/ui/button";
 </script>
 
 <Popover>
@@ -499,7 +499,7 @@ The Popover component follows WAI-ARIA guidelines:
 
 ```svelte
 <script lang="ts">
-  import { Popover, PopoverTrigger, PopoverContent, PopoverArrow } from "$core/components/ui/popover";
+  import { Popover, PopoverTrigger, PopoverContent, PopoverArrow } from "$lib/components/ui/popover";
 </script>
 
 <Popover>

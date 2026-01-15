@@ -53,7 +53,7 @@ The Tabs component is built using **tailwind-variants** (tv) for a robust varian
 
 ```svelte
 <script lang="ts">
-  import { Tabs, TabsList, TabsTrigger, TabsContent } from "$core/components/ui/tabs";
+  import { Tabs, TabsList, TabsTrigger, TabsContent } from "$lib/components/ui/tabs";
 </script>
 
 <Tabs value="account">

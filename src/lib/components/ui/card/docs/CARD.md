@@ -17,7 +17,7 @@ A versatile card component with multiple variants, padding options, and interact
 ### Simple Card
 ```svelte
 <script>
-  import * as Card from "$core/components/ui/card";
+  import * as Card from "$lib/components/ui/card";
 </script>
 
 <Card title="Card Title" description="Card description">
@@ -84,7 +84,7 @@ A versatile card component with multiple variants, padding options, and interact
 ### Card with Header Actions
 ```svelte
 <script>
-  import { Button } from "$core/components/ui/button";
+  import { Button } from "$lib/components/ui/button";
 </script>
 
 <Card title="Edit Profile" description="Update your information">
@@ -99,7 +99,7 @@ A versatile card component with multiple variants, padding options, and interact
 ### Card with Footer
 ```svelte
 <script>
-  import { Button } from "$core/components/ui/button";
+  import { Button } from "$lib/components/ui/button";
 </script>
 
 <Card title="Confirm Action" description="This requires confirmation">
@@ -115,10 +115,10 @@ A versatile card component with multiple variants, padding options, and interact
 ### Complex Card with Header and Footer
 ```svelte
 <script>
-  import { Button } from "$core/components/ui/button";
-  import { Badge } from "$core/components/ui/badge";
-  import * as Field from "$core/components/ui/field";
-  import { Input } from "$core/components/ui/input";
+  import { Button } from "$lib/components/ui/button";
+  import { Badge } from "$lib/components/ui/badge";
+  import * as Field from "$lib/components/ui/field";
+  import { Input } from "$lib/components/ui/input";
 </script>
 
 <Card 
@@ -196,7 +196,7 @@ For more control, you can use the native card components:
 
 ```svelte
 <script>
-  import * as Card from "$core/components/ui/card";
+  import * as Card from "$lib/components/ui/card";
 </script>
 
 <Card.Root class="border rounded-xl shadow-sm">

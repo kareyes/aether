@@ -26,7 +26,7 @@ npm install @tanstack/table-core
 
 ```svelte
 <script lang="ts">
-  import { DataTable, type ColumnDef } from "$core/components/ui/data-table";
+  import { DataTable, type ColumnDef } from "$lib/components/ui/data-table";
   
   type User = {
     id: string;
@@ -153,7 +153,7 @@ const columns: ColumnDef<User>[] = [
 ### Sortable Column
 
 ```ts
-import { DataTableColumnHeader, renderComponent } from "$core/components/ui/data-table";
+import { DataTableColumnHeader, renderComponent } from "$lib/components/ui/data-table";
 
 const columns: ColumnDef<User>[] = [
   {
@@ -175,7 +175,7 @@ import {
   renderComponent,
   type HeaderContext,
   type CellContext 
-} from "$core/components/ui/data-table";
+} from "$lib/components/ui/data-table";
 
 const columns: ColumnDef<User>[] = [
   {
@@ -204,7 +204,7 @@ const columns: ColumnDef<User>[] = [
 
 ```ts
 import { createRawSnippet } from "svelte";
-import { renderSnippet } from "$core/components/ui/data-table";
+import { renderSnippet } from "$lib/components/ui/data-table";
 
 const columns: ColumnDef<User>[] = [
   {
@@ -226,7 +226,7 @@ const columns: ColumnDef<User>[] = [
 ### Actions Column
 
 ```ts
-import { DataTableActions, renderComponent } from "$core/components/ui/data-table";
+import { DataTableActions, renderComponent } from "$lib/components/ui/data-table";
 
 const columns: ColumnDef<User>[] = [
   {
@@ -261,7 +261,7 @@ Enable row expansion to show additional details.
 
 ```svelte
 <script lang="ts">
-  import { DataTable, type ColumnDef } from "$core/components/ui/data-table";
+  import { DataTable, type ColumnDef } from "$lib/components/ui/data-table";
   
   type Payment = {
     id: string;
@@ -409,13 +409,13 @@ const columns: ColumnDef<User>[] = [
 
 ```svelte
 <script lang="ts">
-  import { DataTable, type ColumnDef } from "$core/components/ui/data-table";
+  import { DataTable, type ColumnDef } from "$lib/components/ui/data-table";
   import { 
     DataTableCheckbox, 
     DataTableColumnHeader,
     DataTableActions,
     renderComponent 
-  } from "$core/components/ui/data-table";
+  } from "$lib/components/ui/data-table";
   
   type User = {
     id: string;
@@ -570,7 +570,7 @@ Dropdown menu for row actions.
 Renders a Svelte component within a table cell.
 
 ```ts
-import { renderComponent } from "$core/components/ui/data-table";
+import { renderComponent } from "$lib/components/ui/data-table";
 
 renderComponent(MyComponent, { prop1: "value" })
 ```
@@ -581,7 +581,7 @@ Renders a Svelte snippet within a table cell.
 
 ```ts
 import { createRawSnippet } from "svelte";
-import { renderSnippet } from "$core/components/ui/data-table";
+import { renderSnippet } from "$lib/components/ui/data-table";
 
 const snippet = createRawSnippet(() => ({
   render: () => `<div>Content</div>`
@@ -595,7 +595,7 @@ renderSnippet(snippet, { data: "value" })
 The DataTable component is fully typed with TypeScript generics:
 
 ```ts
-import type { ColumnDef } from "$core/components/ui/data-table";
+import type { ColumnDef } from "$lib/components/ui/data-table";
 
 type MyData = {
   id: string;

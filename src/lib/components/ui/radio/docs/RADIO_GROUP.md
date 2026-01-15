@@ -27,8 +27,8 @@ npm install bits-ui @lucide/svelte tailwind-variants
 
 ```svelte
 <script>
-  import { RadioGroup } from "$core/components/ui/radio";
-  import type { RadioGroupOption } from "$core/components/ui/radio";
+  import { RadioGroup } from "$lib/components/ui/radio";
+  import type { RadioGroupOption } from "$lib/components/ui/radio";
   
   let selectedValue = $state("option1");
   
@@ -50,7 +50,7 @@ npm install bits-ui @lucide/svelte tailwind-variants
 
 ```svelte
 <script>
-  import { RadioGroup } from "$core/components/ui/radio";
+  import { RadioGroup } from "$lib/components/ui/radio";
   
   let selectedPlan = $state("pro");
   
@@ -83,7 +83,7 @@ npm install bits-ui @lucide/svelte tailwind-variants
 
 ```svelte
 <script>
-  import { RadioGroup } from "$core/components/ui/radio";
+  import { RadioGroup } from "$lib/components/ui/radio";
   
   let theme = $state("auto");
   
@@ -287,7 +287,7 @@ interface RadioGroupOption {
 
 ```svelte
 <script>
-  import * as Field from "$core/components/ui/field";
+  import * as Field from "$lib/components/ui/field";
   
   let cluster = $state("");
 </script>
@@ -463,7 +463,7 @@ import type {
   RadioGroupSize,
   RadioGroupItemVariant,
   RadioGroupItemSize 
-} from "$core/components/ui/radio-group";
+} from "$lib/components/ui/radio-group";
 
 // Group variant and size types
 type GroupVariant = RadioGroupVariant; // "default" | "card" | "inline"
@@ -487,7 +487,7 @@ type ItemSize = RadioGroupItemSize; // "sm" | "default" | "lg"
 
 ```svelte
 <script>
-  import { RadioGroup, RadioGroupItem } from "$core/components/ui/radio-group";
+  import { RadioGroup, RadioGroupItem } from "$lib/components/ui/radio-group";
   
   let formData = $state({
     plan: "free",
@@ -543,9 +543,9 @@ The Field component provides a consistent way to add labels, descriptions, and e
 
 ```svelte
 <script>
-  import { RadioGroup } from "$core/components/ui/radio";
-  import type { RadioGroupOption } from "$core/components/ui/radio";
-  import * as Field from "$core/components/ui/field";
+  import { RadioGroup } from "$lib/components/ui/radio";
+  import type { RadioGroupOption } from "$lib/components/ui/radio";
+  import * as Field from "$lib/components/ui/field";
   
   let selectedPlan = $state("pro");
   
@@ -572,8 +572,8 @@ The Field component provides a consistent way to add labels, descriptions, and e
 
 ```svelte
 <script>
-  import { RadioGroup } from "$core/components/ui/radio";
-  import * as Field from "$core/components/ui/field";
+  import { RadioGroup } from "$lib/components/ui/radio";
+  import * as Field from "$lib/components/ui/field";
   
   let paymentMethod = $state("");
   let error = $derived(paymentMethod === "");
@@ -603,8 +603,8 @@ The Field component provides a consistent way to add labels, descriptions, and e
 
 ```svelte
 <script>
-  import { RadioGroup } from "$core/components/ui/radio";
-  import * as Field from "$core/components/ui/field";
+  import { RadioGroup } from "$lib/components/ui/radio";
+  import * as Field from "$lib/components/ui/field";
   
   let selectedPlan = $state("pro");
   
@@ -666,9 +666,9 @@ The Field component provides a consistent way to add labels, descriptions, and e
 
 ```svelte
 <script>
-  import { RadioGroup } from "$core/components/ui/radio";
-  import * as Field from "$core/components/ui/field";
-  import { Button } from "$core/components/ui/button";
+  import { RadioGroup } from "$lib/components/ui/radio";
+  import * as Field from "$lib/components/ui/field";
+  import { Button } from "$lib/components/ui/button";
   
   let formData = $state({
     plan: "pro",

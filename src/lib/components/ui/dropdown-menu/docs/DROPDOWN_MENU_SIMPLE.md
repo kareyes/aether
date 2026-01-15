@@ -16,7 +16,7 @@ A simplified dropdown menu component that wraps all the complexity of the standa
 
 ```svelte
 <script>
-  import { DropdownMenu } from "$core/components/ui/dropdown-menu";
+  import { DropdownMenu } from "$lib/components/ui/dropdown-menu";
   import { User, Settings, LogOut } from "@lucide/svelte";
 
   const items = [

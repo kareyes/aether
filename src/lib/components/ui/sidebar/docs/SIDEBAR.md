@@ -76,8 +76,8 @@ src/routes/+layout.svelte
 
 ```svelte
 <script lang="ts">
-  import * as Sidebar from "$core/components/ui/sidebar/index.js";
-  import AppSidebar from "$core/components/app-sidebar.svelte";
+  import * as Sidebar from "$lib/components/ui/sidebar/index.js";
+  import AppSidebar from "$lib/components/app-sidebar.svelte";
   let { children } = $props();
 </script>
 <Sidebar.Provider>
@@ -93,7 +93,7 @@ src/lib/components/app-sidebar.svelte
 
 ```svelte
 <script lang="ts">
-  import * as Sidebar from "$core/components/ui/sidebar/index.js";
+  import * as Sidebar from "$lib/components/ui/sidebar/index.js";
 </script>
 <Sidebar.Root>
   <Sidebar.Header />
@@ -115,8 +115,8 @@ src/routes/+layout.svelte
 
 ```svelte
 <script lang="ts">
-  import * as Sidebar from "$core/components/ui/sidebar/index.js";
-  import AppSidebar from "$core/components/app-sidebar.svelte";
+  import * as Sidebar from "$lib/components/ui/sidebar/index.js";
+  import AppSidebar from "$lib/components/app-sidebar.svelte";
   let { children } = $props();
 </script>
 <Sidebar.Provider>
@@ -134,7 +134,7 @@ src/lib/components/app-sidebar.svelte
 
 ```svelte
 <script lang="ts">
-  import * as Sidebar from "$core/components/ui/sidebar/index.js";
+  import * as Sidebar from "$lib/components/ui/sidebar/index.js";
 </script>
 <Sidebar.Root>
   <Sidebar.Content />
@@ -154,7 +154,7 @@ src/lib/components/app-sidebar.svelte
   import InboxIcon from "@lucide/svelte/icons/inbox";
   import SearchIcon from "@lucide/svelte/icons/search";
   import SettingsIcon from "@lucide/svelte/icons/settings";
-  import * as Sidebar from "$core/components/ui/sidebar/index.js";
+  import * as Sidebar from "$lib/components/ui/sidebar/index.js";
   // Menu items.
   const items = [
     {
@@ -277,7 +277,7 @@ The main `Sidebar` component used to render a collapsible sidebar.
 
 ```svelte
 <script lang="ts">
-  import * as Sidebar from "$core/components/ui/sidebar/index.js";
+  import * as Sidebar from "$lib/components/ui/sidebar/index.js";
 </script>
 <Sidebar.Root />
 ```
@@ -345,7 +345,7 @@ The `useSidebar` function is used to hook into the sidebar context. It returns a
 
 ```svelte
 <script lang="ts">
-  import { useSidebar } from "$core/components/ui/sidebar/index.js";
+  import { useSidebar } from "$lib/components/ui/sidebar/index.js";
   sidebar.state;
   sidebar.isMobile;
   sidebar.toggle();
@@ -790,7 +790,7 @@ To create a custom trigger, you can use the `useSidebar` hook.
 
 ```svelte
 <script lang="ts">
-  import { useSidebar } from "$core/components/ui/sidebar/index.js";
+  import { useSidebar } from "$lib/components/ui/sidebar/index.js";
   const sidebar = useSidebar();
 </script>
 <button onclick={() => sidebar.toggle()}>Toggle Sidebar</button>
@@ -819,7 +819,7 @@ A controlled sidebar.
 
 ```svelte
 <script lang="ts">
-  import * as Sidebar from "$core/components/ui/sidebar/index.js";
+  import * as Sidebar from "$lib/components/ui/sidebar/index.js";
   let myOpen = $state(true);
 </script>
 <Sidebar.Provider bind:open={() => myOpen, (newOpen) => (myOpen = newOpen)}>

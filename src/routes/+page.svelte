@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Button from "$core/components/ui/button/button.svelte";
+	import Button from "$lib/components/ui/button/button.svelte";
 	import PlusIcon from "@lucide/svelte/icons/plus";
 	import SaveIcon from "@lucide/svelte/icons/save";
 	import DownloadIcon from "@lucide/svelte/icons/download";
@@ -7,7 +7,7 @@
 		AlertDialogProvider,
 		getAlertDialogContext,
 		type AlertDialogContext,
-	} from "$core/components/ui/alert-dialog";
+	} from "$lib/components/ui/alert-dialog";
 
 	let loading = $state(false);
 

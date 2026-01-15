@@ -80,8 +80,8 @@ The Sheet component is built on top of bits-ui's Dialog primitive, providing a f
     SheetTitle,
     SheetDescription,
     SheetClose
-  } from "$core/components/ui/sheet";
-  import { Button } from "$core/components/ui/button";
+  } from "$lib/components/ui/sheet";
+  import { Button } from "$lib/components/ui/button";
 </script>
 
 <Sheet>
@@ -112,8 +112,8 @@ The Sheet component is built on top of bits-ui's Dialog primitive, providing a f
 
 ```svelte
 <script lang="ts">
-  import { Sheet, SheetContent, SheetTrigger } from "$core/components/ui/sheet";
-  import { Button } from "$core/components/ui/button";
+  import { Sheet, SheetContent, SheetTrigger } from "$lib/components/ui/sheet";
+  import { Button } from "$lib/components/ui/button";
   
   let open = $state(false);
   
@@ -188,10 +188,10 @@ The Sheet component is built on top of bits-ui's Dialog primitive, providing a f
     SheetDescription,
     SheetFooter,
     SheetClose
-  } from "$core/components/ui/sheet";
-  import { Button } from "$core/components/ui/button";
-  import { Input } from "$core/components/ui/input";
-  import { Label } from "$core/components/ui/label";
+  } from "$lib/components/ui/sheet";
+  import { Button } from "$lib/components/ui/button";
+  import { Input } from "$lib/components/ui/input";
+  import { Label } from "$lib/components/ui/label";
   
   let name = $state("");
   let email = $state("");
@@ -242,8 +242,8 @@ The Sheet component is built on top of bits-ui's Dialog primitive, providing a f
     SheetContent,
     SheetHeader,
     SheetTitle
-  } from "$core/components/ui/sheet";
-  import { Button } from "$core/components/ui/button";
+  } from "$lib/components/ui/sheet";
+  import { Button } from "$lib/components/ui/button";
   import { Menu } from "@lucide/svelte";
   
   const navItems = [
@@ -286,9 +286,9 @@ The Sheet component is built on top of bits-ui's Dialog primitive, providing a f
     SheetHeader,
     SheetTitle,
     SheetDescription
-  } from "$core/components/ui/sheet";
-  import { Button } from "$core/components/ui/button";
-  import { Tabs, TabsList, TabsTrigger, TabsContent } from "$core/components/ui/tabs";
+  } from "$lib/components/ui/sheet";
+  import { Button } from "$lib/components/ui/button";
+  import { Tabs, TabsList, TabsTrigger, TabsContent } from "$lib/components/ui/tabs";
   import { Settings } from "@lucide/svelte";
 </script>
 
@@ -340,8 +340,8 @@ The Sheet component is built on top of bits-ui's Dialog primitive, providing a f
     SheetContent,
     SheetHeader,
     SheetTitle
-  } from "$core/components/ui/sheet";
-  import { Button } from "$core/components/ui/button";
+  } from "$lib/components/ui/sheet";
+  import { Button } from "$lib/components/ui/button";
   import { Bell } from "@lucide/svelte";
   
   const notifications = [

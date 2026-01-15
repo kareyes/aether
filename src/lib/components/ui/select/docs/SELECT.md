@@ -20,7 +20,7 @@ A unified Select component that combines all shadcn select functionality into a 
 
 ```svelte
 <script>
-  import { Select } from "$core/components/ui/select";
+  import { Select } from "$lib/components/ui/select";
   
   let value = $state("");
   
@@ -269,7 +269,7 @@ type SelectSize = "sm" | "default" | "lg";
 ### With Field Component
 ```svelte
 <script>
-  import * as Field from "$core/components/ui/field";
+  import * as Field from "$lib/components/ui/field";
   
   let framework = $state("");
 </script>
@@ -331,8 +331,8 @@ The Field component provides labels, descriptions, and error handling. This is t
 
 ```svelte
 <script lang="ts">
-  import * as Field from '$core/components/ui/field';
-  import { Select } from '$core/components/ui/select';
+  import * as Field from '$lib/components/ui/field';
+  import { Select } from '$lib/components/ui/select';
 
   let country = $state('');
   
@@ -360,8 +360,8 @@ The Field component provides labels, descriptions, and error handling. This is t
 
 ```svelte
 <script lang="ts">
-  import * as Field from '$core/components/ui/field';
-  import { Select } from '$core/components/ui/select';
+  import * as Field from '$lib/components/ui/field';
+  import { Select } from '$lib/components/ui/select';
 
   let framework = $state('');
   let errors = $state<Record<string, string>>({});
@@ -401,8 +401,8 @@ The Field component provides labels, descriptions, and error handling. This is t
 
 ```svelte
 <script lang="ts">
-  import * as Field from '$core/components/ui/field';
-  import { Select } from '$core/components/ui/select';
+  import * as Field from '$lib/components/ui/field';
+  import { Select } from '$lib/components/ui/select';
 
   let selectedTech = $state('');
   
@@ -443,8 +443,8 @@ The Field component provides labels, descriptions, and error handling. This is t
 
 ```svelte
 <script lang="ts">
-  import * as Field from '$core/components/ui/field';
-  import { Select } from '$core/components/ui/select';
+  import * as Field from '$lib/components/ui/field';
+  import { Select } from '$lib/components/ui/select';
 
   let selectedSkills = $state<string[]>([]);
   
@@ -479,8 +479,8 @@ The Field component provides labels, descriptions, and error handling. This is t
 
 ```svelte
 <script lang="ts">
-  import * as Field from '$core/components/ui/field';
-  import { Select } from '$core/components/ui/select';
+  import * as Field from '$lib/components/ui/field';
+  import { Select } from '$lib/components/ui/select';
 
   let formData = $state({
     country: '',
@@ -551,9 +551,9 @@ The Field component provides labels, descriptions, and error handling. This is t
 
 ```svelte
 <script lang="ts">
-  import * as Field from '$core/components/ui/field';
-  import { Select } from '$core/components/ui/select';
-  import { Button } from '$core/components/ui/button';
+  import * as Field from '$lib/components/ui/field';
+  import { Select } from '$lib/components/ui/select';
+  import { Button } from '$lib/components/ui/button';
 
   let formData = $state({
     country: '',

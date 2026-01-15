@@ -19,7 +19,7 @@ A powerful component for managing multiple related checkboxes with shared state 
 ### Simple Checkbox Group
 ```svelte
 <script>
-  import { CheckboxGroup } from "$core/components/ui/checkbox";
+  import { CheckboxGroup } from "$lib/components/ui/checkbox";
   
   let selectedValues = $state([]);
   
@@ -117,9 +117,9 @@ A powerful component for managing multiple related checkboxes with shared state 
 ### With Field Component
 ```svelte
 <script>
-  import { CheckboxGroup } from "$core/components/ui/checkbox";
-  import type { CheckboxGroupOption } from "$core/components/ui/checkbox";
-  import * as Field from "$core/components/ui/field";
+  import { CheckboxGroup } from "$lib/components/ui/checkbox";
+  import type { CheckboxGroupOption } from "$lib/components/ui/checkbox";
+  import * as Field from "$lib/components/ui/field";
   
   let interests = $state([]);
   
@@ -147,8 +147,8 @@ A powerful component for managing multiple related checkboxes with shared state 
 ### Multiple CheckboxGroups with Field.Set
 ```svelte
 <script>
-  import { CheckboxGroup } from "$core/components/ui/checkbox";
-  import * as Field from "$core/components/ui/field";
+  import { CheckboxGroup } from "$lib/components/ui/checkbox";
+  import * as Field from "$lib/components/ui/field";
   
   let communication = $state(["email"]);
   let interests = $state([]);
@@ -197,8 +197,8 @@ A powerful component for managing multiple related checkboxes with shared state 
 ### With Validation
 ```svelte
 <script>
-  import { CheckboxGroup } from "$core/components/ui/checkbox";
-  import * as Field from "$core/components/ui/field";
+  import { CheckboxGroup } from "$lib/components/ui/checkbox";
+  import * as Field from "$lib/components/ui/field";
   
   let permissions = $state([]);
   let error = $derived(permissions.length === 0);

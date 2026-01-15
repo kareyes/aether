@@ -26,8 +26,8 @@ pnpm dlx shadcn-svelte@latest add field
 
 ```svelte
 <script lang="ts">
-  import * as Field from '$core/components/ui/field';
-  import { Input } from '$core/components/ui/input';
+  import * as Field from '$lib/components/ui/field';
+  import { Input } from '$lib/components/ui/input';
 
   let email = $state('');
 </script>
@@ -41,8 +41,8 @@ pnpm dlx shadcn-svelte@latest add field
 
 ```svelte
 <script lang="ts">
-  import * as Field from '$core/components/ui/field';
-  import { Input } from '$core/components/ui/input';
+  import * as Field from '$lib/components/ui/field';
+  import { Input } from '$lib/components/ui/input';
 
   let email = $state('');
 </script>
@@ -79,7 +79,7 @@ Simplified component that wraps all field functionality:
 The Field component provides both a simplified API and composable parts:
 
 ```typescript
-import * as Field from '$core/components/ui/field';
+import * as Field from '$lib/components/ui/field';
 
 // Simplified wrapper component
 Field.Field
@@ -105,8 +105,8 @@ Field.Error      // Error message display
 
 ```svelte
 <script lang="ts">
-  import * as Field from '$core/components/ui/field';
-  import { Input } from '$core/components/ui/input';
+  import * as Field from '$lib/components/ui/field';
+  import { Input } from '$lib/components/ui/input';
 
   let username = $state('');
   let errors = $state<Record<string, string>>({});
@@ -149,8 +149,8 @@ Field.Error      // Error message display
 
 ```svelte
 <script lang="ts">
-  import * as Field from '$core/components/ui/field';
-  import { Textarea } from '$core/components/ui/textarea';
+  import * as Field from '$lib/components/ui/field';
+  import { Textarea } from '$lib/components/ui/textarea';
 
   let bio = $state('');
 </script>
@@ -202,8 +202,8 @@ Field.Error      // Error message display
 
 ```svelte
 <script lang="ts">
-  import * as Field from '$core/components/ui/field';
-  import { Select } from '$core/components/ui/select';
+  import * as Field from '$lib/components/ui/field';
+  import { Select } from '$lib/components/ui/select';
 
   let country = $state('');
   
@@ -247,9 +247,9 @@ Field.Error      // Error message display
 
 ```svelte
 <script lang="ts">
-  import * as Field from '$core/components/ui/field';
-  import { CheckboxGroup } from '$core/components/ui/checkbox';
-  import type { CheckboxGroupOption } from '$core/components/ui/checkbox';
+  import * as Field from '$lib/components/ui/field';
+  import { CheckboxGroup } from '$lib/components/ui/checkbox';
+  import type { CheckboxGroupOption } from '$lib/components/ui/checkbox';
 
   let selectedFeatures = $state<string[]>([]);
   
@@ -318,9 +318,9 @@ Field.Error      // Error message display
 
 ```svelte
 <script lang="ts">
-  import * as Field from '$core/components/ui/field';
-  import { RadioGroup } from '$core/components/ui/radio';
-  import type { RadioGroupOption } from '$core/components/ui/radio';
+  import * as Field from '$lib/components/ui/field';
+  import { RadioGroup } from '$lib/components/ui/radio';
+  import type { RadioGroupOption } from '$lib/components/ui/radio';
 
   let selectedPlan = $state('basic');
   
@@ -403,8 +403,8 @@ Field.Error      // Error message display
 
 ```svelte
 <script lang="ts">
-  import * as Field from '$core/components/ui/field';
-  import { Checkbox } from '$core/components/ui/checkbox';
+  import * as Field from '$lib/components/ui/field';
+  import { Checkbox } from '$lib/components/ui/checkbox';
 
   let acceptTerms = $state(false);
 </script>
@@ -442,8 +442,8 @@ Field.Error      // Error message display
 
 ```svelte
 <script lang="ts">
-  import * as Field from '$core/components/ui/field';
-  import { Switch } from '$core/components/ui/switch';
+  import * as Field from '$lib/components/ui/field';
+  import { Switch } from '$lib/components/ui/switch';
 
   let notifications = $state(true);
 </script>
@@ -486,8 +486,8 @@ Field.Error      // Error message display
 
 ```svelte
 <script lang="ts">
-  import * as Field from '$core/components/ui/field';
-  import { InputOTP } from '$core/components/ui/input-otp';
+  import * as Field from '$lib/components/ui/field';
+  import { InputOTP } from '$lib/components/ui/input-otp';
 
   let otpCode = $state('');
 </script>
@@ -514,8 +514,8 @@ Field.Error      // Error message display
 
 ```svelte
 <script lang="ts">
-  import * as Field from '$core/components/ui/field';
-  import { NumberSpinner } from '$core/components/ui/number-spinner';
+  import * as Field from '$lib/components/ui/field';
+  import { NumberSpinner } from '$lib/components/ui/number-spinner';
 
   let quantity = $state(1);
 </script>
@@ -550,8 +550,8 @@ Field.Error      // Error message display
 
 ```svelte
 <script lang="ts">
-  import * as Field from '$core/components/ui/field';
-  import { Slider } from '$core/components/ui/slider';
+  import * as Field from '$lib/components/ui/field';
+  import { Slider } from '$lib/components/ui/slider';
 
   let volume = $state(50);
   let priceRange = $state([100, 500]);
@@ -580,8 +580,8 @@ Field.Error      // Error message display
 
 ```svelte
 <script lang="ts">
-  import * as Field from '$core/components/ui/field';
-  import { FileInput } from '$core/components/ui/file-input';
+  import * as Field from '$lib/components/ui/field';
+  import { FileInput } from '$lib/components/ui/file-input';
 
   let uploadedFiles = $state<File[]>([]);
 </script>
@@ -638,8 +638,8 @@ Field.Error      // Error message display
 
 ```svelte
 <script lang="ts">
-  import * as Field from '$core/components/ui/field';
-  import { DatePicker } from '$core/components/ui/date-picker';
+  import * as Field from '$lib/components/ui/field';
+  import { DatePicker } from '$lib/components/ui/date-picker';
   import type { DateValue } from '@internationalized/date';
 
   let deliveryDate = $state<DateValue | undefined>(undefined);
@@ -736,9 +736,9 @@ Position the label after the form control. Best practice for Checkbox, Switch, a
 
 ```svelte
 <script lang="ts">
-  import * as Field from '$core/components/ui/field';
-  import { Checkbox } from '$core/components/ui/checkbox';
-  import { Switch } from '$core/components/ui/switch';
+  import * as Field from '$lib/components/ui/field';
+  import { Checkbox } from '$lib/components/ui/checkbox';
+  import { Switch } from '$lib/components/ui/switch';
 
   let acceptTerms = $state(false);
   let enableNotifications = $state(false);
@@ -786,9 +786,9 @@ Position the label after the form control. Best practice for Checkbox, Switch, a
 
 ```svelte
 <script lang="ts">
-  import * as Field from '$core/components/ui/field';
-  import { Checkbox } from '$core/components/ui/checkbox';
-  import { Switch } from '$core/components/ui/switch';
+  import * as Field from '$lib/components/ui/field';
+  import { Checkbox } from '$lib/components/ui/checkbox';
+  import { Switch } from '$lib/components/ui/switch';
 
   let newsletter = $state(false);
   let marketing = $state(false);
@@ -835,10 +835,10 @@ Use `Field.Set` and `Field.Group` to create well-organized, semantically correct
 
 ```svelte
 <script lang="ts">
-  import * as Field from '$core/components/ui/field';
-  import { Input } from '$core/components/ui/input';
-  import { Checkbox } from '$core/components/ui/checkbox';
-  import { Select } from '$core/components/ui/select';
+  import * as Field from '$lib/components/ui/field';
+  import { Input } from '$lib/components/ui/input';
+  import { Checkbox } from '$lib/components/ui/checkbox';
+  import { Select } from '$lib/components/ui/select';
 
   let formData = $state({
     username: '',
@@ -914,13 +914,13 @@ Use `Field.Set` and `Field.Group` to create well-organized, semantically correct
 
 ```svelte
 <script lang="ts">
-  import * as Field from '$core/components/ui/field';
-  import { Input } from '$core/components/ui/input';
-  import { Textarea } from '$core/components/ui/textarea';
-  import { Select } from '$core/components/ui/select';
-  import { Checkbox } from '$core/components/ui/checkbox';
-  import { Switch } from '$core/components/ui/switch';
-  import { Button } from '$core/components/ui/button';
+  import * as Field from '$lib/components/ui/field';
+  import { Input } from '$lib/components/ui/input';
+  import { Textarea } from '$lib/components/ui/textarea';
+  import { Select } from '$lib/components/ui/select';
+  import { Checkbox } from '$lib/components/ui/checkbox';
+  import { Switch } from '$lib/components/ui/switch';
+  import { Button } from '$lib/components/ui/button';
 
   let formData = $state({
     username: '',
@@ -1088,14 +1088,14 @@ Use `Field.Set` and `Field.Group` to create well-organized, semantically correct
 
 ```svelte
 <script lang="ts">
-  import * as Field from '$core/components/ui/field';
-  import { NumberSpinner } from '$core/components/ui/number-spinner';
-  import { DatePicker } from '$core/components/ui/date-picker';
-  import { Slider } from '$core/components/ui/slider';
-  import { InputOTP } from '$core/components/ui/input-otp';
-  import { FileInput } from '$core/components/ui/file-input';
-  import { Switch } from '$core/components/ui/switch';
-  import { Button } from '$core/components/ui/button';
+  import * as Field from '$lib/components/ui/field';
+  import { NumberSpinner } from '$lib/components/ui/number-spinner';
+  import { DatePicker } from '$lib/components/ui/date-picker';
+  import { Slider } from '$lib/components/ui/slider';
+  import { InputOTP } from '$lib/components/ui/input-otp';
+  import { FileInput } from '$lib/components/ui/file-input';
+  import { Switch } from '$lib/components/ui/switch';
+  import { Button } from '$lib/components/ui/button';
   import type { DateValue } from '@internationalized/date';
 
   let orderData = $state({
@@ -1204,8 +1204,8 @@ Use `Field.Set` and `Field.Group` to create well-organized, semantically correct
 
 ```svelte
 <script lang="ts">
-  import * as Field from '$core/components/ui/field';
-  import { Input } from '$core/components/ui/input';
+  import * as Field from '$lib/components/ui/field';
+  import { Input } from '$lib/components/ui/input';
 
   let email = $state('');
   
@@ -1235,9 +1235,9 @@ Use `Field.Set` and `Field.Group` to create well-organized, semantically correct
 
 ```svelte
 <script lang="ts">
-  import * as Field from '$core/components/ui/field';
-  import { Input } from '$core/components/ui/input';
-  import { Button } from '$core/components/ui/button';
+  import * as Field from '$lib/components/ui/field';
+  import { Input } from '$lib/components/ui/input';
+  import { Button } from '$lib/components/ui/button';
 
   let formData = $state({ 
     email: '', 
@@ -1309,9 +1309,9 @@ For cases requiring custom layouts, use the composable parts:
 
 ```svelte
 <script lang="ts">
-  import * as Field from '$core/components/ui/field';
-  import { Input } from '$core/components/ui/input';
-  import { Badge } from '$core/components/ui/badge';
+  import * as Field from '$lib/components/ui/field';
+  import { Input } from '$lib/components/ui/input';
+  import { Badge } from '$lib/components/ui/badge';
 </script>
 
 <!-- Custom field with badge -->

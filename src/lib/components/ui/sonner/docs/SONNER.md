@@ -17,7 +17,7 @@ A beautiful, customizable toast notification system built on top of svelte-sonne
 
 ```svelte
 <script>
-  import { Toaster, toast } from "$core/components/ui/sonner";
+  import { Toaster, toast } from "$lib/components/ui/sonner";
 </script>
 ```
 
@@ -27,7 +27,7 @@ Add the `Toaster` component to your root layout (e.g., `+layout.svelte`):
 
 ```svelte
 <script>
-  import { Toaster } from "$core/components/ui/sonner";
+  import { Toaster } from "$lib/components/ui/sonner";
 </script>
 
 <Toaster />
@@ -40,7 +40,7 @@ Add the `Toaster` component to your root layout (e.g., `+layout.svelte`):
 
 ```svelte
 <script>
-  import { toast } from "$core/components/ui/sonner";
+  import { toast } from "$lib/components/ui/sonner";
 </script>
 
 <button onclick={() => toast("Hello, world!")}>
@@ -52,7 +52,7 @@ Add the `Toaster` component to your root layout (e.g., `+layout.svelte`):
 
 ```svelte
 <script>
-  import { toast } from "$core/components/ui/sonner";
+  import { toast } from "$lib/components/ui/sonner";
 </script>
 
 <!-- Success -->
@@ -113,7 +113,7 @@ Add the `Toaster` component to your root layout (e.g., `+layout.svelte`):
 
 ```svelte
 <script>
-  import { toast } from "$core/components/ui/sonner";
+  import { toast } from "$lib/components/ui/sonner";
 
   async function saveData() {
     const promise = fetch("/api/save", { method: "POST" });
@@ -142,7 +142,7 @@ Add the `Toaster` component to your root layout (e.g., `+layout.svelte`):
 
 ```svelte
 <script>
-  import { toast } from "$core/components/ui/sonner";
+  import { toast } from "$lib/components/ui/sonner";
 
   let toastId: string | number;
 

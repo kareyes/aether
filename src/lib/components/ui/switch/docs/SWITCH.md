@@ -24,7 +24,7 @@ npm install bits-ui tailwind-variants
 
 ```svelte
 <script>
-  import { Switch } from "$core/components/ui/switch";
+  import { Switch } from "$lib/components/ui/switch";
   
   let enabled = $state(false);
 </script>
@@ -36,8 +36,8 @@ npm install bits-ui tailwind-variants
 
 ```svelte
 <script>
-  import { Switch } from "$core/components/ui/switch";
-  import * as Field from "$core/components/ui/field";
+  import { Switch } from "$lib/components/ui/switch";
+  import * as Field from "$lib/components/ui/field";
   
   let notifications = $state(true);
 </script>
@@ -157,8 +157,8 @@ The Field component provides a consistent way to add labels, descriptions, and e
 
 ```svelte
 <script>
-  import { Switch } from "$core/components/ui/switch";
-  import * as Field from "$core/components/ui/field";
+  import { Switch } from "$lib/components/ui/switch";
+  import * as Field from "$lib/components/ui/field";
   
   let autoSave = $state(true);
 </script>
@@ -180,8 +180,8 @@ The Field component provides a consistent way to add labels, descriptions, and e
 
 ```svelte
 <script>
-  import { Switch } from "$core/components/ui/switch";
-  import * as Field from "$core/components/ui/field";
+  import { Switch } from "$lib/components/ui/switch";
+  import * as Field from "$lib/components/ui/field";
   
   let termsAccepted = $state(false);
   let error = $derived(!termsAccepted);
@@ -206,8 +206,8 @@ The Field component provides a consistent way to add labels, descriptions, and e
 
 ```svelte
 <script>
-  import { Switch } from "$core/components/ui/switch";
-  import * as Field from "$core/components/ui/field";
+  import { Switch } from "$lib/components/ui/switch";
+  import * as Field from "$lib/components/ui/field";
   
   let settings = $state({
     email: true,

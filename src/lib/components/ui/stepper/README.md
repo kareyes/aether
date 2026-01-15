@@ -6,7 +6,7 @@ A flexible stepper component for displaying multi-step processes, workflows, and
 
 ```svelte
 <script>
-  import { Stepper, StepperStep, StepperSeparator } from "$core/components/ui/stepper";
+  import { Stepper, StepperStep, StepperSeparator } from "$lib/components/ui/stepper";
 
   let currentStep = $state(0);
 </script>

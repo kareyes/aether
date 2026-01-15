@@ -14,7 +14,7 @@ A vertically stacked set of interactive headings that reveal or hide sections of
 ## Import
 
 ```svelte
-import * as Accordion from "$core/components/ui/accordion";
+import * as Accordion from "$lib/components/ui/accordion";
 ```
 
 ## Basic Usage

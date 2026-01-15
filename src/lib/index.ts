@@ -1,4 +1,4 @@
-// place files you want to import through the `$core` alias in this folder.
+// place files you want to import through the `$lib` alias in this folder.
 // import * as Icon from "@lucide/svelte"
 
 import * as Accordion from "./components/ui/accordion/index.js";

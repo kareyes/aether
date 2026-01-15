@@ -88,8 +88,8 @@ The Dialog component is built on top of bits-ui's Dialog primitive, providing a 
     DialogTitle,
     DialogDescription,
     DialogClose
-  } from "$core/components/ui/dialog";
-  import { Button } from "$core/components/ui/button";
+  } from "$lib/components/ui/dialog";
+  import { Button } from "$lib/components/ui/button";
 </script>
 
 <Dialog>
@@ -120,8 +120,8 @@ The Dialog component is built on top of bits-ui's Dialog primitive, providing a 
 
 ```svelte
 <script lang="ts">
-  import { Dialog, DialogContent, DialogTrigger } from "$core/components/ui/dialog";
-  import { Button } from "$core/components/ui/button";
+  import { Dialog, DialogContent, DialogTrigger } from "$lib/components/ui/dialog";
+  import { Button } from "$lib/components/ui/button";
 
   let open = $state(false);
 
@@ -259,10 +259,10 @@ Centered layout for both mobile and desktop.
     DialogDescription,
     DialogFooter,
     DialogClose
-  } from "$core/components/ui/dialog";
-  import { Button } from "$core/components/ui/button";
-  import { Input } from "$core/components/ui/input";
-  import { Label } from "$core/components/ui/label";
+  } from "$lib/components/ui/dialog";
+  import { Button } from "$lib/components/ui/button";
+  import { Input } from "$lib/components/ui/input";
+  import { Label } from "$lib/components/ui/label";
 
   let name = $state("");
   let email = $state("");
@@ -316,8 +316,8 @@ Centered layout for both mobile and desktop.
     DialogDescription,
     DialogFooter,
     DialogClose
-  } from "$core/components/ui/dialog";
-  import { Button } from "$core/components/ui/button";
+  } from "$lib/components/ui/dialog";
+  import { Button } from "$lib/components/ui/button";
   import { Trash2 } from "@lucide/svelte";
 
   function handleDelete() {
@@ -362,9 +362,9 @@ Centered layout for both mobile and desktop.
     DialogHeader,
     DialogTitle,
     DialogDescription
-  } from "$core/components/ui/dialog";
-  import { Button } from "$core/components/ui/button";
-  import { Tabs, TabsList, TabsTrigger, TabsContent } from "$core/components/ui/tabs";
+  } from "$lib/components/ui/dialog";
+  import { Button } from "$lib/components/ui/button";
+  import { Tabs, TabsList, TabsTrigger, TabsContent } from "$lib/components/ui/tabs";
   import { Settings } from "@lucide/svelte";
 </script>
 

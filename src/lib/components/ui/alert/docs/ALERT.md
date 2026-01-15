@@ -14,7 +14,7 @@ A versatile alert component for displaying important messages with various style
 ## Import
 
 ```svelte
-import { Alert } from "$core/components/ui/alert";
+import { Alert } from "$lib/components/ui/alert";
 ```
 
 ## Basic Usage

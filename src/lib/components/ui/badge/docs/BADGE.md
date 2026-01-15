@@ -20,7 +20,7 @@ A versatile badge component with multiple variants, colors, sizes, and interacti
 ### Simple Badge
 ```svelte
 <script>
-  import { Badge } from "$core/components/ui/badge";
+  import { Badge } from "$lib/components/ui/badge";
 </script>
 
 <Badge text="Default Badge" />
@@ -47,7 +47,7 @@ A versatile badge component with multiple variants, colors, sizes, and interacti
 ### With Icons
 ```svelte
 <script>
-  import { Badge } from "$core/components/ui/badge";
+  import { Badge } from "$lib/components/ui/badge";
   import { Check, Star, Heart } from "@lucide/svelte";
 </script>
 

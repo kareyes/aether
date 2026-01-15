@@ -9,7 +9,7 @@ A simple date picker for selecting a single date.
 
 ```svelte
 <script>
-  import { DatePicker } from "$core/components/ui/date-picker";
+  import { DatePicker } from "$lib/components/ui/date-picker";
   let date = $state();
 </script>
 
@@ -21,7 +21,7 @@ A date range picker with two calendars for selecting start and end dates.
 
 ```svelte
 <script>
-  import { DateRangePicker } from "$core/components/ui/date-picker";
+  import { DateRangePicker } from "$lib/components/ui/date-picker";
   let range = $state();
 </script>
 
@@ -33,7 +33,7 @@ A date picker with quick preset options (Today, Tomorrow, In a week, etc.).
 
 ```svelte
 <script>
-  import { DatePickerWithPresets } from "$core/components/ui/date-picker";
+  import { DatePickerWithPresets } from "$lib/components/ui/date-picker";
   let date = $state();
 </script>
 
@@ -45,7 +45,7 @@ A date range picker with preset ranges (Last 7 days, Last 30 days, This month, e
 
 ```svelte
 <script>
-  import { DateRangePickerWithPresets } from "$core/components/ui/date-picker";
+  import { DateRangePickerWithPresets } from "$lib/components/ui/date-picker";
   let range = $state();
 </script>
 
@@ -141,7 +141,7 @@ The date picker uses `@internationalized/date` for date handling:
 
 ```svelte
 <script>
-  import { DatePicker } from "$core/components/ui/date-picker";
+  import { DatePicker } from "$lib/components/ui/date-picker";
   import { CalendarDate, today, getLocalTimeZone } from "@internationalized/date";
   
   let date = $state();
@@ -207,7 +207,7 @@ The date picker uses `@internationalized/date` for date handling:
 ### With Field Component
 ```svelte
 <script>
-  import * as Field from "$core/components/ui/field";
+  import * as Field from "$lib/components/ui/field";
   
   let startDate = $state();
 </script>
@@ -279,8 +279,8 @@ The Field component provides a consistent way to add labels, descriptions, and e
 
 ```svelte
 <script>
-  import { DatePicker } from "$core/components/ui/date-picker";
-  import * as Field from "$core/components/ui/field";
+  import { DatePicker } from "$lib/components/ui/date-picker";
+  import * as Field from "$lib/components/ui/field";
   import type { DateValue } from "@internationalized/date";
   
   let birthdate = $state<DateValue | undefined>();
@@ -298,8 +298,8 @@ The Field component provides a consistent way to add labels, descriptions, and e
 
 ```svelte
 <script>
-  import { DatePicker } from "$core/components/ui/date-picker";
-  import * as Field from "$core/components/ui/field";
+  import { DatePicker } from "$lib/components/ui/date-picker";
+  import * as Field from "$lib/components/ui/field";
   import type { DateValue } from "@internationalized/date";
   
   let startDate = $state<DateValue | undefined>();
@@ -323,8 +323,8 @@ The Field component provides a consistent way to add labels, descriptions, and e
 
 ```svelte
 <script>
-  import { DateRangePicker } from "$core/components/ui/date-picker";
-  import * as Field from "$core/components/ui/field";
+  import { DateRangePicker } from "$lib/components/ui/date-picker";
+  import * as Field from "$lib/components/ui/field";
   import type { DateRange } from "bits-ui";
   
   let dateRange = $state<DateRange | undefined>();
@@ -343,8 +343,8 @@ The Field component provides a consistent way to add labels, descriptions, and e
 
 ```svelte
 <script>
-  import { DatePickerWithPresets } from "$core/components/ui/date-picker";
-  import * as Field from "$core/components/ui/field";
+  import { DatePickerWithPresets } from "$lib/components/ui/date-picker";
+  import * as Field from "$lib/components/ui/field";
   
   let appointmentDate = $state();
 </script>
@@ -386,9 +386,9 @@ The Field component provides a consistent way to add labels, descriptions, and e
 
 ```svelte
 <script>
-  import { DatePicker, DateRangePicker } from "$core/components/ui/date-picker";
-  import * as Field from "$core/components/ui/field";
-  import { Button } from "$core/components/ui/button";
+  import { DatePicker, DateRangePicker } from "$lib/components/ui/date-picker";
+  import * as Field from "$lib/components/ui/field";
+  import { Button } from "$lib/components/ui/button";
   import type { DateValue, DateRange } from "@internationalized/date";
   
   let formData = $state({
@@ -473,8 +473,8 @@ The Field component provides a consistent way to add labels, descriptions, and e
 
 ```svelte
 <script>
-  import { DateRangePickerWithPresets } from "$core/components/ui/date-picker";
-  import * as Field from "$core/components/ui/field";
+  import { DateRangePickerWithPresets } from "$lib/components/ui/date-picker";
+  import * as Field from "$lib/components/ui/field";
   import { today, getLocalTimeZone } from "@internationalized/date";
   
   const customPresets = [

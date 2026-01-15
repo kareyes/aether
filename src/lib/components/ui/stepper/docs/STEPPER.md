@@ -50,7 +50,7 @@ The Stepper component provides a flexible system for displaying step-by-step pro
 
 ```svelte
 <script lang="ts">
-  import { Stepper, StepperStep, StepperSeparator } from "$core/components/ui/stepper";
+  import { Stepper, StepperStep, StepperSeparator } from "$lib/components/ui/stepper";
 
   let currentStep = $state(0);
 </script>
@@ -68,7 +68,7 @@ The Stepper component provides a flexible system for displaying step-by-step pro
 
 ```svelte
 <script lang="ts">
-  import { Stepper, StepperStep, StepperSeparator } from "$core/components/ui/stepper";
+  import { Stepper, StepperStep, StepperSeparator } from "$lib/components/ui/stepper";
 
   let currentStep = $state(1);
 </script>
@@ -86,7 +86,7 @@ The Stepper component provides a flexible system for displaying step-by-step pro
 
 ```svelte
 <script lang="ts">
-  import { Stepper, StepperStep, StepperSeparator } from "$core/components/ui/stepper";
+  import { Stepper, StepperStep, StepperSeparator } from "$lib/components/ui/stepper";
 
   let currentStep = $state(0);
 </script>
@@ -104,7 +104,7 @@ The Stepper component provides a flexible system for displaying step-by-step pro
 
 ```svelte
 <script lang="ts">
-  import { Stepper, StepperStep, StepperSeparator } from "$core/components/ui/stepper";
+  import { Stepper, StepperStep, StepperSeparator } from "$lib/components/ui/stepper";
 
   let currentStep = $state(0);
 
@@ -229,7 +229,7 @@ Horizontal progress bar style with labels above.
 
 ```svelte
 <script lang="ts">
-  import { Stepper, StepperStep, StepperSeparator } from "$core/components/ui/stepper";
+  import { Stepper, StepperStep, StepperSeparator } from "$lib/components/ui/stepper";
   import { User, CreditCard, CheckCircle } from "@lucide/svelte";
 
   let currentStep = $state(0);
@@ -260,8 +260,8 @@ Horizontal progress bar style with labels above.
 
 ```svelte
 <script lang="ts">
-  import { Stepper, StepperStep, StepperSeparator } from "$core/components/ui/stepper";
-  import { Button } from "$core/components/ui/button";
+  import { Stepper, StepperStep, StepperSeparator } from "$lib/components/ui/stepper";
+  import { Button } from "$lib/components/ui/button";
 
   let currentStep = $state(0);
 
@@ -317,7 +317,7 @@ Horizontal progress bar style with labels above.
 
 ```svelte
 <script lang="ts">
-  import { Stepper, StepperStep, StepperSeparator } from "$core/components/ui/stepper";
+  import { Stepper, StepperStep, StepperSeparator } from "$lib/components/ui/stepper";
   import { ShoppingCart, CreditCard, Package, CheckCircle } from "@lucide/svelte";
 
   let currentStep = $state(1);
@@ -374,10 +374,10 @@ Horizontal progress bar style with labels above.
 
 ```svelte
 <script lang="ts">
-  import { Stepper, StepperStep, StepperSeparator } from "$core/components/ui/stepper";
-  import { Button } from "$core/components/ui/button";
-  import { Input } from "$core/components/ui/input";
-  import { Label } from "$core/components/ui/label";
+  import { Stepper, StepperStep, StepperSeparator } from "$lib/components/ui/stepper";
+  import { Button } from "$lib/components/ui/button";
+  import { Input } from "$lib/components/ui/input";
+  import { Label } from "$lib/components/ui/label";
 
   let currentStep = $state(0);
   let formData = $state({

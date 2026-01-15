@@ -236,8 +236,8 @@ The Field component provides a consistent way to add labels, descriptions, and e
 
 ```svelte
 <script>
-  import { Checkbox } from "$core/components/ui/checkbox";
-  import * as Field from "$core/components/ui/field";
+  import { Checkbox } from "$lib/components/ui/checkbox";
+  import * as Field from "$lib/components/ui/field";
   
   let acceptTerms = $state(false);
 </script>
@@ -258,8 +258,8 @@ The Field component provides a consistent way to add labels, descriptions, and e
 
 ```svelte
 <script>
-  import { Checkbox } from "$core/components/ui/checkbox";
-  import * as Field from "$core/components/ui/field";
+  import { Checkbox } from "$lib/components/ui/checkbox";
+  import * as Field from "$lib/components/ui/field";
   
   let notifications = $state(false);
   let marketing = $state(false);
@@ -298,8 +298,8 @@ The Field component provides a consistent way to add labels, descriptions, and e
 
 ```svelte
 <script>
-  import { Checkbox } from "$core/components/ui/checkbox";
-  import * as Field from "$core/components/ui/field";
+  import { Checkbox } from "$lib/components/ui/checkbox";
+  import * as Field from "$lib/components/ui/field";
   
   let acceptTerms = $state(false);
   let error = $derived(!acceptTerms);
@@ -322,8 +322,8 @@ The Field component provides a consistent way to add labels, descriptions, and e
 
 ```svelte
 <script>
-  import { Checkbox } from "$core/components/ui/checkbox";
-  import * as Field from "$core/components/ui/field";
+  import { Checkbox } from "$lib/components/ui/checkbox";
+  import * as Field from "$lib/components/ui/field";
   
   let tasks = $state({
     design: false,
@@ -379,9 +379,9 @@ The Field component provides a consistent way to add labels, descriptions, and e
 
 ```svelte
 <script>
-  import { Checkbox } from "$core/components/ui/checkbox";
-  import * as Field from "$core/components/ui/field";
-  import { Button } from "$core/components/ui/button";
+  import { Checkbox } from "$lib/components/ui/checkbox";
+  import * as Field from "$lib/components/ui/field";
+  import { Button } from "$lib/components/ui/button";
   
   let formData = $state({
     acceptTerms: false,

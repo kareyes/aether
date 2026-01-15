@@ -63,7 +63,7 @@ The Breadcrumb component is built using **tailwind-variants** (tv) for a robust 
     BreadcrumbLink,
     BreadcrumbSeparator,
     BreadcrumbPage
-  } from "$core/components/ui/breadcrumb";
+  } from "$lib/components/ui/breadcrumb";
 </script>
 
 <Breadcrumb>
@@ -323,13 +323,13 @@ Show collapsed items with a dropdown.
 
 ```svelte
 <script>
-  import { BreadcrumbEllipsis } from "$core/components/ui/breadcrumb";
+  import { BreadcrumbEllipsis } from "$lib/components/ui/breadcrumb";
   import {
     DropdownMenu,
     DropdownMenuTrigger,
     DropdownMenuContent,
     DropdownMenuItem
-  } from "$core/components/ui/dropdown-menu";
+  } from "$lib/components/ui/dropdown-menu";
 </script>
 
 <BreadcrumbList>

@@ -1,37 +1,39 @@
 <script lang="ts">
-	import '../app.css';
-	import favicon from '$core/assets/favicon.svg';
-	import { Moon, Sun } from '@lucide/svelte';
-	import { onMount } from 'svelte';
-	
+	import "../app.css";
+	import favicon from "$lib/assets/favicon.svg";
+	import { Moon, Sun } from "@lucide/svelte";
+	import { onMount } from "svelte";
+
 	let { children } = $props();
-	
+
 	let isDark = $state(false);
-	
+
 	onMount(() => {
 		// Check for saved theme preference or default to light mode
-		const savedTheme = localStorage.getItem('theme');
-		const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-		
-		isDark = savedTheme === 'dark' || (!savedTheme && prefersDark);
-		
+		const savedTheme = localStorage.getItem("theme");
+		const prefersDark = window.matchMedia(
+			"(prefers-color-scheme: dark)",
+		).matches;
+
+		isDark = savedTheme === "dark" || (!savedTheme && prefersDark);
+
 		// Apply theme
 		if (isDark) {
-			document.documentElement.classList.add('dark');
+			document.documentElement.classList.add("dark");
 		} else {
-			document.documentElement.classList.remove('dark');
+			document.documentElement.classList.remove("dark");
 		}
 	});
-	
+
 	function toggleTheme() {
 		isDark = !isDark;
-		
+
 		if (isDark) {
-			document.documentElement.classList.add('dark');
-			localStorage.setItem('theme', 'dark');
+			document.documentElement.classList.add("dark");
+			localStorage.setItem("theme", "dark");
 		} else {
-			document.documentElement.classList.remove('dark');
-			localStorage.setItem('theme', 'light');
+			document.documentElement.classList.remove("dark");
+			localStorage.setItem("theme", "light");
 		}
 	}
 </script>
@@ -53,6 +55,6 @@
 			<Moon class="size-5" />
 		{/if}
 	</button>
-	
+
 	{@render children?.()}
 </div>
