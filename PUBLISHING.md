@@ -92,6 +92,47 @@ pnpm add @kareyes/aether
 npm install @kareyes/aether
 ```
 
+### Step 4: Configure Styles
+
+Aether components require Tailwind CSS styles and theme variables. You have two options:
+
+**Option A: Import Aether's theme (Recommended)**
+
+In your main CSS file (e.g., `app.css`):
+
+```css
+@import "tailwindcss";
+@import "@kareyes/aether/styles";
+
+/* Add source to scan Aether components for Tailwind classes */
+@source "../node_modules/@kareyes/aether/dist/**/*.{svelte,js}";
+```
+
+**Option B: Copy theme variables manually**
+
+If you need to customize the theme, copy the CSS variables from `@kareyes/aether/styles/theme.css` into your own CSS file and modify as needed.
+
+### Step 5: Configure Tailwind Content (Important!)
+
+Tailwind CSS only generates styles for classes it finds in your content paths. You must include the Aether package in your Tailwind configuration.
+
+For **Tailwind CSS v4** (using `@source` directive in CSS):
+```css
+@import "tailwindcss";
+@source "../node_modules/@kareyes/aether/dist/**/*.{svelte,js}";
+```
+
+For **Tailwind CSS v3** (using `tailwind.config.js`):
+```js
+export default {
+  content: [
+    "./src/**/*.{html,js,svelte,ts}",
+    "./node_modules/@kareyes/aether/dist/**/*.{svelte,js}"
+  ],
+  // ... rest of config
+}
+```
+
 ### Usage
 
 ```svelte
@@ -106,7 +147,7 @@ npm install @kareyes/aether
   </Card.Header>
   <Card.Content>
     <Input placeholder="Enter text..." />
-    <Button>Submit Test </Button>
+    <Button>Submit</Button>
   </Card.Content>
 </Card.Root>
 ```
