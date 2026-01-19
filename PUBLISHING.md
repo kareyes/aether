@@ -106,7 +106,7 @@ npm install @kareyes/aether
   </Card.Header>
   <Card.Content>
     <Input placeholder="Enter text..." />
-    <Button>Submit</Button>
+    <Button>Submit Test </Button>
   </Card.Content>
 </Card.Root>
 ```
