@@ -15,8 +15,10 @@ A simplified combobox component that combines a text input with a searchable dro
 
 ## Installation
 
+The Combobox component is included in the `@kareyes/aether` package.
+
 ```bash
-npx shadcn-svelte@latest add combobox
+pnpm add @kareyes/aether
 ```
 
 ## Usage
@@ -25,7 +27,7 @@ npx shadcn-svelte@latest add combobox
 
 ```svelte
 <script lang="ts">
-	import { Combobox } from "$lib/components/ui/combobox";
+  import { Combobox } from "@kareyes/aether";
 
 	const frameworks = [
 		{ value: "sveltekit", label: "SvelteKit" },
@@ -204,17 +206,15 @@ npx shadcn-svelte@latest add combobox
 
 ```svelte
 <script lang="ts">
-	import { Combobox } from "$lib/components/ui/combobox";
-	import * as Popover from "$lib/components/ui/popover";
-	import { Button } from "$lib/components/ui/button";
-	import { ChevronsUpDown } from "@lucide/svelte";
+  import { Combobox, PopoverPrimitives, Button } from "@kareyes/aether";
+  import ChevronsUpDown from "@lucide/svelte/icons/chevrons-up-down";
 
 	let selectedFramework = $state("");
 </script>
 
 <Combobox items={frameworks} bind:value={selectedFramework}>
-	{#snippet trigger({ selectedLabel, open })}
-		<Popover.Trigger>
+  {#snippet trigger({ selectedLabel, open })}
+    <PopoverPrimitives.Trigger>
 			{#snippet child({ props })}
 				<Button
 					{...props}
@@ -230,10 +230,10 @@ npx shadcn-svelte@latest add combobox
 						{selectedLabel || "Choose your framework..."}
 					</span>
 					<ChevronsUpDown class="ml-2 size-4 shrink-0 opacity-50" />
-				</Button>
-			{/snippet}
-		</Popover.Trigger>
-	{/snippet}
+        </Button>
+      {/snippet}
+    </PopoverPrimitives.Trigger>
+  {/snippet}
 </Combobox>
 ```
 

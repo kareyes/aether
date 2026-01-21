@@ -13,8 +13,10 @@ A flexible button group component that allows you to group related buttons toget
 
 ## Installation
 
+The ButtonGroup component is included in the `@kareyes/aether` package.
+
 ```bash
-npm install @lucide/svelte tailwind-variants
+pnpm add @kareyes/aether
 ```
 
 ## Usage
@@ -23,8 +25,7 @@ npm install @lucide/svelte tailwind-variants
 
 ```svelte
 <script>
-  import { ButtonGroup } from "$lib/components/ui/button-group";
-  import { Button } from "$lib/components/ui/button";
+  import { ButtonGroup, Button } from "@kareyes/aether";
 </script>
 
 <ButtonGroup variant="bg">
@@ -38,8 +39,7 @@ npm install @lucide/svelte tailwind-variants
 
 ```svelte
 <script>
-  import { ButtonGroup, ButtonGroupText } from "$lib/components/ui/button-group";
-  import { Button } from "$lib/components/ui/button";
+  import { ButtonGroup, ButtonGroupText, Button } from "@kareyes/aether";
 </script>
 
 <ButtonGroup variant="bg">
@@ -54,8 +54,7 @@ npm install @lucide/svelte tailwind-variants
 
 ```svelte
 <script>
-  import { ButtonGroup, ButtonGroupSeparator } from "$lib/components/ui/button-group";
-  import { Button } from "$lib/components/ui/button";
+  import { ButtonGroup, ButtonGroupSeparator, Button } from "@kareyes/aether";
 </script>
 
 <ButtonGroup variant="bg">
@@ -214,10 +213,10 @@ The component uses Tailwind CSS and tailwind-variants for styling. You can custo
 ## TypeScript
 
 ```typescript
-import type { 
-  ButtonGroupVariant, 
-  ButtonGroupOrientation 
-} from "$lib/components/ui/button-group";
+import type {
+  ButtonGroupVariant,
+  ButtonGroupOrientation
+} from "@kareyes/aether";
 
 // Variant type
 type Variant = ButtonGroupVariant; // "bg" | "ghost"

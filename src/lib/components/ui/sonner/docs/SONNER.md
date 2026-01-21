@@ -13,11 +13,19 @@ A beautiful, customizable toast notification system built on top of svelte-sonne
 - **Dark Mode**: Full dark mode support
 - **Accessible**: Keyboard navigation and screen reader friendly
 
+## Installation
+
+The Sonner component is included in the `@kareyes/aether` package.
+
+```bash
+pnpm add @kareyes/aether
+```
+
 ## Import
 
 ```svelte
-<script>
-  import { Toaster, toast } from "$lib/components/ui/sonner";
+<script lang="ts">
+  import { Toaster, toast } from "@kareyes/aether";
 </script>
 ```
 
@@ -26,8 +34,8 @@ A beautiful, customizable toast notification system built on top of svelte-sonne
 Add the `Toaster` component to your root layout (e.g., `+layout.svelte`):
 
 ```svelte
-<script>
-  import { Toaster } from "$lib/components/ui/sonner";
+<script lang="ts">
+  import { Toaster } from "@kareyes/aether";
 </script>
 
 <Toaster />
@@ -39,8 +47,8 @@ Add the `Toaster` component to your root layout (e.g., `+layout.svelte`):
 ### Simple Toasts
 
 ```svelte
-<script>
-  import { toast } from "$lib/components/ui/sonner";
+<script lang="ts">
+  import { toast } from "@kareyes/aether";
 </script>
 
 <button onclick={() => toast("Hello, world!")}>
@@ -51,8 +59,8 @@ Add the `Toaster` component to your root layout (e.g., `+layout.svelte`):
 ### Toast Variants
 
 ```svelte
-<script>
-  import { toast } from "$lib/components/ui/sonner";
+<script lang="ts">
+  import { toast } from "@kareyes/aether";
 </script>
 
 <!-- Success -->
@@ -84,6 +92,10 @@ Add the `Toaster` component to your root layout (e.g., `+layout.svelte`):
 ### With Description
 
 ```svelte
+<script lang="ts">
+  import { toast } from "@kareyes/aether";
+</script>
+
 <button onclick={() => toast.success("File uploaded", {
   description: "Your file has been uploaded successfully."
 })}>
@@ -112,8 +124,8 @@ Add the `Toaster` component to your root layout (e.g., `+layout.svelte`):
 ### Promise Toast
 
 ```svelte
-<script>
-  import { toast } from "$lib/components/ui/sonner";
+<script lang="ts">
+  import { toast } from "@kareyes/aether";
 
   async function saveData() {
     const promise = fetch("/api/save", { method: "POST" });
@@ -141,8 +153,8 @@ Add the `Toaster` component to your root layout (e.g., `+layout.svelte`):
 ### Dismiss Toast
 
 ```svelte
-<script>
-  import { toast } from "$lib/components/ui/sonner";
+<script lang="ts">
+  import { toast } from "@kareyes/aether";
 
   let toastId: string | number;
 

@@ -18,8 +18,10 @@ A fully-featured number input component with increment/decrement controls, suppo
 
 ## Installation
 
+The NumberSpinner component is included in the `@kareyes/aether` package.
+
 ```bash
-npm install @lucide/svelte tailwind-variants
+pnpm add @kareyes/aether
 ```
 
 ## Basic Usage
@@ -28,7 +30,7 @@ npm install @lucide/svelte tailwind-variants
 
 ```svelte
 <script>
-  import { NumberSpinner } from "$lib/components/ui/number-spinner";
+  import { NumberSpinner } from "@kareyes/aether";
   
   let quantity = $state(1);
 </script>
@@ -199,24 +201,24 @@ Control the number of decimal places:
 
 ```svelte
 <script>
-  import * as Field from "$lib/components/ui/field";
+  import { FieldPrimitives } from "@kareyes/aether";
   
   let quantity = $state(1);
 </script>
 
-<Field.Field
+<FieldPrimitives.Field
   label="Quantity"
   description="Enter the number of items"
   error={quantity < 1 ? "Quantity must be at least 1" : undefined}
   required
 >
-  <NumberSpinner 
+  <NumberSpinner
     bind:value={quantity}
     error={quantity < 1}
     min={1}
     max={999}
   />
-</Field.Field>
+</FieldPrimitives.Field>
 ```
 
 ## Props
@@ -315,7 +317,7 @@ Control the number of decimal places:
 
 ```svelte
 <script>
-  import * as Field from "$lib/components/ui/field";
+  import { FieldPrimitives } from "@kareyes/aether";
   
   let age = $state(null);
   let quantity = $state(1);
@@ -328,37 +330,37 @@ Control the number of decimal places:
 
 <form on:submit|preventDefault={handleSubmit}>
   <div class="space-y-4">
-    <Field.Field
+    <FieldPrimitives.Field
       label="Age"
       description="Enter your age"
       required
     >
-      <NumberSpinner 
+      <NumberSpinner
         bind:value={age}
         min={1}
         max={150}
       />
-    </Field.Field>
-    
-    <Field.Field
+    </FieldPrimitives.Field>
+
+    <FieldPrimitives.Field
       label="Quantity"
       description="Number of items"
       required
     >
-      <NumberSpinner 
+      <NumberSpinner
         bind:value={quantity}
         min={1}
         max={100}
         orientation="horizontal"
       />
-    </Field.Field>
-    
-    <Field.Field
+    </FieldPrimitives.Field>
+
+    <FieldPrimitives.Field
       label="Price"
       description="Item price in USD"
       required
     >
-      <NumberSpinner 
+      <NumberSpinner
         bind:value={price}
         min={0}
         max={9999.99}
@@ -366,8 +368,8 @@ Control the number of decimal places:
         precision={2}
         variant="filled"
       />
-    </Field.Field>
-    
+    </FieldPrimitives.Field>
+
     <button type="submit">Submit</button>
   </div>
 </form>
@@ -422,67 +424,67 @@ The Field component provides a consistent way to add labels, descriptions, and e
 
 ```svelte
 <script>
-  import { NumberSpinner } from "$lib/components/ui/number-spinner";
-  import * as Field from "$lib/components/ui/field";
+  import { NumberSpinner } from "@kareyes/aether";
+  import { FieldPrimitives } from "@kareyes/aether";
   
   let quantity = $state(1);
 </script>
 
-<Field.Field
+<FieldPrimitives.Field
   label="Quantity"
   description="Select the number of items"
 >
-  <NumberSpinner 
+  <NumberSpinner
     bind:value={quantity}
     min={1}
     max={100}
   />
-</Field.Field>
+</FieldPrimitives.Field>
 ```
 
 ### With Validation
 
 ```svelte
 <script>
-  import { NumberSpinner } from "$lib/components/ui/number-spinner";
-  import * as Field from "$lib/components/ui/field";
+  import { NumberSpinner } from "@kareyes/aether";
+  import { FieldPrimitives } from "@kareyes/aether";
   
   let age = $state(null);
   let error = $derived(age === null || age < 18);
 </script>
 
-<Field.Field
+<FieldPrimitives.Field
   label="Age"
   description="You must be 18 or older"
   required
   error={error ? "You must be at least 18 years old" : undefined}
 >
-  <NumberSpinner 
+  <NumberSpinner
     bind:value={age}
     min={0}
     max={120}
     placeholder="Enter age"
     error={error}
   />
-</Field.Field>
+</FieldPrimitives.Field>
 ```
 
 ### Price Input with Field
 
 ```svelte
 <script>
-  import { NumberSpinner } from "$lib/components/ui/number-spinner";
-  import * as Field from "$lib/components/ui/field";
+  import { NumberSpinner } from "@kareyes/aether";
+  import { FieldPrimitives } from "@kareyes/aether";
   
   let price = $state(9.99);
 </script>
 
-<Field.Field
+<FieldPrimitives.Field
   label="Product Price"
   description="Set the price in USD"
   required
 >
-  <NumberSpinner 
+  <NumberSpinner
     bind:value={price}
     min={0}
     max={9999.99}
@@ -491,17 +493,17 @@ The Field component provides a consistent way to add labels, descriptions, and e
     variant="outline"
     size="lg"
   />
-</Field.Field>
+</FieldPrimitives.Field>
 ```
 
 ### Horizontal Layout with Field
 
 ```svelte
-<Field.Field
+<FieldPrimitives.Field
   label="Temperature"
   description="Set temperature in Celsius"
 >
-  <NumberSpinner 
+  <NumberSpinner
     bind:value={temperature}
     min={-50}
     max={50}
@@ -510,46 +512,44 @@ The Field component provides a consistent way to add labels, descriptions, and e
     orientation="horizontal"
     variant="filled"
   />
-</Field.Field>
+</FieldPrimitives.Field>
 ```
 
 ### Different Variants with Field
 
 ```svelte
-<Field.Field
+<FieldPrimitives.Field
   label="Stock Quantity"
   description="Available inventory"
 >
-  <NumberSpinner 
+  <NumberSpinner
     variant="filled"
     size="lg"
     bind:value={stock}
     min={0}
     max={10000}
   />
-</Field.Field>
+</FieldPrimitives.Field>
 
-<Field.Field
+<FieldPrimitives.Field
   label="Discount Percentage"
   description="Enter discount value"
 >
-  <NumberSpinner 
+  <NumberSpinner
     variant="ghost"
     bind:value={discount}
     min={0}
     max={100}
     step={5}
   />
-</Field.Field>
+</FieldPrimitives.Field>
 ```
 
 ### Complete Product Form
 
 ```svelte
 <script>
-  import { NumberSpinner } from "$lib/components/ui/number-spinner";
-  import * as Field from "$lib/components/ui/field";
-  import { Button } from "$lib/components/ui/button";
+  import { NumberSpinner, Button, FieldPrimitives } from "@kareyes/aether";
   
   let formData = $state({
     price: 29.99,
@@ -578,20 +578,20 @@ The Field component provides a consistent way to add labels, descriptions, and e
 </script>
 
 <div class="w-full max-w-md">
-  <Field.Set>
-    <Field.Legend>Product Details</Field.Legend>
-    <Field.Description>Configure product pricing and inventory</Field.Description>
-    
-    <Field.Separator />
-    
-    <Field.Group class="gap-4">
-      <Field.Field
+  <FieldPrimitives.Set>
+    <FieldPrimitives.Legend>Product Details</FieldPrimitives.Legend>
+    <FieldPrimitives.Description>Configure product pricing and inventory</FieldPrimitives.Description>
+
+    <FieldPrimitives.Separator />
+
+    <FieldPrimitives.Group class="gap-4">
+      <FieldPrimitives.Field
         label="Price (USD)"
         description="Set the product price"
         required
         error={priceError}
       >
-        <NumberSpinner 
+        <NumberSpinner
           bind:value={formData.price}
           min={0}
           max={9999.99}
@@ -601,41 +601,41 @@ The Field component provides a consistent way to add labels, descriptions, and e
           size="lg"
           error={!!priceError}
         />
-      </Field.Field>
-      
-      <Field.Field
+      </FieldPrimitives.Field>
+
+      <FieldPrimitives.Field
         label="Quantity"
         description="Available stock quantity"
         required
         error={quantityError}
       >
-        <NumberSpinner 
+        <NumberSpinner
           bind:value={formData.quantity}
           min={1}
           max={10000}
           variant="filled"
           error={!!quantityError}
         />
-      </Field.Field>
-      
-      <Field.Field
+      </FieldPrimitives.Field>
+
+      <FieldPrimitives.Field
         label="Discount (%)"
         description="Optional discount percentage"
       >
-        <NumberSpinner 
+        <NumberSpinner
           bind:value={formData.discount}
           min={0}
           max={100}
           step={5}
           orientation="horizontal"
         />
-      </Field.Field>
-      
-      <Field.Field
+      </FieldPrimitives.Field>
+
+      <FieldPrimitives.Field
         label="Weight (kg)"
         description="Product weight for shipping"
       >
-        <NumberSpinner 
+        <NumberSpinner
           bind:value={formData.weight}
           min={0}
           max={1000}
@@ -643,12 +643,12 @@ The Field component provides a consistent way to add labels, descriptions, and e
           precision={1}
           variant="ghost"
         />
-      </Field.Field>
-    </Field.Group>
-    
+      </FieldPrimitives.Field>
+    </FieldPrimitives.Group>
+
     <div class="flex gap-4 pt-4">
-      <Button 
-        onclick={handleSubmit} 
+      <Button
+        onclick={handleSubmit}
         disabled={!!priceError || !!quantityError}
       >
         Save Product
@@ -657,6 +657,6 @@ The Field component provides a consistent way to add labels, descriptions, and e
         Cancel
       </Button>
     </div>
-  </Field.Set>
+  </FieldPrimitives.Set>
 </div>
 ```

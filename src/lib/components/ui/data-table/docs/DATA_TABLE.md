@@ -16,17 +16,17 @@ A powerful, flexible data table component built with TanStack Table and Svelte 5
 
 ## Installation
 
-The DataTable component is included in the UI library. It depends on `@tanstack/table-core`.
+The DataTable component is included in the `@kareyes/aether` package.
 
 ```bash
-npm install @tanstack/table-core
+pnpm add @kareyes/aether @tanstack/table-core
 ```
 
 ## Quick Start
 
 ```svelte
 <script lang="ts">
-  import { DataTable, type ColumnDef } from "$lib/components/ui/data-table";
+  import { DataTable, type ColumnDef } from "@kareyes/aether";
   
   type User = {
     id: string;
@@ -153,7 +153,7 @@ const columns: ColumnDef<User>[] = [
 ### Sortable Column
 
 ```ts
-import { DataTableColumnHeader, renderComponent } from "$lib/components/ui/data-table";
+import { DataTableColumnHeader, renderComponent } from "@kareyes/aether";
 
 const columns: ColumnDef<User>[] = [
   {
@@ -170,12 +170,12 @@ const columns: ColumnDef<User>[] = [
 ### Checkbox Selection Column
 
 ```ts
-import { 
-  DataTableCheckbox, 
+import {
+  DataTableCheckbox,
   renderComponent,
   type HeaderContext,
-  type CellContext 
-} from "$lib/components/ui/data-table";
+  type CellContext
+} from "@kareyes/aether";
 
 const columns: ColumnDef<User>[] = [
   {
@@ -204,7 +204,7 @@ const columns: ColumnDef<User>[] = [
 
 ```ts
 import { createRawSnippet } from "svelte";
-import { renderSnippet } from "$lib/components/ui/data-table";
+import { renderSnippet } from "@kareyes/aether";
 
 const columns: ColumnDef<User>[] = [
   {
@@ -226,7 +226,7 @@ const columns: ColumnDef<User>[] = [
 ### Actions Column
 
 ```ts
-import { DataTableActions, renderComponent } from "$lib/components/ui/data-table";
+import { DataTableActions, renderComponent } from "@kareyes/aether";
 
 const columns: ColumnDef<User>[] = [
   {
@@ -261,7 +261,7 @@ Enable row expansion to show additional details.
 
 ```svelte
 <script lang="ts">
-  import { DataTable, type ColumnDef } from "$lib/components/ui/data-table";
+  import { DataTable, type ColumnDef } from "@kareyes/aether";
   
   type Payment = {
     id: string;
@@ -409,13 +409,13 @@ const columns: ColumnDef<User>[] = [
 
 ```svelte
 <script lang="ts">
-  import { DataTable, type ColumnDef } from "$lib/components/ui/data-table";
+  import { DataTable, type ColumnDef } from "@kareyes/aether";
   import { 
     DataTableCheckbox, 
     DataTableColumnHeader,
     DataTableActions,
     renderComponent 
-  } from "$lib/components/ui/data-table";
+  } from "@kareyes/aether";
   
   type User = {
     id: string;
@@ -570,7 +570,7 @@ Dropdown menu for row actions.
 Renders a Svelte component within a table cell.
 
 ```ts
-import { renderComponent } from "$lib/components/ui/data-table";
+import { renderComponent } from "@kareyes/aether";
 
 renderComponent(MyComponent, { prop1: "value" })
 ```
@@ -581,7 +581,7 @@ Renders a Svelte snippet within a table cell.
 
 ```ts
 import { createRawSnippet } from "svelte";
-import { renderSnippet } from "$lib/components/ui/data-table";
+import { renderSnippet } from "@kareyes/aether";
 
 const snippet = createRawSnippet(() => ({
   render: () => `<div>Content</div>`
@@ -595,7 +595,7 @@ renderSnippet(snippet, { data: "value" })
 The DataTable component is fully typed with TypeScript generics:
 
 ```ts
-import type { ColumnDef } from "$lib/components/ui/data-table";
+import type { ColumnDef } from "@kareyes/aether";
 
 type MyData = {
   id: string;

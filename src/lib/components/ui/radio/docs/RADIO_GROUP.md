@@ -17,8 +17,10 @@ A flexible radio group component that allows users to select one option from a s
 
 ## Installation
 
+The RadioGroup component is included in the `@kareyes/aether` package.
+
 ```bash
-npm install bits-ui @lucide/svelte tailwind-variants
+pnpm add @kareyes/aether
 ```
 
 ## Usage
@@ -27,8 +29,8 @@ npm install bits-ui @lucide/svelte tailwind-variants
 
 ```svelte
 <script>
-  import { RadioGroup } from "$lib/components/ui/radio";
-  import type { RadioGroupOption } from "$lib/components/ui/radio";
+  import { RadioGroup } from "@kareyes/aether";
+  import type { RadioGroupOption } from "@kareyes/aether";
   
   let selectedValue = $state("option1");
   
@@ -50,7 +52,7 @@ npm install bits-ui @lucide/svelte tailwind-variants
 
 ```svelte
 <script>
-  import { RadioGroup } from "$lib/components/ui/radio";
+  import { RadioGroup } from "@kareyes/aether";
   
   let selectedPlan = $state("pro");
   
@@ -83,7 +85,7 @@ npm install bits-ui @lucide/svelte tailwind-variants
 
 ```svelte
 <script>
-  import { RadioGroup } from "$lib/components/ui/radio";
+  import { RadioGroup } from "@kareyes/aether";
   
   let theme = $state("auto");
   
@@ -287,12 +289,12 @@ interface RadioGroupOption {
 
 ```svelte
 <script>
-  import * as Field from "$lib/components/ui/field";
+  import { FieldPrimitives } from "@kareyes/aether";
   
   let cluster = $state("");
 </script>
 
-<Field.Field
+<FieldPrimitives.Field
   label="Cluster Configuration"
   description="Select your cluster type"
   error={!cluster ? "Please select a cluster type" : undefined}
@@ -304,7 +306,7 @@ interface RadioGroupOption {
     error={!cluster}
     isCard={true}
   />
-</Field.Field>
+</FieldPrimitives.Field>
 ```
 
 ## Examples
@@ -458,12 +460,12 @@ export const customRadioGroupVariants = tv({
 ## TypeScript
 
 ```typescript
-import type { 
-  RadioGroupVariant, 
+import type {
+  RadioGroupVariant,
   RadioGroupSize,
   RadioGroupItemVariant,
-  RadioGroupItemSize 
-} from "$lib/components/ui/radio-group";
+  RadioGroupItemSize
+} from "@kareyes/aether";
 
 // Group variant and size types
 type GroupVariant = RadioGroupVariant; // "default" | "card" | "inline"
@@ -487,7 +489,7 @@ type ItemSize = RadioGroupItemSize; // "sm" | "default" | "lg"
 
 ```svelte
 <script>
-  import { RadioGroup, RadioGroupItem } from "$lib/components/ui/radio-group";
+  import { RadioGroup, RadioGroupItem } from "@kareyes/aether";
   
   let formData = $state({
     plan: "free",
@@ -543,9 +545,9 @@ The Field component provides a consistent way to add labels, descriptions, and e
 
 ```svelte
 <script>
-  import { RadioGroup } from "$lib/components/ui/radio";
-  import type { RadioGroupOption } from "$lib/components/ui/radio";
-  import * as Field from "$lib/components/ui/field";
+  import { RadioGroup } from "@kareyes/aether";
+  import type { RadioGroupOption } from "@kareyes/aether";
+  import { FieldPrimitives } from "@kareyes/aether";
   
   let selectedPlan = $state("pro");
   
@@ -556,7 +558,7 @@ The Field component provides a consistent way to add labels, descriptions, and e
   ];
 </script>
 
-<Field.Field
+<FieldPrimitives.Field
   label="Subscription Plan"
   description="Choose the plan that fits your needs"
   required
@@ -565,15 +567,15 @@ The Field component provides a consistent way to add labels, descriptions, and e
     options={planOptions}
     bind:value={selectedPlan}
   />
-</Field.Field>
+</FieldPrimitives.Field>
 ```
 
 ### With Validation
 
 ```svelte
 <script>
-  import { RadioGroup } from "$lib/components/ui/radio";
-  import * as Field from "$lib/components/ui/field";
+  import { RadioGroup } from "@kareyes/aether";
+  import { FieldPrimitives } from "@kareyes/aether";
   
   let paymentMethod = $state("");
   let error = $derived(paymentMethod === "");
@@ -585,7 +587,7 @@ The Field component provides a consistent way to add labels, descriptions, and e
   ];
 </script>
 
-<Field.Field
+<FieldPrimitives.Field
   label="Payment Method"
   description="Select your preferred payment method"
   required
@@ -596,15 +598,15 @@ The Field component provides a consistent way to add labels, descriptions, and e
     bind:value={paymentMethod}
     error={error}
   />
-</Field.Field>
+</FieldPrimitives.Field>
 ```
 
 ### Card Variant with Field
 
 ```svelte
 <script>
-  import { RadioGroup } from "$lib/components/ui/radio";
-  import * as Field from "$lib/components/ui/field";
+  import { RadioGroup } from "@kareyes/aether";
+  import { FieldPrimitives } from "@kareyes/aether";
   
   let selectedPlan = $state("pro");
   
@@ -630,7 +632,7 @@ The Field component provides a consistent way to add labels, descriptions, and e
   ];
 </script>
 
-<Field.Field
+<FieldPrimitives.Field
   label="Choose Your Plan"
   description="Select the subscription tier that best fits your needs"
 >
@@ -640,13 +642,13 @@ The Field component provides a consistent way to add labels, descriptions, and e
     isCard={true}
     variant="success"
   />
-</Field.Field>
+</FieldPrimitives.Field>
 ```
 
 ### Horizontal Layout with Field
 
 ```svelte
-<Field.Field
+<FieldPrimitives.Field
   label="Notification Frequency"
   description="How often would you like to receive updates?"
 >
@@ -659,16 +661,16 @@ The Field component provides a consistent way to add labels, descriptions, and e
     orientation="horizontal"
     radioSize="lg"
   />
-</Field.Field>
+</FieldPrimitives.Field>
 ```
 
 ### Multiple RadioGroups in Form
 
 ```svelte
 <script>
-  import { RadioGroup } from "$lib/components/ui/radio";
-  import * as Field from "$lib/components/ui/field";
-  import { Button } from "$lib/components/ui/button";
+  import { RadioGroup } from "@kareyes/aether";
+  import { FieldPrimitives } from "@kareyes/aether";
+  import { Button } from "@kareyes/aether";
   
   let formData = $state({
     plan: "pro",
@@ -698,14 +700,14 @@ The Field component provides a consistent way to add labels, descriptions, and e
   }
 </script>
 
-<Field.Set>
-  <Field.Legend>Subscription Settings</Field.Legend>
-  <Field.Description>Configure your subscription preferences</Field.Description>
+<FieldPrimitives.Set>
+  <FieldPrimitives.Legend>Subscription Settings</FieldPrimitives.Legend>
+  <FieldPrimitives.Description>Configure your subscription preferences</FieldPrimitives.Description>
   
-  <Field.Separator />
+  <FieldPrimitives.Separator />
   
-  <Field.Group class="gap-6">
-    <Field.Field
+  <FieldPrimitives.Group class="gap-6">
+    <FieldPrimitives.Field
       label="Plan Selection"
       description="Choose your subscription tier"
       required
@@ -715,9 +717,9 @@ The Field component provides a consistent way to add labels, descriptions, and e
         bind:value={formData.plan}
         isCard={true}
       />
-    </Field.Field>
+    </FieldPrimitives.Field>
     
-    <Field.Field
+    <FieldPrimitives.Field
       label="Billing Cycle"
       description="Select how you'd like to be billed"
       required
@@ -728,9 +730,9 @@ The Field component provides a consistent way to add labels, descriptions, and e
         orientation="horizontal"
         radioSize="lg"
       />
-    </Field.Field>
+    </FieldPrimitives.Field>
     
-    <Field.Field
+    <FieldPrimitives.Field
       label="Support Channel"
       description="Preferred method for customer support"
     >
@@ -739,12 +741,12 @@ The Field component provides a consistent way to add labels, descriptions, and e
         bind:value={formData.support}
         variant="success"
       />
-    </Field.Field>
-  </Field.Group>
+    </FieldPrimitives.Field>
+  </FieldPrimitives.Group>
   
   <div class="flex gap-4 pt-4">
     <Button onclick={handleSubmit}>Save Preferences</Button>
     <Button variant="outline" type="button">Cancel</Button>
   </div>
-</Field.Set>
+</FieldPrimitives.Set>
 ```

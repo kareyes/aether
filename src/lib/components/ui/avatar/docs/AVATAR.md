@@ -2,73 +2,102 @@
 
 An enhanced avatar component for displaying user profile images with support for fallbacks, variants, colors, shapes, and grouping.
 
-## Features
+## Table of Contents
 
-- **Multiple Sizes** - 6 size options from `xs` to `2xl`
-- **Flexible Shapes** - Circle, square, and rounded variants
-- **Style Variants** - Default, bordered (with ring offset), and solid
-- **Color Options** - 10 color schemes including gradient
-- **Smart Fallbacks** - Auto-generated initials, default icon, or custom snippet
-- **Avatar Groups** - Overlapping avatar displays with configurable spacing
-- **Image Loading** - Built-in image loading with fallback support
-- **Fully Typed** - Complete TypeScript support
-- **Customizable** - Override styles with className props
+- [Installation](#installation)
+- [Usage](#usage)
+- [Components](#components)
+- [Props Reference](#props-reference)
+- [Variants](#variants)
+- [Examples](#examples)
+- [Accessibility](#accessibility)
 
 ## Installation
 
+The Avatar component is included in the `@kareyes/aether` package.
+
 ```bash
-# The component is already included in the project
-import { Avatar, AvatarGroup } from "$lib/components/ui/avatar";
+pnpm add @kareyes/aether
 ```
 
-## Basic Usage
+## Usage
 
-### Simple Avatar
+### Basic Usage
 
 ```svelte
-<script>
-  import { Avatar } from "$lib/components/ui/avatar";
+<script lang="ts">
+  import { Avatar } from "@kareyes/aether";
 </script>
 
-<Avatar 
-  src="https://github.com/shadcn.png" 
+<Avatar
+  src="https://github.com/shadcn.png"
   alt="User"
-  fallback="CN" 
+  fallback="CN"
 />
 ```
 
-### With Fallback Text
+### With Primitives Import
 
 ```svelte
-<Avatar fallback="John Doe" />
-<!-- Displays: "JD" -->
+<script lang="ts">
+  import { AvatarPrimitives } from "@kareyes/aether";
+</script>
+
+<AvatarPrimitives.Root>
+  <AvatarPrimitives.Image src="https://github.com/shadcn.png" alt="User" />
+  <AvatarPrimitives.Fallback>CN</AvatarPrimitives.Fallback>
+</AvatarPrimitives.Root>
 ```
 
-### Without Image (Icon Fallback)
+## Components
 
-```svelte
-<Avatar />
-<!-- Displays default user icon -->
-```
+| Component | Description |
+|-----------|-------------|
+| `Avatar` | Enhanced wrapper with variants and colors |
+| `AvatarGroup` | Container for overlapping avatar displays |
+| `Root` | Base avatar container |
+| `Image` | Avatar image element |
+| `Fallback` | Fallback content when image fails |
+
+## Props Reference
+
+### Avatar
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `src` | `string` | - | Image source URL |
+| `alt` | `string` | `""` | Image alt text |
+| `fallback` | `string` | - | Text for fallback initials |
+| `size` | `"xs" \| "sm" \| "default" \| "lg" \| "xl" \| "2xl"` | `"default"` | Avatar size |
+| `shape` | `"circle" \| "square" \| "rounded"` | `"circle"` | Avatar shape |
+| `variant` | `"default" \| "bordered" \| "solid"` | `"default"` | Visual variant |
+| `color` | `"default" \| "primary" \| "secondary" \| "green" \| "yellow" \| "red" \| "blue" \| "purple" \| "pink" \| "gradient"` | `"default"` | Fallback color |
+| `class` | `string` | - | Additional CSS classes for root |
+| `imageClass` | `string` | - | Additional CSS classes for image |
+| `fallbackClass` | `string` | - | Additional CSS classes for fallback |
+| `customFallback` | `Snippet` | - | Custom fallback snippet |
+| `delayMs` | `number` | `0` | Delay before showing fallback |
+
+### AvatarGroup
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `max` | `number` | `5` | Maximum avatars to display |
+| `size` | Avatar size type | `"default"` | Size for all avatars |
+| `spacing` | `"tight" \| "default" \| "loose"` | `"default"` | Overlap spacing |
+| `class` | `string` | - | Additional CSS classes |
+| `children` | `Snippet` | Required | Avatar components |
 
 ## Sizes
 
 ```svelte
-<Avatar size="xs" fallback="XS" />
-<Avatar size="sm" fallback="SM" />
-<Avatar size="default" fallback="MD" />
-<Avatar size="lg" fallback="LG" />
-<Avatar size="xl" fallback="XL" />
-<Avatar size="2xl" fallback="2X" />
+<Avatar size="xs" fallback="XS" />   <!-- 24px -->
+<Avatar size="sm" fallback="SM" />   <!-- 32px -->
+<Avatar size="default" fallback="MD" />  <!-- 40px -->
+<Avatar size="lg" fallback="LG" />   <!-- 48px -->
+<Avatar size="xl" fallback="XL" />   <!-- 56px -->
+<Avatar size="2xl" fallback="2X" />  <!-- 64px -->
 ```
-
-**Size Reference:**
-- `xs` - 24px (1.5rem)
-- `sm` - 32px (2rem)
-- `default` - 40px (2.5rem)
-- `lg` - 48px (3rem)
-- `xl` - 56px (3.5rem)
-- `2xl` - 64px (4rem)
 
 ## Shapes
 
@@ -117,9 +146,23 @@ Available for fallback backgrounds:
 <Avatar color="gradient" fallback="GD" />
 ```
 
-## Bordered with Colors
+## Examples
 
-Combine `bordered` variant with colors to get matching ring colors:
+### With Fallback Text
+
+```svelte
+<Avatar fallback="John Doe" />
+<!-- Displays: "JD" -->
+```
+
+### Without Image (Icon Fallback)
+
+```svelte
+<Avatar />
+<!-- Displays default user icon -->
+```
+
+### Bordered with Colors
 
 ```svelte
 <Avatar variant="bordered" color="primary" fallback="PR" size="lg" />
@@ -127,11 +170,7 @@ Combine `bordered` variant with colors to get matching ring colors:
 <Avatar variant="bordered" color="red" fallback="RE" size="lg" />
 ```
 
-**Note:** The ring color automatically matches the selected color option using compound variants.
-
-## Custom Fallback
-
-Use the `customFallback` snippet for complete control:
+### Custom Fallback
 
 ```svelte
 <Avatar>
@@ -141,14 +180,12 @@ Use the `customFallback` snippet for complete control:
 </Avatar>
 ```
 
-## Avatar Groups
-
-Display multiple avatars in an overlapping layout:
+### Avatar Groups
 
 ```svelte
-<script>
-  import { Avatar, AvatarGroup } from "$lib/components/ui/avatar";
-  
+<script lang="ts">
+  import { Avatar, AvatarGroup } from "@kareyes/aether";
+
   const users = [
     { image: "/avatar1.jpg", name: "User 1" },
     { image: "/avatar2.jpg", name: "User 2" },
@@ -166,64 +203,20 @@ Display multiple avatars in an overlapping layout:
 ### Spacing Options
 
 ```svelte
-<AvatarGroup spacing="tight">...</AvatarGroup>
-<AvatarGroup spacing="default">...</AvatarGroup>
-<AvatarGroup spacing="loose">...</AvatarGroup>
+<AvatarGroup spacing="tight">...</AvatarGroup>   <!-- Less overlap -->
+<AvatarGroup spacing="default">...</AvatarGroup> <!-- Standard overlap -->
+<AvatarGroup spacing="loose">...</AvatarGroup>   <!-- Minimal overlap -->
 ```
-
-**Spacing Values:**
-- `tight` - Less overlap (-0.5rem)
-- `default` - Standard overlap (-0.75rem)
-- `loose` - Minimal overlap (-0.25rem)
-
-### Bordered Avatar Groups
-
-```svelte
-<AvatarGroup spacing="default">
-  <Avatar variant="bordered" color="primary" src={user1.image} />
-  <Avatar variant="bordered" color="green" src={user2.image} />
-  <Avatar variant="bordered" color="purple" src={user3.image} />
-</AvatarGroup>
-```
-
-**Tip:** Bordered avatars in groups create a nice separation effect with the ring offset.
-
-## Props
-
-### Avatar Props
-
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `src` | `string` | - | Image source URL |
-| `alt` | `string` | `""` | Image alt text |
-| `fallback` | `string` | - | Text for fallback initials |
-| `size` | `"xs" \| "sm" \| "default" \| "lg" \| "xl" \| "2xl"` | `"default"` | Avatar size |
-| `shape` | `"circle" \| "square" \| "rounded"` | `"circle"` | Avatar shape |
-| `variant` | `"default" \| "bordered" \| "solid"` | `"default"` | Visual variant |
-| `color` | `"default" \| "primary" \| "secondary" \| "green" \| "yellow" \| "red" \| "blue" \| "purple" \| "pink" \| "gradient"` | `"default"` | Fallback color |
-| `class` | `string` | - | Additional CSS classes for root |
-| `imageClass` | `string` | - | Additional CSS classes for image |
-| `fallbackClass` | `string` | - | Additional CSS classes for fallback |
-| `customFallback` | `Snippet` | - | Custom fallback snippet |
-| `delayMs` | `number` | `0` | Delay before showing fallback |
-
-### AvatarGroup Props
-
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `max` | `number` | `5` | Maximum avatars to display |
-| `size` | Avatar size type | `"default"` | Size for all avatars |
-| `spacing` | `"tight" \| "default" \| "loose"` | `"default"` | Overlap spacing |
-| `class` | `string` | - | Additional CSS classes |
-| `children` | `Snippet` | Required | Avatar components |
-
-## Advanced Examples
 
 ### User Profile Card
 
 ```svelte
+<script lang="ts">
+  import { Avatar } from "@kareyes/aether";
+</script>
+
 <div class="flex items-center gap-4">
-  <Avatar 
+  <Avatar
     src={user.avatar}
     fallback={user.name}
     size="xl"
@@ -242,7 +235,7 @@ Display multiple avatars in an overlapping layout:
 ```svelte
 <div class="relative inline-block">
   <Avatar src={user.avatar} fallback={user.name} size="lg" />
-  <span 
+  <span
     class="absolute bottom-0 right-0 block size-3 rounded-full bg-green-500 ring-2 ring-background"
   ></span>
 </div>
@@ -251,10 +244,14 @@ Display multiple avatars in an overlapping layout:
 ### Team Members Grid
 
 ```svelte
+<script lang="ts">
+  import { Avatar } from "@kareyes/aether";
+</script>
+
 <div class="grid grid-cols-4 gap-4">
   {#each team as member}
     <div class="text-center">
-      <Avatar 
+      <Avatar
         src={member.avatar}
         fallback={member.name}
         size="2xl"
@@ -269,37 +266,7 @@ Display multiple avatars in an overlapping layout:
 </div>
 ```
 
-### Different Shapes Showcase
-
-```svelte
-<div class="flex gap-4">
-  <Avatar 
-    shape="circle" 
-    variant="bordered" 
-    color="primary" 
-    fallback="CI" 
-    size="xl" 
-  />
-  <Avatar 
-    shape="rounded" 
-    variant="bordered" 
-    color="green" 
-    fallback="RO" 
-    size="xl" 
-  />
-  <Avatar 
-    shape="square" 
-    variant="bordered" 
-    color="purple" 
-    fallback="SQ" 
-    size="xl" 
-  />
-</div>
-```
-
-## Technical Details
-
-### How Initials Are Generated
+## How Initials Are Generated
 
 The component automatically extracts initials from the `fallback` text:
 - Takes the first letter of each word
@@ -311,16 +278,7 @@ The component automatically extracts initials from the `fallback` text:
 - `"Sarah"` → `"SA"`
 - `"John Paul Smith"` → `"JP"`
 
-### Compound Variants
-
-The component uses `tailwind-variants` with compound variants to intelligently combine styles:
-
-1. **Bordered + Color** - Automatically applies matching ring colors
-2. **Bordered + Shape** - Ensures ring follows the avatar's border radius
-
-This means you can freely combine variants without worrying about style conflicts.
-
-### Image Loading Behavior
+## Image Loading Behavior
 
 1. If `src` is provided, attempts to load the image
 2. If image fails or is loading, shows fallback
@@ -331,15 +289,17 @@ This means you can freely combine variants without worrying about style conflict
 
 ## Accessibility
 
+The Avatar component follows accessibility best practices:
+
+### ARIA Attributes
+
 - Images include `alt` text for screen readers
 - Fallback text is semantic and readable
 - Proper ARIA attributes from underlying bits-ui components
-- Color contrast meets WCAG guidelines
 
-## Demo
+### Best Practices
 
-Visit `/avatar-demo` for an interactive demonstration of all features.
-
-## Component Structure
-
-Built on top of [bits-ui Avatar](https://www.bits-ui.com/docs/components/avatar) primitive with enhanced functionality using `tailwind-variants` for flexible styling.
+1. **Always provide alt text**: Describe who the avatar represents
+2. **Use meaningful fallbacks**: Provide name for initials generation
+3. **Color contrast**: All colors meet WCAG guidelines
+4. **Test with screen readers**: Ensure announcements are clear

@@ -236,13 +236,13 @@ The Field component provides a consistent way to add labels, descriptions, and e
 
 ```svelte
 <script>
-  import { Checkbox } from "$lib/components/ui/checkbox";
-  import * as Field from "$lib/components/ui/field";
+  import { Checkbox } from "@kareyes/aether";
+  import { FieldPrimitives } from "@kareyes/aether";
   
   let acceptTerms = $state(false);
 </script>
 
-<Field.Field
+<FieldPrimitives.Field
   label="Agreements"
   description="Please review and accept our policies"
   required
@@ -251,28 +251,28 @@ The Field component provides a consistent way to add labels, descriptions, and e
     bind:checked={acceptTerms}
     label="I accept the terms and conditions"
   />
-</Field.Field>
+</FieldPrimitives.Field>
 ```
 
 ### Checkbox Group with Field
 
 ```svelte
 <script>
-  import { Checkbox } from "$lib/components/ui/checkbox";
-  import * as Field from "$lib/components/ui/field";
+  import { Checkbox } from "@kareyes/aether";
+  import { FieldPrimitives } from "@kareyes/aether";
   
   let notifications = $state(false);
   let marketing = $state(false);
   let updates = $state(false);
 </script>
 
-<Field.Set>
-  <Field.Legend>Email Preferences</Field.Legend>
-  <Field.Description>Choose which emails you'd like to receive</Field.Description>
+<FieldPrimitives.Set>
+  <FieldPrimitives.Legend>Email Preferences</FieldPrimitives.Legend>
+  <FieldPrimitives.Description>Choose which emails you'd like to receive</FieldPrimitives.Description>
   
-  <Field.Separator />
+  <FieldPrimitives.Separator />
   
-  <Field.Group class="gap-4">
+  <FieldPrimitives.Group class="gap-4">
     <Checkbox 
       bind:checked={notifications}
       label="Notifications"
@@ -290,22 +290,22 @@ The Field component provides a consistent way to add labels, descriptions, and e
       label="Product Updates"
       description="Stay informed about product improvements"
     />
-  </Field.Group>
-</Field.Set>
+  </FieldPrimitives.Group>
+</FieldPrimitives.Set>
 ```
 
 ### With Error State
 
 ```svelte
 <script>
-  import { Checkbox } from "$lib/components/ui/checkbox";
-  import * as Field from "$lib/components/ui/field";
+  import { Checkbox } from "@kareyes/aether";
+  import { FieldPrimitives } from "@kareyes/aether";
   
   let acceptTerms = $state(false);
   let error = $derived(!acceptTerms);
 </script>
 
-<Field.Field
+<FieldPrimitives.Field
   label="Terms & Conditions"
   required
   error={error ? "You must accept the terms to continue" : undefined}
@@ -315,15 +315,15 @@ The Field component provides a consistent way to add labels, descriptions, and e
     label="I accept the terms and conditions"
     variant={error ? "destructive" : "default"}
   />
-</Field.Field>
+</FieldPrimitives.Field>
 ```
 
 ### Multiple Checkboxes with Variants
 
 ```svelte
 <script>
-  import { Checkbox } from "$lib/components/ui/checkbox";
-  import * as Field from "$lib/components/ui/field";
+  import { Checkbox } from "@kareyes/aether";
+  import { FieldPrimitives } from "@kareyes/aether";
   
   let tasks = $state({
     design: false,
@@ -333,13 +333,13 @@ The Field component provides a consistent way to add labels, descriptions, and e
   });
 </script>
 
-<Field.Set>
-  <Field.Legend>Project Checklist</Field.Legend>
-  <Field.Description>Track your project progress</Field.Description>
+<FieldPrimitives.Set>
+  <FieldPrimitives.Legend>Project Checklist</FieldPrimitives.Legend>
+  <FieldPrimitives.Description>Track your project progress</FieldPrimitives.Description>
   
-  <Field.Separator />
+  <FieldPrimitives.Separator />
   
-  <Field.Group class="gap-4">
+  <FieldPrimitives.Group class="gap-4">
     <Checkbox 
       bind:checked={tasks.design}
       label="Complete Design"
@@ -371,17 +371,17 @@ The Field component provides a consistent way to add labels, descriptions, and e
       lineThrough={true}
       variant="success"
     />
-  </Field.Group>
-</Field.Set>
+  </FieldPrimitives.Group>
+</FieldPrimitives.Set>
 ```
 
 ### Complete Form with Field
 
 ```svelte
 <script>
-  import { Checkbox } from "$lib/components/ui/checkbox";
-  import * as Field from "$lib/components/ui/field";
-  import { Button } from "$lib/components/ui/button";
+  import { Checkbox } from "@kareyes/aether";
+  import { FieldPrimitives } from "@kareyes/aether";
+  import { Button } from "@kareyes/aether";
   
   let formData = $state({
     acceptTerms: false,
@@ -400,14 +400,14 @@ The Field component provides a consistent way to add labels, descriptions, and e
 </script>
 
 <div class="w-full max-w-md space-y-6">
-  <Field.Set>
-    <Field.Legend>Account Setup</Field.Legend>
-    <Field.Description>Complete your account registration</Field.Description>
+  <FieldPrimitives.Set>
+    <FieldPrimitives.Legend>Account Setup</FieldPrimitives.Legend>
+    <FieldPrimitives.Description>Complete your account registration</FieldPrimitives.Description>
     
-    <Field.Separator />
+    <FieldPrimitives.Separator />
     
-    <Field.Group class="gap-4">
-      <Field.Field
+    <FieldPrimitives.Group class="gap-4">
+      <FieldPrimitives.Field
         label="Required Agreements"
         required
         error={!formData.acceptTerms ? "You must accept the terms" : undefined}
@@ -418,9 +418,9 @@ The Field component provides a consistent way to add labels, descriptions, and e
           variant={!formData.acceptTerms ? "destructive" : "success"}
           size="lg"
         />
-      </Field.Field>
+      </FieldPrimitives.Field>
       
-      <Field.Field
+      <FieldPrimitives.Field
         label="Age Verification"
         required
         error={!formData.ageConfirmation ? "Age confirmation required" : undefined}
@@ -431,9 +431,9 @@ The Field component provides a consistent way to add labels, descriptions, and e
           variant={!formData.ageConfirmation ? "destructive" : "success"}
           size="lg"
         />
-      </Field.Field>
+      </FieldPrimitives.Field>
       
-      <Field.Field
+      <FieldPrimitives.Field
         label="Optional Subscriptions"
         description="Choose which communications you'd like to receive"
       >
@@ -450,8 +450,8 @@ The Field component provides a consistent way to add labels, descriptions, and e
             description="New features and improvements"
           />
         </div>
-      </Field.Field>
-    </Field.Group>
+      </FieldPrimitives.Field>
+    </FieldPrimitives.Group>
     
     <div class="flex gap-4 pt-4">
       <Button onclick={handleSubmit} disabled={hasError}>
@@ -461,6 +461,6 @@ The Field component provides a consistent way to add labels, descriptions, and e
         Cancel
       </Button>
     </div>
-  </Field.Set>
+  </FieldPrimitives.Set>
 </div>
 ```

@@ -16,17 +16,21 @@ A versatile skeleton loading component with multiple variants, animations, shape
 
 ## Installation
 
-The skeleton component is part of the Aether UI library:
+The Skeleton component is included in the `@kareyes/aether` package.
+
+```bash
+pnpm add @kareyes/aether
+```
 
 ```svelte
 <script>
-  import { 
-    Skeleton, 
-    SkeletonText, 
-    SkeletonAvatar, 
-    SkeletonCard, 
-    SkeletonTable 
-  } from "$lib/components/ui/skeleton";
+  import {
+    Skeleton,
+    SkeletonText,
+    SkeletonAvatar,
+    SkeletonCard,
+    SkeletonTable
+  } from "@kareyes/aether";
 </script>
 ```
 

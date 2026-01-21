@@ -1,32 +1,48 @@
-# Enhanced Badge Component
+# Badge
 
 A versatile badge component with multiple variants, colors, sizes, and interactive features including dismissable and clickable options, icon support, and loading states.
 
-## Features
+## Table of Contents
 
-- ✅ **Multiple Variants**: default, secondary, destructive, outline, ghost, success, warning, info
-- ✅ **Color Themes**: 8 predefined color schemes with light/dark mode support
-- ✅ **Three Sizes**: sm, default, lg for different use cases
-- ✅ **Icon Support**: Add custom icons using snippets
-- ✅ **Loading State**: Built-in spinner for async operations
-- ✅ **Dismissable**: Closeable badges with X button for tags and notifications
-- ✅ **Clickable**: Interactive badges with hover effects and click handlers
-- ✅ **Link Support**: Can render as anchor tags with href
-- ✅ **TypeScript Support**: Complete type definitions
-- ✅ **Accessibility**: Proper ARIA attributes and keyboard support
+- [Installation](#installation)
+- [Usage](#usage)
+- [Props Reference](#props-reference)
+- [Variants](#variants)
+- [Examples](#examples)
+- [Accessibility](#accessibility)
 
-## Basic Usage
+## Installation
 
-### Simple Badge
+The Badge component is included in the `@kareyes/aether` package.
+
+```bash
+pnpm add @kareyes/aether
+```
+
+## Usage
+
+### Basic Usage
+
 ```svelte
-<script>
-  import { Badge } from "$lib/components/ui/badge";
+<script lang="ts">
+  import { Badge } from "@kareyes/aether";
 </script>
 
 <Badge text="Default Badge" />
 ```
 
+### With Primitives Import
+
+```svelte
+<script lang="ts">
+  import { BadgePrimitives } from "@kareyes/aether";
+</script>
+
+<BadgePrimitives.Root variant="success">Success</BadgePrimitives.Root>
+```
+
 ### With Variants
+
 ```svelte
 <Badge text="Success" variant="success" />
 <Badge text="Warning" variant="warning" />
@@ -35,6 +51,7 @@ A versatile badge component with multiple variants, colors, sizes, and interacti
 ```
 
 ### With Colors
+
 ```svelte
 <Badge text="Red" color="red" />
 <Badge text="Blue" color="blue" />
@@ -42,79 +59,149 @@ A versatile badge component with multiple variants, colors, sizes, and interacti
 <Badge text="Purple" color="purple" />
 ```
 
-## Interactive Features
+## Props Reference
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `text` | `string` | `undefined` | Text content of the badge |
+| `variant` | `BadgeVariant` | `"default"` | Visual style variant |
+| `color` | `BadgeColor` | `"default"` | Color theme |
+| `size` | `BadgeSize` | `"default"` | Size of the badge |
+| `icon` | `Snippet` | `undefined` | Custom icon snippet |
+| `loading` | `boolean` | `false` | Show loading spinner |
+| `dismissable` | `boolean` | `false` | Show dismiss button |
+| `clickable` | `boolean` | `false` | Make badge clickable |
+| `href` | `string` | `undefined` | URL for link badges |
+| `onclick` | `() => void` | `undefined` | Click handler |
+| `onDismiss` | `() => void` | `undefined` | Dismiss handler |
+| `class` | `string` | - | Additional CSS classes |
+
+### Badge Variants
+
+| Variant | Description |
+|---------|-------------|
+| `default` | Primary badge with solid background |
+| `secondary` | Secondary badge with muted background |
+| `destructive` | Red badge for errors and dangerous actions |
+| `outline` | Badge with border, transparent background |
+| `ghost` | Minimal badge with no background |
+| `success` | Green badge for positive states |
+| `warning` | Yellow badge for caution states |
+| `info` | Blue badge for informational content |
+
+### Badge Colors
+
+| Color | Use Case |
+|-------|----------|
+| `red` | Errors, urgent |
+| `orange` | Warnings, attention |
+| `yellow` | Caution, pending |
+| `green` | Success, positive |
+| `blue` | Information, links |
+| `purple` | Features, premium |
+| `pink` | Creative, design |
+| `gray` | Neutral, disabled |
+
+### Badge Sizes
+
+| Size | Description |
+|------|-------------|
+| `sm` | Compact, for lists and tables |
+| `default` | Standard size |
+| `lg` | Prominent display |
+
+## Variants
+
+### All Variants
+
+```svelte
+<Badge text="Default" variant="default" />
+<Badge text="Secondary" variant="secondary" />
+<Badge text="Destructive" variant="destructive" />
+<Badge text="Outline" variant="outline" />
+<Badge text="Ghost" variant="ghost" />
+<Badge text="Success" variant="success" />
+<Badge text="Warning" variant="warning" />
+<Badge text="Info" variant="info" />
+```
+
+## Examples
 
 ### With Icons
+
 ```svelte
-<script>
-  import { Badge } from "$lib/components/ui/badge";
-  import { Check, Star, Heart } from "@lucide/svelte";
+<script lang="ts">
+  import { Badge } from "@kareyes/aether";
+  import CheckIcon from "@lucide/svelte/icons/check";
+  import StarIcon from "@lucide/svelte/icons/star";
 </script>
 
 <Badge text="Success">
   {#snippet icon()}
-    <Check class="size-3" />
+    <CheckIcon class="size-3" />
   {/snippet}
 </Badge>
 
 <Badge text="Featured" color="yellow">
   {#snippet icon()}
-    <Star class="size-3" />
-  {/snippet}
-</Badge>
-
-<Badge text="Favorite" variant="outline" color="pink">
-  {#snippet icon()}
-    <Heart class="size-3" />
+    <StarIcon class="size-3" />
   {/snippet}
 </Badge>
 ```
 
 ### Loading State
+
 ```svelte
-<script>
+<script lang="ts">
+  import { Badge } from "@kareyes/aether";
+
   let isProcessing = $state(true);
 </script>
 
 <Badge text="Loading" loading={true} />
 <Badge text="Processing" variant="secondary" loading={true} />
-<Badge text="Saving" variant="flat" color="blue" loading={true} />
 
 <!-- Conditional loading -->
-<Badge 
-  text={isProcessing ? "Processing..." : "Done"} 
+<Badge
+  text={isProcessing ? "Processing..." : "Done"}
   loading={isProcessing}
   color={isProcessing ? "blue" : "green"}
 />
 ```
 
 ### Clickable Badges
+
 ```svelte
-<script>
+<script lang="ts">
+  import { Badge } from "@kareyes/aether";
+
   function handleClick() {
     alert('Badge clicked!');
   }
 </script>
 
-<Badge 
-  text="Click me" 
+<Badge
+  text="Click me"
   clickable={true}
   onclick={handleClick}
 />
 ```
 
 ### Dismissable Badges
+
 ```svelte
-<script>
+<script lang="ts">
+  import { Badge } from "@kareyes/aether";
+
   let tags = $state(['Design', 'Development', 'Marketing']);
-  
-  function removeTag(index) {
+
+  function removeTag(index: number) {
     tags = tags.filter((_, i) => i !== index);
   }
 </script>
 
 {#each tags as tag, index (tag)}
-  <Badge 
+  <Badge
     text={tag}
     color="blue"
     dismissable={true}
@@ -124,80 +211,23 @@ A versatile badge component with multiple variants, colors, sizes, and interacti
 ```
 
 ### Link Badges
+
 ```svelte
-<Badge 
-  text="Visit Site" 
+<Badge
+  text="Visit Site"
   href="https://example.com"
   color="blue"
   target="_blank"
 />
 ```
 
-## Variants
-
-Available variants with their use cases:
-
-| Variant | Use Case | Example |
-|---------|----------|---------|
-| `default` | Primary actions, main tags | Status indicators |
-| `secondary` | Secondary information | Metadata |
-| `destructive` | Errors, dangerous actions | Error states |
-| `outline` | Subtle emphasis | Categories |
-| `ghost` | Minimal styling | Subtle labels |
-| `success` | Positive states | Completed tasks |
-| `warning` | Caution states | Pending actions |
-| `info` | Informational | Help text |
-
-## Color Themes
-
-Available color options with semantic meaning:
-
-| Color | Hex/CSS | Use Case |
-|-------|---------|----------|
-| `red` | Red tones | Errors, urgent |
-| `orange` | Orange tones | Warnings, attention |
-| `yellow` | Yellow tones | Caution, pending |
-| `green` | Green tones | Success, positive |
-| `blue` | Blue tones | Information, links |
-| `purple` | Purple tones | Features, premium |
-| `pink` | Pink tones | Creative, design |
-| `gray` | Gray tones | Neutral, disabled |
-
-## Sizes
-
-| Size | Use Case | Example |
-|------|----------|---------|
-| `sm` | Compact layouts, lists | Table cells, inline text |
-| `default` | Standard use | Cards, general purpose |
-| `lg` | Prominent display | Headers, important status |
-
-## Props
-
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `text` | `string` | `undefined` | Text content of the badge |
-| `variant` | `BadgeVariant` | `'default'` | Visual style variant |
-| `color` | `BadgeColor` | `'default'` | Color theme |
-| `size` | `BadgeSize` | `'default'` | Size of the badge |
-| `icon` | `Snippet` | `undefined` | Custom icon snippet |
-| `loading` | `boolean` | `false` | Show loading spinner |
-| `dismissable` | `boolean` | `false` | Show dismiss button |
-| `clickable` | `boolean` | `false` | Make badge clickable |
-| `href` | `string` | `undefined` | URL for link badges |
-| `onclick` | `() => void` | `undefined` | Click handler |
-| `onDismiss` | `() => void` | `undefined` | Dismiss handler |
-| `class` | `string` | `undefined` | Additional CSS classes |
-
-## Examples
-
 ### Status Indicators
+
 ```svelte
-<script>
-  import { Check, AlertCircle } from "@lucide/svelte";
-  
-  let serverStatus = $state('online');
-  let dbStatus = $state('maintenance');
-  let apiStatus = $state('down');
+<script lang="ts">
+  import { Badge } from "@kareyes/aether";
+  import CheckIcon from "@lucide/svelte/icons/check";
+  import AlertCircleIcon from "@lucide/svelte/icons/alert-circle";
 </script>
 
 <div class="flex gap-4">
@@ -205,25 +235,16 @@ Available color options with semantic meaning:
     <span>Server:</span>
     <Badge text="Online" variant="success" size="sm">
       {#snippet icon()}
-        <Check class="size-3" />
+        <CheckIcon class="size-3" />
       {/snippet}
     </Badge>
   </div>
-  
+
   <div class="flex items-center gap-2">
     <span>Database:</span>
     <Badge text="Maintenance" variant="warning" size="sm">
       {#snippet icon()}
-        <AlertCircle class="size-3" />
-      {/snippet}
-    </Badge>
-  </div>
-  
-  <div class="flex items-center gap-2">
-    <span>API:</span>
-    <Badge text="Down" variant="destructive" size="sm">
-      {#snippet icon()}
-        <AlertCircle class="size-3" />
+        <AlertCircleIcon class="size-3" />
       {/snippet}
     </Badge>
   </div>
@@ -231,18 +252,21 @@ Available color options with semantic meaning:
 ```
 
 ### Tag System
+
 ```svelte
-<script>
+<script lang="ts">
+  import { Badge } from "@kareyes/aether";
+
   let availableTags = ['React', 'Vue', 'Svelte', 'Angular'];
   let selectedTags = $state(['React', 'Svelte']);
-  
-  function addTag(tag) {
+
+  function addTag(tag: string) {
     if (!selectedTags.includes(tag)) {
       selectedTags = [...selectedTags, tag];
     }
   }
-  
-  function removeTag(tag) {
+
+  function removeTag(tag: string) {
     selectedTags = selectedTags.filter(t => t !== tag);
   }
 </script>
@@ -250,7 +274,7 @@ Available color options with semantic meaning:
 <!-- Selected tags -->
 <div class="flex flex-wrap gap-2 mb-4">
   {#each selectedTags as tag}
-    <Badge 
+    <Badge
       text={tag}
       color="blue"
       dismissable={true}
@@ -263,7 +287,7 @@ Available color options with semantic meaning:
 <div class="flex flex-wrap gap-2">
   {#each availableTags as tag}
     {#if !selectedTags.includes(tag)}
-      <Badge 
+      <Badge
         text={tag}
         variant="outline"
         clickable={true}
@@ -274,60 +298,36 @@ Available color options with semantic meaning:
 </div>
 ```
 
-### Notification System
+### Product Features
+
 ```svelte
-<script>
-  let notifications = $state([
-    { id: 1, text: 'New message', type: 'info' },
-    { id: 2, text: 'Update available', type: 'warning' },
-    { id: 3, text: 'Error occurred', type: 'error' },
-  ]);
-  
-  function dismissNotification(id) {
-    notifications = notifications.filter(n => n.id !== id);
-  }
+<script lang="ts">
+  import { Badge } from "@kareyes/aether";
 </script>
 
-<div class="space-y-2">
-  {#each notifications as notification}
-    <div class="flex items-center justify-between p-3 border rounded">
-      <span>{notification.text}</span>
-      <Badge 
-        text={notification.type}
-        variant={notification.type === 'error' ? 'destructive' : 
-                notification.type === 'warning' ? 'warning' : 'info'}
-        dismissable={true}
-        onDismiss={() => dismissNotification(notification.id)}
-      />
-    </div>
-  {/each}
-</div>
-```
-
-### Product Features
-```svelte
-<div class="grid gap-4 md:grid-cols-3">
-  <div class="border rounded-lg p-4">
-    <div class="flex justify-between items-start mb-2">
-      <h3 class="font-semibold">Premium Plan</h3>
-      <Badge text="Popular" variant="success" />
-    </div>
-    <p class="text-sm text-muted-foreground mb-4">
-      Advanced features for teams
-    </p>
-    <div class="flex gap-2">
-      <Badge text="Analytics" color="blue" size="sm" />
-      <Badge text="API Access" color="green" size="sm" />
-      <Badge text="Priority Support" color="purple" size="sm" />
-    </div>
+<div class="border rounded-lg p-4">
+  <div class="flex justify-between items-start mb-2">
+    <h3 class="font-semibold">Premium Plan</h3>
+    <Badge text="Popular" variant="success" />
   </div>
-  
-  <!-- More product cards... -->
+  <p class="text-sm text-muted-foreground mb-4">
+    Advanced features for teams
+  </p>
+  <div class="flex gap-2">
+    <Badge text="Analytics" color="blue" size="sm" />
+    <Badge text="API Access" color="green" size="sm" />
+    <Badge text="Priority Support" color="purple" size="sm" />
+  </div>
 </div>
 ```
 
 ### User Profile
+
 ```svelte
+<script lang="ts">
+  import { Badge } from "@kareyes/aether";
+</script>
+
 <div class="flex items-start gap-4">
   <div class="w-12 h-12 bg-gray-200 rounded-full"></div>
   <div class="flex-1">
@@ -340,34 +340,25 @@ Available color options with semantic meaning:
       <Badge text="React" color="blue" size="sm" />
       <Badge text="TypeScript" color="blue" size="sm" />
       <Badge text="Node.js" color="green" size="sm" />
-      <Badge text="5+ years" color="gray" size="sm" />
     </div>
   </div>
 </div>
 ```
 
-## Styling Notes
-
-### Custom Colors
-When using `color` prop, it overrides the `variant` styling and uses outline style with the specified color theme.
-
-### Hover Effects
-- Clickable badges have scale and opacity transitions
-- Dismissable badges have hover effects on the X button
-- Link badges maintain standard link behavior
-
-### Dark Mode
-All colors and variants include dark mode support with appropriate contrast ratios.
-
 ## Accessibility
 
-- ✅ Proper semantic HTML (`<span>`, `<a>`, or `<button>`)
-- ✅ ARIA labels for dismiss buttons
-- ✅ Keyboard navigation support
-- ✅ Focus management
-- ✅ Screen reader friendly
-- ✅ High contrast support
+The Badge component follows accessibility best practices:
 
-## Browser Support
+### Semantic HTML
 
-Works in all modern browsers with full feature support including hover effects and transitions.
+- Proper semantic HTML (`<span>`, `<a>`, or `<button>`)
+- ARIA labels for dismiss buttons
+- Keyboard navigation support
+
+### Best Practices
+
+1. **Use meaningful text**: Badge text should clearly indicate the status or category
+2. **Color contrast**: All colors include proper contrast for readability
+3. **Interactive feedback**: Clickable and dismissable badges have visual feedback
+4. **Screen reader friendly**: All variants support screen readers
+5. **Dark mode**: All colors and variants include dark mode support

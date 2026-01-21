@@ -165,6 +165,11 @@ import { Textarea } from "./components/ui/textarea/index.js";
 import * as TooltipPrimitives from "./components/ui/tooltip/index.js";
 import { Root as Tooltip } from "./components/ui/tooltip/index.js";
 
+// NavigationMenu
+import * as NavigationMenuPrimitives from "./components/ui/navigation-menu/index.js";
+import { Root as NavigationMenu } from "./components/ui/navigation-menu/index.js";
+export { navigationMenuTriggerStyle } from "./components/ui/navigation-menu/index.js";
+
 // Export all primitives (namespace exports with all component parts)
 export {
 	AccordionPrimitives,
@@ -208,6 +213,7 @@ export {
 	TabsPrimitives,
 	TextareaPrimitives,
 	TooltipPrimitives,
+	NavigationMenuPrimitives,
 };
 
 // Export shorthand components (Root component of each)
@@ -258,4 +264,5 @@ export {
 	Tabs,
 	Textarea,
 	Tooltip,
+	NavigationMenu,
 };

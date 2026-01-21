@@ -15,8 +15,10 @@ A comprehensive, customizable popover component with multiple visual variants, s
 
 ## Installation
 
+The Popover component is included in the `@kareyes/aether` package.
+
 ```bash
-pnpm dlx shadcn-svelte@latest add popover
+pnpm add @kareyes/aether
 ```
 
 ## Implementation Details
@@ -53,7 +55,8 @@ The Popover component is built using **tailwind-variants** (tv) for a robust var
 
 ```svelte
 <script lang="ts">
-  import { Popover, PopoverTrigger, PopoverContent } from "$lib/components/ui/popover";
+  import { PopoverPrimitives } from "@kareyes/aether";
+  const { Popover, PopoverTrigger, PopoverContent } = PopoverPrimitives;
 </script>
 
 <Popover>
@@ -101,8 +104,9 @@ The Popover component is built using **tailwind-variants** (tv) for a robust var
 
 ```svelte
 <script lang="ts">
-  import { Popover, PopoverTrigger, PopoverContent, PopoverClose } from "$lib/components/ui/popover";
-  import { Button } from "$lib/components/ui/button";
+  import { PopoverPrimitives } from "@kareyes/aether";
+  const { Popover, PopoverTrigger, PopoverContent, PopoverClose } = PopoverPrimitives;
+  import { Button } from "@kareyes/aether";
 
   let open = $state(false);
 </script>
@@ -297,10 +301,11 @@ Link style with underline on hover.
 
 ```svelte
 <script lang="ts">
-  import { Popover, PopoverTrigger, PopoverContent } from "$lib/components/ui/popover";
-  import { Button } from "$lib/components/ui/button";
-  import { Input } from "$lib/components/ui/input";
-  import { Label } from "$lib/components/ui/label";
+  import { PopoverPrimitives } from "@kareyes/aether";
+  const { Popover, PopoverTrigger, PopoverContent } = PopoverPrimitives;
+  import { Button } from "@kareyes/aether";
+  import { Input } from "@kareyes/aether";
+  import { Label } from "@kareyes/aether";
 
   let width = $state("100%");
   let maxWidth = $state("300px");
@@ -345,9 +350,10 @@ Link style with underline on hover.
 
 ```svelte
 <script lang="ts">
-  import { Popover, PopoverTrigger, PopoverContent } from "$lib/components/ui/popover";
-  import { Avatar } from "$lib/components/ui/avatar";
-  import { Button } from "$lib/components/ui/button";
+  import { PopoverPrimitives } from "@kareyes/aether";
+  const { Popover, PopoverTrigger, PopoverContent } = PopoverPrimitives;
+  import { Avatar } from "@kareyes/aether";
+  import { Button } from "@kareyes/aether";
 </script>
 
 <Popover>
@@ -499,7 +505,8 @@ The Popover component follows WAI-ARIA guidelines:
 
 ```svelte
 <script lang="ts">
-  import { Popover, PopoverTrigger, PopoverContent, PopoverArrow } from "$lib/components/ui/popover";
+  import { PopoverPrimitives } from "@kareyes/aether";
+  const { Popover, PopoverTrigger, PopoverContent, PopoverArrow } = PopoverPrimitives;
 </script>
 
 <Popover>

@@ -14,14 +14,22 @@ An accessible one-time password (OTP) input component with copy/paste functional
 - **Full TypeScript Support**: Complete type safety and IntelliSense
 - **Accessibility**: Built on accessible Bits UI primitives
 
+## Installation
+
+The InputOTP component is included in the `@kareyes/aether` package.
+
+```bash
+pnpm add @kareyes/aether
+```
+
 ## Usage
 
 ### Basic Usage
 
 ```svelte
-<script>
-  import { InputOTP } from "$lib/components/ui/input-otp";
-  
+<script lang="ts">
+  import { InputOTP } from "@kareyes/aether";
+
   let value = $state("");
 </script>
 
@@ -67,8 +75,8 @@ Control how the OTP digits are grouped:
 Restrict input to specific character patterns using regex strings:
 
 ```svelte
-<script>
-  import { InputOTP } from "$lib/components/ui/input-otp";
+<script lang="ts">
+  import { InputOTP } from "@kareyes/aether";
   import { REGEXP_ONLY_DIGITS, REGEXP_ONLY_DIGITS_AND_CHARS } from "bits-ui";
 </script>
 
@@ -87,9 +95,9 @@ Restrict input to specific character patterns using regex strings:
 Get notified when all OTP slots are filled:
 
 ```svelte
-<script>
-  import { InputOTP } from "$lib/components/ui/input-otp";
-  
+<script lang="ts">
+  import { InputOTP } from "@kareyes/aether";
+
   let otpValue = $state("");
   
   function handleComplete(value: string) {
@@ -111,9 +119,9 @@ Get notified when all OTP slots are filled:
 Display validation errors with visual feedback:
 
 ```svelte
-<script>
-  import { InputOTP } from "$lib/components/ui/input-otp";
-  
+<script lang="ts">
+  import { InputOTP } from "@kareyes/aether";
+
   let otpValue = $state("");
   let hasError = $state(false);
   
@@ -145,9 +153,9 @@ Display validation errors with visual feedback:
 Track every value change:
 
 ```svelte
-<script>
-  import { InputOTP } from "$lib/components/ui/input-otp";
-  
+<script lang="ts">
+  import { InputOTP } from "@kareyes/aether";
+
   let otpValue = $state("");
   
   function handleValueChange(value: string) {
@@ -186,35 +194,35 @@ Track every value change:
 For more control, you can use the primitive components directly:
 
 ```svelte
-<script>
-  import * as InputOTP from "$lib/components/ui/input-otp";
+<script lang="ts">
+  import { InputOTPPrimitives } from "@kareyes/aether";
 </script>
 
-<InputOTP.Root maxlength={6} variant="default" size="default">
+<InputOTPPrimitives.Root maxlength={6} variant="default" size="default">
   {#snippet children({ cells })}
-    <InputOTP.Group>
+    <InputOTPPrimitives.Group>
       {#each cells.slice(0, 3) as cell (cell)}
-        <InputOTP.Slot {cell} />
+        <InputOTPPrimitives.Slot {cell} />
       {/each}
-    </InputOTP.Group>
-    <InputOTP.Separator />
-    <InputOTP.Group>
+    </InputOTPPrimitives.Group>
+    <InputOTPPrimitives.Separator />
+    <InputOTPPrimitives.Group>
       {#each cells.slice(3, 6) as cell (cell)}
-        <InputOTP.Slot {cell} />
+        <InputOTPPrimitives.Slot {cell} />
       {/each}
-    </InputOTP.Group>
+    </InputOTPPrimitives.Group>
   {/snippet}
-</InputOTP.Root>
+</InputOTPPrimitives.Root>
 ```
 
 ### Primitive Components
 
 | Component | Description |
 |-----------|-------------|
-| `InputOTP.Root` | The root container that provides context |
-| `InputOTP.Group` | Groups slots together visually |
-| `InputOTP.Slot` | Individual input slot for a single character |
-| `InputOTP.Separator` | Visual separator between groups |
+| `InputOTPPrimitives.Root` | The root container that provides context |
+| `InputOTPPrimitives.Group` | Groups slots together visually |
+| `InputOTPPrimitives.Slot` | Individual input slot for a single character |
+| `InputOTPPrimitives.Separator` | Visual separator between groups |
 
 ## Accessibility
 
@@ -244,109 +252,109 @@ The Field component provides a consistent way to add labels, descriptions, and e
 ### Basic Field Usage
 
 ```svelte
-<script>
-  import { InputOTP } from "$lib/components/ui/input-otp";
-  import * as Field from "$lib/components/ui/field";
-  
+<script lang="ts">
+  import { InputOTP, FieldPrimitives } from "@kareyes/aether";
+
   let code = $state("");
 </script>
 
-<Field.Field
+<FieldPrimitives.Field
   label="Verification Code"
   description="Enter the 6-digit code sent to your phone"
 >
   <InputOTP maxlength={6} groups={2} bind:value={code} />
-</Field.Field>
+</FieldPrimitives.Field>
 ```
 
 ### With Validation
 
 ```svelte
-<script>
-  import { InputOTP } from "$lib/components/ui/input-otp";
-  import * as Field from "$lib/components/ui/field";
+<script lang="ts">
+  import { InputOTP, FieldPrimitives } from "@kareyes/aether";
   import { REGEXP_ONLY_DIGITS } from "bits-ui";
-  
+
   let code = $state("");
   let error = $derived(code.length > 0 && code.length < 6);
 </script>
 
-<Field.Field
+<FieldPrimitives.Field
   label="OTP Code"
   description="Please enter the complete 6-digit code"
   required
   error={error ? "Code must be 6 digits" : undefined}
 >
-  <InputOTP 
-    maxlength={6} 
+  <InputOTP
+    maxlength={6}
     groups={2}
     pattern={REGEXP_ONLY_DIGITS}
     bind:value={code}
     error={error}
   />
-</Field.Field>
+</FieldPrimitives.Field>
 ```
 
 ### Different Variants with Field
 
 ```svelte
-<Field.Field
+<script lang="ts">
+  import { InputOTP, FieldPrimitives } from "@kareyes/aether";
+</script>
+
+<FieldPrimitives.Field
   label="Security Code"
   description="Outline variant for better visibility"
 >
-  <InputOTP 
-    maxlength={6} 
+  <InputOTP
+    maxlength={6}
     variant="outline"
     groups={3}
     size="lg"
   />
-</Field.Field>
+</FieldPrimitives.Field>
 
-<Field.Field
+<FieldPrimitives.Field
   label="Access Code"
   description="Underline variant for minimal design"
 >
-  <InputOTP 
-    maxlength={4} 
+  <InputOTP
+    maxlength={4}
     variant="underline"
     groups={1}
   />
-</Field.Field>
+</FieldPrimitives.Field>
 ```
 
 ### Complete Form Example
 
 ```svelte
-<script>
-  import { InputOTP } from "$lib/components/ui/input-otp";
-  import * as Field from "$lib/components/ui/field";
-  import { Button } from "$lib/components/ui/button";
-  import { REGEXP_ONLY_DIGITS } from "bits-ui";
-  
+<script lang="ts">
+  import { InputOTP, FieldPrimitives, Button } from "@kareyes/aether";
+  import { REGEXP_ONLY_DIGITS, REGEXP_ONLY_DIGITS_AND_CHARS } from "bits-ui";
+
   let verificationCode = $state("");
   let backupCode = $state("");
-  
+
   let codeError = $derived(
     verificationCode.length > 0 && verificationCode.length < 6
       ? "Verification code must be 6 digits"
       : undefined
   );
-  
+
   function handleSubmit() {
     console.log("Codes:", { verificationCode, backupCode });
   }
 </script>
 
-<Field.Set>
-  <Field.Legend>Two-Factor Authentication</Field.Legend>
-  <Field.Description>
+<FieldPrimitives.Set>
+  <FieldPrimitives.Legend>Two-Factor Authentication</FieldPrimitives.Legend>
+  <FieldPrimitives.Description>
     Enter the verification codes to access your account
-  </Field.Description>
-  
-  <Field.Separator />
-  
-  <Field.Group class="gap-4">
-    <Field.Field
+  </FieldPrimitives.Description>
+
+  <FieldPrimitives.Separator />
+
+  <FieldPrimitives.Group class="gap-4">
+    <FieldPrimitives.Field
       label="Verification Code"
       description="Enter the 6-digit code from your authenticator app"
       required
@@ -361,9 +369,9 @@ The Field component provides a consistent way to add labels, descriptions, and e
         variant="outline"
         size="lg"
       />
-    </Field.Field>
-    
-    <Field.Field
+    </FieldPrimitives.Field>
+
+    <FieldPrimitives.Field
       label="Backup Code (Optional)"
       description="Use a backup code if you don't have access to your authenticator"
     >
@@ -374,9 +382,9 @@ The Field component provides a consistent way to add labels, descriptions, and e
         bind:value={backupCode}
         variant="underline"
       />
-    </Field.Field>
-  </Field.Group>
-  
+    </FieldPrimitives.Field>
+  </FieldPrimitives.Group>
+
   <div class="flex gap-4 pt-4">
     <Button onclick={handleSubmit} disabled={!!codeError}>
       Verify & Login
@@ -385,5 +393,5 @@ The Field component provides a consistent way to add labels, descriptions, and e
       Resend Code
     </Button>
   </div>
-</Field.Set>
+</FieldPrimitives.Set>
 ```

@@ -1,27 +1,34 @@
-# Alert Component
+# Alert
 
 A versatile alert component for displaying important messages with various styles, icons, and actions.
 
-## Features
+## Table of Contents
 
-- **6 Variants**: default, destructive, info, success, warning, error
-- **Icons**: Automatic variant-specific icons with customizable styling
-- **Dismissible**: Optional close button with callback
-- **Actions**: Support for action buttons via snippets
-- **Dark Mode**: Full dark mode support with optimized colors
-- **Flexible API**: Simple wrapper or advanced primitive composition
+- [Installation](#installation)
+- [Usage](#usage)
+- [Components](#components)
+- [Props Reference](#props-reference)
+- [Variants](#variants)
+- [Examples](#examples)
+- [Accessibility](#accessibility)
 
-## Import
+## Installation
 
-```svelte
-import { Alert } from "$lib/components/ui/alert";
+The Alert component is included in the `@kareyes/aether` package.
+
+```bash
+pnpm add @kareyes/aether
 ```
 
-## Basic Usage
+## Usage
 
-### Simple Alert
+### Basic Usage
 
 ```svelte
+<script lang="ts">
+  import { Alert } from "@kareyes/aether";
+</script>
+
 <Alert
   variant="info"
   title="Information"
@@ -29,34 +36,31 @@ import { Alert } from "$lib/components/ui/alert";
 />
 ```
 
-### With Actions
+### With Primitives Import
 
 ```svelte
-<Alert
-  variant="warning"
-  title="Warning"
-  description="This action cannot be undone."
->
-  {#snippet actions()}
-    <button>Cancel</button>
-    <button>Confirm</button>
-  {/snippet}
-</Alert>
+<script lang="ts">
+  import { AlertPrimitives } from "@kareyes/aether";
+</script>
+
+<AlertPrimitives.Root variant="success">
+  <AlertPrimitives.Title>Success!</AlertPrimitives.Title>
+  <AlertPrimitives.Description>
+    Your changes have been saved.
+  </AlertPrimitives.Description>
+</AlertPrimitives.Root>
 ```
 
-### Dismissible Alert
+## Components
 
-```svelte
-<Alert
-  variant="success"
-  title="Success!"
-  description="Your changes have been saved."
-  dismissible={true}
-  onDismiss={() => console.log('Alert dismissed')}
-/>
-```
+| Component | Description |
+|-----------|-------------|
+| `Alert` | Simple wrapper component with convenient props |
+| `Root` | Root container with variant styling |
+| `Title` | Alert title element |
+| `Description` | Alert description element |
 
-## Props
+## Props Reference
 
 ### Alert (Wrapper Component)
 
@@ -71,9 +75,9 @@ import { Alert } from "$lib/components/ui/alert";
 | `onDismiss` | `() => void` | `undefined` | Callback when alert is dismissed |
 | `actions` | `Snippet` | `undefined` | Action buttons snippet |
 | `children` | `Snippet` | `undefined` | Custom content |
-| `class` | `string` | `undefined` | Additional CSS classes |
+| `class` | `string` | - | Additional CSS classes |
 
-### Alert.Root (Primitive)
+### Root (Primitive)
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
@@ -82,59 +86,65 @@ import { Alert } from "$lib/components/ui/alert";
 | `dismissible` | `boolean` | `false` | Whether alert can be dismissed |
 | `onDismiss` | `() => void` | `undefined` | Dismiss callback |
 | `actions` | `Snippet` | `undefined` | Actions snippet |
-| `class` | `string` | `undefined` | Additional CSS classes |
+| `class` | `string` | - | Additional CSS classes |
 
-### Alert.Title
-
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `class` | `string` | `undefined` | Additional CSS classes |
-
-### Alert.Description
+### Title
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| `class` | `string` | `undefined` | Additional CSS classes |
+| `class` | `string` | - | Additional CSS classes |
+
+### Description
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `class` | `string` | - | Additional CSS classes |
 
 ## Variants
 
 ### Default
-Neutral gray styling for general information.
+
+Neutral gray styling for general information:
 
 ```svelte
 <Alert variant="default" title="Default Alert" description="General information message." />
 ```
 
 ### Destructive
-Red styling for destructive or critical actions.
+
+Red styling for destructive or critical actions:
 
 ```svelte
 <Alert variant="destructive" title="Destructive Action" description="This action is permanent." />
 ```
 
 ### Info
-Blue styling for informational messages.
+
+Blue styling for informational messages:
 
 ```svelte
 <Alert variant="info" title="Information" description="Here's some helpful information." />
 ```
 
 ### Success
-Green styling for success messages.
+
+Green styling for success messages:
 
 ```svelte
 <Alert variant="success" title="Success!" description="Operation completed successfully." />
 ```
 
 ### Warning
-Yellow/orange styling for warnings.
+
+Yellow/orange styling for warnings:
 
 ```svelte
 <Alert variant="warning" title="Warning" description="Please review before proceeding." />
 ```
 
 ### Error
-Red styling for error messages.
+
+Red styling for error messages:
 
 ```svelte
 <Alert variant="error" title="Error" description="An error occurred during processing." />
@@ -146,24 +156,23 @@ Red styling for error messages.
 
 Each variant has an automatic icon:
 
-- **default**: CircleAlert
-- **destructive**: CircleX
-- **info**: Info
-- **success**: CircleCheck
-- **warning**: TriangleAlert
-- **error**: CircleX
-
-### Icon Styling
-
-Icons are automatically styled with variant-specific colors and container backgrounds:
-
-- **Container**: Circular background with variant-specific color
-- **Icon Color**: Matching text color for each variant
-- **Dark Mode**: Adjusted opacity and colors for better visibility
+| Variant | Icon |
+|---------|------|
+| `default` | CircleAlert |
+| `destructive` | CircleX |
+| `info` | Info |
+| `success` | CircleCheck |
+| `warning` | TriangleAlert |
+| `error` | CircleX |
 
 ### Custom Icon
 
 ```svelte
+<script lang="ts">
+  import { Alert } from "@kareyes/aether";
+  import MyCustomIcon from "@lucide/svelte/icons/star";
+</script>
+
 <Alert variant="info" title="Custom Icon">
   {#snippet icon()}
     <MyCustomIcon class="size-5" />
@@ -177,91 +186,46 @@ Icons are automatically styled with variant-specific colors and container backgr
 <Alert variant="warning" title="No Icon" showIcon={false} />
 ```
 
-## Advanced Usage
+## Examples
 
-### Using Primitives
-
-For complete control, use the primitive components:
+### With Actions
 
 ```svelte
-<Alert.Root variant="success" dismissible={true} onDismiss={handleDismiss}>
-  {#snippet icon()}
-    <div class="flex-none w-9 h-9 rounded-full grid place-items-center bg-green-50 dark:bg-green-500/20">
-      <CheckIcon class="size-4 text-green-600 dark:text-green-400" />
-    </div>
-  {/snippet}
-  
-  <Alert.Title>Payment Successful</Alert.Title>
-  <Alert.Description>
-    Your payment of $99.00 has been processed successfully.
-  </Alert.Description>
-  
-  {#snippet actions()}
-    <button class="text-sm font-medium underline">View Receipt</button>
-  {/snippet}
-</Alert.Root>
-```
+<script lang="ts">
+  import { Alert, Button } from "@kareyes/aether";
+</script>
 
-### With Custom Content
-
-```svelte
-<Alert variant="warning" title="Storage Limit">
-  <div class="mt-2">
-    <p class="text-sm">You're using 90% of your storage space.</p>
-    <div class="mt-2 h-2 bg-yellow-200 dark:bg-yellow-900/30 rounded-full overflow-hidden">
-      <div class="h-full w-[90%] bg-yellow-500"></div>
-    </div>
-  </div>
-  
-  {#snippet actions()}
-    <button>Upgrade Plan</button>
-  {/snippet}
-</Alert>
-```
-
-### Multiple Actions
-
-```svelte
 <Alert
-  variant="error"
-  title="Connection Lost"
-  description="Unable to connect to the server."
+  variant="warning"
+  title="Warning"
+  description="This action cannot be undone."
 >
   {#snippet actions()}
-    <div class="flex gap-2">
-      <button class="px-3 py-1 text-sm bg-red-100 dark:bg-red-900/30 rounded">
-        Retry
-      </button>
-      <button class="px-3 py-1 text-sm border rounded">
-        Dismiss
-      </button>
-    </div>
+    <Button variant="outline" size="sm">Cancel</Button>
+    <Button variant="destructive" size="sm">Confirm</Button>
   {/snippet}
 </Alert>
 ```
 
-## Styling
-
-### Custom Classes
+### Dismissible Alert
 
 ```svelte
-<Alert
-  variant="info"
-  title="Styled Alert"
-  class="shadow-lg border-2"
-/>
+<script lang="ts">
+  import { Alert } from "@kareyes/aether";
+
+  let showAlert = $state(true);
+</script>
+
+{#if showAlert}
+  <Alert
+    variant="success"
+    title="Success!"
+    description="Your changes have been saved."
+    dismissible={true}
+    onDismiss={() => showAlert = false}
+  />
+{/if}
 ```
-
-### Dark Mode
-
-All variants include optimized dark mode styles:
-
-```svelte
-<!-- Automatically adapts to dark mode -->
-<Alert variant="success" title="Dark Mode Ready" />
-```
-
-## Examples
 
 ### Form Validation Error
 
@@ -278,27 +242,41 @@ All variants include optimized dark mode styles:
 </Alert>
 ```
 
-### Loading State with Dismissible
+### Using Primitives
+
+For complete control, use the primitive components:
 
 ```svelte
-<script>
-  let showAlert = $state(true);
+<script lang="ts">
+  import { AlertPrimitives } from "@kareyes/aether";
+  import CheckIcon from "@lucide/svelte/icons/check";
 </script>
 
-{#if showAlert}
-  <Alert
-    variant="info"
-    title="Processing..."
-    description="Your request is being processed. This may take a few moments."
-    dismissible={true}
-    onDismiss={() => showAlert = false}
-  />
-{/if}
+<AlertPrimitives.Root variant="success" dismissible={true} onDismiss={handleDismiss}>
+  {#snippet icon()}
+    <div class="flex-none w-9 h-9 rounded-full grid place-items-center bg-green-50 dark:bg-green-500/20">
+      <CheckIcon class="size-4 text-green-600 dark:text-green-400" />
+    </div>
+  {/snippet}
+
+  <AlertPrimitives.Title>Payment Successful</AlertPrimitives.Title>
+  <AlertPrimitives.Description>
+    Your payment of $99.00 has been processed successfully.
+  </AlertPrimitives.Description>
+
+  {#snippet actions()}
+    <button class="text-sm font-medium underline">View Receipt</button>
+  {/snippet}
+</AlertPrimitives.Root>
 ```
 
 ### Success with Action
 
 ```svelte
+<script lang="ts">
+  import { Alert } from "@kareyes/aether";
+</script>
+
 <Alert
   variant="success"
   title="Profile Updated"
@@ -315,6 +293,18 @@ All variants include optimized dark mode styles:
 ### Confirmation Alert
 
 ```svelte
+<script lang="ts">
+  import { Alert, Button } from "@kareyes/aether";
+
+  function handleDelete() {
+    // Handle delete
+  }
+
+  function handleCancel() {
+    // Handle cancel
+  }
+</script>
+
 <Alert
   variant="warning"
   title="Confirm Deletion"
@@ -322,18 +312,8 @@ All variants include optimized dark mode styles:
 >
   {#snippet actions()}
     <div class="flex gap-2 mt-3">
-      <button 
-        onclick={handleDelete}
-        class="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700"
-      >
-        Delete
-      </button>
-      <button 
-        onclick={handleCancel}
-        class="px-4 py-2 border rounded hover:bg-accent"
-      >
-        Cancel
-      </button>
+      <Button variant="destructive" onclick={handleDelete}>Delete</Button>
+      <Button variant="outline" onclick={handleCancel}>Cancel</Button>
     </div>
   {/snippet}
 </Alert>
@@ -341,28 +321,24 @@ All variants include optimized dark mode styles:
 
 ## Accessibility
 
+The Alert component follows accessibility best practices:
+
+### ARIA Attributes
+
 - Proper semantic HTML structure
-- Alert role for screen readers
-- Dismissible alerts include aria-label
-- Keyboard navigation support
-- Focus management for interactive elements
+- `role="alert"` for screen readers
+- Dismissible alerts include `aria-label`
 
-## Notes
+### Keyboard Navigation
 
-- Icons use Lucide Svelte icons by default
-- Dismissible alerts automatically hide when close button is clicked
-- Use `onDismiss` callback to handle cleanup or state updates
-- Actions snippet allows complete flexibility for buttons/links
-- All variants support both light and dark modes
-- Icon container styling is variant-aware with compound variants
+| Key | Action |
+|-----|--------|
+| `Enter` / `Space` | Activate dismiss button |
+| `Tab` | Move focus to interactive elements |
 
-## Component Structure
+### Best Practices
 
-```
-alert/
-├── alert-root.svelte      # Root container with variants
-├── alert-title.svelte     # Title component
-├── alert-description.svelte # Description component
-├── alert.svelte           # Wrapper component (simple API)
-└── index.ts               # Exports
-```
+1. **Use appropriate variants**: Match the variant to the message severity
+2. **Provide clear actions**: Make it easy for users to respond to alerts
+3. **Test with screen readers**: Ensure announcements are clear and helpful
+4. **Don't overuse**: Too many alerts can desensitize users

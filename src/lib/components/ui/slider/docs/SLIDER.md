@@ -17,8 +17,10 @@ A fully-featured slider component with support for variants, sizes, step indicat
 
 ## Installation
 
+The Slider component is included in the `@kareyes/aether` package.
+
 ```bash
-npm install bits-ui tailwind-variants
+pnpm add @kareyes/aether
 ```
 
 ## Basic Usage
@@ -26,13 +28,30 @@ npm install bits-ui tailwind-variants
 ### Simple Slider
 
 ```svelte
-<script>
-  import { Slider } from "$lib/components/ui/slider";
-  
+<script lang="ts">
+  import { Slider } from "@kareyes/aether";
+
   let value = $state([50]);
 </script>
 
 <Slider bind:value min={0} max={100} step={1} />
+```
+
+### With Primitives Import
+
+```svelte
+<script lang="ts">
+  import { SliderPrimitives } from "@kareyes/aether";
+</script>
+
+<SliderPrimitives.Root value={[50]} min={0} max={100} step={1}>
+  {#snippet children({ thumbs, ticks })}
+    <SliderPrimitives.Range />
+    {#each thumbs as thumb}
+      <SliderPrimitives.Thumb {thumb} />
+    {/each}
+  {/snippet}
+</SliderPrimitives.Root>
 ```
 
 ### With Custom Range

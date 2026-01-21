@@ -9,7 +9,7 @@ A simple date picker for selecting a single date.
 
 ```svelte
 <script>
-  import { DatePicker } from "$lib/components/ui/date-picker";
+  import { DatePicker } from "@kareyes/aether";
   let date = $state();
 </script>
 
@@ -21,7 +21,7 @@ A date range picker with two calendars for selecting start and end dates.
 
 ```svelte
 <script>
-  import { DateRangePicker } from "$lib/components/ui/date-picker";
+  import { DateRangePicker } from "@kareyes/aether";
   let range = $state();
 </script>
 
@@ -33,7 +33,7 @@ A date picker with quick preset options (Today, Tomorrow, In a week, etc.).
 
 ```svelte
 <script>
-  import { DatePickerWithPresets } from "$lib/components/ui/date-picker";
+  import { DatePickerWithPresets } from "@kareyes/aether";
   let date = $state();
 </script>
 
@@ -45,7 +45,7 @@ A date range picker with preset ranges (Last 7 days, Last 30 days, This month, e
 
 ```svelte
 <script>
-  import { DateRangePickerWithPresets } from "$lib/components/ui/date-picker";
+  import { DateRangePickerWithPresets } from "@kareyes/aether";
   let range = $state();
 </script>
 
@@ -141,7 +141,7 @@ The date picker uses `@internationalized/date` for date handling:
 
 ```svelte
 <script>
-  import { DatePicker } from "$lib/components/ui/date-picker";
+  import { DatePicker } from "@kareyes/aether";
   import { CalendarDate, today, getLocalTimeZone } from "@internationalized/date";
   
   let date = $state();
@@ -207,12 +207,12 @@ The date picker uses `@internationalized/date` for date handling:
 ### With Field Component
 ```svelte
 <script>
-  import * as Field from "$lib/components/ui/field";
+  import { FieldPrimitives } from "@kareyes/aether";
   
   let startDate = $state();
 </script>
 
-<Field.Field
+<FieldPrimitives.Field
   label="Start Date"
   description="Select the project start date"
   error={!startDate ? "Please select a start date" : undefined}
@@ -222,7 +222,7 @@ The date picker uses `@internationalized/date` for date handling:
     bind:value={startDate}
     error={!startDate}
   />
-</Field.Field>
+</FieldPrimitives.Field>
 ```
 
 ### Error Callback
@@ -279,34 +279,34 @@ The Field component provides a consistent way to add labels, descriptions, and e
 
 ```svelte
 <script>
-  import { DatePicker } from "$lib/components/ui/date-picker";
-  import * as Field from "$lib/components/ui/field";
+  import { DatePicker } from "@kareyes/aether";
+  import { FieldPrimitives } from "@kareyes/aether";
   import type { DateValue } from "@internationalized/date";
   
   let birthdate = $state<DateValue | undefined>();
 </script>
 
-<Field.Field
+<FieldPrimitives.Field
   label="Date of Birth"
   description="Select your birth date"
 >
   <DatePicker bind:value={birthdate} />
-</Field.Field>
+</FieldPrimitives.Field>
 ```
 
 ### With Validation
 
 ```svelte
 <script>
-  import { DatePicker } from "$lib/components/ui/date-picker";
-  import * as Field from "$lib/components/ui/field";
+  import { DatePicker } from "@kareyes/aether";
+  import { FieldPrimitives } from "@kareyes/aether";
   import type { DateValue } from "@internationalized/date";
   
   let startDate = $state<DateValue | undefined>();
   let error = $derived(!startDate);
 </script>
 
-<Field.Field
+<FieldPrimitives.Field
   label="Project Start Date"
   description="When will your project begin?"
   required
@@ -316,51 +316,51 @@ The Field component provides a consistent way to add labels, descriptions, and e
     bind:value={startDate}
     error={error}
   />
-</Field.Field>
+</FieldPrimitives.Field>
 ```
 
 ### Date Range with Field
 
 ```svelte
 <script>
-  import { DateRangePicker } from "$lib/components/ui/date-picker";
-  import * as Field from "$lib/components/ui/field";
+  import { DateRangePicker } from "@kareyes/aether";
+  import { FieldPrimitives } from "@kareyes/aether";
   import type { DateRange } from "bits-ui";
   
   let dateRange = $state<DateRange | undefined>();
 </script>
 
-<Field.Field
+<FieldPrimitives.Field
   label="Event Duration"
   description="Select the start and end dates for your event"
   required
 >
   <DateRangePicker bind:value={dateRange} />
-</Field.Field>
+</FieldPrimitives.Field>
 ```
 
 ### With Presets and Field
 
 ```svelte
 <script>
-  import { DatePickerWithPresets } from "$lib/components/ui/date-picker";
-  import * as Field from "$lib/components/ui/field";
+  import { DatePickerWithPresets } from "@kareyes/aether";
+  import { FieldPrimitives } from "@kareyes/aether";
   
   let appointmentDate = $state();
 </script>
 
-<Field.Field
+<FieldPrimitives.Field
   label="Appointment Date"
   description="Choose a date or select from quick options"
 >
   <DatePickerWithPresets bind:value={appointmentDate} />
-</Field.Field>
+</FieldPrimitives.Field>
 ```
 
 ### Different Button Variants
 
 ```svelte
-<Field.Field
+<FieldPrimitives.Field
   label="Deadline"
   description="Project completion deadline"
 >
@@ -369,9 +369,9 @@ The Field component provides a consistent way to add labels, descriptions, and e
     buttonVariant="outline"
     buttonClass="w-full"
   />
-</Field.Field>
+</FieldPrimitives.Field>
 
-<Field.Field
+<FieldPrimitives.Field
   label="Meeting Date"
   description="Schedule your meeting"
 >
@@ -379,16 +379,16 @@ The Field component provides a consistent way to add labels, descriptions, and e
     bind:value={meetingDate}
     buttonVariant="ghost"
   />
-</Field.Field>
+</FieldPrimitives.Field>
 ```
 
 ### Complete Booking Form
 
 ```svelte
 <script>
-  import { DatePicker, DateRangePicker } from "$lib/components/ui/date-picker";
-  import * as Field from "$lib/components/ui/field";
-  import { Button } from "$lib/components/ui/button";
+  import { DatePicker, DateRangePicker } from "@kareyes/aether";
+  import { FieldPrimitives } from "@kareyes/aether";
+  import { Button } from "@kareyes/aether";
   import type { DateValue, DateRange } from "@internationalized/date";
   
   let formData = $state({
@@ -408,14 +408,14 @@ The Field component provides a consistent way to add labels, descriptions, and e
 </script>
 
 <div class="w-full max-w-md">
-  <Field.Set>
-    <Field.Legend>Hotel Booking</Field.Legend>
-    <Field.Description>Select your stay dates and personal information</Field.Description>
+  <FieldPrimitives.Set>
+    <FieldPrimitives.Legend>Hotel Booking</FieldPrimitives.Legend>
+    <FieldPrimitives.Description>Select your stay dates and personal information</FieldPrimitives.Description>
     
-    <Field.Separator />
+    <FieldPrimitives.Separator />
     
-    <Field.Group class="gap-4">
-      <Field.Field
+    <FieldPrimitives.Group class="gap-4">
+      <FieldPrimitives.Field
         label="Check-in Date"
         description="Select your arrival date"
         required
@@ -427,9 +427,9 @@ The Field component provides a consistent way to add labels, descriptions, and e
           buttonVariant="outline"
           buttonClass="w-full"
         />
-      </Field.Field>
+      </FieldPrimitives.Field>
       
-      <Field.Field
+      <FieldPrimitives.Field
         label="Stay Duration"
         description="Select check-in and check-out dates"
         required
@@ -441,9 +441,9 @@ The Field component provides a consistent way to add labels, descriptions, and e
           buttonVariant="outline"
           buttonClass="w-full"
         />
-      </Field.Field>
+      </FieldPrimitives.Field>
       
-      <Field.Field
+      <FieldPrimitives.Field
         label="Date of Birth"
         description="For age verification (optional)"
       >
@@ -451,8 +451,8 @@ The Field component provides a consistent way to add labels, descriptions, and e
           bind:value={formData.birthdate}
           buttonVariant="ghost"
         />
-      </Field.Field>
-    </Field.Group>
+      </FieldPrimitives.Field>
+    </FieldPrimitives.Group>
     
     <div class="flex gap-4 pt-4">
       <Button 
@@ -465,7 +465,7 @@ The Field component provides a consistent way to add labels, descriptions, and e
         Clear Dates
       </Button>
     </div>
-  </Field.Set>
+  </FieldPrimitives.Set>
 </div>
 ```
 
@@ -473,8 +473,8 @@ The Field component provides a consistent way to add labels, descriptions, and e
 
 ```svelte
 <script>
-  import { DateRangePickerWithPresets } from "$lib/components/ui/date-picker";
-  import * as Field from "$lib/components/ui/field";
+  import { DateRangePickerWithPresets } from "@kareyes/aether";
+  import { FieldPrimitives } from "@kareyes/aether";
   import { today, getLocalTimeZone } from "@internationalized/date";
   
   const customPresets = [
@@ -504,7 +504,7 @@ The Field component provides a consistent way to add labels, descriptions, and e
   let reportRange = $state();
 </script>
 
-<Field.Field
+<FieldPrimitives.Field
   label="Report Period"
   description="Select the date range for your report"
   required
@@ -513,5 +513,5 @@ The Field component provides a consistent way to add labels, descriptions, and e
     bind:value={reportRange}
     presets={customPresets}
   />
-</Field.Field>
+</FieldPrimitives.Field>
 ```

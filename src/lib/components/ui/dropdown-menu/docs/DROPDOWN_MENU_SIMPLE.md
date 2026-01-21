@@ -12,12 +12,22 @@ A simplified dropdown menu component that wraps all the complexity of the standa
 - **Reactive**: Works with Svelte's reactive state
 - **Flexible**: Fallback to custom trigger snippet when needed
 
+## Installation
+
+The DropdownMenu component is included in the `@kareyes/aether` package.
+
+```bash
+pnpm add @kareyes/aether
+```
+
 ## Basic Usage
 
 ```svelte
-<script>
-  import { DropdownMenu } from "$lib/components/ui/dropdown-menu";
-  import { User, Settings, LogOut } from "@lucide/svelte";
+<script lang="ts">
+  import { DropdownMenu } from "@kareyes/aether";
+  import User from "@lucide/svelte/icons/user";
+  import Settings from "@lucide/svelte/icons/settings";
+  import LogOut from "@lucide/svelte/icons/log-out";
 
   const items = [
     { label: "Profile", icon: User, onSelect: () => console.log("Profile") },

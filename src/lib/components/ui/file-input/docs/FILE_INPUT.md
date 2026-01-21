@@ -14,14 +14,22 @@ A modern drag-and-drop file input component with validation, file type restricti
 - **TypeScript Support**: Complete type safety and IntelliSense
 - **Accessibility**: ARIA labels and keyboard navigation
 
+## Installation
+
+The FileInput component is included in the `@kareyes/aether` package.
+
+```bash
+pnpm add @kareyes/aether
+```
+
 ## Usage
 
 ### Basic Usage
 
 ```svelte
-<script>
-  import { FileInput } from "$lib/components/ui/file-input";
-  
+<script lang="ts">
+  import { FileInput } from "@kareyes/aether";
+
   let files = $state(null);
 </script>
 
@@ -251,14 +259,13 @@ The Field component provides a consistent way to add labels, descriptions, and e
 ### Basic Field Usage
 
 ```svelte
-<script>
-  import { FileInput } from "$lib/components/ui/file-input";
-  import * as Field from "$lib/components/ui/field";
-  
+<script lang="ts">
+  import { FileInput, FieldPrimitives } from "@kareyes/aether";
+
   let files = $state(null);
 </script>
 
-<Field.Field
+<FieldPrimitives.Field
   label="Upload Documents"
   description="Supported formats: PDF, DOC, DOCX (Max 5MB)"
 >
@@ -267,15 +274,15 @@ The Field component provides a consistent way to add labels, descriptions, and e
     acceptedTypes={[".pdf", ".doc", ".docx"]}
     maxSize={5 * 1024 * 1024}
   />
-</Field.Field>
+</FieldPrimitives.Field>
 ```
 
 ### With Validation
 
 ```svelte
 <script>
-  import { FileInput } from "$lib/components/ui/file-input";
-  import * as Field from "$lib/components/ui/field";
+  import { FileInput } from "@kareyes/aether";
+  import { FieldPrimitives } from "@kareyes/aether";
   
   let files = $state(null);
   let error = $state("");
@@ -286,7 +293,7 @@ The Field component provides a consistent way to add labels, descriptions, and e
   }
 </script>
 
-<Field.Field
+<FieldPrimitives.Field
   label="Profile Picture"
   description="Upload your profile photo (JPG, PNG)"
   required
@@ -300,13 +307,13 @@ The Field component provides a consistent way to add labels, descriptions, and e
     onError={handleError}
     error={!!error}
   />
-</Field.Field>
+</FieldPrimitives.Field>
 ```
 
 ### Regular Mode with Field
 
 ```svelte
-<Field.Field
+<FieldPrimitives.Field
   label="Resume"
   description="Upload your resume in PDF format"
   required
@@ -318,13 +325,13 @@ The Field component provides a consistent way to add labels, descriptions, and e
     placeholder="Choose PDF file..."
     variant="filled"
   />
-</Field.Field>
+</FieldPrimitives.Field>
 ```
 
 ### Different Variants with Field
 
 ```svelte
-<Field.Field
+<FieldPrimitives.Field
   label="Project Files"
   description="Upload project documents and assets"
 >
@@ -333,9 +340,9 @@ The Field component provides a consistent way to add labels, descriptions, and e
     maxFiles={5}
     acceptedTypes={[".pdf", ".doc", ".zip"]}
   />
-</Field.Field>
+</FieldPrimitives.Field>
 
-<Field.Field
+<FieldPrimitives.Field
   label="Images"
   description="Upload product images"
 >
@@ -345,16 +352,16 @@ The Field component provides a consistent way to add labels, descriptions, and e
     acceptedTypes={["image/*"]}
     size="lg"
   />
-</Field.Field>
+</FieldPrimitives.Field>
 ```
 
 ### Complete Upload Form
 
 ```svelte
 <script>
-  import { FileInput } from "$lib/components/ui/file-input";
-  import * as Field from "$lib/components/ui/field";
-  import { Button } from "$lib/components/ui/button";
+  import { FileInput } from "@kareyes/aether";
+  import { FieldPrimitives } from "@kareyes/aether";
+  import { Button } from "@kareyes/aether";
   
   let resume = $state(null);
   let coverLetter = $state(null);
@@ -390,7 +397,7 @@ The Field component provides a consistent way to add labels, descriptions, and e
   <Field.Separator />
   
   <Field.Group class="gap-6">
-    <Field.Field
+    <FieldPrimitives.Field
       label="Resume"
       description="Upload your resume (PDF only, max 5MB)"
       required
@@ -406,9 +413,9 @@ The Field component provides a consistent way to add labels, descriptions, and e
         variant="outline"
         size="lg"
       />
-    </Field.Field>
+    </FieldPrimitives.Field>
     
-    <Field.Field
+    <FieldPrimitives.Field
       label="Cover Letter"
       description="Upload your cover letter (PDF or DOC)"
       required
@@ -423,9 +430,9 @@ The Field component provides a consistent way to add labels, descriptions, and e
         error={!!errors.coverLetter}
         variant="filled"
       />
-    </Field.Field>
+    </FieldPrimitives.Field>
     
-    <Field.Field
+    <FieldPrimitives.Field
       label="Portfolio (Optional)"
       description="Upload portfolio samples (Images or PDFs, max 10MB total)"
       error={errors.portfolio || undefined}
@@ -438,7 +445,7 @@ The Field component provides a consistent way to add labels, descriptions, and e
         onError={handlePortfolioError}
         error={!!errors.portfolio}
       />
-    </Field.Field>
+    </FieldPrimitives.Field>
   </Field.Group>
   
   <div class="flex gap-4 pt-4">

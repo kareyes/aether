@@ -1,65 +1,64 @@
-# Dynamic Button Component
+# Button
 
-An enhanced button component for SvelteKit with support for icons, loading states, and dynamic content.
+An enhanced button component with support for icons, loading states, variants, and dynamic content.
 
-## Features
+## Table of Contents
 
-- ✅ **Text content**: Display text with the `text` prop
-- ✅ **Icons**: Support for Lucide Svelte icons with `icon` prop
-- ✅ **Icon positioning**: Place icons on left or right with `iconPosition`
-- ✅ **Loading states**: Built-in loading spinner with `loading` prop
-- ✅ **Multiple variants**: All original button variants supported
-- ✅ **Flexible sizing**: All original button sizes supported
-- ✅ **Fallback support**: Still works with children content
+- [Installation](#installation)
+- [Usage](#usage)
+- [Props Reference](#props-reference)
+- [Variants](#variants)
+- [Examples](#examples)
+- [Accessibility](#accessibility)
 
-## Basic Usage
+## Installation
 
-### Simple Text Button
+The Button component is included in the `@kareyes/aether` package.
+
+```bash
+pnpm add @kareyes/aether
+```
+
+## Usage
+
+### Basic Usage
+
+```svelte
+<script lang="ts">
+  import { Button } from "@kareyes/aether";
+</script>
+
+<Button>Click me</Button>
+```
+
+### With Primitives Import
+
+```svelte
+<script lang="ts">
+  import { ButtonPrimitives } from "@kareyes/aether";
+</script>
+
+<ButtonPrimitives.Root>Click me</ButtonPrimitives.Root>
+```
+
+### Button with Text Prop
+
 ```svelte
 <Button text="Click me" />
 ```
 
 ### Button with Icon
+
 ```svelte
-<script>
+<script lang="ts">
+  import { Button } from "@kareyes/aether";
   import PlusIcon from "@lucide/svelte/icons/plus";
 </script>
 
 <Button text="Add Item" icon={PlusIcon} />
 ```
 
-### Icon Position
-```svelte
-<Button text="Download" icon={DownloadIcon} iconPosition="right" />
-```
-
-### Icon Only Button
-```svelte
-<Button icon={SaveIcon} size="icon" />
-```
-
-## Loading States
-
-### Basic Loading
-```svelte
-<Button 
-  text="Save" 
-  loading={isLoading} 
-  loadingText="Saving..."
-/>
-```
-
-### Loading with Icon
-```svelte
-<Button 
-  text="Save Changes" 
-  icon={SaveIcon}
-  loading={isLoading}
-  loadingText="Saving..."
-/>
-```
-
-## Props
+## Props Reference
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
@@ -72,38 +71,93 @@ An enhanced button component for SvelteKit with support for icons, loading state
 | `size` | `ButtonSize` | `"default"` | Button size |
 | `disabled` | `boolean` | `false` | Disable the button |
 | `href` | `string` | `undefined` | Makes button render as link |
+| `class` | `string` | - | Additional CSS classes |
 
-## Examples
+### Button Variants
+
+| Variant | Description |
+|---------|-------------|
+| `default` | Primary button with solid background |
+| `secondary` | Secondary button with muted background |
+| `outline` | Button with border, transparent background |
+| `ghost` | Minimal button with no background |
+| `destructive` | Red button for destructive actions |
+| `bordered` | Button with emphasized border |
+| `flat` | Button with flat appearance |
+| `link` | Button styled as a link |
+
+### Button Sizes
+
+| Size | Description |
+|------|-------------|
+| `sm` | Small button |
+| `default` | Standard button size |
+| `lg` | Large button |
+| `icon` | Square button for icon-only |
+
+## Variants
 
 ### All Variants
+
 ```svelte
-<Button text="Default" icon={PlusIcon} />
-<Button text="Secondary" icon={PlusIcon} variant="secondary" />
-<Button text="Outline" icon={PlusIcon} variant="outline" />
-<Button text="Ghost" icon={PlusIcon} variant="ghost" />
-<Button text="Destructive" icon={PlusIcon} variant="destructive" />
-<Button text="Bordered" icon={PlusIcon} variant="bordered" />
-<Button text="Flat" icon={PlusIcon} variant="flat" />
+<Button text="Default" />
+<Button text="Secondary" variant="secondary" />
+<Button text="Outline" variant="outline" />
+<Button text="Ghost" variant="ghost" />
+<Button text="Destructive" variant="destructive" />
+<Button text="Bordered" variant="bordered" />
+<Button text="Flat" variant="flat" />
+<Button text="Link" variant="link" />
 ```
 
 ### Different Sizes
+
 ```svelte
-<Button text="Small" icon={PlusIcon} size="sm" />
-<Button text="Default" icon={PlusIcon} size="default" />
-<Button text="Large" icon={PlusIcon} size="lg" />
+<Button text="Small" size="sm" />
+<Button text="Default" size="default" />
+<Button text="Large" size="lg" />
 ```
 
-### Interactive Loading Example
+## Examples
+
+### Icon Position
+
 ```svelte
-<script>
+<script lang="ts">
+  import { Button } from "@kareyes/aether";
+  import DownloadIcon from "@lucide/svelte/icons/download";
+</script>
+
+<!-- Icon on the left (default) -->
+<Button text="Download" icon={DownloadIcon} />
+
+<!-- Icon on the right -->
+<Button text="Download" icon={DownloadIcon} iconPosition="right" />
+```
+
+### Icon Only Button
+
+```svelte
+<script lang="ts">
+  import { Button } from "@kareyes/aether";
   import SaveIcon from "@lucide/svelte/icons/save";
-  
+</script>
+
+<Button icon={SaveIcon} size="icon" />
+```
+
+### Loading States
+
+```svelte
+<script lang="ts">
+  import { Button } from "@kareyes/aether";
+  import SaveIcon from "@lucide/svelte/icons/save";
+
   let saving = $state(false);
-  
+
   const handleSave = async () => {
     saving = true;
     try {
-      // Simulate API call
       await new Promise(resolve => setTimeout(resolve, 2000));
       console.log('Saved!');
     } finally {
@@ -112,8 +166,8 @@ An enhanced button component for SvelteKit with support for icons, loading state
   };
 </script>
 
-<Button 
-  text="Save Changes" 
+<Button
+  text="Save Changes"
   icon={SaveIcon}
   loading={saving}
   loadingText="Saving..."
@@ -121,16 +175,40 @@ An enhanced button component for SvelteKit with support for icons, loading state
 />
 ```
 
-## Backwards Compatibility
-
-The component maintains full backwards compatibility with the original button component:
+### Button as Link
 
 ```svelte
-<!-- This still works -->
+<Button text="Go to Docs" href="/docs" />
+```
+
+### Button with Custom Content
+
+The component maintains backwards compatibility with children content:
+
+```svelte
+<script lang="ts">
+  import { Button } from "@kareyes/aether";
+  import PlusIcon from "@lucide/svelte/icons/plus";
+</script>
+
 <Button variant="destructive">
   <PlusIcon class="size-4 mr-2" />
   Custom Content
 </Button>
+```
+
+### Button Group Example
+
+```svelte
+<script lang="ts">
+  import { Button, ButtonGroup } from "@kareyes/aether";
+</script>
+
+<ButtonGroup>
+  <Button text="Left" />
+  <Button text="Center" />
+  <Button text="Right" />
+</ButtonGroup>
 ```
 
 ## Loading Behavior
@@ -141,6 +219,26 @@ When `loading={true}`:
 - Text changes to `loadingText` if provided
 - Original icon and text are restored when loading ends
 
-## TypeScript Support
+## Accessibility
 
-Full TypeScript support with proper type definitions for all props and variants.
+The Button component follows accessibility best practices:
+
+### Keyboard Navigation
+
+| Key | Action |
+|-----|--------|
+| `Enter` / `Space` | Activate the button |
+| `Tab` | Move focus to the button |
+
+### ARIA Attributes
+
+- `aria-disabled` is set when button is disabled or loading
+- `aria-busy` is set when button is in loading state
+- Proper focus indicators for keyboard users
+
+### Best Practices
+
+1. **Use descriptive text**: Button text should clearly indicate the action
+2. **Provide loading feedback**: Use `loadingText` to inform users of ongoing actions
+3. **Icon accessibility**: Icon-only buttons should have `aria-label` for screen readers
+4. **Color contrast**: All variants meet WCAG color contrast requirements

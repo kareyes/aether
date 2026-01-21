@@ -1,27 +1,34 @@
-# Accordion Component
+# Accordion
 
-A vertically stacked set of interactive headings that reveal or hide sections of content.
+A vertically stacked set of interactive headings that reveal or hide sections of content. Built on top of [bits-ui](https://bits-ui.com) Accordion primitives.
 
-## Features
+## Table of Contents
 
-- **4 Variants**: default, bordered, splitted, shadow
-- **Single or Multiple**: Control whether one or many items can be expanded
-- **Animated**: Smooth expand/collapse animations
-- **Accessible**: Full WAI-ARIA accordion pattern support
-- **Disabled Items**: Individual items can be disabled
-- **Dark Mode**: Full dark mode support
+- [Installation](#installation)
+- [Usage](#usage)
+- [Components](#components)
+- [Props Reference](#props-reference)
+- [Variants](#variants)
+- [Examples](#examples)
+- [Accessibility](#accessibility)
 
-## Import
+## Installation
 
-```svelte
-import * as Accordion from "$lib/components/ui/accordion";
+The Accordion component is included in the `@kareyes/aether` package.
+
+```bash
+pnpm add @kareyes/aether
 ```
 
-## Basic Usage
+## Usage
 
-### Simple Accordion
+### Basic Usage
 
 ```svelte
+<script lang="ts">
+  import * as Accordion from "@kareyes/aether";
+</script>
+
 <Accordion.Root type="single">
   <Accordion.Item value="item-1">
     <Accordion.Trigger>Section 1</Accordion.Trigger>
@@ -38,39 +45,153 @@ import * as Accordion from "$lib/components/ui/accordion";
 </Accordion.Root>
 ```
 
-### With Variant
+### With Primitives Import
 
 ```svelte
-<Accordion.Root type="single" variant="bordered">
-  <Accordion.Item value="item-1">
-    <Accordion.Trigger>Section 1</Accordion.Trigger>
-    <Accordion.Content>
+<script lang="ts">
+  import { AccordionPrimitives } from "@kareyes/aether";
+</script>
+
+<AccordionPrimitives.Root type="single">
+  <AccordionPrimitives.Item value="item-1">
+    <AccordionPrimitives.Trigger>Section 1</AccordionPrimitives.Trigger>
+    <AccordionPrimitives.Content>
       Content for section 1.
-    </Accordion.Content>
+    </AccordionPrimitives.Content>
+  </AccordionPrimitives.Item>
+</AccordionPrimitives.Root>
+```
+
+## Components
+
+| Component | Description |
+|-----------|-------------|
+| `Root` | The root container that manages state and context for the accordion |
+| `Item` | Individual accordion item wrapper containing trigger and content |
+| `Trigger` | The clickable header that toggles the content visibility |
+| `Content` | The collapsible content section |
+
+## Props Reference
+
+### Root
+
+The root component that wraps the entire accordion.
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `type` | `"single" \| "multiple"` | **required** | Whether single or multiple items can be expanded |
+| `variant` | `"default" \| "bordered" \| "splitted" \| "shadow"` | `"default"` | Visual style variant |
+| `value` | `string \| string[]` | `undefined` | The value(s) of the expanded item(s) |
+| `onValueChange` | `(value: string \| string[]) => void` | - | Callback when expanded items change |
+| `disabled` | `boolean` | `false` | Whether the accordion is disabled |
+| `loop` | `boolean` | `true` | Whether to loop through items with arrow keys |
+| `orientation` | `"vertical" \| "horizontal"` | `"vertical"` | The orientation of the accordion |
+| `class` | `string` | - | Additional CSS classes |
+
+### Item
+
+Individual accordion item wrapper.
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `value` | `string` | **required** | Unique identifier for the item |
+| `disabled` | `boolean` | `false` | Whether the item is disabled |
+| `class` | `string` | - | Additional CSS classes |
+
+### Trigger
+
+The clickable header element.
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `level` | `1 \| 2 \| 3 \| 4 \| 5 \| 6` | `3` | The heading level for accessibility |
+| `class` | `string` | - | Additional CSS classes |
+
+### Content
+
+The collapsible content section.
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `forceMount` | `boolean` | `true` | Whether to mount content regardless of open state |
+| `class` | `string` | - | Additional CSS classes |
+
+## Variants
+
+### Default
+
+The classic accordion with bottom borders and underline hover effect on triggers.
+
+```svelte
+<Accordion.Root type="single">
+  <Accordion.Item value="item-1">
+    <Accordion.Trigger>Default Style</Accordion.Trigger>
+    <Accordion.Content>Content here</Accordion.Content>
   </Accordion.Item>
 </Accordion.Root>
 ```
 
+### Bordered
+
+A contained accordion with a border around the entire component and dividers between items.
+
+```svelte
+<Accordion.Root type="single" variant="bordered">
+  <Accordion.Item value="item-1">
+    <Accordion.Trigger>Bordered Style</Accordion.Trigger>
+    <Accordion.Content>Content here</Accordion.Content>
+  </Accordion.Item>
+</Accordion.Root>
+```
+
+### Splitted
+
+Each item is a separate bordered card with spacing between them.
+
+```svelte
+<Accordion.Root type="single" variant="splitted">
+  <Accordion.Item value="item-1">
+    <Accordion.Trigger>Splitted Style</Accordion.Trigger>
+    <Accordion.Content>Content here</Accordion.Content>
+  </Accordion.Item>
+</Accordion.Root>
+```
+
+### Shadow
+
+Similar to bordered but with a subtle shadow for an elevated appearance.
+
+```svelte
+<Accordion.Root type="single" variant="shadow">
+  <Accordion.Item value="item-1">
+    <Accordion.Trigger>Shadow Style</Accordion.Trigger>
+    <Accordion.Content>Content here</Accordion.Content>
+  </Accordion.Item>
+</Accordion.Root>
+```
+
+## Examples
+
 ### Multiple Selection
+
+Allow multiple items to be expanded simultaneously:
 
 ```svelte
 <Accordion.Root type="multiple" variant="splitted">
   <Accordion.Item value="item-1">
     <Accordion.Trigger>Section 1</Accordion.Trigger>
-    <Accordion.Content>
-      Content for section 1.
-    </Accordion.Content>
+    <Accordion.Content>Content for section 1.</Accordion.Content>
   </Accordion.Item>
   <Accordion.Item value="item-2">
     <Accordion.Trigger>Section 2</Accordion.Trigger>
-    <Accordion.Content>
-      Content for section 2.
-    </Accordion.Content>
+    <Accordion.Content>Content for section 2.</Accordion.Content>
   </Accordion.Item>
 </Accordion.Root>
 ```
 
 ### Default Expanded
+
+Set an item to be expanded by default:
 
 ```svelte
 <Accordion.Root type="single" value="item-2">
@@ -84,82 +205,6 @@ import * as Accordion from "$lib/components/ui/accordion";
   </Accordion.Item>
 </Accordion.Root>
 ```
-
-## Props
-
-### Accordion.Root
-
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `type` | `"single" \| "multiple"` | **required** | Whether single or multiple items can be expanded |
-| `variant` | `"default" \| "bordered" \| "splitted" \| "shadow"` | `"default"` | Visual style variant |
-| `value` | `string \| string[]` | `undefined` | The value(s) of the expanded item(s) |
-| `disabled` | `boolean` | `false` | Whether the accordion is disabled |
-| `loop` | `boolean` | `true` | Whether to loop through items with arrow keys |
-| `orientation` | `"vertical" \| "horizontal"` | `"vertical"` | The orientation of the accordion |
-| `class` | `string` | `undefined` | Additional CSS classes |
-
-### Accordion.Item
-
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `value` | `string` | **required** | Unique identifier for the item |
-| `disabled` | `boolean` | `false` | Whether the item is disabled |
-| `class` | `string` | `undefined` | Additional CSS classes |
-
-### Accordion.Trigger
-
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `level` | `1 \| 2 \| 3 \| 4 \| 5 \| 6` | `3` | The heading level for accessibility |
-| `class` | `string` | `undefined` | Additional CSS classes |
-
-### Accordion.Content
-
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `forceMount` | `boolean` | `true` | Whether to mount the content regardless of open state |
-| `class` | `string` | `undefined` | Additional CSS classes |
-
-## Variants
-
-### Default
-The classic accordion with bottom borders and underline hover effect on triggers.
-
-```svelte
-<Accordion.Root type="single">
-  ...
-</Accordion.Root>
-```
-
-### Bordered
-A contained accordion with a border around the entire component and dividers between items.
-
-```svelte
-<Accordion.Root type="single" variant="bordered">
-  ...
-</Accordion.Root>
-```
-
-### Splitted
-Each item is a separate bordered card with spacing between them.
-
-```svelte
-<Accordion.Root type="single" variant="splitted">
-  ...
-</Accordion.Root>
-```
-
-### Shadow
-Similar to bordered but with a subtle shadow for an elevated appearance.
-
-```svelte
-<Accordion.Root type="single" variant="shadow">
-  ...
-</Accordion.Root>
-```
-
-## Examples
 
 ### FAQ Section
 
@@ -227,36 +272,28 @@ Similar to bordered but with a subtle shadow for an elevated appearance.
 
 ## Accessibility
 
-The accordion component follows the [WAI-ARIA Accordion Pattern](https://www.w3.org/WAI/ARIA/apg/patterns/accordion/):
+The Accordion component follows the [WAI-ARIA Accordion Pattern](https://www.w3.org/WAI/ARIA/apg/patterns/accordion/):
 
-- **Keyboard Navigation**: 
-  - `Enter` or `Space` to toggle the focused item
-  - `Arrow Up/Down` to navigate between items
-  - `Home` to focus the first item
-  - `End` to focus the last item
-- **ARIA Attributes**: Proper `aria-expanded`, `aria-controls`, and `aria-labelledby` attributes
-- **Focus Management**: Visible focus indicators for keyboard users
+### Keyboard Navigation
 
-## Styling
+| Key | Action |
+|-----|--------|
+| `Enter` / `Space` | Toggle the focused item |
+| `Arrow Down` | Move focus to the next item |
+| `Arrow Up` | Move focus to the previous item |
+| `Home` | Move focus to the first item |
+| `End` | Move focus to the last item |
 
-### Custom Styling with Tailwind
+### ARIA Attributes
 
-```svelte
-<Accordion.Root type="single" class="bg-slate-50 p-4 rounded-xl">
-  <Accordion.Item value="item-1" class="bg-white rounded-lg mb-2">
-    <Accordion.Trigger class="text-blue-600">Custom Trigger</Accordion.Trigger>
-    <Accordion.Content class="text-gray-600">
-      Custom styled content
-    </Accordion.Content>
-  </Accordion.Item>
-</Accordion.Root>
-```
+- `aria-expanded` indicates whether the content is visible
+- `aria-controls` links the trigger to its content
+- `aria-labelledby` associates content with its trigger
+- Proper heading structure with configurable `level` prop
 
-### Using CSS Variables
+### Best Practices
 
-The accordion respects your theme's CSS variables:
-
-- `--border` - Border color
-- `--muted` - Muted background color
-- `--muted-foreground` - Muted text color
-- `--ring` - Focus ring color
+1. **Use descriptive trigger text**: Make it clear what content will be revealed
+2. **Keep content focused**: Each section should contain related information
+3. **Consider default expansion**: Important content may benefit from being expanded by default
+4. **Test with screen readers**: Ensure announcements are clear and helpful

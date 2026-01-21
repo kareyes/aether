@@ -15,8 +15,10 @@ A flexible breadcrumb navigation component with multiple visual variants, sizes,
 
 ## Installation
 
+The Breadcrumb component is included in the `@kareyes/aether` package.
+
 ```bash
-pnpm dlx shadcn-svelte@latest add breadcrumb
+pnpm add @kareyes/aether
 ```
 
 ## Implementation Details
@@ -56,14 +58,15 @@ The Breadcrumb component is built using **tailwind-variants** (tv) for a robust 
 
 ```svelte
 <script lang="ts">
-  import {
+  import { BreadcrumbPrimitives } from "@kareyes/aether";
+  const {
     Breadcrumb,
     BreadcrumbList,
     BreadcrumbItem,
     BreadcrumbLink,
     BreadcrumbSeparator,
     BreadcrumbPage
-  } from "$lib/components/ui/breadcrumb";
+  } = BreadcrumbPrimitives;
 </script>
 
 <Breadcrumb>
@@ -323,13 +326,13 @@ Show collapsed items with a dropdown.
 
 ```svelte
 <script>
-  import { BreadcrumbEllipsis } from "$lib/components/ui/breadcrumb";
+  import { BreadcrumbEllipsis } from "@kareyes/aether";
   import {
     DropdownMenu,
     DropdownMenuTrigger,
     DropdownMenuContent,
     DropdownMenuItem
-  } from "$lib/components/ui/dropdown-menu";
+  } from "@kareyes/aether";
 </script>
 
 <BreadcrumbList>

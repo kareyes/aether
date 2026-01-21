@@ -15,8 +15,8 @@ A comprehensive modal dialog component with variants, sizes, and extensive custo
     DialogDescription,
     DialogFooter,
     DialogClose
-  } from "$lib/components/ui/dialog";
-  import { Button } from "$lib/components/ui/button";
+  } from "@kareyes/aether";
+  import { Button } from "@kareyes/aether";
 </script>
 
 <Dialog>

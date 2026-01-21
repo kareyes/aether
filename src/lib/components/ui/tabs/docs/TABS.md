@@ -14,8 +14,10 @@ A comprehensive, customizable tabs component with multiple visual variants, size
 
 ## Installation
 
+The Tabs component is included in the `@kareyes/aether` package.
+
 ```bash
-pnpm dlx shadcn-svelte@latest add tabs
+pnpm add @kareyes/aether
 ```
 
 ## Implementation Details
@@ -53,7 +55,7 @@ The Tabs component is built using **tailwind-variants** (tv) for a robust varian
 
 ```svelte
 <script lang="ts">
-  import { Tabs, TabsList, TabsTrigger, TabsContent } from "$lib/components/ui/tabs";
+  import { Tabs, TabsList, TabsTrigger, TabsContent } from "@kareyes/aether";
 </script>
 
 <Tabs value="account">

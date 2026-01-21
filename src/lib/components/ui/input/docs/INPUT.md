@@ -1,44 +1,53 @@
-# Input Component
+# Input
 
-A flexible input component with built-in support for InputGroup addons through props, eliminating the need for manual InputGroup wrapping.
+A flexible input component with built-in support for addons (icons, text, buttons), input masks, and various styles.
 
-## Features
+## Table of Contents
 
-- 🎯 **Prop-Based Addons**: Add icons, text, and buttons via simple props
-- 🔄 **Auto-Wrapping**: Automatically wraps with InputGroup when addons are present
-- 🎨 **Full Flexibility**: Supports custom snippets for complete control
-- ♿ **Accessible**: Built on top of InputGroup with ARIA support
-- 🎭 **Type-Safe**: Full TypeScript support with exported types
-- 🔗 **Compatible**: Works with all existing Input features (masks, variants, etc.)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Props Reference](#props-reference)
+- [Variants](#variants)
+- [Examples](#examples)
+- [Accessibility](#accessibility)
 
 ## Installation
 
-The component is part of the input package:
+The Input component is included in the `@kareyes/aether` package.
 
 ```bash
-pnpm dlx shadcn-svelte@latest add input
+pnpm add @kareyes/aether
 ```
 
-## Basic Usage
+## Usage
+
+### Basic Usage
 
 ```svelte
 <script lang="ts">
-  import { Input } from '$lib/components/ui/input';
-  import { Search } from '@lucide/svelte';
+  import { Input } from "@kareyes/aether";
+
+  let value = $state("");
 </script>
 
-<Input placeholder="Search...">
-  {#snippet startIcon()}
-    <Search class="size-4" />
-  {/snippet}
-</Input>
+<Input bind:value placeholder="Enter text..." />
+```
+
+### With Primitives Import
+
+```svelte
+<script lang="ts">
+  import { InputPrimitives } from "@kareyes/aether";
+</script>
+
+<InputPrimitives.Root>
+  <InputPrimitives.Input placeholder="Enter text..." />
+</InputPrimitives.Root>
 ```
 
 ## Props Reference
 
 ### Base Props
-
-All props from the standard `Input` component are supported:
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
@@ -59,15 +68,23 @@ All props from the standard `Input` component are supported:
 |------|------|---------|-------------|
 | `startIcon` | `Snippet` | - | Icon snippet at the start |
 | `endIcon` | `Snippet` | - | Icon snippet at the end |
-| `startText` | `string \| Snippet` | - | Text at the start (string or snippet) |
-| `endText` | `string \| Snippet` | - | Text at the end (string or snippet) |
+| `startText` | `string \| Snippet` | - | Text at the start |
+| `endText` | `string \| Snippet` | - | Text at the end |
 | `startButton` | `Snippet` | - | Button snippet at the start |
 | `endButton` | `Snippet` | - | Button snippet at the end |
-| `startAddon` | `Snippet` | - | Custom start addon (overrides icon/text/button) |
-| `endAddon` | `Snippet` | - | Custom end addon (overrides icon/text/button) |
-| `startAddonAlign` | `InputGroupAddonAlign` | `"inline-start"` | Start addon alignment |
-| `endAddonAlign` | `InputGroupAddonAlign` | `"inline-end"` | End addon alignment |
-| `groupClassName` | `string` | - | Additional classes for InputGroup wrapper |
+| `startAddon` | `Snippet` | - | Custom start addon |
+| `endAddon` | `Snippet` | - | Custom end addon |
+| `groupClassName` | `string` | - | Classes for InputGroup wrapper |
+
+## Variants
+
+```svelte
+<Input variant="default" placeholder="Default" />
+<Input variant="outline" placeholder="Outline" />
+<Input variant="filled" placeholder="Filled" />
+<Input variant="ghost" placeholder="Ghost" />
+<Input variant="underline" placeholder="Underline" />
+```
 
 ## Examples
 
@@ -75,28 +92,29 @@ All props from the standard `Input` component are supported:
 
 ```svelte
 <script lang="ts">
-  import { Input } from '$lib/components/ui/input';
-  import { Search, Mail, Lock } from '@lucide/svelte';
+  import { Input } from "@kareyes/aether";
+  import SearchIcon from "@lucide/svelte/icons/search";
+  import MailIcon from "@lucide/svelte/icons/mail";
 </script>
 
 <!-- Start Icon -->
 <Input placeholder="Search...">
   {#snippet startIcon()}
-    <Search class="size-4" />
+    <SearchIcon class="size-4" />
   {/snippet}
 </Input>
 
 <!-- End Icon -->
 <Input type="email" placeholder="Enter email">
   {#snippet endIcon()}
-    <Mail class="size-4" />
+    <MailIcon class="size-4" />
   {/snippet}
 </Input>
 
 <!-- Both Icons -->
 <Input placeholder="Secure input">
   {#snippet startIcon()}
-    <Lock class="size-4" />
+    <LockIcon class="size-4" />
   {/snippet}
   {#snippet endIcon()}
     <span class="text-xs text-muted-foreground">Encrypted</span>
@@ -105,8 +123,6 @@ All props from the standard `Input` component are supported:
 ```
 
 ### Text Addons
-
-Text addons can be simple strings or custom snippets.
 
 ```svelte
 <!-- String Text -->
@@ -129,44 +145,26 @@ Text addons can be simple strings or custom snippets.
   placeholder="username"
   endText="@company.com"
 />
-
-<!-- Custom Text Snippet -->
-<Input placeholder="Enter value">
-  {#snippet startText()}
-    <span class="font-bold text-primary">$</span>
-  {/snippet}
-</Input>
 ```
 
 ### Button Addons
 
-Add interactive buttons for actions.
-
 ```svelte
 <script lang="ts">
-  import { Input } from '$lib/components/ui/input';
-  import { InputGroupButton } from '$lib/components/ui/input-group';
-  import { Search, Copy, Send, Eye, EyeOff } from '@lucide/svelte';
+  import { Input, InputGroupPrimitives } from "@kareyes/aether";
+  import CopyIcon from "@lucide/svelte/icons/copy";
+  import EyeIcon from "@lucide/svelte/icons/eye";
+  import EyeOffIcon from "@lucide/svelte/icons/eye-off";
 
   let showPassword = $state(false);
-  let searchValue = $state('');
 </script>
 
-<!-- Search Button -->
-<Input placeholder="Search...">
-  {#snippet endButton()}
-    <InputGroupButton size="xs">
-      Search
-    </InputGroupButton>
-  {/snippet}
-</Input>
-
-<!-- Icon Button -->
+<!-- Copy Button -->
 <Input readonly value="https://example.com">
   {#snippet endButton()}
-    <InputGroupButton size="icon-xs" onclick={() => navigator.clipboard.writeText('https://example.com')}>
-      <Copy class="size-4" />
-    </InputGroupButton>
+    <InputGroupPrimitives.Button size="icon-xs" onclick={() => navigator.clipboard.writeText('https://example.com')}>
+      <CopyIcon class="size-4" />
+    </InputGroupPrimitives.Button>
   {/snippet}
 </Input>
 
@@ -176,114 +174,52 @@ Add interactive buttons for actions.
   placeholder="Enter password"
 >
   {#snippet endButton()}
-    <InputGroupButton
+    <InputGroupPrimitives.Button
       size="icon-xs"
       variant="ghost"
       onclick={() => showPassword = !showPassword}
     >
       {#if showPassword}
-        <EyeOff class="size-4" />
+        <EyeOffIcon class="size-4" />
       {:else}
-        <Eye class="size-4" />
+        <EyeIcon class="size-4" />
       {/if}
-    </InputGroupButton>
-  {/snippet}
-</Input>
-
-<!-- Clear Button (Conditional) -->
-<Input bind:value={searchValue} placeholder="Type to search...">
-  {#if searchValue}
-    {#snippet endButton()}
-      <InputGroupButton
-        size="icon-xs"
-        variant="ghost"
-        onclick={() => searchValue = ''}
-      >
-        <span class="text-lg">×</span>
-      </InputGroupButton>
-    {/snippet}
-  {/if}
-</Input>
-```
-
-### Combined Addons
-
-Mix icons, text, and buttons for rich interfaces.
-
-```svelte
-<!-- Price Input with Icon and Text -->
-<Input
-  type="number"
-  placeholder="0.00"
->
-  {#snippet startIcon()}
-    <DollarSign class="size-4" />
-  {/snippet}
-  {#snippet endText()}
-    <span class="text-xs text-muted-foreground">USD</span>
-  {/snippet}
-</Input>
-
-<!-- Secure Input with Multiple Elements -->
-<Input
-  type="number"
-  placeholder="0.00"
-  startText="$"
->
-  {#snippet endIcon()}
-    <Lock class="size-4 text-green-600" />
-  {/snippet}
-  {#snippet endText()}
-    <span class="text-xs text-muted-foreground">Secure</span>
-  {/snippet}
-</Input>
-
-<!-- API Key with Copy -->
-<Input value="sk_live_..." readonly>
-  {#snippet startIcon()}
-    <Lock class="size-4" />
-  {/snippet}
-  {#snippet endButton()}
-    <InputGroupButton size="icon-xs">
-      <Copy class="size-4" />
-    </InputGroupButton>
+    </InputGroupPrimitives.Button>
   {/snippet}
 </Input>
 ```
 
-### Custom Addons
-
-For complete control, use `startAddon` and `endAddon` which override individual icon/text/button props.
+### With Input Masks
 
 ```svelte
-<!-- Custom Start Addon -->
-<Input placeholder="Enter value">
-  {#snippet startAddon()}
-    <div class="flex items-center gap-2">
-      <div class="size-2 rounded-full bg-green-500 animate-pulse"></div>
-      <span class="text-xs font-medium">Live</span>
-    </div>
+<script lang="ts">
+  import { Input } from "@kareyes/aether";
+  import PhoneIcon from "@lucide/svelte/icons/phone";
+  import CreditCardIcon from "@lucide/svelte/icons/credit-card";
+</script>
+
+<!-- Phone Number -->
+<Input
+  mask="phone"
+  placeholder="(555) 555-5555"
+>
+  {#snippet startIcon()}
+    <PhoneIcon class="size-4" />
   {/snippet}
 </Input>
 
-<!-- Custom End Addon with Multiple Buttons -->
-<Input placeholder="Type your message...">
-  {#snippet endAddon()}
-    <div class="flex items-center gap-1">
-      <InputGroupButton size="icon-xs" variant="ghost">
-        <span>😀</span>
-      </InputGroupButton>
-      <InputGroupButton size="icon-xs" variant="default">
-        <Send class="size-4" />
-      </InputGroupButton>
-    </div>
+<!-- Credit Card -->
+<Input
+  mask="creditCard"
+  placeholder="1234 5678 9012 3456"
+>
+  {#snippet startIcon()}
+    <CreditCardIcon class="size-4" />
   {/snippet}
 </Input>
 ```
 
 ### States
-
-All input states work seamlessly with addons.
 
 ```svelte
 <!-- Error State -->
@@ -293,7 +229,7 @@ All input states work seamlessly with addons.
   placeholder="Enter email"
 >
   {#snippet startIcon()}
-    <Mail class="size-4" />
+    <MailIcon class="size-4" />
   {/snippet}
 </Input>
 
@@ -310,219 +246,55 @@ All input states work seamlessly with addons.
   readonly
 >
   {#snippet endIcon()}
-    <Lock class="size-4" />
+    <LockIcon class="size-4" />
   {/snippet}
 </Input>
 ```
 
-### With Input Masks
-
-Combine with input mask functionality.
+### With Field Component
 
 ```svelte
 <script lang="ts">
-  import { Input } from '$lib/components/ui/input';
-  import { Phone, CreditCard } from '@lucide/svelte';
-</script>
-
-<!-- Phone Number with Icon -->
-<Input
-  mask="phone"
-  placeholder="(555) 555-5555"
->
-  {#snippet startIcon()}
-    <Phone class="size-4" />
-  {/snippet}
-</Input>
-
-<!-- Credit Card with Icon -->
-<Input
-  mask="creditCard"
-  placeholder="1234 5678 9012 3456"
->
-  {#snippet startIcon()}
-    <CreditCard class="size-4" />
-  {/snippet}
-</Input>
-```
-
-### Alignment Options
-
-Control addon alignment using the alignment props.
-
-```svelte
-<!-- Block Start (Above Input) -->
-<Input
-  placeholder="Enter message"
-  startAddonAlign="block-start"
->
-  {#snippet startAddon()}
-    <div class="flex justify-between w-full px-3 py-2 border-b">
-      <span class="text-sm font-medium">Message</span>
-      <span class="text-xs text-muted-foreground">0/500</span>
-    </div>
-  {/snippet}
-</Input>
-
-<!-- Block End (Below Input) -->
-<Input
-  placeholder="Type here..."
-  endAddonAlign="block-end"
->
-  {#snippet endAddon()}
-    <div class="flex justify-between w-full px-3 py-2 border-t">
-      <span class="text-xs text-muted-foreground">Markdown supported</span>
-      <InputGroupButton size="xs">Send</InputGroupButton>
-    </div>
-  {/snippet}
-</Input>
-```
-
-## When to Use
-
-**Use Input with addon props when:**
-- You need a simple input with icons, text, or buttons
-- You want cleaner, more declarative code
-- You're building forms with many similar inputs
-- You need quick prototyping
-
-**Use InputGroup directly when:**
-- You need complex nested structures
-- You're using Textarea instead of Input
-- You need very custom layout control
-- You want to use other InputGroup-specific components
-
-## Type Exports
-
-```typescript
-import type {
-  InputWithAddonsProps,
-  InputGroupAddonAlign
-} from '$lib/components/ui/input';
-```
-
-## Comparison with InputGroup
-
-### Before (InputGroup)
-```svelte
-<InputGroup>
-  <InputGroupAddon align="inline-start">
-    <Search class="size-4" />
-  </InputGroupAddon>
-  <InputGroupInput placeholder="Search..." />
-  <InputGroupAddon align="inline-end">
-    <InputGroupButton size="xs">Search</InputGroupButton>
-  </InputGroupAddon>
-</InputGroup>
-```
-
-### After (Input with Addons)
-```svelte
-<Input placeholder="Search...">
-  {#snippet startIcon()}
-    <Search class="size-4" />
-  {/snippet}
-  {#snippet endButton()}
-    <InputGroupButton size="xs">Search</InputGroupButton>
-  {/snippet}
-</Input>
-```
-
-## Accessibility
-
-- Maintains all accessibility features from InputGroup
-- Proper ARIA attributes for error states
-- Focus management handled automatically
-- Icon buttons should include `aria-label` attributes
-
-## Best Practices
-
-1. **Use Simple Strings for Text**: When possible, use string props instead of snippets for better performance
-2. **Consistent Icon Sizing**: Use `class="size-4"` for icons to maintain consistency
-3. **Button Sizes**: Use `size="icon-xs"` for icon-only buttons, `size="xs"` for text buttons
-4. **Accessibility**: Always include `aria-label` on icon buttons
-5. **Error Handling**: Combine with the `error` prop for validation feedback
-
-## Using Input with Field Component
-
-The Field component provides labels, descriptions, and error handling. This is the recommended way to use Input in forms.
-
-### Basic Field Usage
-
-```svelte
-<script lang="ts">
-  import * as Field from '$lib/components/ui/field';
-  import { Input } from '$lib/components/ui/input';
-
-  let email = $state('');
-</script>
-
-<Field.Field
-  label="Email"
-  description="Enter your email address"
->
-  <Input type="email" bind:value={email} placeholder="you@example.com" />
-</Field.Field>
-```
-
-### Field with Icon Addons
-
-```svelte
-<script lang="ts">
-  import * as Field from '$lib/components/ui/field';
-  import { Input } from '$lib/components/ui/input';
-  import { Mail, Lock, User } from '@lucide/svelte';
+  import { FieldPrimitives, Input } from "@kareyes/aether";
+  import MailIcon from "@lucide/svelte/icons/mail";
+  import LockIcon from "@lucide/svelte/icons/lock";
 
   let email = $state('');
   let password = $state('');
-  let username = $state('');
 </script>
 
 <!-- Email with Icon -->
-<Field.Field
+<FieldPrimitives.Field
   label="Email"
   description="We'll never share your email"
   required
 >
   <Input type="email" bind:value={email} placeholder="you@example.com">
     {#snippet startIcon()}
-      <Mail class="size-4" />
+      <MailIcon class="size-4" />
     {/snippet}
   </Input>
-</Field.Field>
+</FieldPrimitives.Field>
 
 <!-- Password with Icon -->
-<Field.Field
+<FieldPrimitives.Field
   label="Password"
   description="Must be at least 8 characters"
   required
 >
   <Input type="password" bind:value={password} placeholder="••••••••">
     {#snippet startIcon()}
-      <Lock class="size-4" />
+      <LockIcon class="size-4" />
     {/snippet}
   </Input>
-</Field.Field>
-
-<!-- Username with Icon -->
-<Field.Field
-  label="Username"
-  description="Choose a unique username"
->
-  <Input bind:value={username} placeholder="johndoe">
-    {#snippet startIcon()}
-      <User class="size-4" />
-    {/snippet}
-  </Input>
-</Field.Field>
+</FieldPrimitives.Field>
 ```
 
-### Field with Validation Errors
+### With Validation
 
 ```svelte
 <script lang="ts">
-  import * as Field from '$lib/components/ui/field';
-  import { Input } from '$lib/components/ui/input';
+  import { FieldPrimitives, Input } from "@kareyes/aether";
 
   let email = $state('');
   let errors = $state<Record<string, string>>({});
@@ -538,174 +310,30 @@ The Field component provides labels, descriptions, and error handling. This is t
   }
 </script>
 
-<Field.Field
+<FieldPrimitives.Field
   label="Email"
-  description="Enter a valid email address"
   required
   error={errors.email}
 >
-  <Input 
-    type="email" 
-    bind:value={email} 
+  <Input
+    type="email"
+    bind:value={email}
     placeholder="you@example.com"
     error={!!errors.email}
     onblur={validateEmail}
   />
-</Field.Field>
+</FieldPrimitives.Field>
 ```
 
-### Field with Text Addons
+### Complete Form Example
 
 ```svelte
 <script lang="ts">
-  import * as Field from '$lib/components/ui/field';
-  import { Input } from '$lib/components/ui/input';
-
-  let price = $state('');
-  let website = $state('');
-</script>
-
-<!-- Price Input -->
-<Field.Field
-  label="Price"
-  description="Enter the product price"
->
-  <Input 
-    type="number" 
-    bind:value={price} 
-    placeholder="0.00"
-    startText="$"
-    endText="USD"
-  />
-</Field.Field>
-
-<!-- Website Input -->
-<Field.Field
-  label="Website"
-  description="Enter your website URL"
->
-  <Input 
-    bind:value={website} 
-    placeholder="example"
-    startText="https://"
-    endText=".com"
-  />
-</Field.Field>
-```
-
-### Field with Button Addons
-
-```svelte
-<script lang="ts">
-  import * as Field from '$lib/components/ui/field';
-  import { Input } from '$lib/components/ui/input';
-  import { InputGroupButton } from '$lib/components/ui/input-group';
-  import { Copy, Eye, EyeOff } from '@lucide/svelte';
-
-  let apiKey = $state('sk_live_...');
-  let password = $state('');
-  let showPassword = $state(false);
-  let copied = $state(false);
-
-  function handleCopy() {
-    navigator.clipboard.writeText(apiKey);
-    copied = true;
-    setTimeout(() => copied = false, 2000);
-  }
-</script>
-
-<!-- API Key with Copy Button -->
-<Field.Field
-  label="API Key"
-  description="Your secret API key"
->
-  <Input value={apiKey} readonly>
-    {#snippet endButton()}
-      <InputGroupButton size="icon-xs" onclick={handleCopy}>
-        <Copy class="size-4" />
-      </InputGroupButton>
-    {/snippet}
-  </Input>
-</Field.Field>
-
-<!-- Password with Toggle Button -->
-<Field.Field
-  label="Password"
-  description="Enter your password"
-  required
->
-  <Input 
-    type={showPassword ? "text" : "password"}
-    bind:value={password}
-    placeholder="••••••••"
-  >
-    {#snippet endButton()}
-      <InputGroupButton
-        size="icon-xs"
-        variant="ghost"
-        onclick={() => showPassword = !showPassword}
-      >
-        {#if showPassword}
-          <EyeOff class="size-4" />
-        {:else}
-          <Eye class="size-4" />
-        {/if}
-      </InputGroupButton>
-    {/snippet}
-  </Input>
-</Field.Field>
-```
-
-### Field with Input Masks
-
-```svelte
-<script lang="ts">
-  import * as Field from '$lib/components/ui/field';
-  import { Input } from '$lib/components/ui/input';
-  import { Phone, CreditCard } from '@lucide/svelte';
-
-  let phone = $state('');
-  let ssn = $state('');
-</script>
-
-<!-- Phone Number -->
-<Field.Field
-  label="Phone Number"
-  description="Enter your phone number"
-  required
->
-  <Input 
-    bind:value={phone}
-    mask="phone"
-    placeholder="(555) 555-5555"
-  >
-    {#snippet startIcon()}
-      <Phone class="size-4" />
-    {/snippet}
-  </Input>
-</Field.Field>
-
-<!-- SSN -->
-<Field.Field
-  label="Social Security Number"
-  description="Your SSN is encrypted and secure"
->
-  <Input 
-    bind:value={ssn}
-    mask="ssn"
-    placeholder="***-**-****"
-  />
-</Field.Field>
-```
-
-### Complete Form Example with Field
-
-```svelte
-<script lang="ts">
-  import * as Field from '$lib/components/ui/field';
-  import { Input } from '$lib/components/ui/input';
-  import { Button } from '$lib/components/ui/button';
-  import { Mail, Lock, User, Phone } from '@lucide/svelte';
+  import { FieldPrimitives, Input, Button } from "@kareyes/aether";
+  import MailIcon from "@lucide/svelte/icons/mail";
+  import LockIcon from "@lucide/svelte/icons/lock";
+  import UserIcon from "@lucide/svelte/icons/user";
+  import PhoneIcon from "@lucide/svelte/icons/phone";
 
   let formData = $state({
     username: '',
@@ -732,94 +360,91 @@ The Field component provides labels, descriptions, and error handling. This is t
 </script>
 
 <form onsubmit={handleSubmit} class="space-y-6">
-  <Field.Set>
-    <Field.Legend>Create Account</Field.Legend>
-    <Field.Description>
-      Enter your details to create a new account
-    </Field.Description>
+  <FieldPrimitives.Field
+    label="Username"
+    required
+    error={errors.username}
+  >
+    <Input
+      bind:value={formData.username}
+      placeholder="johndoe"
+      error={!!errors.username}
+    >
+      {#snippet startIcon()}
+        <UserIcon class="size-4" />
+      {/snippet}
+    </Input>
+  </FieldPrimitives.Field>
 
-    <Field.Separator />
+  <FieldPrimitives.Field
+    label="Email"
+    required
+    error={errors.email}
+  >
+    <Input
+      type="email"
+      bind:value={formData.email}
+      placeholder="you@example.com"
+      error={!!errors.email}
+    >
+      {#snippet startIcon()}
+        <MailIcon class="size-4" />
+      {/snippet}
+    </Input>
+  </FieldPrimitives.Field>
 
-    <Field.Group class="gap-6">
-      <Field.Field
-        label="Username"
-        description="Choose a unique username"
-        required
-        error={errors.username}
-      >
-        <Input 
-          bind:value={formData.username}
-          placeholder="johndoe"
-          error={!!errors.username}
-        >
-          {#snippet startIcon()}
-            <User class="size-4" />
-          {/snippet}
-        </Input>
-      </Field.Field>
+  <FieldPrimitives.Field
+    label="Password"
+    required
+    error={errors.password}
+  >
+    <Input
+      type="password"
+      bind:value={formData.password}
+      placeholder="••••••••"
+      error={!!errors.password}
+    >
+      {#snippet startIcon()}
+        <LockIcon class="size-4" />
+      {/snippet}
+    </Input>
+  </FieldPrimitives.Field>
 
-      <Field.Field
-        label="Email"
-        description="We'll never share your email"
-        required
-        error={errors.email}
-      >
-        <Input 
-          type="email"
-          bind:value={formData.email}
-          placeholder="you@example.com"
-          error={!!errors.email}
-        >
-          {#snippet startIcon()}
-            <Mail class="size-4" />
-          {/snippet}
-        </Input>
-      </Field.Field>
-
-      <Field.Field
-        label="Password"
-        description="Must be at least 8 characters"
-        required
-        error={errors.password}
-      >
-        <Input 
-          type="password"
-          bind:value={formData.password}
-          placeholder="••••••••"
-          error={!!errors.password}
-        >
-          {#snippet startIcon()}
-            <Lock class="size-4" />
-          {/snippet}
-        </Input>
-      </Field.Field>
-
-      <Field.Field
-        label="Phone Number"
-        description="Enter your phone number"
-        required
-        error={errors.phone}
-      >
-        <Input 
-          bind:value={formData.phone}
-          mask="phone"
-          placeholder="(555) 555-5555"
-          error={!!errors.phone}
-        >
-          {#snippet startIcon()}
-            <Phone class="size-4" />
-          {/snippet}
-        </Input>
-      </Field.Field>
-    </Field.Group>
-  </Field.Set>
+  <FieldPrimitives.Field
+    label="Phone Number"
+    required
+    error={errors.phone}
+  >
+    <Input
+      bind:value={formData.phone}
+      mask="phone"
+      placeholder="(555) 555-5555"
+      error={!!errors.phone}
+    >
+      {#snippet startIcon()}
+        <PhoneIcon class="size-4" />
+      {/snippet}
+    </Input>
+  </FieldPrimitives.Field>
 
   <Button type="submit">Create Account</Button>
 </form>
 ```
 
-## Related Components
+## Accessibility
 
-- **Input**: Base input component
-- **InputGroup**: Manual input group composition
-- **Field**: Form field wrapper with label and error messages (recommended for forms)
+The Input component follows accessibility best practices:
+
+### ARIA Attributes
+
+- `aria-invalid` set when error state is true
+- `aria-disabled` set when disabled
+- Proper label association through Field component
+
+### Best Practices
+
+1. **Use Field component**: Always wrap inputs with Field for labels and descriptions
+2. **Consistent icon sizing**: Use `class="size-4"` for icons
+3. **Button accessibility**: Include `aria-label` on icon buttons
+4. **Error handling**: Use `error` prop combined with Field error messages
+5. **Placeholder text**: Provide descriptive placeholder text

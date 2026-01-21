@@ -14,8 +14,10 @@ A toggle switch component for binary on/off states. Built with accessibility in 
 
 ## Installation
 
+The Switch component is included in the `@kareyes/aether` package.
+
 ```bash
-npm install bits-ui tailwind-variants
+pnpm add @kareyes/aether
 ```
 
 ## Basic Usage
@@ -24,7 +26,7 @@ npm install bits-ui tailwind-variants
 
 ```svelte
 <script>
-  import { Switch } from "$lib/components/ui/switch";
+  import { Switch } from "@kareyes/aether";
   
   let enabled = $state(false);
 </script>
@@ -36,20 +38,20 @@ npm install bits-ui tailwind-variants
 
 ```svelte
 <script>
-  import { Switch } from "$lib/components/ui/switch";
-  import * as Field from "$lib/components/ui/field";
+  import { Switch } from "@kareyes/aether";
+  import { FieldPrimitives } from "@kareyes/aether";
   
   let notifications = $state(true);
 </script>
 
-<Field.Field
+<FieldPrimitives.Field
   label="Enable notifications"
   description="Receive email notifications for updates"
   orientation="horizontal"
   labelPosition="before"
 >
   <Switch bind:checked={notifications} />
-</Field.Field>
+</FieldPrimitives.Field>
 ```
 
 ## Sizes
@@ -157,13 +159,13 @@ The Field component provides a consistent way to add labels, descriptions, and e
 
 ```svelte
 <script>
-  import { Switch } from "$lib/components/ui/switch";
-  import * as Field from "$lib/components/ui/field";
+  import { Switch } from "@kareyes/aether";
+  import { FieldPrimitives } from "@kareyes/aether";
   
   let autoSave = $state(true);
 </script>
 
-<Field.Field
+<FieldPrimitives.Field
   label="Auto-save"
   description="Automatically save your work"
   orientation="horizontal"
@@ -173,21 +175,21 @@ The Field component provides a consistent way to add labels, descriptions, and e
     bind:checked={autoSave}
     variant="success"
   />
-</Field.Field>
+</FieldPrimitives.Field>
 ```
 
 ### With Validation
 
 ```svelte
 <script>
-  import { Switch } from "$lib/components/ui/switch";
-  import * as Field from "$lib/components/ui/field";
+  import { Switch } from "@kareyes/aether";
+  import { FieldPrimitives } from "@kareyes/aether";
   
   let termsAccepted = $state(false);
   let error = $derived(!termsAccepted);
 </script>
 
-<Field.Field
+<FieldPrimitives.Field
   label="Accept terms and conditions"
   description="You must accept to continue"
   required
@@ -199,15 +201,15 @@ The Field component provides a consistent way to add labels, descriptions, and e
     bind:checked={termsAccepted}
     error={error}
   />
-</Field.Field>
+</FieldPrimitives.Field>
 ```
 
 ### Multiple Switches in Form
 
 ```svelte
 <script>
-  import { Switch } from "$lib/components/ui/switch";
-  import * as Field from "$lib/components/ui/field";
+  import { Switch } from "@kareyes/aether";
+  import { FieldPrimitives } from "@kareyes/aether";
   
   let settings = $state({
     email: true,
@@ -216,53 +218,53 @@ The Field component provides a consistent way to add labels, descriptions, and e
   });
 </script>
 
-<Field.Set>
-  <Field.Legend>Notification Settings</Field.Legend>
-  <Field.Description>Configure how you receive notifications</Field.Description>
+<FieldPrimitives.Set>
+  <FieldPrimitives.Legend>Notification Settings</FieldPrimitives.Legend>
+  <FieldPrimitives.Description>Configure how you receive notifications</FieldPrimitives.Description>
   
-  <Field.Separator />
+  <FieldPrimitives.Separator />
   
-  <Field.Group class="gap-4">
-    <Field.Field
+  <FieldPrimitives.Group class="gap-4">
+    <FieldPrimitives.Field
       label="Email Notifications"
       description="Get notified via email"
       orientation="horizontal"
       labelPosition="before"
     >
       <Switch variant="success" bind:checked={settings.email} />
-    </Field.Field>
+    </FieldPrimitives.Field>
     
-    <Field.Field
+    <FieldPrimitives.Field
       label="Push Notifications"
       description="Get browser push notifications"
       orientation="horizontal"
       labelPosition="before"
     >
       <Switch bind:checked={settings.push} />
-    </Field.Field>
+    </FieldPrimitives.Field>
     
-    <Field.Field
+    <FieldPrimitives.Field
       label="SMS Notifications"
       description="Get text message alerts"
       orientation="horizontal"
       labelPosition="before"
     >
       <Switch variant="warning" bind:checked={settings.sms} />
-    </Field.Field>
-  </Field.Group>
-</Field.Set>
+    </FieldPrimitives.Field>
+  </FieldPrimitives.Group>
+</FieldPrimitives.Set>
 ```
 
 ### Horizontal Layout (Label After)
 
 ```svelte
-<Field.Field
+<FieldPrimitives.Field
   label="Enable dark mode"
   orientation="horizontal"
   labelPosition="after"
 >
   <Switch checked={false} />
-</Field.Field>
+</FieldPrimitives.Field>
 ```
 
 ## Props
@@ -332,13 +334,13 @@ Always use the Field component or proper labels to make the purpose of the switc
 
 ```svelte
 <!-- Good -->
-<Field.Field
+<FieldPrimitives.Field
   label="Enable notifications"
   description="Receive updates about your account"
   orientation="horizontal"
 >
   <Switch />
-</Field.Field>
+</FieldPrimitives.Field>
 
 <!-- Avoid: No context for what the switch controls -->
 <Switch />
@@ -349,14 +351,14 @@ Always use the Field component or proper labels to make the purpose of the switc
 For required switches, provide clear error messages:
 
 ```svelte
-<Field.Field
+<FieldPrimitives.Field
   label="Accept privacy policy"
   required
   error={!accepted ? "You must accept the privacy policy" : undefined}
   orientation="horizontal"
 >
   <Switch bind:checked={accepted} error={!accepted} />
-</Field.Field>
+</FieldPrimitives.Field>
 ```
 
 ### Form Structure
@@ -364,16 +366,16 @@ For required switches, provide clear error messages:
 Group related switches using Field.Set:
 
 ```svelte
-<Field.Set>
-  <Field.Legend>Privacy Settings</Field.Legend>
-  <Field.Description>Control your privacy preferences</Field.Description>
+<FieldPrimitives.Set>
+  <FieldPrimitives.Legend>Privacy Settings</FieldPrimitives.Legend>
+  <FieldPrimitives.Description>Control your privacy preferences</FieldPrimitives.Description>
   
-  <Field.Separator />
+  <FieldPrimitives.Separator />
   
-  <Field.Group class="gap-4">
+  <FieldPrimitives.Group class="gap-4">
     <!-- Multiple switches here -->
-  </Field.Group>
-</Field.Set>
+  </FieldPrimitives.Group>
+</FieldPrimitives.Set>
 ```
 
 ## Common Patterns
@@ -382,104 +384,104 @@ Group related switches using Field.Set:
 
 ```svelte
 <div class="space-y-4 max-w-md">
-  <Field.Field
+  <FieldPrimitives.Field
     label="Email Notifications"
     description="Receive notifications via email"
     orientation="horizontal"
     labelPosition="before"
   >
     <Switch variant="success" checked={true} />
-  </Field.Field>
+  </FieldPrimitives.Field>
   
-  <Field.Field
+  <FieldPrimitives.Field
     label="Marketing Emails"
     description="Receive promotional emails"
     orientation="horizontal"
     labelPosition="before"
   >
     <Switch variant="ghost" checked={false} />
-  </Field.Field>
+  </FieldPrimitives.Field>
   
-  <Field.Field
+  <FieldPrimitives.Field
     label="Data Processing"
     description="Required for app functionality"
     orientation="horizontal"
     labelPosition="before"
   >
     <Switch disabled checked={true} />
-  </Field.Field>
+  </FieldPrimitives.Field>
 </div>
 ```
 
 ### Feature Flags
 
 ```svelte
-<Field.Set>
-  <Field.Legend>Experimental Features</Field.Legend>
-  <Field.Description>Enable beta features at your own risk</Field.Description>
+<FieldPrimitives.Set>
+  <FieldPrimitives.Legend>Experimental Features</FieldPrimitives.Legend>
+  <FieldPrimitives.Description>Enable beta features at your own risk</FieldPrimitives.Description>
   
-  <Field.Separator />
+  <FieldPrimitives.Separator />
   
-  <Field.Group class="gap-4">
-    <Field.Field
+  <FieldPrimitives.Group class="gap-4">
+    <FieldPrimitives.Field
       label="New Dashboard"
       description="Try our redesigned dashboard"
       orientation="horizontal"
       labelPosition="before"
     >
       <Switch variant="warning" />
-    </Field.Field>
+    </FieldPrimitives.Field>
     
-    <Field.Field
+    <FieldPrimitives.Field
       label="AI Assistant"
       description="Get help from our AI"
       orientation="horizontal"
       labelPosition="before"
     >
       <Switch variant="success" />
-    </Field.Field>
-  </Field.Group>
-</Field.Set>
+    </FieldPrimitives.Field>
+  </FieldPrimitives.Group>
+</FieldPrimitives.Set>
 ```
 
 ### Consent Management
 
 ```svelte
-<Field.Set>
-  <Field.Legend>Cookie Preferences</Field.Legend>
-  <Field.Description>Manage your cookie settings</Field.Description>
+<FieldPrimitives.Set>
+  <FieldPrimitives.Legend>Cookie Preferences</FieldPrimitives.Legend>
+  <FieldPrimitives.Description>Manage your cookie settings</FieldPrimitives.Description>
   
-  <Field.Separator />
+  <FieldPrimitives.Separator />
   
-  <Field.Group class="gap-4">
-    <Field.Field
+  <FieldPrimitives.Group class="gap-4">
+    <FieldPrimitives.Field
       label="Essential Cookies"
       description="Required for site functionality"
       orientation="horizontal"
       labelPosition="before"
     >
       <Switch disabled checked={true} />
-    </Field.Field>
+    </FieldPrimitives.Field>
     
-    <Field.Field
+    <FieldPrimitives.Field
       label="Analytics Cookies"
       description="Help us improve our service"
       orientation="horizontal"
       labelPosition="before"
     >
       <Switch variant="ghost" />
-    </Field.Field>
+    </FieldPrimitives.Field>
     
-    <Field.Field
+    <FieldPrimitives.Field
       label="Marketing Cookies"
       description="Personalized advertising"
       orientation="horizontal"
       labelPosition="before"
     >
       <Switch variant="ghost" />
-    </Field.Field>
-  </Field.Group>
-</Field.Set>
+    </FieldPrimitives.Field>
+  </FieldPrimitives.Group>
+</FieldPrimitives.Set>
 ```
 
 ## Related Components

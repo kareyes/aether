@@ -1,127 +1,203 @@
-# Dialog Component
+# Dialog
 
-A modal dialog component for displaying content that requires user interaction or attention, built with Svelte 5 and bits-ui.
+A modal dialog component for displaying content that requires user interaction or attention. Built on top of [bits-ui](https://bits-ui.com) Dialog primitives.
 
-## Features
+## Table of Contents
 
-- 🎯 **Multiple Sizes**: sm, default, lg, xl, full - flexible sizing options
-- 🎨 **Variants**: Default and centered layout variants
-- ✨ **Smooth Animations**: Fade and zoom transitions
-- ♿ **Fully Accessible**: Keyboard navigation, focus management, ARIA attributes
-- 🔒 **Focus Trapping**: Keeps focus within the dialog when open
-- 🎭 **Overlay Backdrop**: Semi-transparent overlay with click-to-close
-- 🎯 **Type-Safe**: Full TypeScript support with Svelte 5 runes
-- 🔄 **Reactive**: Built with Svelte 5's modern reactivity system
-- 🎛️ **Customizable**: Optional close button and flexible content
+- [Installation](#installation)
+- [Usage](#usage)
+- [Components](#components)
+- [Props Reference](#props-reference)
+- [Sizes](#sizes)
+- [Variants](#variants)
+- [Examples](#examples)
+- [Accessibility](#accessibility)
 
 ## Installation
 
+The Dialog component is included in the `@kareyes/aether` package.
+
 ```bash
-pnpm dlx shadcn-svelte@latest add dialog
+pnpm add @kareyes/aether
 ```
-
-## Implementation Details
-
-The Dialog component is built on top of bits-ui's Dialog primitive, providing a flexible modal system with variants for different use cases.
-
-### Component Architecture
-
-#### Dialog (Root)
-- Root component that manages open/close state
-- Controls the overall dialog behavior
-- Uses bits-ui Dialog primitive
-
-#### DialogTrigger
-- Button or element that opens the dialog
-- Automatically manages ARIA attributes
-
-#### DialogContent
-- Main content container with size and variant options
-- Includes close button by default (can be hidden)
-- Smooth fade and zoom animations
-- 5 size variants: `sm`, `default`, `lg`, `xl`, `full`
-- 2 layout variants: `default`, `centered`
-
-#### DialogOverlay
-- Semi-transparent backdrop
-- Click to close functionality
-- Fade in/out animations
-
-#### DialogHeader
-- Optional header section for title and description
-- Responsive text alignment (centered on mobile, left on desktop)
-- Can be centered with `variant="centered"`
-
-#### DialogFooter
-- Optional footer section for actions
-- Flexbox layout for button groups
-- Responsive layout (stacked on mobile, row on desktop)
-
-#### DialogTitle
-- Accessible title for the dialog
-- Connected to ARIA label
-
-#### DialogDescription
-- Optional description text
-- Connected to ARIA description
-
-#### DialogClose
-- Close button component
-- Can be placed anywhere within the dialog
-
-#### DialogPortal
-- Portal component for rendering dialog in a different DOM location
-- Used internally by DialogContent
 
 ## Usage
 
-### Basic Example
+### Basic Usage
 
 ```svelte
 <script lang="ts">
-  import {
-    Dialog,
-    DialogTrigger,
-    DialogContent,
-    DialogHeader,
-    DialogFooter,
-    DialogTitle,
-    DialogDescription,
-    DialogClose
-  } from "$lib/components/ui/dialog";
-  import { Button } from "$lib/components/ui/button";
+  import { DialogPrimitives, Button } from "@kareyes/aether";
 </script>
 
-<Dialog>
-  <DialogTrigger>
+<DialogPrimitives.Root>
+  <DialogPrimitives.Trigger>
     <Button variant="outline">Open Dialog</Button>
-  </DialogTrigger>
-  <DialogContent>
-    <DialogHeader>
-      <DialogTitle>Edit Profile</DialogTitle>
-      <DialogDescription>
+  </DialogPrimitives.Trigger>
+  <DialogPrimitives.Content>
+    <DialogPrimitives.Header>
+      <DialogPrimitives.Title>Edit Profile</DialogPrimitives.Title>
+      <DialogPrimitives.Description>
         Make changes to your profile here. Click save when you're done.
-      </DialogDescription>
-    </DialogHeader>
+      </DialogPrimitives.Description>
+    </DialogPrimitives.Header>
     <div class="py-4">
       <!-- Your content here -->
     </div>
-    <DialogFooter>
-      <DialogClose>
+    <DialogPrimitives.Footer>
+      <DialogPrimitives.Close>
         <Button variant="outline">Cancel</Button>
-      </DialogClose>
+      </DialogPrimitives.Close>
       <Button>Save changes</Button>
-    </DialogFooter>
-  </DialogContent>
-</Dialog>
+    </DialogPrimitives.Footer>
+  </DialogPrimitives.Content>
+</DialogPrimitives.Root>
 ```
+
+### With Namespace Import
+
+```svelte
+<script lang="ts">
+  import * as Dialog from "@kareyes/aether";
+</script>
+
+<Dialog.Root>
+  <Dialog.Trigger>
+    <Button>Open</Button>
+  </Dialog.Trigger>
+  <Dialog.Content>
+    <!-- ... -->
+  </Dialog.Content>
+</Dialog.Root>
+```
+
+## Components
+
+| Component | Description |
+|-----------|-------------|
+| `Root` | Root component that manages dialog state |
+| `Trigger` | Button or element that opens the dialog |
+| `Content` | Main content container with size and variant options |
+| `Overlay` | Semi-transparent backdrop |
+| `Header` | Container for title and description |
+| `Footer` | Container for action buttons |
+| `Title` | Accessible title for the dialog |
+| `Description` | Description text for the dialog |
+| `Close` | Button to close the dialog |
+| `Portal` | Portal component for DOM positioning |
+
+## Props Reference
+
+### Root
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `open` | `boolean` | `false` | Controls the open state (bindable) |
+| `onOpenChange` | `(open: boolean) => void` | - | Callback when open state changes |
+| `openFocus` | `FocusProp` | - | Element to focus when opening |
+| `closeFocus` | `FocusProp` | - | Element to focus when closing |
+| `portal` | `HTMLElement \| string` | `body` | Portal target |
+
+### Content
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `size` | `"sm" \| "default" \| "lg" \| "xl" \| "full"` | `"default"` | Size of the dialog |
+| `variant` | `"default" \| "centered"` | `"default"` | Layout variant |
+| `showCloseButton` | `boolean` | `true` | Show/hide the close button |
+| `class` | `string` | - | Additional CSS classes |
+
+### Trigger
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `class` | `string` | - | Additional CSS classes |
+
+### Title
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `class` | `string` | - | Additional CSS classes |
+
+### Description
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `class` | `string` | - | Additional CSS classes |
+
+## Sizes
+
+### Small Dialog
+
+```svelte
+<DialogPrimitives.Content size="sm">
+  <DialogPrimitives.Header>
+    <DialogPrimitives.Title>Small Dialog</DialogPrimitives.Title>
+  </DialogPrimitives.Header>
+</DialogPrimitives.Content>
+```
+
+### Default Size
+
+```svelte
+<DialogPrimitives.Content size="default">
+  <!-- Default size -->
+</DialogPrimitives.Content>
+```
+
+### Large Dialog
+
+```svelte
+<DialogPrimitives.Content size="lg">
+  <!-- More space for detailed content -->
+</DialogPrimitives.Content>
+```
+
+### Extra Large Dialog
+
+```svelte
+<DialogPrimitives.Content size="xl">
+  <!-- Maximum space for complex content -->
+</DialogPrimitives.Content>
+```
+
+### Full Width Dialog
+
+```svelte
+<DialogPrimitives.Content size="full">
+  <!-- 90vw width on desktop -->
+</DialogPrimitives.Content>
+```
+
+## Variants
+
+### Default Variant
+
+Left-aligned on desktop, centered on mobile:
+
+```svelte
+<DialogPrimitives.Content variant="default">
+  <!-- ... -->
+</DialogPrimitives.Content>
+```
+
+### Centered Variant
+
+Centered layout for all screen sizes:
+
+```svelte
+<DialogPrimitives.Content variant="centered">
+  <!-- ... -->
+</DialogPrimitives.Content>
+```
+
+## Examples
 
 ### Controlled State
 
 ```svelte
 <script lang="ts">
-  import { Dialog, DialogContent, DialogTrigger } from "$lib/components/ui/dialog";
-  import { Button } from "$lib/components/ui/button";
+  import { DialogPrimitives, Button } from "@kareyes/aether";
 
   let open = $state(false);
 
@@ -131,138 +207,27 @@ The Dialog component is built on top of bits-ui's Dialog primitive, providing a 
   }
 </script>
 
-<Dialog bind:open>
-  <DialogTrigger>
+<DialogPrimitives.Root bind:open>
+  <DialogPrimitives.Trigger>
     <Button>Open</Button>
-  </DialogTrigger>
-  <DialogContent>
+  </DialogPrimitives.Trigger>
+  <DialogPrimitives.Content>
     <form onsubmit={handleSubmit}>
       <!-- Form content -->
     </form>
-  </DialogContent>
-</Dialog>
+  </DialogPrimitives.Content>
+</DialogPrimitives.Root>
 
 <Button onclick={() => open = true}>
   Open from anywhere
 </Button>
 ```
 
-## Sizes
-
-### Small Dialog
-
-```svelte
-<DialogContent size="sm">
-  <DialogHeader>
-    <DialogTitle>Small Dialog</DialogTitle>
-    <DialogDescription>This is a small dialog, perfect for simple confirmations.</DialogDescription>
-  </DialogHeader>
-</DialogContent>
-```
-
-### Default Size (Default)
-
-```svelte
-<DialogContent size="default">
-  <DialogHeader>
-    <DialogTitle>Default Dialog</DialogTitle>
-    <DialogDescription>This is the default size dialog.</DialogDescription>
-  </DialogHeader>
-</DialogContent>
-```
-
-### Large Dialog
-
-```svelte
-<DialogContent size="lg">
-  <DialogHeader>
-    <DialogTitle>Large Dialog</DialogTitle>
-    <DialogDescription>
-      This is a large dialog with more space for detailed content.
-    </DialogDescription>
-  </DialogHeader>
-</DialogContent>
-```
-
-### Extra Large Dialog
-
-```svelte
-<DialogContent size="xl">
-  <DialogHeader>
-    <DialogTitle>Extra Large Dialog</DialogTitle>
-    <DialogDescription>
-      This is an extra large dialog for content that needs maximum space.
-    </DialogDescription>
-  </DialogHeader>
-</DialogContent>
-```
-
-### Full Width Dialog
-
-```svelte
-<DialogContent size="full">
-  <DialogHeader>
-    <DialogTitle>Full Width Dialog</DialogTitle>
-    <DialogDescription>
-      This dialog takes up almost the full viewport width (90vw on desktop).
-    </DialogDescription>
-  </DialogHeader>
-</DialogContent>
-```
-
-## Variants
-
-### Default Variant
-
-Standard left-aligned layout on desktop, centered on mobile.
-
-```svelte
-<DialogContent variant="default">
-  <DialogHeader>
-    <DialogTitle>Default Layout</DialogTitle>
-    <DialogDescription>Left-aligned on desktop, centered on mobile.</DialogDescription>
-  </DialogHeader>
-  <DialogFooter>
-    <Button>Action</Button>
-  </DialogFooter>
-</DialogContent>
-```
-
-### Centered Variant
-
-Centered layout for both mobile and desktop.
-
-```svelte
-<DialogContent variant="centered">
-  <DialogHeader>
-    <DialogTitle>Centered Layout</DialogTitle>
-    <DialogDescription>Content is centered on all screen sizes.</DialogDescription>
-  </DialogHeader>
-  <DialogFooter>
-    <Button>Action</Button>
-  </DialogFooter>
-</DialogContent>
-```
-
-## Advanced Examples
-
 ### Form in Dialog
 
 ```svelte
 <script lang="ts">
-  import {
-    Dialog,
-    DialogTrigger,
-    DialogContent,
-    DialogHeader,
-    DialogTitle,
-    DialogDescription,
-    DialogFooter,
-    DialogClose
-  } from "$lib/components/ui/dialog";
-  import { Button } from "$lib/components/ui/button";
-  import { Input } from "$lib/components/ui/input";
-  import { Label } from "$lib/components/ui/label";
+  import { DialogPrimitives, Button, Input, Label } from "@kareyes/aether";
 
   let name = $state("");
   let email = $state("");
@@ -272,17 +237,17 @@ Centered layout for both mobile and desktop.
   }
 </script>
 
-<Dialog>
-  <DialogTrigger>
+<DialogPrimitives.Root>
+  <DialogPrimitives.Trigger>
     <Button>Edit Profile</Button>
-  </DialogTrigger>
-  <DialogContent>
-    <DialogHeader>
-      <DialogTitle>Edit Profile</DialogTitle>
-      <DialogDescription>
+  </DialogPrimitives.Trigger>
+  <DialogPrimitives.Content>
+    <DialogPrimitives.Header>
+      <DialogPrimitives.Title>Edit Profile</DialogPrimitives.Title>
+      <DialogPrimitives.Description>
         Make changes to your profile here. Click save when you're done.
-      </DialogDescription>
-    </DialogHeader>
+      </DialogPrimitives.Description>
+    </DialogPrimitives.Header>
     <div class="grid gap-4 py-4">
       <div class="grid grid-cols-4 items-center gap-4">
         <Label for="name" class="text-end">Name</Label>
@@ -293,375 +258,120 @@ Centered layout for both mobile and desktop.
         <Input id="email" type="email" bind:value={email} class="col-span-3" />
       </div>
     </div>
-    <DialogFooter>
-      <DialogClose>
+    <DialogPrimitives.Footer>
+      <DialogPrimitives.Close>
         <Button variant="outline">Cancel</Button>
-      </DialogClose>
+      </DialogPrimitives.Close>
       <Button onclick={handleSave}>Save changes</Button>
-    </DialogFooter>
-  </DialogContent>
-</Dialog>
+    </DialogPrimitives.Footer>
+  </DialogPrimitives.Content>
+</DialogPrimitives.Root>
 ```
 
 ### Confirmation Dialog
 
 ```svelte
 <script lang="ts">
-  import {
-    Dialog,
-    DialogTrigger,
-    DialogContent,
-    DialogHeader,
-    DialogTitle,
-    DialogDescription,
-    DialogFooter,
-    DialogClose
-  } from "$lib/components/ui/dialog";
-  import { Button } from "$lib/components/ui/button";
-  import { Trash2 } from "@lucide/svelte";
+  import { DialogPrimitives, Button } from "@kareyes/aether";
+  import Trash2Icon from "@lucide/svelte/icons/trash-2";
 
   function handleDelete() {
     console.log("Item deleted");
   }
 </script>
 
-<Dialog>
-  <DialogTrigger>
+<DialogPrimitives.Root>
+  <DialogPrimitives.Trigger>
     <Button variant="destructive">
-      <Trash2 class="size-4 mr-2" />
+      <Trash2Icon class="size-4 mr-2" />
       Delete
     </Button>
-  </DialogTrigger>
-  <DialogContent size="sm" variant="centered">
-    <DialogHeader>
-      <DialogTitle>Are you sure?</DialogTitle>
-      <DialogDescription>
+  </DialogPrimitives.Trigger>
+  <DialogPrimitives.Content size="sm" variant="centered">
+    <DialogPrimitives.Header>
+      <DialogPrimitives.Title>Are you sure?</DialogPrimitives.Title>
+      <DialogPrimitives.Description>
         This action cannot be undone. This will permanently delete the item.
-      </DialogDescription>
-    </DialogHeader>
-    <DialogFooter>
-      <DialogClose>
+      </DialogPrimitives.Description>
+    </DialogPrimitives.Header>
+    <DialogPrimitives.Footer>
+      <DialogPrimitives.Close>
         <Button variant="outline">Cancel</Button>
-      </DialogClose>
+      </DialogPrimitives.Close>
       <Button variant="destructive" onclick={handleDelete}>
         Delete
       </Button>
-    </DialogFooter>
-  </DialogContent>
-</Dialog>
-```
-
-### Content Dialog with Tabs
-
-```svelte
-<script lang="ts">
-  import {
-    Dialog,
-    DialogTrigger,
-    DialogContent,
-    DialogHeader,
-    DialogTitle,
-    DialogDescription
-  } from "$lib/components/ui/dialog";
-  import { Button } from "$lib/components/ui/button";
-  import { Tabs, TabsList, TabsTrigger, TabsContent } from "$lib/components/ui/tabs";
-  import { Settings } from "@lucide/svelte";
-</script>
-
-<Dialog>
-  <DialogTrigger>
-    <Button variant="outline">
-      <Settings class="mr-2 size-4" />
-      Settings
-    </Button>
-  </DialogTrigger>
-  <DialogContent size="lg">
-    <DialogHeader>
-      <DialogTitle>Settings</DialogTitle>
-      <DialogDescription>
-        Manage your account settings and preferences.
-      </DialogDescription>
-    </DialogHeader>
-    <Tabs value="account" class="py-4">
-      <TabsList class="grid w-full grid-cols-2">
-        <TabsTrigger value="account">Account</TabsTrigger>
-        <TabsTrigger value="security">Security</TabsTrigger>
-      </TabsList>
-      <TabsContent value="account">
-        <div class="space-y-4 py-4">
-          <p class="text-sm text-muted-foreground">
-            Account settings content
-          </p>
-        </div>
-      </TabsContent>
-      <TabsContent value="security">
-        <div class="space-y-4 py-4">
-          <p class="text-sm text-muted-foreground">
-            Security settings content
-          </p>
-        </div>
-      </TabsContent>
-    </Tabs>
-  </DialogContent>
-</Dialog>
+    </DialogPrimitives.Footer>
+  </DialogPrimitives.Content>
+</DialogPrimitives.Root>
 ```
 
 ### Without Close Button
 
 ```svelte
-<DialogContent showCloseButton={false}>
-  <DialogHeader>
-    <DialogTitle>Important Action</DialogTitle>
-    <DialogDescription>
+<DialogPrimitives.Content showCloseButton={false}>
+  <DialogPrimitives.Header>
+    <DialogPrimitives.Title>Important Action</DialogPrimitives.Title>
+    <DialogPrimitives.Description>
       This requires your attention. You must choose an action.
-    </DialogDescription>
-  </DialogHeader>
-  <div class="py-4">
-    <!-- Content -->
-  </div>
-  <DialogFooter>
-    <DialogClose>
+    </DialogPrimitives.Description>
+  </DialogPrimitives.Header>
+  <DialogPrimitives.Footer>
+    <DialogPrimitives.Close>
       <Button>Confirm</Button>
-    </DialogClose>
-  </DialogFooter>
-</DialogContent>
-```
-
-### Custom Width
-
-```svelte
-<DialogContent class="sm:max-w-[425px]">
-  <DialogHeader>
-    <DialogTitle>Custom Width</DialogTitle>
-    <DialogDescription>
-      This dialog has a custom maximum width.
-    </DialogDescription>
-  </DialogHeader>
-  <!-- Content -->
-</DialogContent>
+    </DialogPrimitives.Close>
+  </DialogPrimitives.Footer>
+</DialogPrimitives.Content>
 ```
 
 ### Scrollable Content
 
 ```svelte
-<DialogContent size="lg">
-  <DialogHeader>
-    <DialogTitle>Long Content</DialogTitle>
-    <DialogDescription>
-      This dialog contains scrollable content.
-    </DialogDescription>
-  </DialogHeader>
+<DialogPrimitives.Content size="lg">
+  <DialogPrimitives.Header>
+    <DialogPrimitives.Title>Long Content</DialogPrimitives.Title>
+  </DialogPrimitives.Header>
   <div class="max-h-[400px] overflow-y-auto py-4">
-    <!-- Long content that scrolls -->
     {#each Array(20) as _, i}
       <p class="mb-4">Content item {i + 1}</p>
     {/each}
   </div>
-  <DialogFooter>
+  <DialogPrimitives.Footer>
     <Button>Close</Button>
-  </DialogFooter>
-</DialogContent>
+  </DialogPrimitives.Footer>
+</DialogPrimitives.Content>
 ```
-
-## API Reference
-
-### Dialog (Root)
-
-Root component that manages the dialog state.
-
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `open` | `boolean` | `false` | Controls the open state (bindable) |
-| `onOpenChange` | `(open: boolean) => void` | - | Callback when open state changes |
-| `openFocus` | `FocusProp` | - | Element to focus when opening |
-| `closeFocus` | `FocusProp` | - | Element to focus when closing |
-| `portal` | `HTMLElement \| string` | `body` | Portal target for the dialog |
-
-### DialogTrigger
-
-Button that opens the dialog.
-
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `ref` | `HTMLButtonElement` | - | Button element reference (bindable) |
-| `class` | `string` | - | Additional CSS classes |
-| `children` | `Snippet` | - | Trigger content |
-
-### DialogContent
-
-Main content container for the dialog.
-
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `size` | `"sm" \| "default" \| "lg" \| "xl" \| "full"` | `"default"` | Size of the dialog |
-| `variant` | `"default" \| "centered"` | `"default"` | Layout variant |
-| `ref` | `HTMLDivElement` | - | Content element reference (bindable) |
-| `class` | `string` | - | Additional CSS classes |
-| `showCloseButton` | `boolean` | `true` | Show/hide the close button |
-| `portalProps` | `object` | - | Props for the portal component |
-| `children` | `Snippet` | - | Content to display |
-
-### DialogOverlay
-
-Semi-transparent backdrop behind the dialog.
-
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `ref` | `HTMLDivElement` | - | Overlay element reference (bindable) |
-| `class` | `string` | - | Additional CSS classes |
-
-### DialogHeader
-
-Container for the dialog header (title and description).
-
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `class` | `string` | - | Additional CSS classes |
-| `children` | `Snippet` | - | Header content |
-
-### DialogFooter
-
-Container for the dialog footer (action buttons).
-
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `class` | `string` | - | Additional CSS classes |
-| `children` | `Snippet` | - | Footer content |
-
-### DialogTitle
-
-Accessible title for the dialog.
-
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `ref` | `HTMLHeadingElement` | - | Title element reference (bindable) |
-| `class` | `string` | - | Additional CSS classes |
-| `children` | `Snippet` | - | Title text |
-
-### DialogDescription
-
-Description text for the dialog.
-
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `ref` | `HTMLParagraphElement` | - | Description element reference (bindable) |
-| `class` | `string` | - | Additional CSS classes |
-| `children` | `Snippet` | - | Description text |
-
-### DialogClose
-
-Button to close the dialog.
-
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `ref` | `HTMLButtonElement` | - | Button element reference (bindable) |
-| `class` | `string` | - | Additional CSS classes |
-| `children` | `Snippet` | - | Button content |
 
 ## Accessibility
 
-The Dialog component follows WAI-ARIA dialog pattern:
+The Dialog component follows the WAI-ARIA dialog pattern:
 
-- **Keyboard Navigation**:
-  - `Escape` - Close the dialog
-  - `Tab` - Move focus forward within dialog
-  - `Shift + Tab` - Move focus backward within dialog
+### Keyboard Navigation
 
-- **Focus Management**:
-  - Focus is trapped within the dialog when open
-  - First focusable element receives focus when opened
-  - Focus returns to trigger element when closed
+| Key | Action |
+|-----|--------|
+| `Escape` | Close the dialog |
+| `Tab` | Move focus forward within dialog |
+| `Shift + Tab` | Move focus backward within dialog |
 
-- **ARIA Attributes**:
-  - `role="dialog"` on dialog content
-  - `aria-labelledby` connects to DialogTitle
-  - `aria-describedby` connects to DialogDescription
-  - `aria-modal="true"` indicates modal behavior
+### Focus Management
 
-- **Screen Readers**:
-  - Dialog opening/closing is announced
-  - All interactive elements are accessible
-  - Proper semantic HTML structure
+- Focus is trapped within the dialog when open
+- First focusable element receives focus when opened
+- Focus returns to trigger element when closed
 
-## Best Practices
+### ARIA Attributes
 
-1. **Always include a title** - Use DialogTitle for accessibility
-2. **Provide descriptions** - Use DialogDescription to explain the dialog's purpose
-3. **Keep content focused** - Dialogs should have a single, clear purpose
-4. **Choose appropriate size** - Use smaller sizes for confirmations, larger for forms
-5. **Manage state carefully** - Use controlled state for complex interactions
-6. **Avoid nesting** - Don't open dialogs within dialogs
-7. **Mobile considerations** - Test on mobile devices, ensure content is scrollable
-8. **Close actions** - Provide clear ways to close (DialogClose, footer buttons)
+- `role="dialog"` on dialog content
+- `aria-labelledby` connects to Title
+- `aria-describedby` connects to Description
+- `aria-modal="true"` indicates modal behavior
 
-## Common Use Cases
+### Best Practices
 
-- **Confirmation dialogs** - Get user confirmation for actions (sm/default size)
-- **Forms** - Edit/create forms with multiple inputs (lg/xl size)
-- **Content display** - Show detailed information (lg/xl size)
-- **Settings** - Application configuration (lg size)
-- **Alerts** - Important messages requiring acknowledgment (sm/default size, centered)
-- **Multi-step flows** - Wizards or step-by-step processes (lg/xl size)
-
-## Demo & Storybook
-
-- **Demo Page**: `/dialog-demo` - Comprehensive examples and use cases
-- **Storybook**: `Components/Dialog` - Interactive component playground
-
-## Technical Implementation
-
-### Variant System
-
-The Dialog component uses tailwind-variants for the size and variant system:
-
-```typescript
-export const dialogVariants = tv({
-  slots: {
-    overlay: ["..."],
-    content: ["..."],
-    header: ["..."],
-    footer: ["..."],
-    title: ["..."],
-    description: ["..."],
-    closeButton: ["..."],
-  },
-  variants: {
-    size: {
-      sm: { content: "max-w-[calc(100%-2rem)] sm:max-w-sm" },
-      default: { content: "max-w-[calc(100%-2rem)] sm:max-w-lg" },
-      lg: { content: "max-w-[calc(100%-2rem)] sm:max-w-2xl" },
-      xl: { content: "max-w-[calc(100%-2rem)] sm:max-w-4xl" },
-      full: { content: "max-w-[calc(100%-2rem)] sm:max-w-[90vw]" },
-    },
-    variant: {
-      default: {},
-      centered: {
-        header: "text-center",
-        footer: "justify-center sm:justify-center",
-      },
-    },
-  },
-  defaultVariants: {
-    size: "default",
-    variant: "default",
-  }
-});
-```
-
-### Animation System
-
-Animations are handled through Tailwind's data-attribute animation utilities:
-- Fade in/out animations for overlay and content
-- Zoom in/out for content appearance
-- Slide animations for smooth positioning
-- Configurable duration (200ms)
-
-## Changelog
-
-### v1.0.0
-- Initial implementation with bits-ui Dialog primitive
-- 5 size options (sm, default, lg, xl, full)
-- 2 layout variants (default, centered)
-- Smooth fade and zoom animations
-- Full accessibility support
-- Comprehensive documentation and examples
+1. **Always include a title**: Use Title for accessibility
+2. **Provide descriptions**: Use Description to explain the dialog's purpose
+3. **Keep content focused**: Dialogs should have a single, clear purpose
+4. **Choose appropriate size**: Use smaller sizes for confirmations, larger for forms
+5. **Avoid nesting**: Don't open dialogs within dialogs
+6. **Close actions**: Provide clear ways to close the dialog

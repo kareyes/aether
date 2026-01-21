@@ -14,14 +14,22 @@ A versatile textarea component with multiple variants, sizes, and advanced featu
 - **Accessibility**: ARIA attributes and keyboard navigation
 - **Dark Mode**: Built-in dark mode support
 
+## Installation
+
+The Textarea component is included in the `@kareyes/aether` package.
+
+```bash
+pnpm add @kareyes/aether
+```
+
 ## Usage
 
 ### Basic Usage
 
 ```svelte
-<script>
-  import { Textarea } from "$lib/components/ui/textarea";
-  
+<script lang="ts">
+  import { Textarea } from "@kareyes/aether";
+
   let value = $state("");
 </script>
 
@@ -101,7 +109,7 @@ A versatile textarea component with multiple variants, sizes, and advanced featu
 
 ```svelte
 <script>
-  import { Textarea } from "$lib/components/ui/textarea";
+  import { Textarea } from "@kareyes/aether";
   
   let message = $state("");
 </script>
@@ -170,7 +178,7 @@ import type {
   TextareaVariant, 
   TextareaSize, 
   TextareaResize 
-} from "$lib/components/ui/textarea";
+} from "@kareyes/aether";
 ```
 
 ## Styling
@@ -205,31 +213,31 @@ The Field component provides labels, descriptions, and error handling. This is t
 
 ```svelte
 <script lang="ts">
-  import * as Field from '$lib/components/ui/field';
-  import { Textarea } from '$lib/components/ui/textarea';
+  import { FieldPrimitives } from "@kareyes/aether";
+  import { Textarea } from "@kareyes/aether";
 
   let bio = $state('');
 </script>
 
-<Field.Field
+<FieldPrimitives.Field
   label="Biography"
   description="Tell us about yourself"
 >
   <Textarea bind:value={bio} placeholder="Write your bio here..." rows={4} />
-</Field.Field>
+</FieldPrimitives.Field>
 ```
 
 ### Field with Character Counter
 
 ```svelte
 <script lang="ts">
-  import * as Field from '$lib/components/ui/field';
-  import { Textarea } from '$lib/components/ui/textarea';
+  import { FieldPrimitives } from "@kareyes/aether";
+  import { Textarea } from "@kareyes/aether";
 
   let description = $state('');
 </script>
 
-<Field.Field
+<FieldPrimitives.Field
   label="Description"
   description="Maximum 200 characters"
 >
@@ -239,20 +247,20 @@ The Field component provides labels, descriptions, and error handling. This is t
     showCount
     placeholder="Enter description..."
   />
-</Field.Field>
+</FieldPrimitives.Field>
 ```
 
 ### Field with Auto-Resize
 
 ```svelte
 <script lang="ts">
-  import * as Field from '$lib/components/ui/field';
-  import { Textarea } from '$lib/components/ui/textarea';
+  import { FieldPrimitives } from "@kareyes/aether";
+  import { Textarea } from "@kareyes/aether";
 
   let notes = $state('');
 </script>
 
-<Field.Field
+<FieldPrimitives.Field
   label="Notes"
   description="Automatically grows with content"
 >
@@ -263,15 +271,15 @@ The Field component provides labels, descriptions, and error handling. This is t
     maxRows={8}
     placeholder="Start typing..."
   />
-</Field.Field>
+</FieldPrimitives.Field>
 ```
 
 ### Field with Validation
 
 ```svelte
 <script lang="ts">
-  import * as Field from '$lib/components/ui/field';
-  import { Textarea } from '$lib/components/ui/textarea';
+  import { FieldPrimitives } from "@kareyes/aether";
+  import { Textarea } from "@kareyes/aether";
 
   let message = $state('');
   let errors = $state<Record<string, string>>({});
@@ -287,7 +295,7 @@ The Field component provides labels, descriptions, and error handling. This is t
   }
 </script>
 
-<Field.Field
+<FieldPrimitives.Field
   label="Message"
   description="Minimum 50 characters"
   required
@@ -300,15 +308,15 @@ The Field component provides labels, descriptions, and error handling. This is t
     onblur={validateMessage}
     rows={4}
   />
-</Field.Field>
+</FieldPrimitives.Field>
 ```
 
 ### Field with Different Variants
 
 ```svelte
 <script lang="ts">
-  import * as Field from '$lib/components/ui/field';
-  import { Textarea } from '$lib/components/ui/textarea';
+  import { FieldPrimitives } from "@kareyes/aether";
+  import { Textarea } from "@kareyes/aether";
 
   let formData = $state({
     bio: '',
@@ -319,7 +327,7 @@ The Field component provides labels, descriptions, and error handling. This is t
 
 <div class="space-y-6">
   <!-- Outline Variant -->
-  <Field.Field
+  <FieldPrimitives.Field
     label="Bio"
     description="Tell us about yourself"
   >
@@ -329,10 +337,10 @@ The Field component provides labels, descriptions, and error handling. This is t
       placeholder="Write your bio..."
       rows={4}
     />
-  </Field.Field>
+  </FieldPrimitives.Field>
 
   <!-- Filled Variant with Counter -->
-  <Field.Field
+  <FieldPrimitives.Field
     label="Comments"
     description="Share your thoughts (max 500 characters)"
   >
@@ -343,10 +351,10 @@ The Field component provides labels, descriptions, and error handling. This is t
       showCount
       rows={3}
     />
-  </Field.Field>
+  </FieldPrimitives.Field>
 
   <!-- Auto-resize with Underline -->
-  <Field.Field
+  <FieldPrimitives.Field
     label="Feedback"
     description="Your feedback helps us improve"
   >
@@ -358,7 +366,7 @@ The Field component provides labels, descriptions, and error handling. This is t
       maxRows={6}
       placeholder="Start typing..."
     />
-  </Field.Field>
+  </FieldPrimitives.Field>
 </div>
 ```
 
@@ -366,9 +374,9 @@ The Field component provides labels, descriptions, and error handling. This is t
 
 ```svelte
 <script lang="ts">
-  import * as Field from '$lib/components/ui/field';
-  import { Textarea } from '$lib/components/ui/textarea';
-  import { Button } from '$lib/components/ui/button';
+  import { FieldPrimitives } from "@kareyes/aether";
+  import { Textarea } from "@kareyes/aether";
+  import { Button } from "@kareyes/aether";
 
   let formData = $state({
     title: '',
@@ -395,16 +403,16 @@ The Field component provides labels, descriptions, and error handling. This is t
 </script>
 
 <form onsubmit={handleSubmit} class="space-y-6">
-  <Field.Set>
-    <Field.Legend>Project Details</Field.Legend>
-    <Field.Description>
+  <FieldPrimitives.Set>
+    <FieldPrimitives.Legend>Project Details</FieldPrimitives.Legend>
+    <FieldPrimitives.Description>
       Provide information about your project
-    </Field.Description>
+    </FieldPrimitives.Description>
 
-    <Field.Separator />
+    <FieldPrimitives.Separator />
 
-    <Field.Group class="gap-6">
-      <Field.Field
+    <FieldPrimitives.Group class="gap-6">
+      <FieldPrimitives.Field
         label="Description"
         description="Detailed description of your project (minimum 50 characters)"
         required
@@ -422,9 +430,9 @@ The Field component provides labels, descriptions, and error handling. This is t
           placeholder="Describe your project..."
           aria-invalid={!!errors.description}
         />
-      </Field.Field>
+      </FieldPrimitives.Field>
 
-      <Field.Field
+      <FieldPrimitives.Field
         label="Additional Notes"
         description="Any other information you'd like to share"
       >
@@ -436,13 +444,13 @@ The Field component provides labels, descriptions, and error handling. This is t
           maxRows={6}
           placeholder="Optional notes..."
         />
-      </Field.Field>
-    </Field.Group>
+      </FieldPrimitives.Field>
+    </FieldPrimitives.Group>
 
     <div class="flex gap-4 pt-4">
       <Button type="submit">Submit</Button>
       <Button type="button" variant="outline">Cancel</Button>
     </div>
-  </Field.Set>
+  </FieldPrimitives.Set>
 </form>
 ```

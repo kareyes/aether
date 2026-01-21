@@ -19,7 +19,7 @@ A powerful component for managing multiple related checkboxes with shared state 
 ### Simple Checkbox Group
 ```svelte
 <script>
-  import { CheckboxGroup } from "$lib/components/ui/checkbox";
+  import { CheckboxGroup } from "@kareyes/aether";
   
   let selectedValues = $state([]);
   
@@ -117,9 +117,9 @@ A powerful component for managing multiple related checkboxes with shared state 
 ### With Field Component
 ```svelte
 <script>
-  import { CheckboxGroup } from "$lib/components/ui/checkbox";
-  import type { CheckboxGroupOption } from "$lib/components/ui/checkbox";
-  import * as Field from "$lib/components/ui/field";
+  import { CheckboxGroup } from "@kareyes/aether";
+  import type { CheckboxGroupOption } from "@kareyes/aether";
+  import { FieldPrimitives } from "@kareyes/aether";
   
   let interests = $state([]);
   
@@ -130,7 +130,7 @@ A powerful component for managing multiple related checkboxes with shared state 
   ];
 </script>
 
-<Field.Field
+<FieldPrimitives.Field
   label="Select Your Interests"
   description="Choose at least one interest"
   error={interests.length === 0 ? "Please select at least one interest" : undefined}
@@ -141,27 +141,27 @@ A powerful component for managing multiple related checkboxes with shared state 
     bind:values={interests}
     error={interests.length === 0}
   />
-</Field.Field>
+</FieldPrimitives.Field>
 ```
 
 ### Multiple CheckboxGroups with Field.Set
 ```svelte
 <script>
-  import { CheckboxGroup } from "$lib/components/ui/checkbox";
-  import * as Field from "$lib/components/ui/field";
+  import { CheckboxGroup } from "@kareyes/aether";
+  import { FieldPrimitives } from "@kareyes/aether";
   
   let communication = $state(["email"]);
   let interests = $state([]);
 </script>
 
-<Field.Set>
-  <Field.Legend>Account Preferences</Field.Legend>
-  <Field.Description>Configure your account settings</Field.Description>
+<FieldPrimitives.Set>
+  <FieldPrimitives.Legend>Account Preferences</FieldPrimitives.Legend>
+  <FieldPrimitives.Description>Configure your account settings</FieldPrimitives.Description>
   
-  <Field.Separator />
+  <FieldPrimitives.Separator />
   
-  <Field.Group class="gap-6">
-    <Field.Field
+  <FieldPrimitives.Group class="gap-6">
+    <FieldPrimitives.Field
       label="Communication Preferences"
       description="How should we contact you?"
       required
@@ -174,9 +174,9 @@ A powerful component for managing multiple related checkboxes with shared state 
         ]}
         bind:values={communication}
       />
-    </Field.Field>
+    </FieldPrimitives.Field>
 
-    <Field.Field
+    <FieldPrimitives.Field
       label="Interests"
       description="What topics interest you?"
     >
@@ -189,22 +189,22 @@ A powerful component for managing multiple related checkboxes with shared state 
         bind:values={interests}
         orientation="horizontal"
       />
-    </Field.Field>
-  </Field.Group>
-</Field.Set>
+    </FieldPrimitives.Field>
+  </FieldPrimitives.Group>
+</FieldPrimitives.Set>
 ```
 
 ### With Validation
 ```svelte
 <script>
-  import { CheckboxGroup } from "$lib/components/ui/checkbox";
-  import * as Field from "$lib/components/ui/field";
+  import { CheckboxGroup } from "@kareyes/aether";
+  import { FieldPrimitives } from "@kareyes/aether";
   
   let permissions = $state([]);
   let error = $derived(permissions.length === 0);
 </script>
 
-<Field.Field
+<FieldPrimitives.Field
   label="User Permissions"
   description="Select at least one permission to continue"
   required
@@ -219,7 +219,7 @@ A powerful component for managing multiple related checkboxes with shared state 
     bind:values={permissions}
     error={error}
   />
-</Field.Field>
+</FieldPrimitives.Field>
 ```
 
 ### Error Callback
