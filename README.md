@@ -73,18 +73,15 @@ Add the following to your main CSS file (e.g., `src/app.css`):
   import { Button, Card, Input } from '@kareyes/aether';
 </script>
 
-<Card.Root>
-  <Card.Header>
-    <Card.Title>Welcome to Aether</Card.Title>
-    <Card.Description>A beautiful UI component library</Card.Description>
-  </Card.Header>
-  <Card.Content>
+<Card title="Welcome to Aether" description="A beautiful UI component library">
     <Input placeholder="Enter your name..." />
-  </Card.Content>
-  <Card.Footer>
+
+    {#snippet footer()}
     <Button>Get Started</Button>
-  </Card.Footer>
-</Card.Root>
+    {/snippet}
+</Card>
+
+
 ```
 
 ## Components
@@ -138,6 +135,7 @@ Add the following to your main CSS file (e.g., `src/app.css`):
 ### Navigation
 - **Command** - Command palette / search
 - **DropdownMenu** - Dropdown menus
+- **NavigationMenu** - A collection of links for navigating websites
 
 ## Theming
 
@@ -183,9 +181,7 @@ Merge Tailwind classes with proper precedence:
 - **Svelte** ^5.0.0
 - **Tailwind CSS** ^4.0.0
 
-## Documentation
 
-For detailed documentation on publishing and contributing, see [PUBLISHING.md](./PUBLISHING.md).
 
 ## Development
 
