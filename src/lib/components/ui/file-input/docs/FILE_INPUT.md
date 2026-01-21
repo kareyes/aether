@@ -260,12 +260,12 @@ The Field component provides a consistent way to add labels, descriptions, and e
 
 ```svelte
 <script lang="ts">
-  import { FileInput, FieldPrimitives } from "@kareyes/aether";
+  import { FileInput, Field } from "@kareyes/aether";
 
   let files = $state(null);
 </script>
 
-<FieldPrimitives.Field
+<Field
   label="Upload Documents"
   description="Supported formats: PDF, DOC, DOCX (Max 5MB)"
 >
@@ -274,7 +274,7 @@ The Field component provides a consistent way to add labels, descriptions, and e
     acceptedTypes={[".pdf", ".doc", ".docx"]}
     maxSize={5 * 1024 * 1024}
   />
-</FieldPrimitives.Field>
+</Field>
 ```
 
 ### With Validation
@@ -293,7 +293,7 @@ The Field component provides a consistent way to add labels, descriptions, and e
   }
 </script>
 
-<FieldPrimitives.Field
+<Field
   label="Profile Picture"
   description="Upload your profile photo (JPG, PNG)"
   required
@@ -307,13 +307,13 @@ The Field component provides a consistent way to add labels, descriptions, and e
     onError={handleError}
     error={!!error}
   />
-</FieldPrimitives.Field>
+</Field>
 ```
 
 ### Regular Mode with Field
 
 ```svelte
-<FieldPrimitives.Field
+<Field
   label="Resume"
   description="Upload your resume in PDF format"
   required
@@ -325,13 +325,13 @@ The Field component provides a consistent way to add labels, descriptions, and e
     placeholder="Choose PDF file..."
     variant="filled"
   />
-</FieldPrimitives.Field>
+</Field>
 ```
 
 ### Different Variants with Field
 
 ```svelte
-<FieldPrimitives.Field
+<Field
   label="Project Files"
   description="Upload project documents and assets"
 >
@@ -340,9 +340,9 @@ The Field component provides a consistent way to add labels, descriptions, and e
     maxFiles={5}
     acceptedTypes={[".pdf", ".doc", ".zip"]}
   />
-</FieldPrimitives.Field>
+</Field>
 
-<FieldPrimitives.Field
+<Field
   label="Images"
   description="Upload product images"
 >
@@ -352,7 +352,7 @@ The Field component provides a consistent way to add labels, descriptions, and e
     acceptedTypes={["image/*"]}
     size="lg"
   />
-</FieldPrimitives.Field>
+</Field>
 ```
 
 ### Complete Upload Form
@@ -360,7 +360,7 @@ The Field component provides a consistent way to add labels, descriptions, and e
 ```svelte
 <script>
   import { FileInput } from "@kareyes/aether";
-  import { FieldPrimitives } from "@kareyes/aether";
+  import { FieldPrimitives , Field} from "@kareyes/aether";
   import { Button } from "@kareyes/aether";
   
   let resume = $state(null);
@@ -390,14 +390,14 @@ The Field component provides a consistent way to add labels, descriptions, and e
   }
 </script>
 
-<Field.Set>
-  <Field.Legend>Job Application</Field.Legend>
-  <Field.Description>Upload your application documents</Field.Description>
+<FieldPrimitives.Set>
+  <FieldPrimitives.Legend>Job Application</FieldPrimitives.Legend>
+  <FieldPrimitives.Description>Upload your application documents</FieldPrimitives.Description>
   
-  <Field.Separator />
+  <FieldPrimitives.Separator />
   
-  <Field.Group class="gap-6">
-    <FieldPrimitives.Field
+  <FieldPrimitives.Group class="gap-6">
+    <Field
       label="Resume"
       description="Upload your resume (PDF only, max 5MB)"
       required
@@ -413,9 +413,9 @@ The Field component provides a consistent way to add labels, descriptions, and e
         variant="outline"
         size="lg"
       />
-    </FieldPrimitives.Field>
+    </Field>
     
-    <FieldPrimitives.Field
+    <Field
       label="Cover Letter"
       description="Upload your cover letter (PDF or DOC)"
       required
@@ -430,9 +430,9 @@ The Field component provides a consistent way to add labels, descriptions, and e
         error={!!errors.coverLetter}
         variant="filled"
       />
-    </FieldPrimitives.Field>
+    </Field>
     
-    <FieldPrimitives.Field
+    <Field
       label="Portfolio (Optional)"
       description="Upload portfolio samples (Images or PDFs, max 10MB total)"
       error={errors.portfolio || undefined}
@@ -445,8 +445,8 @@ The Field component provides a consistent way to add labels, descriptions, and e
         onError={handlePortfolioError}
         error={!!errors.portfolio}
       />
-    </FieldPrimitives.Field>
-  </Field.Group>
+    </Field>
+  </FieldPrimitives.Group>
   
   <div class="flex gap-4 pt-4">
     <Button onclick={handleSubmit} disabled={!resume || !coverLetter}>
@@ -456,5 +456,5 @@ The Field component provides a consistent way to add labels, descriptions, and e
       Save Draft
     </Button>
   </div>
-</Field.Set>
+</FieldPrimitives.Set>
 ```

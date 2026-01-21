@@ -221,7 +221,7 @@ type SelectSize = "sm" | "default" | "lg";
 
 ```svelte
 <script lang="ts">
-  import { FieldPrimitives, Select } from "@kareyes/aether";
+  import { Field, Select } from "@kareyes/aether";
 
   let country = $state('');
 
@@ -232,7 +232,7 @@ type SelectSize = "sm" | "default" | "lg";
   ];
 </script>
 
-<FieldPrimitives.Field
+<Field
   label="Country"
   description="Select your country of residence"
   required
@@ -242,14 +242,14 @@ type SelectSize = "sm" | "default" | "lg";
     options={countries}
     placeholder="Select a country..."
   />
-</FieldPrimitives.Field>
+</Field>
 ```
 
 ### With Validation
 
 ```svelte
 <script lang="ts">
-  import { FieldPrimitives, Select } from "@kareyes/aether";
+  import { Field, Select } from "@kareyes/aether";
 
   let framework = $state('');
   let errors = $state<Record<string, string>>({});
@@ -269,7 +269,7 @@ type SelectSize = "sm" | "default" | "lg";
   }
 </script>
 
-<FieldPrimitives.Field
+<Field
   label="Framework"
   description="Choose your preferred framework"
   required
@@ -282,14 +282,14 @@ type SelectSize = "sm" | "default" | "lg";
     error={!!errors.framework}
     onSelectionChange={validate}
   />
-</FieldPrimitives.Field>
+</Field>
 ```
 
 ### Complete Form Example
 
 ```svelte
 <script lang="ts">
-  import { FieldPrimitives, Select, Button } from "@kareyes/aether";
+  import { Field, Select, Button } from "@kareyes/aether";
 
   let formData = $state({
     country: '',
@@ -333,7 +333,7 @@ type SelectSize = "sm" | "default" | "lg";
 </script>
 
 <form onsubmit={handleSubmit} class="space-y-6">
-  <FieldPrimitives.Field
+  <Field
     label="Country"
     required
     error={errors.country}
@@ -344,9 +344,9 @@ type SelectSize = "sm" | "default" | "lg";
       placeholder="Select country..."
       error={!!errors.country}
     />
-  </FieldPrimitives.Field>
+  </Field>
 
-  <FieldPrimitives.Field
+  <Field
     label="Framework"
     required
     error={errors.framework}
@@ -357,9 +357,9 @@ type SelectSize = "sm" | "default" | "lg";
       placeholder="Select framework..."
       error={!!errors.framework}
     />
-  </FieldPrimitives.Field>
+  </Field>
 
-  <FieldPrimitives.Field
+  <Field
     label="Languages"
     required
     error={errors.languages}
@@ -371,7 +371,7 @@ type SelectSize = "sm" | "default" | "lg";
       placeholder="Select languages..."
       error={!!errors.languages}
     />
-  </FieldPrimitives.Field>
+  </Field>
 
   <Button type="submit">Save Profile</Button>
 </form>

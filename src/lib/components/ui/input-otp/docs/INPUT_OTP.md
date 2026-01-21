@@ -253,31 +253,31 @@ The Field component provides a consistent way to add labels, descriptions, and e
 
 ```svelte
 <script lang="ts">
-  import { InputOTP, FieldPrimitives } from "@kareyes/aether";
+  import { InputOTP, Field } from "@kareyes/aether";
 
   let code = $state("");
 </script>
 
-<FieldPrimitives.Field
+<Field
   label="Verification Code"
   description="Enter the 6-digit code sent to your phone"
 >
   <InputOTP maxlength={6} groups={2} bind:value={code} />
-</FieldPrimitives.Field>
+</Field>
 ```
 
 ### With Validation
 
 ```svelte
 <script lang="ts">
-  import { InputOTP, FieldPrimitives } from "@kareyes/aether";
+  import { InputOTP, Field } from "@kareyes/aether";
   import { REGEXP_ONLY_DIGITS } from "bits-ui";
 
   let code = $state("");
   let error = $derived(code.length > 0 && code.length < 6);
 </script>
 
-<FieldPrimitives.Field
+<Field
   label="OTP Code"
   description="Please enter the complete 6-digit code"
   required
@@ -290,17 +290,17 @@ The Field component provides a consistent way to add labels, descriptions, and e
     bind:value={code}
     error={error}
   />
-</FieldPrimitives.Field>
+</Field>
 ```
 
 ### Different Variants with Field
 
 ```svelte
 <script lang="ts">
-  import { InputOTP, FieldPrimitives } from "@kareyes/aether";
+  import { InputOTP, Field } from "@kareyes/aether";
 </script>
 
-<FieldPrimitives.Field
+<Field
   label="Security Code"
   description="Outline variant for better visibility"
 >
@@ -310,9 +310,9 @@ The Field component provides a consistent way to add labels, descriptions, and e
     groups={3}
     size="lg"
   />
-</FieldPrimitives.Field>
+</Field>
 
-<FieldPrimitives.Field
+<Field
   label="Access Code"
   description="Underline variant for minimal design"
 >
@@ -321,14 +321,14 @@ The Field component provides a consistent way to add labels, descriptions, and e
     variant="underline"
     groups={1}
   />
-</FieldPrimitives.Field>
+</Field>
 ```
 
 ### Complete Form Example
 
 ```svelte
 <script lang="ts">
-  import { InputOTP, FieldPrimitives, Button } from "@kareyes/aether";
+  import { InputOTP, FieldPrimitives, Field, Button } from "@kareyes/aether";
   import { REGEXP_ONLY_DIGITS, REGEXP_ONLY_DIGITS_AND_CHARS } from "bits-ui";
 
   let verificationCode = $state("");
@@ -354,7 +354,7 @@ The Field component provides a consistent way to add labels, descriptions, and e
   <FieldPrimitives.Separator />
 
   <FieldPrimitives.Group class="gap-4">
-    <FieldPrimitives.Field
+    <Field
       label="Verification Code"
       description="Enter the 6-digit code from your authenticator app"
       required
@@ -369,9 +369,9 @@ The Field component provides a consistent way to add labels, descriptions, and e
         variant="outline"
         size="lg"
       />
-    </FieldPrimitives.Field>
+    </Field>
 
-    <FieldPrimitives.Field
+    <Field
       label="Backup Code (Optional)"
       description="Use a backup code if you don't have access to your authenticator"
     >
@@ -382,7 +382,7 @@ The Field component provides a consistent way to add labels, descriptions, and e
         bind:value={backupCode}
         variant="underline"
       />
-    </FieldPrimitives.Field>
+    </Field>
   </FieldPrimitives.Group>
 
   <div class="flex gap-4 pt-4">

@@ -289,12 +289,12 @@ interface RadioGroupOption {
 
 ```svelte
 <script>
-  import { FieldPrimitives } from "@kareyes/aether";
+  import { Field } from "@kareyes/aether";
   
   let cluster = $state("");
 </script>
 
-<FieldPrimitives.Field
+<Field
   label="Cluster Configuration"
   description="Select your cluster type"
   error={!cluster ? "Please select a cluster type" : undefined}
@@ -306,7 +306,7 @@ interface RadioGroupOption {
     error={!cluster}
     isCard={true}
   />
-</FieldPrimitives.Field>
+</Field>
 ```
 
 ## Examples
@@ -547,7 +547,7 @@ The Field component provides a consistent way to add labels, descriptions, and e
 <script>
   import { RadioGroup } from "@kareyes/aether";
   import type { RadioGroupOption } from "@kareyes/aether";
-  import { FieldPrimitives } from "@kareyes/aether";
+  import { Field } from "@kareyes/aether";
   
   let selectedPlan = $state("pro");
   
@@ -558,7 +558,7 @@ The Field component provides a consistent way to add labels, descriptions, and e
   ];
 </script>
 
-<FieldPrimitives.Field
+<Field
   label="Subscription Plan"
   description="Choose the plan that fits your needs"
   required
@@ -567,7 +567,7 @@ The Field component provides a consistent way to add labels, descriptions, and e
     options={planOptions}
     bind:value={selectedPlan}
   />
-</FieldPrimitives.Field>
+</Field>
 ```
 
 ### With Validation
@@ -587,7 +587,7 @@ The Field component provides a consistent way to add labels, descriptions, and e
   ];
 </script>
 
-<FieldPrimitives.Field
+<Field
   label="Payment Method"
   description="Select your preferred payment method"
   required
@@ -598,7 +598,7 @@ The Field component provides a consistent way to add labels, descriptions, and e
     bind:value={paymentMethod}
     error={error}
   />
-</FieldPrimitives.Field>
+</Field>
 ```
 
 ### Card Variant with Field
@@ -632,7 +632,7 @@ The Field component provides a consistent way to add labels, descriptions, and e
   ];
 </script>
 
-<FieldPrimitives.Field
+<Field
   label="Choose Your Plan"
   description="Select the subscription tier that best fits your needs"
 >
@@ -642,13 +642,13 @@ The Field component provides a consistent way to add labels, descriptions, and e
     isCard={true}
     variant="success"
   />
-</FieldPrimitives.Field>
+</Field>
 ```
 
 ### Horizontal Layout with Field
 
 ```svelte
-<FieldPrimitives.Field
+<Field
   label="Notification Frequency"
   description="How often would you like to receive updates?"
 >
@@ -661,7 +661,7 @@ The Field component provides a consistent way to add labels, descriptions, and e
     orientation="horizontal"
     radioSize="lg"
   />
-</FieldPrimitives.Field>
+</Field>
 ```
 
 ### Multiple RadioGroups in Form
@@ -669,7 +669,7 @@ The Field component provides a consistent way to add labels, descriptions, and e
 ```svelte
 <script>
   import { RadioGroup } from "@kareyes/aether";
-  import { FieldPrimitives } from "@kareyes/aether";
+  import { FieldPrimitives,Field } from "@kareyes/aether";
   import { Button } from "@kareyes/aether";
   
   let formData = $state({
@@ -707,7 +707,7 @@ The Field component provides a consistent way to add labels, descriptions, and e
   <FieldPrimitives.Separator />
   
   <FieldPrimitives.Group class="gap-6">
-    <FieldPrimitives.Field
+    <Field
       label="Plan Selection"
       description="Choose your subscription tier"
       required
@@ -717,9 +717,9 @@ The Field component provides a consistent way to add labels, descriptions, and e
         bind:value={formData.plan}
         isCard={true}
       />
-    </FieldPrimitives.Field>
+    </Field>
     
-    <FieldPrimitives.Field
+    <Field
       label="Billing Cycle"
       description="Select how you'd like to be billed"
       required
@@ -730,9 +730,9 @@ The Field component provides a consistent way to add labels, descriptions, and e
         orientation="horizontal"
         radioSize="lg"
       />
-    </FieldPrimitives.Field>
+    </Field>
     
-    <FieldPrimitives.Field
+    <Field
       label="Support Channel"
       description="Preferred method for customer support"
     >
@@ -741,7 +741,7 @@ The Field component provides a consistent way to add labels, descriptions, and e
         bind:value={formData.support}
         variant="success"
       />
-    </FieldPrimitives.Field>
+    </Field>
   </FieldPrimitives.Group>
   
   <div class="flex gap-4 pt-4">

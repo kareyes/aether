@@ -119,7 +119,7 @@ A powerful component for managing multiple related checkboxes with shared state 
 <script>
   import { CheckboxGroup } from "@kareyes/aether";
   import type { CheckboxGroupOption } from "@kareyes/aether";
-  import { FieldPrimitives } from "@kareyes/aether";
+  import { Field } from "@kareyes/aether";
   
   let interests = $state([]);
   
@@ -130,7 +130,7 @@ A powerful component for managing multiple related checkboxes with shared state 
   ];
 </script>
 
-<FieldPrimitives.Field
+<Field
   label="Select Your Interests"
   description="Choose at least one interest"
   error={interests.length === 0 ? "Please select at least one interest" : undefined}
@@ -141,7 +141,7 @@ A powerful component for managing multiple related checkboxes with shared state 
     bind:values={interests}
     error={interests.length === 0}
   />
-</FieldPrimitives.Field>
+</Field>
 ```
 
 ### Multiple CheckboxGroups with Field.Set
@@ -161,7 +161,7 @@ A powerful component for managing multiple related checkboxes with shared state 
   <FieldPrimitives.Separator />
   
   <FieldPrimitives.Group class="gap-6">
-    <FieldPrimitives.Field
+    <Field
       label="Communication Preferences"
       description="How should we contact you?"
       required
@@ -174,9 +174,9 @@ A powerful component for managing multiple related checkboxes with shared state 
         ]}
         bind:values={communication}
       />
-    </FieldPrimitives.Field>
+    </Field>
 
-    <FieldPrimitives.Field
+    <Field
       label="Interests"
       description="What topics interest you?"
     >
@@ -189,7 +189,7 @@ A powerful component for managing multiple related checkboxes with shared state 
         bind:values={interests}
         orientation="horizontal"
       />
-    </FieldPrimitives.Field>
+    </Field>
   </FieldPrimitives.Group>
 </FieldPrimitives.Set>
 ```
@@ -204,7 +204,7 @@ A powerful component for managing multiple related checkboxes with shared state 
   let error = $derived(permissions.length === 0);
 </script>
 
-<FieldPrimitives.Field
+<Field
   label="User Permissions"
   description="Select at least one permission to continue"
   required
@@ -219,7 +219,7 @@ A powerful component for managing multiple related checkboxes with shared state 
     bind:values={permissions}
     error={error}
   />
-</FieldPrimitives.Field>
+</Field>
 ```
 
 ### Error Callback

@@ -207,12 +207,12 @@ The date picker uses `@internationalized/date` for date handling:
 ### With Field Component
 ```svelte
 <script>
-  import { FieldPrimitives } from "@kareyes/aether";
+  import { Field } from "@kareyes/aether";
   
   let startDate = $state();
 </script>
 
-<FieldPrimitives.Field
+<Field
   label="Start Date"
   description="Select the project start date"
   error={!startDate ? "Please select a start date" : undefined}
@@ -222,7 +222,7 @@ The date picker uses `@internationalized/date` for date handling:
     bind:value={startDate}
     error={!startDate}
   />
-</FieldPrimitives.Field>
+</Field>
 ```
 
 ### Error Callback
@@ -280,18 +280,18 @@ The Field component provides a consistent way to add labels, descriptions, and e
 ```svelte
 <script>
   import { DatePicker } from "@kareyes/aether";
-  import { FieldPrimitives } from "@kareyes/aether";
+  import { Field } from "@kareyes/aether";
   import type { DateValue } from "@internationalized/date";
   
   let birthdate = $state<DateValue | undefined>();
 </script>
 
-<FieldPrimitives.Field
+<Field
   label="Date of Birth"
   description="Select your birth date"
 >
   <DatePicker bind:value={birthdate} />
-</FieldPrimitives.Field>
+</Field>
 ```
 
 ### With Validation
@@ -299,14 +299,14 @@ The Field component provides a consistent way to add labels, descriptions, and e
 ```svelte
 <script>
   import { DatePicker } from "@kareyes/aether";
-  import { FieldPrimitives } from "@kareyes/aether";
+  import { Field } from "@kareyes/aether";
   import type { DateValue } from "@internationalized/date";
   
   let startDate = $state<DateValue | undefined>();
   let error = $derived(!startDate);
 </script>
 
-<FieldPrimitives.Field
+<Field
   label="Project Start Date"
   description="When will your project begin?"
   required
@@ -316,7 +316,7 @@ The Field component provides a consistent way to add labels, descriptions, and e
     bind:value={startDate}
     error={error}
   />
-</FieldPrimitives.Field>
+</Field>
 ```
 
 ### Date Range with Field
@@ -324,19 +324,19 @@ The Field component provides a consistent way to add labels, descriptions, and e
 ```svelte
 <script>
   import { DateRangePicker } from "@kareyes/aether";
-  import { FieldPrimitives } from "@kareyes/aether";
+  import { Field } from "@kareyes/aether";
   import type { DateRange } from "bits-ui";
   
   let dateRange = $state<DateRange | undefined>();
 </script>
 
-<FieldPrimitives.Field
+<Field
   label="Event Duration"
   description="Select the start and end dates for your event"
   required
 >
   <DateRangePicker bind:value={dateRange} />
-</FieldPrimitives.Field>
+</Field>
 ```
 
 ### With Presets and Field
@@ -344,23 +344,23 @@ The Field component provides a consistent way to add labels, descriptions, and e
 ```svelte
 <script>
   import { DatePickerWithPresets } from "@kareyes/aether";
-  import { FieldPrimitives } from "@kareyes/aether";
+  import { Field } from "@kareyes/aether";
   
   let appointmentDate = $state();
 </script>
 
-<FieldPrimitives.Field
+<Field
   label="Appointment Date"
   description="Choose a date or select from quick options"
 >
   <DatePickerWithPresets bind:value={appointmentDate} />
-</FieldPrimitives.Field>
+</Field>
 ```
 
 ### Different Button Variants
 
 ```svelte
-<FieldPrimitives.Field
+<Field
   label="Deadline"
   description="Project completion deadline"
 >
@@ -369,9 +369,9 @@ The Field component provides a consistent way to add labels, descriptions, and e
     buttonVariant="outline"
     buttonClass="w-full"
   />
-</FieldPrimitives.Field>
+</Field>
 
-<FieldPrimitives.Field
+<Field
   label="Meeting Date"
   description="Schedule your meeting"
 >
@@ -379,7 +379,7 @@ The Field component provides a consistent way to add labels, descriptions, and e
     bind:value={meetingDate}
     buttonVariant="ghost"
   />
-</FieldPrimitives.Field>
+</Field>
 ```
 
 ### Complete Booking Form
@@ -415,7 +415,7 @@ The Field component provides a consistent way to add labels, descriptions, and e
     <FieldPrimitives.Separator />
     
     <FieldPrimitives.Group class="gap-4">
-      <FieldPrimitives.Field
+      <Field
         label="Check-in Date"
         description="Select your arrival date"
         required
@@ -427,9 +427,9 @@ The Field component provides a consistent way to add labels, descriptions, and e
           buttonVariant="outline"
           buttonClass="w-full"
         />
-      </FieldPrimitives.Field>
+      </Field>
       
-      <FieldPrimitives.Field
+      <Field
         label="Stay Duration"
         description="Select check-in and check-out dates"
         required
@@ -441,9 +441,9 @@ The Field component provides a consistent way to add labels, descriptions, and e
           buttonVariant="outline"
           buttonClass="w-full"
         />
-      </FieldPrimitives.Field>
+      </Field>
       
-      <FieldPrimitives.Field
+      <Field
         label="Date of Birth"
         description="For age verification (optional)"
       >
@@ -451,7 +451,7 @@ The Field component provides a consistent way to add labels, descriptions, and e
           bind:value={formData.birthdate}
           buttonVariant="ghost"
         />
-      </FieldPrimitives.Field>
+      </Field>
     </FieldPrimitives.Group>
     
     <div class="flex gap-4 pt-4">
@@ -474,7 +474,7 @@ The Field component provides a consistent way to add labels, descriptions, and e
 ```svelte
 <script>
   import { DateRangePickerWithPresets } from "@kareyes/aether";
-  import { FieldPrimitives } from "@kareyes/aether";
+  import { Field } from "@kareyes/aether";
   import { today, getLocalTimeZone } from "@internationalized/date";
   
   const customPresets = [
@@ -504,7 +504,7 @@ The Field component provides a consistent way to add labels, descriptions, and e
   let reportRange = $state();
 </script>
 
-<FieldPrimitives.Field
+<Field
   label="Report Period"
   description="Select the date range for your report"
   required
@@ -513,5 +513,5 @@ The Field component provides a consistent way to add labels, descriptions, and e
     bind:value={reportRange}
     presets={customPresets}
   />
-</FieldPrimitives.Field>
+</Field>
 ```

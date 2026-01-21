@@ -32,9 +32,9 @@ pnpm add @kareyes/aether
   let email = $state('');
 </script>
 
-<FieldPrimitives.Field label="Email" description="Enter your email address">
+<Field label="Email" description="Enter your email address">
   <Input type="email" bind:value={email} placeholder="you@example.com" />
-</FieldPrimitives.Field>
+</Field>
 ```
 
 ### Composable Field (Advanced)
@@ -57,7 +57,7 @@ pnpm add @kareyes/aether
 
 ## API Reference
 
-### FieldPrimitives.Field Props
+### Field Props
 
 Simplified component that wraps all field functionality:
 
@@ -82,7 +82,7 @@ The Field component provides both a simplified API and composable parts:
 import { FieldPrimitives } from "@kareyes/aether";
 
 // Simplified wrapper component
-FieldPrimitives.Field
+Field
 
 // Composable parts
 FieldPrimitives.Root        // Container with orientation support
@@ -113,7 +113,7 @@ FieldPrimitives.Error       // Error message display
 </script>
 
 <!-- Basic Input -->
-<FieldPrimitives.Field 
+<Field 
   label="Username" 
   description="Choose a unique username for your account."
   required
@@ -124,25 +124,25 @@ FieldPrimitives.Error       // Error message display
     placeholder="johndoe" 
     error={!!errors.username}
   />
-</FieldPrimitives.Field>
+</Field>
 
 <!-- Input with Error State -->
-<FieldPrimitives.Field
+<Field
   label="Email"
   error="Please enter a valid email address"
   required
 >
   <Input type="email" error={true} placeholder="you@example.com" />
-</FieldPrimitives.Field>
+</Field>
 
 <!-- Disabled Input -->
-<FieldPrimitives.Field 
+<Field 
   label="Email" 
   description="Email cannot be changed" 
   disabled
 >
   <Input type="email" value="locked@example.com" disabled />
-</FieldPrimitives.Field>
+</Field>
 ```
 
 #### Textarea
@@ -156,7 +156,7 @@ FieldPrimitives.Error       // Error message display
 </script>
 
 <!-- Basic Textarea -->
-<FieldPrimitives.Field 
+<Field 
   label="Bio" 
   description="Tell us a little about yourself."
 >
@@ -165,10 +165,10 @@ FieldPrimitives.Error       // Error message display
     placeholder="I am a..." 
     rows={4} 
   />
-</FieldPrimitives.Field>
+</Field>
 
 <!-- Textarea with Character Counter -->
-<FieldPrimitives.Field 
+<Field 
   label="Description" 
   description="Maximum 200 characters"
 >
@@ -178,10 +178,10 @@ FieldPrimitives.Error       // Error message display
     maxLength={200} 
     showCount 
   />
-</FieldPrimitives.Field>
+</Field>
 
 <!-- Auto-Resize Textarea -->
-<FieldPrimitives.Field 
+<Field 
   label="Notes" 
   description="Automatically grows with content"
 >
@@ -191,7 +191,7 @@ FieldPrimitives.Error       // Error message display
     minRows={2} 
     maxRows={6} 
   />
-</FieldPrimitives.Field>
+</Field>
 ```
 
 ### Selection Components
@@ -216,7 +216,7 @@ FieldPrimitives.Error       // Error message display
 </script>
 
 <!-- Basic Select -->
-<FieldPrimitives.Field
+<Field
   label="Country"
   description="Select your country of residence."
   required
@@ -226,10 +226,10 @@ FieldPrimitives.Error       // Error message display
     placeholder="Select a country..." 
     options={countries} 
   />
-</FieldPrimitives.Field>
+</Field>
 
 <!-- Select with Error -->
-<FieldPrimitives.Field
+<Field
   label="Country"
   error="Please select a country"
   required
@@ -240,7 +240,7 @@ FieldPrimitives.Error       // Error message display
     options={countries}
     error={true}
   />
-</FieldPrimitives.Field>
+</Field>
 ```
 
 #### CheckboxGroup
@@ -276,7 +276,7 @@ FieldPrimitives.Error       // Error message display
 </script>
 
 <!-- Basic CheckboxGroup -->
-<FieldPrimitives.Field
+<Field
   label="Select Features"
   description="Choose the features you want to enable for your account."
 >
@@ -284,10 +284,10 @@ FieldPrimitives.Error       // Error message display
     options={featureOptions} 
     bind:values={selectedFeatures} 
   />
-</FieldPrimitives.Field>
+</Field>
 
 <!-- CheckboxGroup with Horizontal Layout -->
-<FieldPrimitives.Field
+<Field
   label="Interests"
   description="Select your areas of interest"
 >
@@ -296,10 +296,10 @@ FieldPrimitives.Error       // Error message display
     bind:values={selectedFeatures}
     orientation="horizontal"
   />
-</FieldPrimitives.Field>
+</Field>
 
 <!-- CheckboxGroup with Error -->
-<FieldPrimitives.Field
+<Field
   label="User Permissions"
   description="Select at least one permission to continue."
   required
@@ -311,7 +311,7 @@ FieldPrimitives.Error       // Error message display
     error={selectedFeatures.length === 0}
     required
   />
-</FieldPrimitives.Field>
+</Field>
 ```
 
 #### RadioGroup
@@ -347,7 +347,7 @@ FieldPrimitives.Error       // Error message display
 </script>
 
 <!-- Basic RadioGroup -->
-<FieldPrimitives.Field
+<Field
   label="Choose Your Plan"
   description="Select the subscription plan that best fits your needs."
 >
@@ -355,10 +355,10 @@ FieldPrimitives.Error       // Error message display
     options={planOptions} 
     bind:value={selectedPlan} 
   />
-</FieldPrimitives.Field>
+</Field>
 
 <!-- RadioGroup with Horizontal Layout -->
-<FieldPrimitives.Field
+<Field
   label="Notification Method"
   description="How would you like to be notified?"
 >
@@ -367,10 +367,10 @@ FieldPrimitives.Error       // Error message display
     bind:value={selectedPlan}
     orientation="horizontal"
   />
-</FieldPrimitives.Field>
+</Field>
 
 <!-- RadioGroup with Card Style -->
-<FieldPrimitives.Field
+<Field
   label="Select Cluster Type"
   description="Choose how you want to run your GPU workloads."
 >
@@ -379,10 +379,10 @@ FieldPrimitives.Error       // Error message display
     bind:value={selectedPlan}
     isCard={true}
   />
-</FieldPrimitives.Field>
+</Field>
 
 <!-- RadioGroup with Error -->
-<FieldPrimitives.Field
+<Field
   label="Payment Method"
   description="Select your preferred payment method."
   required
@@ -394,7 +394,7 @@ FieldPrimitives.Error       // Error message display
     error={!selectedPlan}
     required
   />
-</FieldPrimitives.Field>
+</Field>
 ```
 
 ### Toggle Components
@@ -410,32 +410,32 @@ FieldPrimitives.Error       // Error message display
 </script>
 
 <!-- Horizontal Checkbox (Recommended) -->
-<FieldPrimitives.Field
+<Field
   label="Accept terms and conditions"
   description="You must accept to continue"
   orientation="horizontal"
 >
   <Checkbox bind:checked={acceptTerms} />
-</FieldPrimitives.Field>
+</Field>
 
 <!-- Checkbox with Label After -->
-<FieldPrimitives.Field
+<Field
   label="Subscribe to newsletter"
   description="Receive weekly updates and news"
   labelPosition="after"
   orientation="horizontal"
 >
   <Checkbox bind:checked={acceptTerms} />
-</FieldPrimitives.Field>
+</Field>
 
 <!-- Vertical Checkbox -->
-<FieldPrimitives.Field
+<Field
   label="Marketing emails"
   description="Receive promotional emails and updates"
   orientation="vertical"
 >
   <Checkbox bind:checked={acceptTerms} />
-</FieldPrimitives.Field>
+</Field>
 ```
 
 #### Switch
@@ -449,33 +449,33 @@ FieldPrimitives.Error       // Error message display
 </script>
 
 <!-- Horizontal Switch (Recommended) -->
-<FieldPrimitives.Field
+<Field
   label="Enable notifications"
   description="Get notified about important updates."
   orientation="horizontal"
 >
   <Switch bind:checked={notifications} />
-</FieldPrimitives.Field>
+</Field>
 
 <!-- Switch with Label After -->
-<FieldPrimitives.Field
+<Field
   label="Dark mode"
   description="Toggle dark mode theme"
   labelPosition="after"
   orientation="horizontal"
 >
   <Switch bind:checked={notifications} />
-</FieldPrimitives.Field>
+</Field>
 
 <!-- Disabled Switch -->
-<FieldPrimitives.Field
+<Field
   label="Beta features"
   description="Not available in your plan"
   disabled
   orientation="horizontal"
 >
   <Switch checked={false} disabled />
-</FieldPrimitives.Field>
+</Field>
 ```
 
 ### Specialized Input Components
@@ -493,21 +493,21 @@ FieldPrimitives.Error       // Error message display
 </script>
 
 <!-- Basic InputOTP -->
-<FieldPrimitives.Field
+<Field
   label="Verification Code"
   description="Enter the 6-digit code sent to your email"
 >
   <InputOTP maxlength={6} groups={2} bind:value={otpCode} />
-</FieldPrimitives.Field>
+</Field>
 
 <!-- InputOTP for PIN -->
-<FieldPrimitives.Field
+<Field
   label="PIN Code"
   description="Enter your 4-digit PIN"
   required
 >
   <InputOTP maxlength={4} groups={2} />
-</FieldPrimitives.Field>
+</Field>
 ```
 
 #### NumberSpinner
@@ -521,29 +521,29 @@ FieldPrimitives.Error       // Error message display
 </script>
 
 <!-- Basic NumberSpinner -->
-<FieldPrimitives.Field
+<Field
   label="Quantity"
   description="Select the number of items"
 >
   <NumberSpinner bind:value={quantity} min={1} max={100} />
-</FieldPrimitives.Field>
+</Field>
 
 <!-- NumberSpinner with Step -->
-<FieldPrimitives.Field
+<Field
   label="Amount"
   description="Increments of $10"
 >
   <NumberSpinner bind:value={quantity} min={0} max={1000} step={10} />
-</FieldPrimitives.Field>
+</Field>
 
 <!-- Required NumberSpinner -->
-<FieldPrimitives.Field
+<Field
   label="Age"
   description="Your age in years"
   required
 >
   <NumberSpinner value={25} min={18} max={120} />
-</FieldPrimitives.Field>
+</Field>
 ```
 
 #### Slider
@@ -558,20 +558,20 @@ FieldPrimitives.Error       // Error message display
 </script>
 
 <!-- Single Value Slider -->
-<FieldPrimitives.Field
+<Field
   label="Volume"
   description={`Current volume: ${volume}%`}
 >
   <Slider type="single" bind:value={volume} min={0} max={100} step={1} />
-</FieldPrimitives.Field>
+</Field>
 
 <!-- Range Slider -->
-<FieldPrimitives.Field
+<Field
   label="Price Range"
   description={`$${priceRange[0]} - $${priceRange[1]}`}
 >
   <Slider type="multiple" bind:value={priceRange} min={0} max={1000} step={10} />
-</FieldPrimitives.Field>
+</Field>
 ```
 
 #### FileInput
@@ -587,7 +587,7 @@ FieldPrimitives.Error       // Error message display
 </script>
 
 <!-- Regular File Input -->
-<FieldPrimitives.Field
+<Field
   label="Upload Document"
   description="PDF or Word document (max 5MB)"
 >
@@ -598,10 +598,10 @@ FieldPrimitives.Error       // Error message display
       acceptedTypes: ['.doc', '.docx', '.txt'] 
     }}
   />
-</FieldPrimitives.Field>
+</Field>
 
 <!-- Drag & Drop File Input -->
-<FieldPrimitives.Field
+<Field
   label="Upload Images"
   description="Drag and drop or click to browse"
 >
@@ -617,10 +617,10 @@ FieldPrimitives.Error       // Error message display
       showFileList: true
     }}
   />
-</FieldPrimitives.Field>
+</Field>
 
 <!-- File Input with Error -->
-<FieldPrimitives.Field 
+<Field 
   label="Upload document" 
   error="File size exceeds 5MB limit"
 >
@@ -631,14 +631,14 @@ FieldPrimitives.Error       // Error message display
       acceptedTypes: ['application/pdf'] 
     }}  
   />
-</FieldPrimitives.Field>
+</Field>
 ```
 
 #### DatePicker
 
 ```svelte
 <script lang="ts">
-  import { FieldPrimitives } from "@kareyes/aether";
+  import { Field } from "@kareyes/aether";
   import { DatePicker } from "@kareyes/aether";
   import type { DateValue } from '@internationalized/date';
 
@@ -646,21 +646,21 @@ FieldPrimitives.Error       // Error message display
 </script>
 
 <!-- Basic DatePicker -->
-<FieldPrimitives.Field
+<Field
   label="Date of Birth"
   description="Select your birth date"
 >
   <DatePicker />
-</FieldPrimitives.Field>
+</Field>
 
 <!-- DatePicker with Binding -->
-<FieldPrimitives.Field
+<Field
   label="Delivery Date"
   description="Choose your preferred delivery date"
   required
 >
   <DatePicker bind:value={deliveryDate} />
-</FieldPrimitives.Field>
+</Field>
 ```
 
 
@@ -673,13 +673,13 @@ The `orientation` prop controls the layout of the field components.
 Best for most form fields. Stacks label, control, and description vertically.
 
 ```svelte
-<FieldPrimitives.Field 
+<Field 
   label="Full Name" 
   description="Enter your full legal name" 
   orientation="vertical"
 >
   <Input placeholder="John Doe" />
-</FieldPrimitives.Field>
+</Field>
 ```
 
 ### Horizontal Layout
@@ -687,13 +687,13 @@ Best for most form fields. Stacks label, control, and description vertically.
 Places label and control side by side. Ideal for Checkbox, Switch, and compact forms.
 
 ```svelte
-<FieldPrimitives.Field 
+<Field 
   label="Enable notifications" 
   description="Receive email updates" 
   orientation="horizontal"
 >
   <Switch bind:checked={notifications} />
-</FieldPrimitives.Field>
+</Field>
 ```
 
 ### Responsive Layout
@@ -702,13 +702,13 @@ Automatically switches between vertical (mobile) and horizontal (desktop) based 
 
 ```svelte
 <div class="@container">
-  <FieldPrimitives.Field 
+  <Field 
     label="Name" 
     description="Enter your full name" 
     orientation="responsive"
   >
     <Input placeholder="John Doe" />
-  </FieldPrimitives.Field>
+  </Field>
 </div>
 ```
 
@@ -721,13 +721,13 @@ The `labelPosition` prop controls whether the label appears before or after the 
 Default behavior where the label appears above or to the left of the control.
 
 ```svelte
-<FieldPrimitives.Field 
+<Field 
   label="Email" 
   description="Enter your email address" 
   labelPosition="before"
 >
   <Input type="email" placeholder="you@example.com" />
-</FieldPrimitives.Field>
+</Field>
 ```
 
 ### Label After
@@ -736,7 +736,7 @@ Position the label after the form control. Best practice for Checkbox, Switch, a
 
 ```svelte
 <script lang="ts">
-  import { FieldPrimitives } from "@kareyes/aether";
+  import { Field } from "@kareyes/aether";
   import { Checkbox } from "@kareyes/aether";
   import { Switch } from "@kareyes/aether";
 
@@ -745,24 +745,24 @@ Position the label after the form control. Best practice for Checkbox, Switch, a
 </script>
 
 <!-- Checkbox with label after -->
-<FieldPrimitives.Field
+<Field
   label="Accept terms and conditions"
   description="You must accept to continue"
   labelPosition="after"
   orientation="horizontal"
 >
   <Checkbox bind:checked={acceptTerms} />
-</FieldPrimitives.Field>
+</Field>
 
 <!-- Switch with label after -->
-<FieldPrimitives.Field
+<Field
   label="Enable notifications"
   description="Receive email updates"
   labelPosition="after"
   orientation="horizontal"
 >
   <Switch bind:checked={enableNotifications} />
-</FieldPrimitives.Field>
+</Field>
 ```
 
 ### When to Use Label After
@@ -786,7 +786,7 @@ Position the label after the form control. Best practice for Checkbox, Switch, a
 
 ```svelte
 <script lang="ts">
-  import { FieldPrimitives } from "@kareyes/aether";
+  import { Field } from "@kareyes/aether";
   import { Checkbox } from "@kareyes/aether";
   import { Switch } from "@kareyes/aether";
 
@@ -797,33 +797,33 @@ Position the label after the form control. Best practice for Checkbox, Switch, a
 
 <div class="space-y-4">
   <!-- Multiple checkboxes with label after -->
-  <FieldPrimitives.Field
+  <Field
     label="Subscribe to newsletter"
     description="Receive weekly updates and news"
     labelPosition="after"
     orientation="horizontal"
   >
     <Checkbox bind:checked={newsletter} />
-  </FieldPrimitives.Field>
+  </Field>
 
-  <FieldPrimitives.Field
+  <Field
     label="Receive marketing emails"
     description="Promotional offers and discounts"
     labelPosition="after"
     orientation="horizontal"
   >
     <Checkbox bind:checked={marketing} />
-  </FieldPrimitives.Field>
+  </Field>
 
   <!-- Switch with label after -->
-  <FieldPrimitives.Field
+  <Field
     label="Dark mode"
     description="Toggle dark mode theme"
     labelPosition="after"
     orientation="horizontal"
   >
     <Switch bind:checked={darkMode} />
-  </FieldPrimitives.Field>
+  </Field>
 </div>
 ```
 
@@ -835,7 +835,7 @@ Use `FieldPrimitives.Set` and `FieldPrimitives.Group` to create well-organized, 
 
 ```svelte
 <script lang="ts">
-  import { FieldPrimitives } from "@kareyes/aether";
+  import { FieldPrimitives ,Field} from "@kareyes/aether";
   import { Input } from "@kareyes/aether";
   import { Checkbox } from "@kareyes/aether";
   import { Select } from "@kareyes/aether";
@@ -866,29 +866,29 @@ Use `FieldPrimitives.Set` and `FieldPrimitives.Group` to create well-organized, 
 
     <!-- Group of fields with consistent spacing -->
     <FieldPrimitives.Group class="gap-6">
-      <FieldPrimitives.Field
+      <Field
         label="Username"
         description="Choose a unique username for your account."
         required
       >
         <Input bind:value={formData.username} placeholder="johndoe" />
-      </FieldPrimitives.Field>
+      </Field>
 
-      <FieldPrimitives.Field
+      <Field
         label="Email"
         description="We'll never share your email with anyone."
         required
       >
         <Input type="email" bind:value={formData.email} placeholder="you@example.com" />
-      </FieldPrimitives.Field>
+      </Field>
 
-      <FieldPrimitives.Field
+      <Field
         label="Country"
         description="Select your country of residence."
         required
       >
         <Select bind:value={formData.country} placeholder="Select a country..." options={countries} />
-      </FieldPrimitives.Field>
+      </Field>
     </FieldPrimitives.Group>
   </FieldPrimitives.Set>
 
@@ -896,13 +896,13 @@ Use `FieldPrimitives.Set` and `FieldPrimitives.Group` to create well-organized, 
     <FieldPrimitives.Legend>Preferences</FieldPrimitives.Legend>
 
     <FieldPrimitives.Group class="gap-4">
-      <FieldPrimitives.Field
+      <Field
         label="Newsletter subscription"
         description="Receive weekly updates about new features."
         orientation="horizontal"
       >
         <Checkbox bind:checked={formData.newsletter} />
-      </FieldPrimitives.Field>
+      </Field>
     </FieldPrimitives.Group>
   </FieldPrimitives.Set>
 </form>
@@ -914,7 +914,7 @@ Use `FieldPrimitives.Set` and `FieldPrimitives.Group` to create well-organized, 
 
 ```svelte
 <script lang="ts">
-  import { FieldPrimitives } from "@kareyes/aether";
+  import { FieldPrimitives,Field } from "@kareyes/aether";
   import { Input } from "@kareyes/aether";
   import { Textarea } from "@kareyes/aether";
   import { Select } from "@kareyes/aether";
@@ -984,7 +984,7 @@ Use `FieldPrimitives.Set` and `FieldPrimitives.Group` to create well-organized, 
     <FieldPrimitives.Separator />
 
     <FieldPrimitives.Group class="gap-6">
-      <FieldPrimitives.Field
+      <Field
         label="Username"
         description="Choose a unique username for your account."
         required
@@ -996,9 +996,9 @@ Use `FieldPrimitives.Set` and `FieldPrimitives.Group` to create well-organized, 
           error={!!errors.username}
           required 
         />
-      </FieldPrimitives.Field>
+      </Field>
 
-      <FieldPrimitives.Field
+      <Field
         label="Email"
         description="We'll never share your email with anyone."
         required
@@ -1011,9 +1011,9 @@ Use `FieldPrimitives.Set` and `FieldPrimitives.Group` to create well-organized, 
           error={!!errors.email}
           required 
         />
-      </FieldPrimitives.Field>
+      </Field>
 
-      <FieldPrimitives.Field
+      <Field
         label="Password"
         description="Must be at least 8 characters long."
         required
@@ -1026,9 +1026,9 @@ Use `FieldPrimitives.Set` and `FieldPrimitives.Group` to create well-organized, 
           error={!!errors.password}
           required 
         />
-      </FieldPrimitives.Field>
+      </Field>
 
-      <FieldPrimitives.Field 
+      <Field 
         label="Bio" 
         description="Tell us a little about yourself."
       >
@@ -1037,9 +1037,9 @@ Use `FieldPrimitives.Set` and `FieldPrimitives.Group` to create well-organized, 
           placeholder="I am a..."
           rows={4}
         />
-      </FieldPrimitives.Field>
+      </Field>
 
-      <FieldPrimitives.Field
+      <Field
         label="Country"
         description="Select your country of residence."
         required
@@ -1051,7 +1051,7 @@ Use `FieldPrimitives.Set` and `FieldPrimitives.Group` to create well-organized, 
           options={countries} 
           error={!!errors.country} 
         />
-      </FieldPrimitives.Field>
+      </Field>
     </FieldPrimitives.Group>
   </FieldPrimitives.Set>
 
@@ -1059,21 +1059,21 @@ Use `FieldPrimitives.Set` and `FieldPrimitives.Group` to create well-organized, 
     <FieldPrimitives.Legend>Preferences</FieldPrimitives.Legend>
 
     <FieldPrimitives.Group class="gap-4">
-      <FieldPrimitives.Field
+      <Field
         label="Newsletter subscription"
         description="Receive weekly updates about new features."
         orientation="horizontal"
       >
         <Checkbox bind:checked={formData.newsletter} />
-      </FieldPrimitives.Field>
+      </Field>
 
-      <FieldPrimitives.Field
+      <Field
         label="Enable notifications"
         description="Get notified about important updates."
         orientation="horizontal"
       >
         <Switch bind:checked={formData.notifications} />
-      </FieldPrimitives.Field>
+      </Field>
     </FieldPrimitives.Group>
   </FieldPrimitives.Set>
 
@@ -1088,7 +1088,7 @@ Use `FieldPrimitives.Set` and `FieldPrimitives.Group` to create well-organized, 
 
 ```svelte
 <script lang="ts">
-  import { FieldPrimitives } from "@kareyes/aether";
+  import { FieldPrimitives, Field } from "@kareyes/aether";
   import { NumberSpinner } from "@kareyes/aether";
   import { DatePicker } from "@kareyes/aether";
   import { Slider } from "@kareyes/aether";
@@ -1118,39 +1118,39 @@ Use `FieldPrimitives.Set` and `FieldPrimitives.Group` to create well-organized, 
 
     <FieldPrimitives.Group class="gap-6">
       <div class="grid gap-6 md:grid-cols-2">
-        <FieldPrimitives.Field
+        <Field
           label="Quantity"
           description="Number of items to order"
           required
         >
           <NumberSpinner bind:value={orderData.quantity} min={1} max={100} />
-        </FieldPrimitives.Field>
+        </Field>
 
-        <FieldPrimitives.Field
+        <Field
           label="Delivery Date"
           description="When should we deliver?"
           required
         >
           <DatePicker bind:value={orderData.deliveryDate} />
-        </FieldPrimitives.Field>
+        </Field>
       </div>
 
-      <FieldPrimitives.Field
+      <Field
         label="Volume Level"
         description={`Set notification volume: ${orderData.volume}%`}
       >
         <Slider type="single" bind:value={orderData.volume} min={0} max={100} step={1} />
-      </FieldPrimitives.Field>
+      </Field>
 
-      <FieldPrimitives.Field
+      <Field
         label="Verification Code"
         description="Enter the code from your email"
         required
       >
         <InputOTP maxlength={6} groups={2} bind:value={orderData.otpCode} />
-      </FieldPrimitives.Field>
+      </Field>
 
-      <FieldPrimitives.Field
+      <Field
         label="Upload Receipt"
         description="Upload proof of payment (PDF, max 5MB)"
       >
@@ -1161,9 +1161,9 @@ Use `FieldPrimitives.Set` and `FieldPrimitives.Group` to create well-organized, 
             acceptedTypes: ['application/pdf'] 
           }} 
         />
-      </FieldPrimitives.Field>
+      </Field>
 
-      <FieldPrimitives.Field
+      <Field
         label="Product Images"
         description="Drag and drop product images"
       >
@@ -1179,15 +1179,15 @@ Use `FieldPrimitives.Set` and `FieldPrimitives.Group` to create well-organized, 
             showFileList: true
           }}
         />
-      </FieldPrimitives.Field>
+      </Field>
 
-      <FieldPrimitives.Field
+      <Field
         label="Enable Rush Delivery"
         description="Get your order within 24 hours"
         orientation="horizontal"
       >
         <Switch bind:checked={orderData.rushDelivery} />
-      </FieldPrimitives.Field>
+      </Field>
     </FieldPrimitives.Group>
 
     <div class="flex gap-4 pt-4">
@@ -1217,7 +1217,7 @@ Use `FieldPrimitives.Set` and `FieldPrimitives.Group` to create well-organized, 
   });
 </script>
 
-<FieldPrimitives.Field 
+<Field 
   label="Email" 
   description="Enter your email address"
   error={emailError()} 
@@ -1228,14 +1228,14 @@ Use `FieldPrimitives.Set` and `FieldPrimitives.Group` to create well-organized, 
     bind:value={email} 
     error={!!emailError()} 
   />
-</FieldPrimitives.Field>
+</Field>
 ```
 
 ### Submit Validation
 
 ```svelte
 <script lang="ts">
-  import { FieldPrimitives } from "@kareyes/aether";
+  import { Field } from "@kareyes/aether";
   import { Input } from "@kareyes/aether";
   import { Button } from "@kareyes/aether";
 
@@ -1275,7 +1275,7 @@ Use `FieldPrimitives.Set` and `FieldPrimitives.Group` to create well-organized, 
 </script>
 
 <form onsubmit={handleSubmit} class="space-y-4">
-  <FieldPrimitives.Field 
+  <Field 
     label="Email" 
     error={errors.email} 
     required
@@ -1285,9 +1285,9 @@ Use `FieldPrimitives.Set` and `FieldPrimitives.Group` to create well-organized, 
       bind:value={formData.email} 
       error={!!errors.email} 
     />
-  </FieldPrimitives.Field>
+  </Field>
 
-  <FieldPrimitives.Field 
+  <Field 
     label="Password" 
     error={errors.password} 
     required
@@ -1297,7 +1297,7 @@ Use `FieldPrimitives.Set` and `FieldPrimitives.Group` to create well-organized, 
       bind:value={formData.password} 
       error={!!errors.password} 
     />
-  </FieldPrimitives.Field>
+  </Field>
 
   <Button type="submit">Submit</Button>
 </form>
@@ -1355,46 +1355,46 @@ The Field component automatically handles:
 
 ### Component-Specific Recommendations
 
-1. **InputOTP**: Always use `FieldPrimitives.Field` wrapper with clear description of expected format
+1. **InputOTP**: Always use `Field` wrapper with clear description of expected format
    ```svelte
-   <FieldPrimitives.Field
+   <Field
      label="Verification Code"
      description="Enter the 6-digit code sent to your email"
    >
      <InputOTP maxlength={6} groups={2} bind:value={code} />
-   </FieldPrimitives.Field>
+   </Field>
    ```
 
 2. **Select**: Use the simplified API with `options` array and `error` prop
    ```svelte
-   <FieldPrimitives.Field label="Country" error={errors.country}>
+   <Field label="Country" error={errors.country}>
      <Select 
        bind:value={country} 
        options={countries} 
        error={!!errors.country} 
      />
-   </FieldPrimitives.Field>
+   </Field>
    ```
 
 3. **FileInput**: Always specify validation rules and use appropriate mode
    ```svelte
-   <FieldPrimitives.Field label="Upload Document" error={errors.file}>
+   <Field label="Upload Document" error={errors.file}>
      <FileInput 
        mode="drag-drop"
        validation={{ maxSize: 5 * 1024 * 1024, acceptedTypes: ['.pdf'] }}
      />
-   </FieldPrimitives.Field>
+   </Field>
    ```
 
 4. **CheckboxGroup & RadioGroup**: Use with proper type definitions
    ```svelte
-   <FieldPrimitives.Field label="Features" error={errors.features}>
+   <Field label="Features" error={errors.features}>
      <CheckboxGroup 
        options={featureOptions} 
        bind:values={selected}
        error={!!errors.features}
      />
-   </FieldPrimitives.Field>
+   </Field>
    ```
 
 ### General Guidelines
@@ -1442,9 +1442,9 @@ If you're using the old Field component API, here's how to migrate:
 
 ### New API (Recommended)
 ```svelte
-<FieldPrimitives.Field label="Email" description="Enter email">
+<Field label="Email" description="Enter email">
   <Input type="email" bind:value={email} />
-</FieldPrimitives.Field>
+</Field>
 ```
 
 ### Composable API (Advanced)
@@ -1474,11 +1474,11 @@ If you're using the old Field component API, here's how to migrate:
 ## Troubleshooting
 
 ### Error not showing
-Make sure you're passing both the `error` prop to FieldPrimitives.Field and setting `error={true}` on the input component:
+Make sure you're passing both the `error` prop to Field and setting `error={true}` on the input component:
 ```svelte
-<FieldPrimitives.Field error={errors.email}>
+<Field error={errors.email}>
   <Input error={!!errors.email} />
-</FieldPrimitives.Field>
+</Field>
 ```
 
 ### Select not working
@@ -1505,20 +1505,20 @@ Make sure to pass validation as an object:
 ### Checkbox/Switch label on wrong side
 Use both `orientation="horizontal"` and `labelPosition="after"`:
 ```svelte
-<FieldPrimitives.Field 
+<Field 
   orientation="horizontal" 
   labelPosition="after"
   label="Accept terms"
 >
   <Checkbox />
-</FieldPrimitives.Field>
+</Field>
 ```
 
 ## Summary
 
 The Field component provides a unified, accessible way to build forms in your application. Key takeaways:
 
-- ✅ Use `FieldPrimitives.Field` for simplified, consistent form fields
+- ✅ Use `Field` for simplified, consistent form fields
 - ✅ Use composable parts (`FieldPrimitives.Root`, `FieldPrimitives.Label`, etc.) for custom layouts
 - ✅ Always set appropriate `orientation` (vertical/horizontal)
 - ✅ Use `labelPosition="after"` for Checkbox and Switch

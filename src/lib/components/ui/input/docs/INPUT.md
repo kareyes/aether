@@ -255,7 +255,7 @@ pnpm add @kareyes/aether
 
 ```svelte
 <script lang="ts">
-  import { FieldPrimitives, Input } from "@kareyes/aether";
+  import { Field, Input } from "@kareyes/aether";
   import MailIcon from "@lucide/svelte/icons/mail";
   import LockIcon from "@lucide/svelte/icons/lock";
 
@@ -264,7 +264,7 @@ pnpm add @kareyes/aether
 </script>
 
 <!-- Email with Icon -->
-<FieldPrimitives.Field
+<Field
   label="Email"
   description="We'll never share your email"
   required
@@ -274,10 +274,10 @@ pnpm add @kareyes/aether
       <MailIcon class="size-4" />
     {/snippet}
   </Input>
-</FieldPrimitives.Field>
+</Field>
 
 <!-- Password with Icon -->
-<FieldPrimitives.Field
+<Field
   label="Password"
   description="Must be at least 8 characters"
   required
@@ -287,14 +287,14 @@ pnpm add @kareyes/aether
       <LockIcon class="size-4" />
     {/snippet}
   </Input>
-</FieldPrimitives.Field>
+</Field>
 ```
 
 ### With Validation
 
 ```svelte
 <script lang="ts">
-  import { FieldPrimitives, Input } from "@kareyes/aether";
+  import { Field, Input } from "@kareyes/aether";
 
   let email = $state('');
   let errors = $state<Record<string, string>>({});
@@ -310,7 +310,7 @@ pnpm add @kareyes/aether
   }
 </script>
 
-<FieldPrimitives.Field
+<Field
   label="Email"
   required
   error={errors.email}
@@ -322,14 +322,14 @@ pnpm add @kareyes/aether
     error={!!errors.email}
     onblur={validateEmail}
   />
-</FieldPrimitives.Field>
+</Field>
 ```
 
 ### Complete Form Example
 
 ```svelte
 <script lang="ts">
-  import { FieldPrimitives, Input, Button } from "@kareyes/aether";
+  import { Field, Input, Button } from "@kareyes/aether";
   import MailIcon from "@lucide/svelte/icons/mail";
   import LockIcon from "@lucide/svelte/icons/lock";
   import UserIcon from "@lucide/svelte/icons/user";
@@ -360,7 +360,7 @@ pnpm add @kareyes/aether
 </script>
 
 <form onsubmit={handleSubmit} class="space-y-6">
-  <FieldPrimitives.Field
+  <Field
     label="Username"
     required
     error={errors.username}
@@ -374,9 +374,9 @@ pnpm add @kareyes/aether
         <UserIcon class="size-4" />
       {/snippet}
     </Input>
-  </FieldPrimitives.Field>
+  </Field>
 
-  <FieldPrimitives.Field
+  <Field
     label="Email"
     required
     error={errors.email}
@@ -391,9 +391,9 @@ pnpm add @kareyes/aether
         <MailIcon class="size-4" />
       {/snippet}
     </Input>
-  </FieldPrimitives.Field>
+  </Field>
 
-  <FieldPrimitives.Field
+  <Field
     label="Password"
     required
     error={errors.password}
@@ -408,9 +408,9 @@ pnpm add @kareyes/aether
         <LockIcon class="size-4" />
       {/snippet}
     </Input>
-  </FieldPrimitives.Field>
+  </Field>
 
-  <FieldPrimitives.Field
+  <Field
     label="Phone Number"
     required
     error={errors.phone}
@@ -425,7 +425,7 @@ pnpm add @kareyes/aether
         <PhoneIcon class="size-4" />
       {/snippet}
     </Input>
-  </FieldPrimitives.Field>
+  </Field>
 
   <Button type="submit">Create Account</Button>
 </form>

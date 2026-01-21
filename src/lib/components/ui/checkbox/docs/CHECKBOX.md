@@ -237,12 +237,12 @@ The Field component provides a consistent way to add labels, descriptions, and e
 ```svelte
 <script>
   import { Checkbox } from "@kareyes/aether";
-  import { FieldPrimitives } from "@kareyes/aether";
+  import { Field } from "@kareyes/aether";
   
   let acceptTerms = $state(false);
 </script>
 
-<FieldPrimitives.Field
+<Field
   label="Agreements"
   description="Please review and accept our policies"
   required
@@ -251,7 +251,7 @@ The Field component provides a consistent way to add labels, descriptions, and e
     bind:checked={acceptTerms}
     label="I accept the terms and conditions"
   />
-</FieldPrimitives.Field>
+</Field>
 ```
 
 ### Checkbox Group with Field
@@ -305,7 +305,7 @@ The Field component provides a consistent way to add labels, descriptions, and e
   let error = $derived(!acceptTerms);
 </script>
 
-<FieldPrimitives.Field
+<Field
   label="Terms & Conditions"
   required
   error={error ? "You must accept the terms to continue" : undefined}
@@ -315,7 +315,7 @@ The Field component provides a consistent way to add labels, descriptions, and e
     label="I accept the terms and conditions"
     variant={error ? "destructive" : "default"}
   />
-</FieldPrimitives.Field>
+</Field>
 ```
 
 ### Multiple Checkboxes with Variants
@@ -407,7 +407,7 @@ The Field component provides a consistent way to add labels, descriptions, and e
     <FieldPrimitives.Separator />
     
     <FieldPrimitives.Group class="gap-4">
-      <FieldPrimitives.Field
+      <Field
         label="Required Agreements"
         required
         error={!formData.acceptTerms ? "You must accept the terms" : undefined}
@@ -418,9 +418,9 @@ The Field component provides a consistent way to add labels, descriptions, and e
           variant={!formData.acceptTerms ? "destructive" : "success"}
           size="lg"
         />
-      </FieldPrimitives.Field>
+      </Field>
       
-      <FieldPrimitives.Field
+      <Field
         label="Age Verification"
         required
         error={!formData.ageConfirmation ? "Age confirmation required" : undefined}
@@ -431,9 +431,9 @@ The Field component provides a consistent way to add labels, descriptions, and e
           variant={!formData.ageConfirmation ? "destructive" : "success"}
           size="lg"
         />
-      </FieldPrimitives.Field>
+      </Field>
       
-      <FieldPrimitives.Field
+      <Field
         label="Optional Subscriptions"
         description="Choose which communications you'd like to receive"
       >
@@ -450,7 +450,7 @@ The Field component provides a consistent way to add labels, descriptions, and e
             description="New features and improvements"
           />
         </div>
-      </FieldPrimitives.Field>
+      </Field>
     </FieldPrimitives.Group>
     
     <div class="flex gap-4 pt-4">
