@@ -170,6 +170,11 @@ import * as NavigationMenuPrimitives from "./components/ui/navigation-menu/index
 import { Root as NavigationMenu } from "./components/ui/navigation-menu/index.js";
 export { navigationMenuTriggerStyle } from "./components/ui/navigation-menu/index.js";
 
+// DarkMode
+import * as DarkModePrimitives from "./components/ui/dark-mode/index.js";
+import { DarkModeToggle, DarkModeSwitch, DarkModeDropdown } from "./components/ui/dark-mode/index.js";
+export { mode, setMode, toggleMode, resetMode } from "./components/ui/dark-mode/index.js";
+
 // Export all primitives (namespace exports with all component parts)
 export {
 	AccordionPrimitives,
@@ -214,6 +219,7 @@ export {
 	TextareaPrimitives,
 	TooltipPrimitives,
 	NavigationMenuPrimitives,
+	DarkModePrimitives,
 };
 
 // Export shorthand components (Root component of each)
@@ -265,4 +271,7 @@ export {
 	Textarea,
 	Tooltip,
 	NavigationMenu,
+	DarkModeToggle,
+	DarkModeSwitch,
+	DarkModeDropdown,
 };

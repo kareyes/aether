@@ -1,4 +1,5 @@
 import { RangeCalendar as RangeCalendarPrimitive } from "bits-ui";
+import type { Component } from "svelte";
 import Root from "./range-calendar.svelte";
 import Cell from "./range-calendar-cell.svelte";
 import Day from "./range-calendar-day.svelte";
@@ -16,8 +17,8 @@ import Caption from "./range-calendar-caption.svelte";
 import Nav from "./range-calendar-nav.svelte";
 import Month from "./range-calendar-month.svelte";
 
-const GridHead = RangeCalendarPrimitive.GridHead;
-const GridBody = RangeCalendarPrimitive.GridBody;
+const GridHead: Component = RangeCalendarPrimitive.GridHead;
+const GridBody: Component = RangeCalendarPrimitive.GridBody;
 
 export {
 	Day,

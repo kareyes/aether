@@ -1,4 +1,5 @@
 import { Popover as PopoverPrimitive } from "bits-ui";
+import type { Component } from "svelte";
 import Content, {
 	type PopoverContentVariant,
 	type PopoverContentSize,
@@ -11,9 +12,9 @@ import Trigger, {
 	popoverTriggerVariants,
 } from "./popover-trigger.svelte";
 
-const Root = PopoverPrimitive.Root;
-const Close = PopoverPrimitive.Close;
-const Arrow = PopoverPrimitive.Arrow;
+const Root: Component = PopoverPrimitive.Root;
+const Close: Component = PopoverPrimitive.Close;
+const Arrow: Component = PopoverPrimitive.Arrow;
 
 // Export variant arrays for Storybook and other use cases
 const ContentVariants: PopoverContentVariant[] = Object.keys(

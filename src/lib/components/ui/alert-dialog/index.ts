@@ -1,4 +1,5 @@
 import { AlertDialog as AlertDialogPrimitive } from "bits-ui";
+import type { Component } from "svelte";
 import Trigger from "./alert-dialog-trigger.svelte";
 import Title from "./alert-dialog-title.svelte";
 import Action from "./alert-dialog-action.svelte";
@@ -11,8 +12,8 @@ import Description from "./alert-dialog-description.svelte";
 import Impl from "./alert-dialog-impl.svelte";
 import Provider from "./alert-dialog-provider.svelte";
 
-const Root = AlertDialogPrimitive.Root;
-const Portal = AlertDialogPrimitive.Portal;
+const Root: Component = AlertDialogPrimitive.Root;
+const Portal: Component = AlertDialogPrimitive.Portal;
 
 export {
 	Root,

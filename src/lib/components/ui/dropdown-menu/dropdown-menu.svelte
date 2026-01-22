@@ -1,10 +1,7 @@
-<script lang="ts">
-	import { Button, type ButtonProps } from "$lib/components/ui/button";
-	import { ChevronDown } from "@lucide/svelte";
-	import type { Snippet } from "svelte";
-	import * as DropdownMenu from "$lib/components/ui/dropdown-menu/index.js";
+<script lang="ts" module>
+	import type { Component } from "svelte";
 
-	type DropdownItem = {
+	export type DropdownItem = {
 		type?: "item" | "separator" | "label" | "checkbox" | "radio" | "submenu";
 		label?: string;
 		value?: string;
@@ -13,17 +10,24 @@
 		onSelect?: () => void;
 		shortcut?: string;
 		variant?: "default" | "destructive";
-		icon?: any;
+		icon?: Component;
 		items?: DropdownItem[];
 	};
 
-	type DropdownGroup = {
+	export type DropdownGroup = {
 		label?: string;
 		items: DropdownItem[];
 		type?: "radio";
 		value?: string;
 		onValueChange?: (value: string) => void;
 	};
+</script>
+
+<script lang="ts">
+	import { Button, type ButtonProps } from "$lib/components/ui/button";
+	import { ChevronDown } from "@lucide/svelte";
+	import type { Snippet } from "svelte";
+	import * as DropdownMenu from "$lib/components/ui/dropdown-menu/index.js";
 
 	interface Props {
 		triggerText?: string;

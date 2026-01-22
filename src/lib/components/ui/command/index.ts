@@ -1,4 +1,5 @@
 import { Command as CommandPrimitive } from "bits-ui";
+import type { Component } from "svelte";
 
 import Root from "./command.svelte";
 import Dialog from "./command-dialog.svelte";
@@ -11,7 +12,7 @@ import Separator from "./command-separator.svelte";
 import Shortcut from "./command-shortcut.svelte";
 import LinkItem from "./command-link-item.svelte";
 
-const Loading = CommandPrimitive.Loading;
+const Loading: Component = CommandPrimitive.Loading;
 
 export {
 	Root,
