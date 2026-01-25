@@ -29,7 +29,7 @@ export type {
 } from "./dark-mode-types.js";
 
 // Re-export mode-watcher utilities for convenience
-export { mode, setMode, toggleMode, resetMode } from "mode-watcher";
+export { mode, setMode, toggleMode, resetMode , ModeWatcher} from "mode-watcher";
 
 // Named exports
 export { DarkModeToggle, DarkModeSwitch, DarkModeDropdown };

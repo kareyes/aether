@@ -3,7 +3,9 @@ import Group from "./input-otp-group.svelte";
 import Slot from "./input-otp-slot.svelte";
 import Separator from "./input-otp-separator.svelte";
 import InputOtp from "./input-otp.svelte";
- 
+import { REGEXP_ONLY_DIGITS, REGEXP_ONLY_DIGITS_AND_CHARS } from "bits-ui";
+
+// import type 
 
 export {
 	Root,
@@ -15,4 +17,6 @@ export {
 	Slot as InputOTPSlot,
 	Separator as InputOTPSeparator,
 	InputOtp as InputOTP,
+	REGEXP_ONLY_DIGITS,
+	REGEXP_ONLY_DIGITS_AND_CHARS,
 };
