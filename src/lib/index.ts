@@ -12,6 +12,7 @@ export * as ButtonPrimitives from "./components/ui/button/index.js";
 export * as ButtonGroupPrimitives from "./components/ui/button-group/index.js";
 export * as CalendarPrimitives from "./components/ui/calendar/index.js";
 export * as CardPrimitives from "./components/ui/card/index.js";
+export * as CodeBlockPrimitives from "./components/ui/code-block/index.js";
 export * as CheckboxPrimitives from "./components/ui/checkbox/index.js";
 export * as ComboBoxPrimitives from "./components/ui/combobox/index.js";
 export * as CommandPrimitives from "./components/ui/command/index.js";
@@ -63,12 +64,13 @@ import { Button } from "./components/ui/button/index.js";
 import { ButtonGroup } from "./components/ui/button-group/index.js";
 import { Calendar } from "./components/ui/calendar/index.js";
 import { Card } from "./components/ui/card/index.js";
+import { CodeBlock } from "./components/ui/code-block/index.js";
 import { Checkbox } from "./components/ui/checkbox/index.js";
 import { CheckboxGroup } from "./components/ui/checkbox/index.js";
 import { Combobox as ComboBox } from "./components/ui/combobox/index.js";
 import { Root as Command } from "./components/ui/command/index.js";
 import { DataTable } from "./components/ui/data-table/index.js";
-import { DatePicker, DatePickerWithPresets, DateRangePicker } from "./components/ui/date-picker/index.js";
+import { DatePicker, DatePickerWithPresets, DateRangePicker,DateRangePickerWithPresets } from "./components/ui/date-picker/index.js";
 import { Root as Dialog } from "./components/ui/dialog/index.js";
 import { DropdownMenu } from "./components/ui/dropdown-menu/index.js";
 import { Field } from "./components/ui/field/index.js";
@@ -110,6 +112,7 @@ export {
 	ButtonGroup,
 	Calendar,
 	Card,
+	CodeBlock,
 	Checkbox,
 	CheckboxGroup,
 	ComboBox,
@@ -118,6 +121,7 @@ export {
 	DatePicker,
 	DatePickerWithPresets,
 	DateRangePicker,
+	DateRangePickerWithPresets,
 	Dialog,
 	DropdownMenu,
 	Field,

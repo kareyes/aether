@@ -4,6 +4,7 @@ import DatePickerWithPresets from "./date-picker-with-presets.svelte";
 import DateRangePickerWithPresets from "./date-range-picker-with-presets.svelte";
 import type { DateValue } from "@internationalized/date";
 import { type ButtonVariant } from "$lib/components/ui/button/index.js";
+import type { DateRange } from "bits-ui";
 
 type DatePickerProps ={
 
@@ -25,6 +26,7 @@ type DatePickerProps ={
 }
 
 export {
+    type DateRange,
     type DatePickerProps,
 	DatePicker,
 	DateRangePicker,
