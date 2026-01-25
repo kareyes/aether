@@ -28,8 +28,14 @@ Create a `.npmrc` file in your project root:
 ### 2. Install the Package
 
 ```bash
+pnpm add svelte @lucide/svelte tailwindcss
+
 pnpm add @kareyes/aether
+
 # or
+
+npm install svelte @lucide/svelte tailwindcss
+
 npm install @kareyes/aether
 ```
 
@@ -180,6 +186,7 @@ Merge Tailwind classes with proper precedence:
 
 - **Svelte** ^5.0.0
 - **Tailwind CSS** ^4.0.0
+- **Lucide Svelte** ^0.561.0
 
 
 
