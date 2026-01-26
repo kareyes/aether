@@ -1,3 +1,33 @@
+<script lang="ts" module>
+	import { tv, type VariantProps } from "tailwind-variants";
+
+	export const calendarVariants = tv({
+		base: "bg-background group/calendar [[data-slot=card-content]_&]:bg-transparent [[data-slot=popover-content]_&]:bg-transparent",
+		variants: {
+			size: {
+				sm: "p-3 [--cell-size:--spacing(7)] [--cell-text:0.75rem] [--head-text:0.7rem]",
+				default: "p-3 [--cell-size:--spacing(8)] [--cell-text:0.875rem] [--head-text:0.8rem]",
+				lg: "p-3 [--cell-size:--spacing(10)] [--cell-text:0.875rem] [--head-text:0.8rem]",
+				xl: "p-3 [--cell-size:--spacing(12)] [--cell-text:1rem] [--head-text:0.875rem]",
+				full: "p-0 w-full [--cell-text:0.875rem] [--head-text:0.875rem]",
+			},
+		},
+		defaultVariants: {
+			size: "default",
+		},
+	});
+
+	export type CalendarSize = VariantProps<typeof calendarVariants>["size"];
+
+	export type CalendarEvent = {
+		date: string; // ISO date string (YYYY-MM-DD)
+		color?: string;
+		label?: string;
+		icon?: string; // Icon component or URL
+		description?: string;
+	};
+</script>
+
 <script lang="ts">
 	import { Calendar as CalendarPrimitive } from "bits-ui";
 	import * as Calendar from "./index.js";
@@ -5,6 +35,7 @@
 	import type { ButtonVariant } from "../button/button.svelte";
 	import { isEqualMonth, type DateValue } from "@internationalized/date";
 	import type { Snippet } from "svelte";
+	import { setContext } from "svelte";
 
 	let {
 		ref = $bindable(null),
@@ -21,6 +52,8 @@
 		yearFormat = "numeric",
 		day,
 		disableDaysOutsideMonth = false,
+		size = "default",
+		events = [],
 		...restProps
 	}: WithoutChildrenOrChild<CalendarPrimitive.RootProps> & {
 		buttonVariant?: ButtonVariant;
@@ -30,6 +63,8 @@
 		monthFormat?: CalendarPrimitive.MonthSelectProps["monthFormat"];
 		yearFormat?: CalendarPrimitive.YearSelectProps["yearFormat"];
 		day?: Snippet<[{ day: DateValue; outsideMonth: boolean }]>;
+		size?: CalendarSize;
+		events?: CalendarEvent[];
 	} = $props();
 
 	const monthFormat = $derived.by(() => {
@@ -37,6 +72,21 @@
 		if (captionLayout.startsWith("dropdown")) return "short";
 		return "long";
 	});
+
+	// Create a map of events by date for quick lookup
+	const eventsByDate = $derived.by(() => {
+		const map = new Map<string, CalendarEvent[]>();
+		for (const event of events) {
+			const existing = map.get(event.date) || [];
+			existing.push(event);
+			map.set(event.date, existing);
+		}
+		return map;
+	});
+
+	// Set context for child components to access size and events
+	setContext("calendar-size", () => size);
+	setContext("calendar-events", () => eventsByDate);
 </script>
 
 <!--
@@ -47,12 +97,9 @@ get along, so we shut typescript up by casting `value` to `never`.
 	bind:value={value as never}
 	bind:ref
 	bind:placeholder
-	{weekdayFormat}
+	weekdayFormat={size === "full" ? "long" : weekdayFormat}
 	{disableDaysOutsideMonth}
-	class={cn(
-		"bg-background group/calendar p-3 [--cell-size:--spacing(8)] [[data-slot=card-content]_&]:bg-transparent [[data-slot=popover-content]_&]:bg-transparent",
-		className
-	)}
+	class={cn(calendarVariants({ size }), className)}
 	{locale}
 	{monthFormat}
 	{yearFormat}
@@ -60,38 +107,54 @@ get along, so we shut typescript up by casting `value` to `never`.
 >
 	{#snippet children({ months, weekdays })}
 		<Calendar.Months>
-			<Calendar.Nav>
-				<Calendar.PrevButton variant={buttonVariant} />
-				<Calendar.NextButton variant={buttonVariant} />
-			</Calendar.Nav>
+			{#if size !== "full"}
+				<Calendar.Nav>
+					<Calendar.PrevButton variant={buttonVariant} />
+					<Calendar.NextButton variant={buttonVariant} />
+				</Calendar.Nav>
+			{/if}
 			{#each months as month, monthIndex (month)}
 				<Calendar.Month>
 					<Calendar.Header>
-						<Calendar.Caption
-							{captionLayout}
-							months={monthsProp}
-							{monthFormat}
-							{years}
-							{yearFormat}
-							month={month.value}
-							bind:placeholder
-							{locale}
-							{monthIndex}
-						/>
+						{#if size === "full"}
+							<Calendar.Heading />
+							<Calendar.Nav>
+								<Calendar.PrevButton variant={buttonVariant} />
+								<Calendar.NextButton variant={buttonVariant} />
+							</Calendar.Nav>
+						{:else}
+							<Calendar.Caption
+								{captionLayout}
+								months={monthsProp}
+								{monthFormat}
+								{years}
+								{yearFormat}
+								month={month.value}
+								bind:placeholder
+								{locale}
+								{monthIndex}
+							/>
+						{/if}
 					</Calendar.Header>
 					<Calendar.Grid>
 						<Calendar.GridHead>
 							<Calendar.GridRow class="select-none">
-								{#each weekdays as weekday (weekday)}
+								{#each weekdays as weekday, i (weekday)}
 									<Calendar.HeadCell>
-										{weekday.slice(0, 2)}
+										{#if size === "full"}
+											<!-- Show short on mobile, full on desktop -->
+											<span class="hidden md:inline">{weekday}</span>
+											<span class="md:hidden">{weekday.slice(0, 2)}</span>
+										{:else}
+											{weekday.slice(0, 2)}
+										{/if}
 									</Calendar.HeadCell>
 								{/each}
 							</Calendar.GridRow>
 						</Calendar.GridHead>
 						<Calendar.GridBody>
 							{#each month.weeks as weekDates (weekDates)}
-								<Calendar.GridRow class="mt-2 w-full">
+								<Calendar.GridRow class={size === "full" ? "w-full" : "mt-2 w-full"}>
 									{#each weekDates as date (date)}
 										<Calendar.Cell {date} month={month.value}>
 											{#if day}
@@ -100,7 +163,7 @@ get along, so we shut typescript up by casting `value` to `never`.
 													outsideMonth: !isEqualMonth(date, month.value),
 												})}
 											{:else}
-												<Calendar.Day />
+												<Calendar.Day {date} />
 											{/if}
 										</Calendar.Cell>
 									{/each}

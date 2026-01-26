@@ -16,6 +16,7 @@ import YearSelect from "./calendar-year-select.svelte";
 import Month from "./calendar-month.svelte";
 import Nav from "./calendar-nav.svelte";
 import Caption from "./calendar-caption.svelte";
+import EventMarker from "./calendar-event-marker.svelte";
 
 export {
 	Day,
@@ -35,6 +36,13 @@ export {
 	YearSelect,
 	MonthSelect,
 	Caption,
+	EventMarker,
 	//
 	Root as Calendar,
 };
+
+export {
+	calendarVariants,
+	type CalendarSize,
+	type CalendarEvent,
+} from "./calendar.svelte";

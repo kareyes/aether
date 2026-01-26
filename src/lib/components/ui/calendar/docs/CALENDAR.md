@@ -42,7 +42,105 @@ A fully-featured calendar component for displaying and selecting dates. Built on
 | `isDateUnavailable` | `(date: DateValue) => boolean` | `undefined` | Function to mark dates as unavailable |
 | `disableDaysOutsideMonth` | `boolean` | `false` | Disable days outside the current month |
 | `day` | `Snippet` | `undefined` | Custom snippet for rendering day cells |
+| `size` | `"sm" \| "default" \| "lg" \| "xl"` | `"default"` | Calendar size variant |
+| `events` | `CalendarEvent[]` | `[]` | Array of events to display as markers |
 | `class` | `string` | `undefined` | Additional CSS classes |
+
+## Size Variants
+
+The calendar supports four size variants.
+
+### Small
+```svelte
+<Calendar size="sm" />
+```
+
+### Default
+```svelte
+<Calendar size="default" />
+```
+
+### Large
+```svelte
+<Calendar size="lg" />
+```
+
+### Extra Large
+```svelte
+<Calendar size="xl" />
+```
+
+### Full (Responsive)
+Full-width calendar with event cards. Perfect for scheduling applications.
+
+```svelte
+<Calendar size="full" fixedWeeks={true} {events} />
+```
+
+Features of full size:
+- Full-width responsive layout
+- Events display as colored cards with labels
+- Cells expand to show multiple events
+- Header with weekday names in primary color
+- Mobile responsive (smaller cells on mobile)
+
+## Event Markers
+
+Display event indicators on specific dates. Events show as dots on smaller sizes (sm, default) and badges on larger sizes (lg, xl).
+
+### CalendarEvent Type
+```typescript
+type CalendarEvent = {
+  date: string;    // ISO date string (YYYY-MM-DD)
+  color?: string;  // Optional color (CSS color value)
+  label?: string;  // Optional label (shown in badge on lg/xl)
+};
+```
+
+### Basic Events
+```svelte
+<script>
+  import { Calendar, type CalendarEvent } from "@kareyes/aether";
+
+  const events: CalendarEvent[] = [
+    { date: "2024-12-05", color: "#ef4444", label: "Meeting" },
+    { date: "2024-12-10", color: "#22c55e", label: "Event" },
+    { date: "2024-12-15", color: "#3b82f6" },
+  ];
+</script>
+
+<Calendar {events} />
+```
+
+### Events with Different Sizes
+```svelte
+<!-- Dots display (small/default sizes) -->
+<Calendar size="sm" {events} />
+<Calendar size="default" {events} />
+
+<!-- Badge display (large/xl sizes) -->
+<Calendar size="lg" {events} />
+<Calendar size="xl" {events} />
+```
+
+### Multiple Events on Same Date
+When multiple events fall on the same date:
+- **Small/Default sizes**: Shows multiple colored dots (up to 2-3 based on size)
+- **Large/XL sizes**: Shows event count badge when multiple events
+
+```svelte
+<script>
+  const events: CalendarEvent[] = [
+    { date: "2024-12-15", color: "#ef4444", label: "Meeting" },
+    { date: "2024-12-15", color: "#3b82f6", label: "Call" },
+    { date: "2024-12-15", color: "#22c55e" },
+  ];
+</script>
+
+<!-- Shows 3 dots on default, shows "3" badge on xl -->
+<Calendar size="default" {events} />
+<Calendar size="xl" {events} />
+```
 
 ## Caption Layouts
 
@@ -226,11 +324,35 @@ The Calendar uses `@internationalized/date` for date handling:
 
 ## Styling
 
-The Calendar uses CSS variables for theming:
+The Calendar uses CSS variables for theming and sizing:
 
 ```css
+/* Size variants use these CSS variables: */
 .calendar {
-  --cell-size: var(--spacing-8); /* 2rem by default */
+  /* sm: */
+  --cell-size: var(--spacing-7);  /* 1.75rem */
+  --cell-text: 0.75rem;
+  --head-text: 0.7rem;
+
+  /* default: */
+  --cell-size: var(--spacing-8);  /* 2rem */
+  --cell-text: 0.875rem;
+  --head-text: 0.8rem;
+
+  /* lg: */
+  --cell-size: var(--spacing-10); /* 2.5rem */
+  --cell-text: 0.875rem;
+  --head-text: 0.8rem;
+
+  /* xl: */
+  --cell-size: var(--spacing-12); /* 3rem */
+  --cell-text: 1rem;
+  --head-text: 0.875rem;
+
+  /* full: */
+  /* Cells are flex-based, expand to fill width */
+  --cell-text: 0.875rem;
+  --head-text: 0.875rem;
 }
 ```
 
@@ -273,6 +395,7 @@ Available primitives:
 - `HeadCell` - Weekday header cell
 - `Cell` - Date cell container
 - `Day` - Day button
+- `EventMarker` - Event marker (dots/badge)
 - `MonthSelect` - Month dropdown
 - `YearSelect` - Year dropdown
 
@@ -289,6 +412,8 @@ Available primitives:
 - Keyboard navigation
 - Full accessibility support
 - Dark mode support
+- **Size variants** (sm, default, lg, xl)
+- **Event markers** (dots for small sizes, badges for large sizes)
 
 ## Accessibility
 

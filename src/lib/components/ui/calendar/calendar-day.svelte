@@ -2,23 +2,62 @@
 	import { buttonVariants } from "$lib/components/ui/button/index.js";
 	import { cn } from "$lib/utils.js";
 	import { Calendar as CalendarPrimitive } from "bits-ui";
+	import { getContext } from "svelte";
+	import type { CalendarEvent, CalendarSize } from "./calendar.svelte";
+	import EventMarker from "./calendar-event-marker.svelte";
 
 	let {
 		ref = $bindable(null),
 		class: className,
+		date,
+		showEventMarkers = true,
 		...restProps
-	}: CalendarPrimitive.DayProps = $props();
+	}: CalendarPrimitive.DayProps & {
+		date?: { year: number; month: number; day: number };
+		showEventMarkers?: boolean;
+	} = $props();
+
+	const getSize = getContext<() => CalendarSize>("calendar-size");
+	const size = $derived(getSize?.() ?? "default");
+	const isFullSize = $derived(size === "full");
+
+	const getEventsByDate = getContext<
+		() => Map<string, CalendarEvent[]>
+	>("calendar-events");
+
+	// Format the date to ISO string for lookup
+	const dateKey = $derived.by(() => {
+		if (!date) return null;
+		const year = date.year;
+		const month = String(date.month).padStart(2, "0");
+		const day = String(date.day).padStart(2, "0");
+		return `${year}-${month}-${day}`;
+	});
+
+	// Get events for this date
+	const dayEvents = $derived.by(() => {
+		if (!dateKey || !getEventsByDate) return [];
+		const eventsMap = getEventsByDate();
+		return eventsMap.get(dateKey) || [];
+	});
 </script>
 
 <CalendarPrimitive.Day
 	bind:ref
 	class={cn(
 		buttonVariants({ variant: "ghost" }),
-		"size-(--cell-size) flex select-none flex-col items-center justify-center gap-1 whitespace-nowrap p-0 font-normal leading-none",
+		"relative flex select-none whitespace-nowrap font-normal leading-none text-[length:var(--cell-text)]",
+		// Full size specific styles
+		isFullSize
+			? "h-full w-full min-h-20 md:min-h-24 items-start justify-start p-1 rounded-none border-t"
+			: "size-(--cell-size) flex-col items-center justify-center gap-1 p-0",
 		"[&[data-today]:not([data-selected])]:bg-accent [&[data-today]:not([data-selected])]:text-accent-foreground [&[data-today][data-disabled]]:text-muted-foreground",
-		"data-[selected]:bg-primary dark:data-[selected]:hover:bg-accent/50 data-[selected]:text-primary-foreground",
+		isFullSize
+			? "data-[selected]:bg-primary/10 data-[selected]:text-foreground"
+			: "data-[selected]:bg-primary dark:data-[selected]:hover:bg-accent/50 data-[selected]:text-primary-foreground",
 		// Outside months
 		"[&[data-outside-month]:not([data-selected])]:text-muted-foreground [&[data-outside-month]:not([data-selected])]:hover:text-accent-foreground",
+		isFullSize && "[&[data-outside-month]]:bg-muted/30",
 		// Disabled
 		"data-[disabled]:text-muted-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
 		// Unavailable
@@ -27,9 +66,23 @@
 		"dark:hover:text-accent-foreground",
 		// focus
 		"focus:border-ring focus:ring-ring/50 focus:relative",
-		// inner spans
-		"[&>span]:text-xs [&>span]:opacity-70",
+		// inner spans (non-full only)
+		!isFullSize && "[&>span]:text-xs [&>span]:opacity-70",
 		className
 	)}
 	{...restProps}
-/>
+>
+	{#snippet children({ day: dayValue })}
+		<span
+			class={cn(
+				"relative z-10",
+				isFullSize && "text-sm font-medium"
+			)}
+		>
+			{dayValue}
+		</span>
+		{#if showEventMarkers && dayEvents.length > 0}
+			<EventMarker events={dayEvents} />
+		{/if}
+	{/snippet}
+</CalendarPrimitive.Day>

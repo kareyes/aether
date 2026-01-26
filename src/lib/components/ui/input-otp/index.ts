@@ -5,6 +5,7 @@ import Separator from "./input-otp-separator.svelte";
 import InputOtp from "./input-otp.svelte";
 import { REGEXP_ONLY_DIGITS, REGEXP_ONLY_DIGITS_AND_CHARS } from "bits-ui";
 
+import type { InputOTPSize, InputOTPVariant } from "./input-otp-root.svelte";
 // import type 
 
 export {
@@ -19,4 +20,6 @@ export {
 	InputOtp as InputOTP,
 	REGEXP_ONLY_DIGITS,
 	REGEXP_ONLY_DIGITS_AND_CHARS,
+	type InputOTPSize,
+	type InputOTPVariant,
 };
