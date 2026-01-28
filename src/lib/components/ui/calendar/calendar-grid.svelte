@@ -19,8 +19,10 @@
 	bind:ref
 	class={cn(
 		"flex w-full border-collapse flex-col",
-		isFullSize ? "mt-0 gap-0 border rounded-lg overflow-hidden" : "mt-4 gap-1",
-		className
+		isFullSize
+			? "mt-0 gap-0 border rounded-lg overflow-hidden"
+			: "mt-2 sm:mt-3 md:mt-4 gap-0.5 sm:gap-1",
+		className,
 	)}
 	{...restProps}
 />

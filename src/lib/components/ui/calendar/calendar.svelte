@@ -5,11 +5,12 @@
 		base: "bg-background group/calendar [[data-slot=card-content]_&]:bg-transparent [[data-slot=popover-content]_&]:bg-transparent",
 		variants: {
 			size: {
-				sm: "p-3 [--cell-size:--spacing(7)] [--cell-text:0.75rem] [--head-text:0.7rem]",
-				default: "p-3 [--cell-size:--spacing(8)] [--cell-text:0.875rem] [--head-text:0.8rem]",
-				lg: "p-3 [--cell-size:--spacing(10)] [--cell-text:0.875rem] [--head-text:0.8rem]",
-				xl: "p-3 [--cell-size:--spacing(12)] [--cell-text:1rem] [--head-text:0.875rem]",
-				full: "p-0 w-full [--cell-text:0.875rem] [--head-text:0.875rem]",
+				sm: "p-2 sm:p-3 [--cell-size:--spacing(6)] sm:[--cell-size:--spacing(7)] [--cell-text:0.65rem] sm:[--cell-text:0.75rem] [--head-text:0.6rem] sm:[--head-text:0.7rem]",
+				default:
+					"p-2 sm:p-3 md:p-4 [--cell-size:--spacing(6)] sm:[--cell-size:--spacing(8)] md:[--cell-size:--spacing(9)] [--cell-text:0.75rem] sm:[--cell-text:0.875rem] md:[--cell-text:0.9375rem] [--head-text:0.7rem] sm:[--head-text:0.8rem] md:[--head-text:0.875rem]",
+				lg: "p-2 sm:p-3 md:p-4 [--cell-size:--spacing(7)] sm:[--cell-size:--spacing(10)] md:[--cell-size:--spacing(11)] [--cell-text:0.75rem] sm:[--cell-text:0.875rem] md:[--cell-text:1rem] [--head-text:0.7rem] sm:[--head-text:0.8rem] md:[--head-text:0.9rem]",
+				xl: "p-3 sm:p-4 md:p-5 [--cell-size:--spacing(8)] sm:[--cell-size:--spacing(12)] md:[--cell-size:--spacing(13)] [--cell-text:0.875rem] sm:[--cell-text:1rem] md:[--cell-text:1.125rem] [--head-text:0.8rem] sm:[--head-text:0.875rem] md:[--head-text:1rem]",
+				full: "p-0 w-full [--cell-text:0.75rem] sm:[--cell-text:0.875rem] md:[--cell-text:0.9375rem] [--head-text:0.75rem] sm:[--head-text:0.875rem] md:[--head-text:1rem]",
 			},
 		},
 		defaultVariants: {
@@ -57,7 +58,11 @@
 		...restProps
 	}: WithoutChildrenOrChild<CalendarPrimitive.RootProps> & {
 		buttonVariant?: ButtonVariant;
-		captionLayout?: "dropdown" | "dropdown-months" | "dropdown-years" | "label";
+		captionLayout?:
+			| "dropdown"
+			| "dropdown-months"
+			| "dropdown-years"
+			| "label";
 		months?: CalendarPrimitive.MonthSelectProps["months"];
 		years?: CalendarPrimitive.YearSelectProps["years"];
 		monthFormat?: CalendarPrimitive.MonthSelectProps["monthFormat"];
@@ -143,8 +148,12 @@ get along, so we shut typescript up by casting `value` to `never`.
 									<Calendar.HeadCell>
 										{#if size === "full"}
 											<!-- Show short on mobile, full on desktop -->
-											<span class="hidden md:inline">{weekday}</span>
-											<span class="md:hidden">{weekday.slice(0, 2)}</span>
+											<span class="hidden md:inline"
+												>{weekday}</span
+											>
+											<span class="md:hidden"
+												>{weekday.slice(0, 2)}</span
+											>
 										{:else}
 											{weekday.slice(0, 2)}
 										{/if}
@@ -154,13 +163,23 @@ get along, so we shut typescript up by casting `value` to `never`.
 						</Calendar.GridHead>
 						<Calendar.GridBody>
 							{#each month.weeks as weekDates (weekDates)}
-								<Calendar.GridRow class={size === "full" ? "w-full" : "mt-2 w-full"}>
+								<Calendar.GridRow
+									class={size === "full"
+										? "w-full"
+										: "mt-2 w-full"}
+								>
 									{#each weekDates as date (date)}
-										<Calendar.Cell {date} month={month.value}>
+										<Calendar.Cell
+											{date}
+											month={month.value}
+										>
 											{#if day}
 												{@render day({
 													day: date,
-													outsideMonth: !isEqualMonth(date, month.value),
+													outsideMonth: !isEqualMonth(
+														date,
+														month.value,
+													),
 												})}
 											{:else}
 												<Calendar.Day {date} />

@@ -1,7 +1,7 @@
 import { tv, type VariantProps } from "tailwind-variants";
 
 export const cardVariants = tv({
-	base: "bg-card text-card-foreground rounded-xl shadow-sm",
+	base: "bg-card text-card-foreground rounded-lg sm:rounded-xl shadow-sm",
 	variants: {
 		variant: {
 			default: "border border-border",

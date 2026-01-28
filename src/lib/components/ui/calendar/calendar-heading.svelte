@@ -19,8 +19,10 @@
 	bind:ref
 	class={cn(
 		"font-medium",
-		isFullSize ? "text-2xl px-2" : "px-(--cell-size) text-sm",
-		className
+		isFullSize
+			? "text-lg sm:text-2xl px-2"
+			: "px-(--cell-size) text-xs sm:text-sm md:text-base",
+		className,
 	)}
 	{...restProps}
 />
