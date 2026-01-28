@@ -12,6 +12,12 @@ A modern, accessible Svelte 5 UI component library built with Tailwind CSS v4.
 - **TypeScript** - Fully typed components with TypeScript support
 - **Customizable** - Easy to customize with CSS variables and Tailwind classes
 
+
+## Documentation
+
+https://aether-svelte.web.app/
+
+
 ## Installation
 
 ### 1. Configure npm Registry
