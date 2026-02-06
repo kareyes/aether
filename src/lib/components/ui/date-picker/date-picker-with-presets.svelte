@@ -12,6 +12,7 @@
         value?: DateValue;
 		presets?: Preset[];
 		format?: (date: DateValue | undefined) => string;
+		onValueChange?: (value: DateValue | undefined) => void;
 	};
 
     type Preset = {
@@ -42,6 +43,7 @@
 		calendarProps = {},
 		error = false,
 		onError,
+		onValueChange,
 		presets = [
 			{ label: "Today", value: today(getLocalTimeZone()) },
 			{ label: "Tomorrow", value: today(getLocalTimeZone()).add({ days: 1 }) },
@@ -63,6 +65,13 @@
 	$effect(() => {
 		if (onError) {
 			onError(error);
+		}
+	});
+
+	// Notify parent of value changes
+	$effect(() => {
+		if (onValueChange) {
+			onValueChange(value);
 		}
 	});
 

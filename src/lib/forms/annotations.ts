@@ -4,7 +4,7 @@
  * These annotations allow @effect/schema to be the single source of truth
  * for form rendering, validation, and layout configuration.
  */
-import { SchemaAST } from "effect";
+import { Schema, SchemaAST } from "effect";
 
 // ============================================================================
 // UI Annotation Types
@@ -250,3 +250,61 @@ export const getFieldAnnotation = (ast: SchemaAST.Annotated): FieldAnnotation | 
   if (!ui && !layout) return undefined;
   return { ...ui, ...layout } as FieldAnnotation;
 };
+
+// ============================================================================
+// Common Field Schemas
+// ============================================================================
+
+/**
+ * Schema for a required checkbox that must be checked (value must be true)
+ *
+ * Use this for checkboxes like "I agree to terms and conditions"
+ * where the user MUST check the box for validation to pass.
+ *
+ * @example
+ * ```ts
+ * const AcceptTermsSchema = pipe(
+ *   Schema.Struct({
+ *     acceptTerms: pipe(
+ *       RequiredCheckbox,
+ *       withField({
+ *         label: "I agree to terms and conditions",
+ *         inputType: "checkbox"
+ *       })
+ *     )
+ *   })
+ * );
+ * ```
+ */
+export const RequiredCheckbox = Schema.Boolean.pipe(
+  Schema.filter(
+    (value): value is true => value === true,
+    {
+      message: () => "This field must be checked"
+    }
+  )
+);
+
+/**
+ * Create a required checkbox with a custom error message
+ *
+ * @example
+ * ```ts
+ * const acceptTerms = pipe(
+ *   requiredCheckbox("You must accept the terms and conditions"),
+ *   withField({
+ *     label: "I accept the terms",
+ *     inputType: "checkbox"
+ *   })
+ * );
+ * ```
+ */
+export const requiredCheckbox = (message: string) =>
+  Schema.Boolean.pipe(
+    Schema.filter(
+      (value): value is true => value === true,
+      {
+        message: () => message
+      }
+    )
+  );

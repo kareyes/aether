@@ -30,6 +30,7 @@
 		startAddonAlign = "inline-start",
 		endAddonAlign = "inline-end",
 		groupClassName,
+		oninput: externalOninput,
 		...restProps
 	}: InputWithAddonsProps = $props();
 
@@ -43,11 +44,16 @@
 		}
 	});
 
-	// Handle masked input events
-	function onInput(event: Event) {
+	// Handle masked input events (combines mask handling with external oninput)
+	function onInput(event: Event & { currentTarget: EventTarget & HTMLInputElement }) {
+		// Apply mask transformation first
 		handleInput(event, (newValue) => {
 			value = newValue;
 		});
+		// Call external handler if provided
+		if (externalOninput) {
+			externalOninput(event);
+		}
 	}
 
 	// Get placeholder - use mask placeholder if available
