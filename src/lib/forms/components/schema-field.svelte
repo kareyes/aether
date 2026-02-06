@@ -17,6 +17,8 @@
 		SelectOption,
 		SelectOptionGroup,
 	} from "$lib/components/ui/select/utils/select-types.js";
+	import DatePicker from "$lib/components/ui/date-picker/date-picker.svelte";
+	import { type DateValue, parseDate } from "@internationalized/date";
 
 	interface Props {
 		ctx: FieldRenderContext;
@@ -90,7 +92,9 @@
 		const target = e.target as HTMLTextAreaElement;
 		handleChange(target.value);
 	}
-	console.log('Rendering SchemaField for field:', field);
+	// $effect(() => {
+	// 	console.log('Rendering SchemaField for field:', field.name, field);
+	// });
 </script>
 
 {#if field.inputType === "text" || field.inputType === "email" || field.inputType === "password" || field.inputType === "tel" || field.inputType === "url" || field.inputType === "number"}
@@ -150,6 +154,22 @@
 			disabled={field.disabled}
 			error={showError && !!error}
 			onSelectionChange={(v: string | undefined) => handleChange(v)}
+		/>
+	</Field>
+{:else if field.inputType === "date"}
+	<Field
+		label={field.label}
+		description={field.description}
+		{error}
+		required={field.required}
+		disabled={field.disabled}
+		class={className}
+	>
+		<DatePicker
+			value={ctx.value ? parseDate(ctx.value as string) : undefined}
+			disabled={field.disabled}
+			error={showError && !!error}
+			onValueChange={(v: DateValue | undefined) => handleChange(v?.toString())}
 		/>
 	</Field>
 {:else if field.inputType === "checkbox"}

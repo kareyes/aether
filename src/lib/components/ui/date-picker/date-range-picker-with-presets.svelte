@@ -12,6 +12,7 @@
         value?: DateRange;
         presets?: RangePreset[];
         format?: (range: DateRange | undefined) => string;
+        onValueChange?: (value: DateRange | undefined) => void;
     };
 
 	type RangePreset = {
@@ -47,6 +48,7 @@
 		calendarProps = {},
 		error = false,
 		onError,
+		onValueChange,
 		presets = [
 			{ 
 				label: "Today", 
@@ -91,6 +93,13 @@
 	$effect(() => {
 		if (onError) {
 			onError(error);
+		}
+	});
+
+	// Notify parent of value changes
+	$effect(() => {
+		if (onValueChange) {
+			onValueChange(value);
 		}
 	});
 

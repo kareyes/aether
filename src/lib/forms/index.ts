@@ -57,6 +57,8 @@ export {
   FieldUISymbol,
   FieldLayoutSymbol,
   FormLayoutSymbol,
+  RequiredCheckbox,
+  requiredCheckbox,
   type InputType,
   type FieldOption,
   type FieldOptionGroup,

@@ -11,6 +11,7 @@
     type Props = DatePickerProps & {
         value?: DateValue;
         format?: (date: DateValue | undefined) => string;
+        onValueChange?: (value: DateValue | undefined) => void;
     };
 
     let {
@@ -24,6 +25,7 @@
         format = defaultFormat,
         error = false,
         onError,
+        onValueChange,
         ...restProps
     }: Props = $props();
 
@@ -49,6 +51,13 @@
     $effect(() => {
         if (onError) {
             onError(error);
+        }
+    });
+
+    // Notify parent of value changes
+    $effect(() => {
+        if (onValueChange) {
+            onValueChange(value);
         }
     });
 
