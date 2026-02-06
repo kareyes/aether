@@ -6,7 +6,7 @@
 	import DataTableCheckbox from "../data-table-checkbox.svelte";
 	import DataTableColumnHeader from "../data-table-column-header.svelte";
 	import DataTableActions from "../data-table-actions.svelte";
-	import type { ColumnDef, HeaderContext, CellContext } from "../index.js";
+	import type { ColumnDef, HeaderContext, CellContext, DataTableColumnMeta } from "../index.js";
 	import { renderComponent, renderSnippet } from "../index.js";
 
 	type Payment = {
@@ -185,6 +185,126 @@
 		}
 	];
 
+	// Columns with mobile-specific metadata for responsive demos
+	const createColumnsWithMobileMeta = (): ColumnDef<Payment>[] => [
+		{
+			id: "select",
+			header: ({ table }: HeaderContext<Payment, unknown>) =>
+				renderComponent(DataTableCheckbox, {
+					checked: table.getIsAllPageRowsSelected(),
+					indeterminate:
+						table.getIsSomePageRowsSelected() && !table.getIsAllPageRowsSelected(),
+					onCheckedChange: (value) => table.toggleAllPageRowsSelected(!!value),
+					"aria-label": "Select all"
+				}),
+			cell: ({ row }: CellContext<Payment, unknown>) =>
+				renderComponent(DataTableCheckbox, {
+					checked: row.getIsSelected(),
+					onCheckedChange: (value) => row.toggleSelected(!!value),
+					"aria-label": "Select row"
+				}),
+			enableSorting: false,
+			enableHiding: false
+		},
+		{
+			accessorKey: "status",
+			header: "Status",
+			meta: {
+				mobileLabel: "Payment Status",
+				priority: 1,
+				alwaysVisible: true
+			} as DataTableColumnMeta,
+			cell: ({ row }: CellContext<Payment, unknown>) => {
+				const statusSnippet = createRawSnippet<[{ status: string }]>((getStatus) => {
+					const { status } = getStatus();
+					return {
+						render: () => `<div class="capitalize">${status}</div>`
+					};
+				});
+				return renderSnippet(statusSnippet, {
+					status: row.original.status
+				});
+			}
+		},
+		{
+			accessorKey: "email",
+			header: ({ column }: HeaderContext<Payment, unknown>) =>
+				renderComponent(DataTableColumnHeader, {
+					title: "Email",
+					onclick: column.getToggleSortingHandler()
+				}),
+			meta: {
+				mobileLabel: "Email Address",
+				priority: 2
+			} as DataTableColumnMeta,
+			cell: ({ row }: CellContext<Payment, unknown>) => {
+				const emailSnippet = createRawSnippet<[{ email: string }]>((getEmail) => {
+					const { email } = getEmail();
+					return {
+						render: () => `<div class="lowercase">${email}</div>`
+					};
+				});
+				return renderSnippet(emailSnippet, {
+					email: row.original.email
+				});
+			}
+		},
+		{
+			accessorKey: "amount",
+			header: () => {
+				const amountHeaderSnippet = createRawSnippet(() => {
+					return {
+						render: () => `<div class="text-end">Amount</div>`
+					};
+				});
+				return renderSnippet(amountHeaderSnippet);
+			},
+			meta: {
+				mobileLabel: "Amount (USD)",
+				priority: 3
+			} as DataTableColumnMeta,
+			cell: ({ row }: CellContext<Payment, unknown>) => {
+				const formatter = new Intl.NumberFormat("en-US", {
+					style: "currency",
+					currency: "USD"
+				});
+				const amountCellSnippet = createRawSnippet<[{ amount: number }]>((getAmount) => {
+					const { amount } = getAmount();
+					const formatted = formatter.format(amount);
+					return {
+						render: () => `<div class="text-end font-medium">${formatted}</div>`
+					};
+				});
+				return renderSnippet(amountCellSnippet, {
+					amount: row.original.amount
+				});
+			}
+		},
+		{
+			id: "actions",
+			enableHiding: false,
+			cell: ({ row }: CellContext<Payment, unknown>) =>
+				renderComponent(DataTableActions, {
+					id: row.original.id,
+					copyLabel: "Copy payment ID",
+					actions: [
+						{
+							label: "View details",
+							onclick: () => console.log("View details for", row.original.id)
+						},
+						{
+							label: "Edit payment",
+							onclick: () => console.log("Edit payment", row.original.id)
+						},
+						{
+							label: "Delete",
+							onclick: () => console.log("Delete payment", row.original.id)
+						}
+					]
+				})
+		}
+	];
+
 	const { Story } = defineMeta({
 		title: 'Components/DataTable',
 		component: DataTable,
@@ -262,6 +382,15 @@
 				table: {
 					type: { summary: 'boolean' },
 					defaultValue: { summary: 'false' },
+				},
+			},
+			responsiveMode: {
+				control: { type: 'select' },
+				options: ['auto', 'card', 'scroll'],
+				description: 'Mobile display mode: auto (card on mobile), card (always cards), scroll (horizontal scroll)',
+				table: {
+					type: { summary: 'string' },
+					defaultValue: { summary: 'auto' },
 				},
 			},
 			filterColumn: {
@@ -419,10 +548,10 @@
 
 <Story name="Expandable Rows">
     {#snippet template()}
-    <DataTable 
-        data={sampleData} 
-        columns={createColumns() as any} 
-        expandable={true} 
+    <DataTable
+        data={sampleData}
+        columns={createColumns() as any}
+        expandable={true}
         pageSize={5}
     >
 {#snippet renderSubComponent({ row }: { row: any })}
@@ -449,7 +578,83 @@
 	{/snippet}
 
     </DataTable>
-    
+
+    {/snippet}
+
+</Story>
+
+<!-- Responsive: Card Mode (Force card layout) -->
+<Story
+	name="Responsive Card Mode"
+	args={{
+		data: sampleData,
+		columns: createColumnsWithMobileMeta() as any,
+		responsiveMode: "card",
+		pageSize: 5,
+		filterColumn: "email",
+		filterPlaceholder: "Filter emails..."
+	}}
+/>
+
+<!-- Responsive: Scroll Mode (Horizontal scroll on mobile) -->
+<Story
+	name="Responsive Scroll Mode"
+	args={{
+		data: sampleData,
+		columns: createColumns() as any,
+		responsiveMode: "scroll",
+		pageSize: 5
+	}}
+/>
+
+<!-- Responsive: Auto Mode (Default - cards on mobile, table on desktop) -->
+<Story
+	name="Responsive Auto Mode"
+	args={{
+		data: sampleData,
+		columns: createColumnsWithMobileMeta() as any,
+		responsiveMode: "auto",
+		pageSize: 5,
+		filterColumn: "email",
+		filterPlaceholder: "Filter emails..."
+	}}
+/>
+
+<!-- Responsive Card Mode with Expandable Rows -->
+<Story name="Responsive Expandable Cards">
+    {#snippet template()}
+    <DataTable
+        data={sampleData}
+        columns={createColumnsWithMobileMeta() as any}
+        expandable={true}
+        responsiveMode="card"
+        pageSize={5}
+    >
+{#snippet renderSubComponent({ row }: { row: any })}
+		{@const payment = row.original}
+		<div class="space-y-2 text-sm">
+			<div class="grid grid-cols-2 gap-4">
+				<div>
+					<span class="font-semibold">Payment ID:</span> {payment.id}
+				</div>
+				<div>
+					<span class="font-semibold">Status:</span> <span class="capitalize">{payment.status}</span>
+				</div>
+				<div>
+					<span class="font-semibold">Amount:</span> ${payment.amount.toFixed(2)}
+				</div>
+				<div>
+					<span class="font-semibold">Email:</span> {payment.email}
+				</div>
+			</div>
+			<div class="mt-4 p-3 bg-background rounded border">
+				<p class="text-xs text-muted-foreground">Additional payment details and transaction history would appear here.</p>
+			</div>
+		</div>
+	{/snippet}
+
+    </DataTable>
+
     {/snippet}
 
 </Story>

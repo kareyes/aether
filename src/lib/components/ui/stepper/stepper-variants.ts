@@ -28,11 +28,14 @@ export const stepperVariants = tv({
 			"text-sm text-muted-foreground transition-colors duration-200",
 		],
 		separator: [
-			"flex-1 transition-all duration-200",
+			"flex items-center justify-center flex-1",
+			"transition-all duration-200",
+			"min-h-[2px]",
 		],
 		separatorLine: [
 			"bg-border transition-all duration-200",
-			"flex-shrink-0",
+			"flex-shrink-1",
+			"rounded-full",
 		],
 	},
 	variants: {
@@ -41,7 +44,7 @@ export const stepperVariants = tv({
 				root: "flex-row items-start",
 				step: "flex-col items-center",
 				stepContent: "text-center",
-				separator: "flex items-center justify-center flex-1",
+				separator: "flex items-center justify-center flex-1 h-[2px]",
 				separatorLine: "h-[2px] w-full",
 			},
 			vertical: {
@@ -49,7 +52,7 @@ export const stepperVariants = tv({
 				step: "flex-row gap-3 last:pb-0",
 				stepContent: "text-left flex-1 pt-1",
 				separator: "flex items-center justify-start py-2 my-0 min-h-8",
-				separatorLine: "w-0.5 h-full ml-[19px] bg-border",
+				separatorLine: "w-0.5 h-full ml-[19px] bg-border rounded-full",
 			},
 		},
 		size: {
@@ -149,7 +152,7 @@ export const stepperVariants = tv({
 			size: "xs",
 			class: {
 				separatorLine: "ml-[11px]", // (size-6 / 2) - 1px = 11px
-				separator: "min-h-6",
+				separator: "min-h-16",
 			},
 		},
 		{
@@ -157,7 +160,7 @@ export const stepperVariants = tv({
 			size: "sm",
 			class: {
 				separatorLine: "ml-[15px]", // (size-8 / 2) - 1px = 15px
-				separator: "min-h-8",
+				separator: "min-h-20",
 			},
 		},
 		{
@@ -165,7 +168,7 @@ export const stepperVariants = tv({
 			size: "default",
 			class: {
 				separatorLine: "ml-[19px]", // (size-10 / 2) - 1px = 19px
-				separator: "min-h-10",
+				separator: "min-h-24",
 			},
 		},
 		{
@@ -173,36 +176,36 @@ export const stepperVariants = tv({
 			size: "lg",
 			class: {
 				separatorLine: "ml-[23px]", // (size-12 / 2) - 1px = 23px
-				separator: "min-h-12",
+				separator: "min-h-28",
 			},
 		},
-		// Horizontal orientation - align separator with button center
+		// Horizontal orientation - improved positioning with proper alignment
 		{
 			orientation: "horizontal",
 			size: "xs",
 			class: {
-				separator: "mt-[12px]", // size-6 / 2 = 12px (to center with button)
+				separator: "mt-2",
 			},
 		},
 		{
 			orientation: "horizontal",
 			size: "sm",
 			class: {
-				separator: "mt-[16px]", // size-8 / 2 = 16px (to center with button)
+				separator: "mt-3",
 			},
 		},
 		{
 			orientation: "horizontal",
 			size: "default",
 			class: {
-				separator: "mt-[20px]", // size-10 / 2 = 20px (to center with button)
+				separator: "mt-4",
 			},
 		},
 		{
 			orientation: "horizontal",
 			size: "lg",
 			class: {
-				separator: "mt-[24px]", // size-12 / 2 = 24px (to center with button)
+				separator: "mt-5",
 			},
 		},
 	],

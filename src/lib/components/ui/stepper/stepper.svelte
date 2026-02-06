@@ -2,7 +2,10 @@
 	import { setContext } from "svelte";
 	import { cn, type WithElementRef } from "$lib/utils.js";
 	import type { HTMLAttributes } from "svelte/elements";
-	import { stepperVariants, type StepperVariants } from "./stepper-variants.js";
+	import {
+		stepperVariants,
+		type StepperVariants,
+	} from "./stepper-variants.js";
 
 	let {
 		ref = $bindable(null),
@@ -21,7 +24,9 @@
 			onStepClick?: (step: number) => void;
 		} = $props();
 
-	const variants = $derived(stepperVariants({ orientation, size, variant, clickable }));
+	const variants = $derived(
+		stepperVariants({ orientation, size, variant, clickable }),
+	);
 
 	// Context for child components
 	setContext("stepper", {
@@ -56,6 +61,7 @@
 	bind:this={ref}
 	data-slot="stepper"
 	class={cn(variants.root(), className)}
+	data-orientation={orientation}
 	{...restProps}
 >
 	{@render children?.()}

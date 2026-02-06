@@ -3,8 +3,11 @@ export { default as DataTable } from "./data-table-root.svelte";
 export { default as DataTableCheckbox } from "./data-table-checkbox.svelte";
 export { default as DataTableColumnHeader } from "./data-table-column-header.svelte";
 export { default as DataTableActions } from "./data-table-actions.svelte";
+export { default as DataTableMobileCard } from "./data-table-mobile-card.svelte";
+export { default as DataTableMobileView } from "./data-table-mobile-view.svelte";
 export { renderComponent, renderSnippet } from "./render-helpers.js";
 export { createSvelteTable } from "./data-table.svelte.js";
+export { getColumnMobileLabel, getMobileVisibleColumns, isSpecialColumn } from "./utils.js";
 
 // Re-export commonly used types from @tanstack/table-core
 export type {
@@ -31,3 +34,6 @@ export {
 	getSortedRowModel,
 	getExpandedRowModel,
 } from "@tanstack/table-core";
+
+// Export responsive DataTable types
+export type { DataTableColumnMeta, ResponsiveMode } from "./types.js";

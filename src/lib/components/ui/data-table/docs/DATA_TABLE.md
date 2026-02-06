@@ -11,6 +11,7 @@ A powerful, flexible data table component built with TanStack Table and Svelte 5
 - ✅ **Column Visibility** - Show/hide columns dynamically
 - ✅ **Expandable Rows** - Collapsible row details with custom content
 - ✅ **Table Variants** - Multiple visual styles (default, striped, bordered, compact)
+- ✅ **Responsive Design** - Card-based layout on mobile, table on desktop
 - ✅ **Customizable** - Full control over rendering with Svelte 5 snippets
 - ✅ **TypeScript** - Fully typed with generics support
 
@@ -73,6 +74,8 @@ pnpm add @kareyes/aether @tanstack/table-core
 | `onPageChange` | `(page: number, action?: 'next' \| 'previous') => void` | `undefined` | Callback when page changes |
 | `onPageSizeChange` | `(pageSize: number) => void` | `undefined` | Callback when page size changes |
 | `onRowSelectionChange` | `(selectedRows: TData[]) => void` | `undefined` | Callback when selection changes |
+| `responsiveMode` | `'auto' \| 'card' \| 'scroll'` | `'auto'` | Mobile display mode |
+| `showFilterColumnSelector` | `boolean` | `true` | Show dropdown to select which column to filter |
 
 ## Table Variants
 
@@ -103,6 +106,137 @@ Reduced padding and smaller text for dense data display.
 ```svelte
 <DataTable {data} {columns} variant="compact" />
 ```
+
+## Responsive Design
+
+The DataTable automatically adapts to different screen sizes. On mobile devices (< 768px), it switches from a traditional table layout to a card-based layout for better readability and touch interaction.
+
+### Responsive Modes
+
+| Mode | Description |
+|------|-------------|
+| `'auto'` | Automatically switches to cards on mobile, table on desktop (default) |
+| `'card'` | Always display as cards regardless of screen size |
+| `'scroll'` | Keep table layout with horizontal scrolling on all screen sizes |
+
+### Auto Mode (Default)
+
+The table automatically detects the screen size and switches layouts:
+
+```svelte
+<DataTable {data} {columns} responsiveMode="auto" />
+```
+
+- **Desktop (≥768px)**: Traditional table layout
+- **Mobile (<768px)**: Card-based stacked layout
+
+### Force Card Mode
+
+Always display data as cards, useful for dashboards or when you prefer the card layout:
+
+```svelte
+<DataTable {data} {columns} responsiveMode="card" />
+```
+
+### Scroll Mode
+
+Keep the traditional table with horizontal scrolling on smaller screens:
+
+```svelte
+<DataTable {data} {columns} responsiveMode="scroll" />
+```
+
+## Column Mobile Metadata
+
+Customize how columns appear in the mobile card view using the `meta` field on column definitions.
+
+### DataTableColumnMeta Type
+
+```ts
+interface DataTableColumnMeta {
+  /** Hide this column in mobile card view */
+  hiddenOnMobile?: boolean;
+  /** Custom label for mobile view (defaults to header text) */
+  mobileLabel?: string;
+  /** Display priority in card view - lower numbers appear first (default: 100) */
+  priority?: number;
+  /** Always show this column in card view regardless of visibility settings */
+  alwaysVisible?: boolean;
+}
+```
+
+### Example: Columns with Mobile Metadata
+
+```ts
+import type { ColumnDef, DataTableColumnMeta } from "@kareyes/aether";
+
+const columns: ColumnDef<Payment>[] = [
+  {
+    accessorKey: "status",
+    header: "Status",
+    meta: {
+      mobileLabel: "Payment Status",  // Custom label in card view
+      priority: 1,                     // Appears first in card
+      alwaysVisible: true              // Highlighted in card view
+    } as DataTableColumnMeta,
+  },
+  {
+    accessorKey: "email",
+    header: "Email",
+    meta: {
+      mobileLabel: "Email Address",
+      priority: 2
+    } as DataTableColumnMeta,
+  },
+  {
+    accessorKey: "amount",
+    header: "Amount",
+    meta: {
+      mobileLabel: "Amount (USD)",
+      priority: 3
+    } as DataTableColumnMeta,
+  },
+  {
+    accessorKey: "internalId",
+    header: "Internal ID",
+    meta: {
+      hiddenOnMobile: true  // Hidden in card view
+    } as DataTableColumnMeta,
+  },
+];
+```
+
+### Mobile Card Layout
+
+In card mode, each row renders as a card with the following structure:
+
+```
+┌─────────────────────────────────────┐
+│ [checkbox] [expand]      [actions]  │  ← Card header (selection/actions)
+├─────────────────────────────────────┤
+│ LABEL                               │
+│ Cell value                          │  ← Data fields (sorted by priority)
+│                                     │
+│ LABEL                               │
+│ Cell value                          │
+├─────────────────────────────────────┤
+│ Expanded content (if expanded)      │  ← Optional expanded content
+└─────────────────────────────────────┘
+```
+
+### Responsive Header & Footer
+
+The filter controls and pagination automatically adapt to mobile:
+
+**Mobile Layout:**
+- Filter input expands to full width
+- Column toggle button expands to full width
+- Pagination shows "Page X of Y" indicator
+- Previous/Next buttons expand side-by-side
+- Page size selector hidden (saves space)
+
+**Desktop Layout:**
+- Standard horizontal layout with all controls visible
 
 ## Selection Modes
 
@@ -359,14 +493,43 @@ Enable row expansion to show additional details.
 
 ## Filtering
 
-### Custom Filter Column
+### Filter Column Selector
+
+By default, a dropdown appears next to the filter input allowing users to choose which column to filter. This is useful when your table has multiple filterable columns.
 
 ```svelte
-<DataTable 
-  {data} 
-  {columns} 
+<DataTable
+  {data}
+  {columns}
+  showFilterColumnSelector={true}
+  filterPlaceholder="Search..."
+/>
+```
+
+The dropdown automatically lists all columns that have an `accessorKey` defined.
+
+### Set Initial Filter Column
+
+```svelte
+<DataTable
+  {data}
+  {columns}
   filterColumn="name"
   filterPlaceholder="Search by name..."
+/>
+```
+
+### Disable Filter Column Selector
+
+If you want a fixed filter column without the dropdown:
+
+```svelte
+<DataTable
+  {data}
+  {columns}
+  filterColumn="email"
+  showFilterColumnSelector={false}
+  filterPlaceholder="Filter by email..."
 />
 ```
 
@@ -563,6 +726,31 @@ Dropdown menu for row actions.
 - `copyLabel?: string` - Label for copy action (default: "Copy ID")
 - `actions?: Array<{ label: string; onclick: () => void }>` - Custom actions
 
+### DataTableMobileCard
+
+Card component for rendering a single row in mobile view.
+
+**Props:**
+- `row: Row<TData>` - The row data to render
+- `expandable?: boolean` - Enable row expansion
+- `showRowSelection?: boolean` - Show selection checkbox
+- `selectionMode?: 'multi' | 'single' | 'none'` - Selection mode
+- `renderSubComponent?: Snippet` - Content for expanded state
+- `variant?: TableVariant` - Visual variant
+- `index?: number` - Row index for striped variant
+
+### DataTableMobileView
+
+Container component that renders all rows as cards in mobile view.
+
+**Props:**
+- `table: Table<TData>` - The TanStack Table instance
+- `expandable?: boolean` - Enable row expansion
+- `showRowSelection?: boolean` - Show selection checkboxes
+- `selectionMode?: 'multi' | 'single' | 'none'` - Selection mode
+- `renderSubComponent?: Snippet` - Content for expanded rows
+- `variant?: TableVariant` - Visual variant
+
 ## Utility Functions
 
 ### renderComponent
@@ -588,6 +776,40 @@ const snippet = createRawSnippet(() => ({
 }));
 
 renderSnippet(snippet, { data: "value" })
+```
+
+### getColumnMobileLabel
+
+Extracts the display label for a column in mobile card view.
+
+```ts
+import { getColumnMobileLabel } from "@kareyes/aether";
+
+// Returns: meta.mobileLabel > string header > formatted column id
+const label = getColumnMobileLabel(column);
+```
+
+### getMobileVisibleColumns
+
+Filters and sorts columns for mobile card view based on meta configuration.
+
+```ts
+import { getMobileVisibleColumns } from "@kareyes/aether";
+
+// Returns columns sorted by priority, excluding those with hiddenOnMobile: true
+const mobileColumns = getMobileVisibleColumns(allColumns);
+```
+
+### isSpecialColumn
+
+Checks if a column is a special column (select or actions) that should be rendered separately in the card header.
+
+```ts
+import { isSpecialColumn } from "@kareyes/aether";
+
+if (isSpecialColumn(column)) {
+  // Render in card header instead of body
+}
 ```
 
 ## TypeScript Support
