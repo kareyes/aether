@@ -10,9 +10,7 @@
 		getMobileVisibleColumns,
 		isSpecialColumn,
 	} from "./utils.js";
-	import type { DataTableColumnMeta } from "./types.js";
-
-	type TableVariant = "default" | "striped" | "bordered" | "compact";
+	import type { DataTableColumnMeta, TableVariant } from "./types.js";
 
 	type Props = {
 		row: Row<TData>;

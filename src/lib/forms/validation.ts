@@ -4,7 +4,7 @@
  * Provides helpers to validate form data against @effect/schema
  * and extract field-level errors for UI display.
  */
-import { Schema, SchemaAST, Effect, Either, ParseResult, pipe } from "effect";
+import { Schema, SchemaAST, Effect, Either, Option, ParseResult, pipe } from "effect";
 
 // ============================================================================
 // Validation Result Types
@@ -94,14 +94,34 @@ const extractFieldErrors = (
       }
 
       case "Refinement": {
-        // Refinement/filter failure - process inner issue
-        processIssue(issue.issue, path);
+        // Check for a message annotation on the outermost refinement AST
+        const annotation = SchemaAST.getMessageAnnotation(issue.ast);
+        if (Option.isSome(annotation) && path) {
+          const result = annotation.value(issue);
+          if (typeof result === "string") {
+            errors[path] = result;
+          } else if (typeof result === "object" && "message" in result && typeof result.message === "string") {
+            errors[path] = result.message;
+          } else {
+            errors[path] = ParseResult.TreeFormatter.formatIssueSync(issue);
+          }
+        } else if (issue.kind === "Predicate" && path) {
+          // No annotation — use TreeFormatter for a sensible default
+          errors[path] = ParseResult.TreeFormatter.formatIssueSync(issue);
+        } else {
+          // kind === "From" without annotation — recurse into inner issue
+          processIssue(issue.issue, path);
+        }
         break;
       }
 
       case "Transformation": {
-        // Transformation error
-        processIssue(issue.issue, path);
+        // For transformation-level failures, use TreeFormatter for the message
+        if (issue.kind === "Transformation" && path) {
+          errors[path] = ParseResult.TreeFormatter.formatIssueSync(issue);
+        } else {
+          processIssue(issue.issue, path);
+        }
         break;
       }
 
@@ -117,6 +137,33 @@ const extractFieldErrors = (
 
   processIssue(error.issue, prefix);
   return errors as FieldErrors;
+};
+
+// ============================================================================
+// Data Pre-processing
+// ============================================================================
+
+/**
+ * Strip empty/blank strings from form data so they become undefined,
+ * allowing the schema's required property check to produce Missing errors
+ * instead of refinement errors (e.g. pattern, minLength) for blank fields.
+ */
+const stripEmptyStrings = (data: unknown): unknown => {
+  if (data === null || data === undefined || typeof data !== "object") {
+    return data;
+  }
+  if (Array.isArray(data)) {
+    return data.map(stripEmptyStrings);
+  }
+  const result: Record<string, unknown> = {};
+  for (const [key, value] of Object.entries(data)) {
+    if (typeof value === "string" && value.trim() === "") {
+      // Omit empty strings — they'll be seen as missing by the struct schema
+      continue;
+    }
+    result[key] = value;
+  }
+  return result;
 };
 
 // ============================================================================
@@ -141,7 +188,7 @@ export const validateSync = <A, I>(
   data: unknown
 ): ValidationResult<A> => {
   const decode = Schema.decodeUnknownEither(schema, { errors: "all" });
-  const result = decode(data);
+  const result = decode(stripEmptyStrings(data));
 
   return Either.match(result, {
     onLeft: (parseError: ParseResult.ParseError): ValidationResult<A> => ({
@@ -173,7 +220,7 @@ export const validate = <A, I, R>(
   data: unknown
 ): Effect.Effect<A, FieldErrors, R> =>
   pipe(
-    Schema.decodeUnknown(schema, { errors: "all" })(data),
+    Schema.decodeUnknown(schema, { errors: "all" })(stripEmptyStrings(data)),
     Effect.mapError(extractFieldErrors)
   );
 

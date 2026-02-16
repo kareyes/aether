@@ -1,8 +1,7 @@
 <script lang="ts" generics="TData">
 	import type { Table, Row } from "@tanstack/table-core";
 	import DataTableMobileCard from "./data-table-mobile-card.svelte";
-
-	type TableVariant = "default" | "striped" | "bordered" | "compact";
+	import type { TableVariant } from "./types.js";
 
 	type Props = {
 		table: Table<TData>;

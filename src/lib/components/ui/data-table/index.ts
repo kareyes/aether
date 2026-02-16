@@ -5,6 +5,9 @@ export { default as DataTableColumnHeader } from "./data-table-column-header.sve
 export { default as DataTableActions } from "./data-table-actions.svelte";
 export { default as DataTableMobileCard } from "./data-table-mobile-card.svelte";
 export { default as DataTableMobileView } from "./data-table-mobile-view.svelte";
+export { default as DataTableToolbar } from "./data-table-toolbar.svelte";
+export { default as DataTableContent } from "./data-table-content.svelte";
+export { default as DataTablePagination } from "./data-table-pagination.svelte";
 export { renderComponent, renderSnippet } from "./render-helpers.js";
 export { createSvelteTable } from "./data-table.svelte.js";
 export { getColumnMobileLabel, getMobileVisibleColumns, isSpecialColumn } from "./utils.js";
@@ -36,4 +39,4 @@ export {
 } from "@tanstack/table-core";
 
 // Export responsive DataTable types
-export type { DataTableColumnMeta, ResponsiveMode } from "./types.js";
+export type { DataTableColumnMeta, ResponsiveMode, TableVariant } from "./types.js";

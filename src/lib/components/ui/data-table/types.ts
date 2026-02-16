@@ -35,3 +35,5 @@ export interface DataTableColumnMeta {
  * - `'scroll'`: Use horizontal scrolling table on all screen sizes
  */
 export type ResponsiveMode = "card" | "scroll" | "auto";
+
+export type TableVariant = "default" | "striped" | "bordered" | "compact";

@@ -59,6 +59,8 @@ export {
   FormLayoutSymbol,
   RequiredCheckbox,
   requiredCheckbox,
+  RequiredSwitch,
+  requiredSwitch,
   type InputType,
   type FieldOption,
   type FieldOptionGroup,

@@ -308,3 +308,57 @@ export const requiredCheckbox = (message: string) =>
       }
     )
   );
+
+/**
+ * Schema for a required switch that must be enabled (value must be true)
+ *
+ * Use this for switches like "Enable notifications" where the user
+ * MUST toggle it on for validation to pass.
+ *
+ * @example
+ * ```ts
+ * const EnableSchema = pipe(
+ *   Schema.Struct({
+ *     notifications: pipe(
+ *       RequiredSwitch,
+ *       withField({
+ *         label: "Enable notifications",
+ *         inputType: "switch"
+ *       })
+ *     )
+ *   })
+ * );
+ * ```
+ */
+export const RequiredSwitch = Schema.Boolean.pipe(
+  Schema.filter(
+    (value): value is true => value === true,
+    {
+      message: () => "This field must be enabled"
+    }
+  )
+);
+
+/**
+ * Create a required switch with a custom error message
+ *
+ * @example
+ * ```ts
+ * const notifications = pipe(
+ *   requiredSwitch("You must enable notifications"),
+ *   withField({
+ *     label: "Enable notifications",
+ *     inputType: "switch"
+ *   })
+ * );
+ * ```
+ */
+export const requiredSwitch = (message: string) =>
+  Schema.Boolean.pipe(
+    Schema.filter(
+      (value): value is true => value === true,
+      {
+        message: () => message
+      }
+    )
+  );
