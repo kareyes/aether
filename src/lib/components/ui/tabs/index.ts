@@ -29,3 +29,5 @@ export type {
 	TabsContentAnimation,
 	TabsContentPadding
 } from "./tabs-content.svelte";
+
+export type { TabItem } from "./tabs.svelte";

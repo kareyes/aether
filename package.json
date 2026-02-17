@@ -1,6 +1,6 @@
 {
   "name": "@kareyes/aether",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "description": "A Svelte 5 UI component library built with Tailwind CSS",
   "type": "module",
   "license": "MIT",

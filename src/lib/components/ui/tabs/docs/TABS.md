@@ -281,6 +281,86 @@ Control the spacing above the content area.
 </TabsContent>
 ```
 
+## Responsive Behavior
+
+The Tabs component is fully responsive out of the box. No additional props are needed — responsive styles are applied automatically via Tailwind CSS breakpoints.
+
+### Mobile (≤640px)
+
+- **Horizontal scroll**: The tab list scrolls horizontally with hidden scrollbar for a clean look
+- **Touch-friendly**: Triggers have a minimum height of 44px (WCAG touch target) and increased padding
+- **No wrapping**: Tabs stay in a single row with `flex-nowrap` and `shrink-0` on triggers
+- **Vertical → Horizontal**: Vertical tabs automatically convert to horizontal orientation on mobile
+
+### Tablet (≤768px)
+
+- **Full width**: The tab list stretches to fill available width
+- **Font capping**: Text size is capped at `text-sm` for consistent readability
+
+### Desktop (>768px)
+
+- **Unchanged**: Standard `w-fit` behavior with all existing variant/size styling
+
+### Vertical Tabs on Mobile
+
+When using `orientation="vertical"`, the root component detects mobile screens (≤640px) and automatically switches to horizontal orientation:
+
+```svelte
+<!-- Renders vertically on desktop, horizontally on mobile -->
+<Tabs orientation="vertical" value="tab1">
+  <TabsList>
+    <TabsTrigger value="tab1">Tab 1</TabsTrigger>
+    <TabsTrigger value="tab2">Tab 2</TabsTrigger>
+  </TabsList>
+  <TabsContent value="tab1">Content 1</TabsContent>
+  <TabsContent value="tab2">Content 2</TabsContent>
+</Tabs>
+```
+
+### Many Tabs (Overflow)
+
+When there are too many tabs to fit on screen, the list scrolls horizontally on mobile. The scrollbar is hidden for a cleaner appearance, but scroll functionality is preserved via touch/drag:
+
+```svelte
+<TabsList variant="underline">
+  <TabsTrigger variant="underline" value="t1">Dashboard</TabsTrigger>
+  <TabsTrigger variant="underline" value="t2">Analytics</TabsTrigger>
+  <TabsTrigger variant="underline" value="t3">Reports</TabsTrigger>
+  <TabsTrigger variant="underline" value="t4">Settings</TabsTrigger>
+  <TabsTrigger variant="underline" value="t5">Billing</TabsTrigger>
+  <TabsTrigger variant="underline" value="t6">Team</TabsTrigger>
+</TabsList>
+```
+
+### Dropdown Conversion on Mobile
+
+For screens where even scrolling tabs feel cluttered, you can convert tabs to a `Select` dropdown on mobile. Pass `dropdownOnMobile` and `items` to the `Tabs` root:
+
+```svelte
+<script lang="ts">
+  import type { TabItem } from "@kareyes/aether";
+
+  const tabs: TabItem[] = [
+    { value: "general", label: "General" },
+    { value: "appearance", label: "Appearance" },
+    { value: "notifications", label: "Notifications" },
+  ];
+</script>
+
+<Tabs value="general" dropdownOnMobile items={tabs}>
+  <TabsList>
+    <TabsTrigger value="general">General</TabsTrigger>
+    <TabsTrigger value="appearance">Appearance</TabsTrigger>
+    <TabsTrigger value="notifications">Notifications</TabsTrigger>
+  </TabsList>
+  <TabsContent value="general">General content</TabsContent>
+  <TabsContent value="appearance">Appearance content</TabsContent>
+  <TabsContent value="notifications">Notifications content</TabsContent>
+</Tabs>
+```
+
+On desktop, tabs render normally. On mobile (≤640px), the TabsList is hidden and replaced by a Select dropdown. The `items` array provides the options for the dropdown. The `TabsContent` panels still work as usual since the value binding is shared.
+
 ## API Reference
 
 ### Tabs (Root)
@@ -290,8 +370,23 @@ The root tabs container.
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
 | `value` | `string` | - | Currently active tab value (bindable) |
+| `orientation` | `"horizontal" \| "vertical"` | `"horizontal"` | Tab orientation (vertical auto-converts to horizontal on mobile ≤640px) |
+| `items` | `TabItem[]` | `[]` | Tab items for dropdown mode (requires `dropdownOnMobile`) |
+| `dropdownOnMobile` | `boolean` | `false` | Convert tabs to a Select dropdown on mobile (≤640px) |
 | `onValueChange` | `(value: string) => void` | - | Callback when active tab changes |
 | `class` | `string` | - | Additional CSS classes |
+
+### TabItem
+
+Type definition for dropdown items:
+
+```typescript
+interface TabItem {
+  value: string;
+  label: string;
+  disabled?: boolean;
+}
+```
 
 ### TabsList
 
@@ -527,16 +622,19 @@ The Tabs component is built on bits-ui primitives which provide:
 
 ## Examples
 
-Check out the demo page at [/tabs-demo](/tabs-demo) for interactive examples of all variants, sizes, and animations.
+Check out the demo page at [/tabs](/tabs) for interactive examples of all variants, sizes, and animations.
 
 ## Demo & Storybook
 
 ### Demo Page
-Visit [/tabs-demo](/tabs-demo) for an interactive demonstration showcasing:
+Visit [/tabs](/tabs) for an interactive demonstration showcasing:
 - All 5 variants (default, underline, pills, solid, segmented)
 - All 3 sizes (sm, default, lg)
 - Animation variants (slide, scale)
 - Icons integration examples
+- Responsive overflow scroll with many tabs
+- Vertical tabs (auto horizontal on mobile)
+- Dropdown conversion on mobile (`dropdownOnMobile`)
 - Real-world usage patterns
 
 ### Storybook Stories
@@ -546,6 +644,9 @@ The component includes comprehensive Storybook stories:
 - Animation effects (Slide Animation, Scale Animation, No Animation)
 - Feature demonstrations (Disabled tabs)
 - Advanced combinations (Pills Large Slide, Underline Small)
+- Responsive overflow (many tabs scroll)
+- Responsive vertical (auto horizontal on mobile)
+- Responsive pills overflow (icons + many tabs)
 
 Access stories at: `src/lib/components/ui/tabs/docs/tabs.stories.svelte`
 
@@ -573,6 +674,7 @@ tabs/
 
 ### Type Exports
 All variant types are properly exported for TypeScript users:
+- `TabItem`
 - `TabsListVariant`
 - `TabsListSize`
 - `TabsTriggerVariant`
@@ -581,6 +683,18 @@ All variant types are properly exported for TypeScript users:
 - `TabsContentPadding`
 
 ## Changelog
+
+### Version 1.1.0 (February 2026)
+- Added fully responsive behavior for mobile and tablet screens
+- Mobile (≤640px): horizontal scroll, hidden scrollbar, touch-friendly 44px min-height triggers
+- Tablet (≤768px): full-width tab list, capped font size
+- Vertical tabs with proper `data-[orientation=vertical]` styling (flex-col, border-right for underline)
+- Vertical tabs automatically convert to horizontal on mobile
+- Added `dropdownOnMobile` prop to convert tabs to a Select dropdown on mobile
+- Added `items` prop (`TabItem[]`) for dropdown mode option labels
+- Exported `TabItem` type from index
+- Increased trigger padding on small screens for better tap targets
+- Size variants scale up on mobile (h-9→h-11, h-8→h-10, h-10→h-12)
 
 ### Version 1.0.0 (January 2026)
 - Initial release with 5 variants (default, underline, pills, solid, segmented)
