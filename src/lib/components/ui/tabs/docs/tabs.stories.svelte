@@ -16,42 +16,42 @@
     tags: ["autodocs"],
     argTypes: {
       // Main props we want to control
-      variant: {
-        control: { type: "select" },
-        options: ["default", "underline", "pills", "solid", "segmented"],
-        description: "Visual style variant of the tabs",
-        table: {
-          type: { summary: "string" },
-          defaultValue: { summary: "default" },
-        },
-      },
-      size: {
-        control: { type: "select" },
-        options: ["sm", "default", "lg"],
-        description: "Size of the tabs",
-        table: {
-          type: { summary: "string" },
-          defaultValue: { summary: "default" },
-        },
-      },
-      animation: {
-        control: { type: "select" },
-        options: ["none", "fade", "slide", "scale"],
-        description: "Animation effect for content transitions",
-        table: {
-          type: { summary: "string" },
-          defaultValue: { summary: "fade" },
-        },
-      },
-      padding: {
-        control: { type: "select" },
-        options: ["none", "sm", "default", "lg"],
-        description: "Top padding of content area",
-        table: {
-          type: { summary: "string" },
-          defaultValue: { summary: "default" },
-        },
-      },
+      // variant: {
+      //   control: { type: "select" },
+      //   options: ["default", "underline", "pills", "solid", "segmented"],
+      //   description: "Visual style variant of the tabs",
+      //   table: {
+      //     type: { summary: "string" },
+      //     defaultValue: { summary: "default" },
+      //   },
+      // },
+      // size: {
+      //   control: { type: "select" },
+      //   options: ["sm", "default", "lg"],
+      //   description: "Size of the tabs",
+      //   table: {
+      //     type: { summary: "string" },
+      //     defaultValue: { summary: "default" },
+      //   },
+      // },
+      // animation: {
+      //   control: { type: "select" },
+      //   options: ["none", "fade", "slide", "scale"],
+      //   description: "Animation effect for content transitions",
+      //   table: {
+      //     type: { summary: "string" },
+      //     defaultValue: { summary: "fade" },
+      //   },
+      // },
+      // padding: {
+      //   control: { type: "select" },
+      //   options: ["none", "sm", "default", "lg"],
+      //   description: "Top padding of content area",
+      //   table: {
+      //     type: { summary: "string" },
+      //     defaultValue: { summary: "default" },
+      //   },
+      // },
       value: {
         control: { type: "text" },
         description: "Currently active tab value",
