@@ -232,24 +232,24 @@
 
 	{#if isMultiStep}
 		{#if showStepIndicator}
-			<StepperPrimitives.Root
+			<StepperPrimitives.StepperRoot
 				activeStep={activeStepIndex}
 				clickable={true}
 				onStepClick={handleStepClick}
 				class="mb-8 hello"
 			>
 				{#each form.steps as step, i (step.step)}
-					<StepperPrimitives.Step
+					<StepperPrimitives.StepperStep
 						step={i}
 						label={step.title}
 						description={step.description}
 						completed={step.step < currentStep}
 					/>
 					{#if i < form.steps.length - 1}
-						<StepperPrimitives.Separator />
+						<StepperPrimitives.StepperSeparator />
 					{/if}
 				{/each}
-			</StepperPrimitives.Root>
+			</StepperPrimitives.StepperRoot>
 		{/if}
 
 		{#each stepContexts as stepCtx (stepCtx.step.step)}

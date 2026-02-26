@@ -1,5 +1,5 @@
 export { default as Toaster } from "./sonner.svelte";
-export { toasterVariants, type ToasterVariant, type ToasterPosition } from "./sonner.svelte";
+export { toasterVariants, type ToasterVariant, type ToasterPosition, type ToasterStyle, type ToasterSize } from "./sonner.svelte";
 export { 
 	toast, 
 	type ToastType, 

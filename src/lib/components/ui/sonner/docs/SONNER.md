@@ -5,6 +5,8 @@ A beautiful, customizable toast notification system built on top of svelte-sonne
 ## Features
 
 - **6 Toast Types**: default, success, error, warning, info, loading
+- **4 Visual Variants**: default, bordered, filled, minimal
+- **3 Size Options**: sm, default, lg
 - **Promise Toasts**: Automatic loading → success/error states
 - **Rich Colors**: Beautiful color-coded toasts for each type
 - **Custom Icons**: Replace default icons with custom Svelte components
@@ -176,6 +178,8 @@ Add the `Toaster` component to your root layout (e.g., `+layout.svelte`):
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
+| `variant` | `"default" \| "bordered" \| "filled" \| "minimal"` | `"default"` | Visual style variant for toasts |
+| `size` | `"sm" \| "default" \| "lg"` | `"default"` | Toast size (affects padding, text, icons) |
 | `position` | `"top-left" \| "top-center" \| "top-right" \| "bottom-left" \| "bottom-center" \| "bottom-right"` | `"bottom-right"` | Position of toasts on screen |
 | `expand` | `boolean` | `false` | Expand toasts on hover |
 | `richColors` | `boolean` | `true` | Enable variant-specific colors |
@@ -208,6 +212,70 @@ Add the `Toaster` component to your root layout (e.g., `+layout.svelte`):
 | `position` | `string` | Position override |
 | `important` | `boolean` | Important toast (stays on top) |
 | `id` | `string \| number` | Custom toast ID |
+
+## Visual Variants
+
+Control the overall appearance of toasts with the `variant` prop on the Toaster.
+
+### Default
+
+Standard toast with tinted backgrounds and borders per type.
+
+```svelte
+<Toaster variant="default" />
+```
+
+### Bordered
+
+Clean white/dark background with a colored left accent border per type.
+
+```svelte
+<Toaster variant="bordered" />
+```
+
+### Filled
+
+Solid colored backgrounds for high-contrast, attention-grabbing toasts.
+
+```svelte
+<Toaster variant="filled" />
+```
+
+### Minimal
+
+Transparent background with only a subtle bottom border. Ultra-clean look.
+
+```svelte
+<Toaster variant="minimal" />
+```
+
+## Sizes
+
+Control toast sizing with the `size` prop on the Toaster.
+
+### Small
+
+Compact toasts for dense UIs. Smaller text, padding, icons, and buttons.
+
+```svelte
+<Toaster size="sm" />
+```
+
+### Default
+
+Standard sizing for most use cases.
+
+```svelte
+<Toaster size="default" />
+```
+
+### Large
+
+Bigger toasts with more padding, larger text and icons. Good for important notifications.
+
+```svelte
+<Toaster size="lg" />
+```
 
 ## Toast Types
 

@@ -91,7 +91,7 @@ import { Skeleton } from "./components/ui/skeleton/index.js";
 import { Slider } from "./components/ui/slider/index.js";
 import { Toaster as Sonner } from "./components/ui/sonner/index.js";
 import { Spinner } from "./components/ui/spinner/index.js";
-import { Root as Stepper } from "./components/ui/stepper/index.js";
+import { Stepper } from "./components/ui/stepper/index.js";
 import { Switch } from "./components/ui/switch/index.js";
 import { Root as Table } from "./components/ui/table/index.js";
 import { Root as Tabs } from "./components/ui/tabs/index.js";

@@ -1,8 +1,8 @@
 <script module lang="ts">
 	import { defineMeta } from "@storybook/addon-svelte-csf";
-	import { Stepper, StepperStep, StepperSeparator } from "../index.js";
+	import { Stepper, StepperStep, StepperSeparator, StepperRoot } from "../index.js";
 	import { fn } from "storybook/test";
-	import { User, CreditCard, CheckCircle, ShoppingCart, Package, Settings, MapPin } from "@lucide/svelte";
+	import { User, CreditCard, CheckCircle, ShoppingCart, Package, Settings, MapPin, Truck } from "@lucide/svelte";
     import { type Args } from "storybook/internal/types";
 
 	const { Story } = defineMeta({
@@ -382,5 +382,81 @@
 			</StepperStep>
 		</Stepper>
 	</div>
+	{/snippet}
+</Story>
+
+<Story name="Declarative With Icons">
+	{#snippet template(args: Args)}
+	<Stepper activeStep={1} clickable {...args}
+		steps={[
+			{ label: "Cart",     description: "Review items",    icon: ShoppingCart },
+			{ label: "Shipping", description: "Enter address",   icon: Truck },
+			{ label: "Payment",  description: "Add card",        icon: CreditCard },
+			{ label: "Confirm",  description: "Place order",     icon: CheckCircle },
+		]}
+	/>
+	{/snippet}
+</Story>
+
+<Story name="Error State">
+	{#snippet template(args: Args)}
+	<Stepper activeStep={1} {...args}
+		steps={[
+			{ label: "Upload",   description: "File uploaded" },
+			{ label: "Validate", description: "Checksum failed", error: true },
+			{ label: "Process",  description: "Waiting" },
+		]}
+	/>
+	{/snippet}
+</Story>
+
+<Story name="Loading State">
+	{#snippet template(args: Args)}
+	<Stepper activeStep={1} {...args}
+		steps={[
+			{ label: "Upload",     description: "Done" },
+			{ label: "Processing", description: "Converting file…", loading: true },
+			{ label: "Complete",   description: "Waiting" },
+		]}
+	/>
+	{/snippet}
+</Story>
+
+<Story name="Disabled Steps">
+	{#snippet template(args: Args)}
+	<Stepper activeStep={1} clickable {...args}
+		steps={[
+			{ label: "Starter",    description: "Current plan" },
+			{ label: "Pro",        description: "Active step" },
+			{ label: "Enterprise", description: "Contact sales", disabled: true },
+			{ label: "Custom",     description: "Contact sales", disabled: true },
+		]}
+	/>
+	{/snippet}
+</Story>
+
+<Story name="Mixed States">
+	{#snippet template(args: Args)}
+	<Stepper activeStep={2} {...args}
+		steps={[
+			{ label: "Upload",   description: "Done" },
+			{ label: "Validate", description: "Checksum error",  error: true },
+			{ label: "Process",  description: "Converting…",     loading: true },
+			{ label: "Review",   description: "Pending" },
+			{ label: "Deploy",   description: "Restricted",      disabled: true },
+		]}
+	/>
+	{/snippet}
+</Story>
+
+<Story name="Icons With States">
+	{#snippet template(args: Args)}
+	<Stepper activeStep={1} {...args}
+		steps={[
+			{ label: "Cart",    description: "Items ready",   icon: ShoppingCart },
+			{ label: "Payment", description: "Card declined", icon: CreditCard,   error: true },
+			{ label: "Confirm", description: "Waiting",       icon: CheckCircle,  disabled: true },
+		]}
+	/>
 	{/snippet}
 </Story>

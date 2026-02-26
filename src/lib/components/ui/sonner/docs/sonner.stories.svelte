@@ -1,10 +1,12 @@
 <script context="module" lang="ts">
 	import { defineMeta } from '@storybook/addon-svelte-csf';
 	import { Toaster, toast } from '../index';
-	import type { ToasterPosition } from '../index';
-	
+	import type { ToasterPosition, ToasterStyle, ToasterSize } from '../index';
+
 	type Args = {
 		position: ToasterPosition;
+		variant: ToasterStyle;
+		size: ToasterSize;
 		expand: boolean;
 		richColors: boolean;
 		closeButton: boolean;
@@ -16,6 +18,16 @@
 		title: 'Components/Sonner',
 		tags: ['autodocs'],
 		argTypes: {
+			variant: {
+				control: 'select',
+				options: ['default', 'bordered', 'filled', 'minimal'],
+				description: 'Visual style variant',
+			},
+			size: {
+				control: 'select',
+				options: ['sm', 'default', 'lg'],
+				description: 'Toast size',
+			},
 			position: {
 				control: 'select',
 				options: ['top-left', 'top-center', 'top-right', 'bottom-left', 'bottom-center', 'bottom-right'],
@@ -297,6 +309,92 @@
 			<Button variant="outline" onclick={() => toast.dismiss()}>
 				Dismiss All
 			</Button>
+		</div>
+	{/snippet}
+</Story>
+
+<!-- Visual Variants -->
+<Story name="Bordered Variant">
+	{#snippet template(args: Args)}
+		<Toaster variant="bordered" richColors />
+		<div class="flex flex-wrap gap-2">
+			<Button onclick={() => toast('Default bordered toast')}>Default</Button>
+			<Button color="success" onclick={() => toast.success('Success with left accent border')}>Success</Button>
+			<Button color="danger" onclick={() => toast.error('Error with left accent border')}>Error</Button>
+			<Button color="warning" onclick={() => toast.warning('Warning with left accent border')}>Warning</Button>
+			<Button color="info" onclick={() => toast.info('Info with left accent border')}>Info</Button>
+		</div>
+	{/snippet}
+</Story>
+
+<Story name="Filled Variant">
+	{#snippet template(args: Args)}
+		<Toaster variant="filled" richColors />
+		<div class="flex flex-wrap gap-2">
+			<Button onclick={() => toast('Default filled toast')}>Default</Button>
+			<Button color="success" onclick={() => toast.success('Solid green background')}>Success</Button>
+			<Button color="danger" onclick={() => toast.error('Solid red background')}>Error</Button>
+			<Button color="warning" onclick={() => toast.warning('Solid yellow background')}>Warning</Button>
+			<Button color="info" onclick={() => toast.info('Solid blue background')}>Info</Button>
+		</div>
+	{/snippet}
+</Story>
+
+<Story name="Minimal Variant">
+	{#snippet template(args: Args)}
+		<Toaster variant="minimal" richColors />
+		<div class="flex flex-wrap gap-2">
+			<Button onclick={() => toast('Default minimal toast')}>Default</Button>
+			<Button color="success" onclick={() => toast.success('Ultra-clean success toast')}>Success</Button>
+			<Button color="danger" onclick={() => toast.error('Ultra-clean error toast')}>Error</Button>
+			<Button color="warning" onclick={() => toast.warning('Ultra-clean warning toast')}>Warning</Button>
+			<Button color="info" onclick={() => toast.info('Ultra-clean info toast')}>Info</Button>
+		</div>
+	{/snippet}
+</Story>
+
+<!-- Sizes -->
+<Story name="Small Size">
+	{#snippet template(args: Args)}
+		<Toaster size="sm" richColors />
+		<div class="flex flex-wrap gap-2">
+			<Button onclick={() => toast('Small default toast')}>Default</Button>
+			<Button color="success" onclick={() => toast.success('Compact success toast', { description: 'Smaller text and padding' })}>Success</Button>
+			<Button color="danger" onclick={() => toast.error('Compact error toast')}>Error</Button>
+		</div>
+	{/snippet}
+</Story>
+
+<Story name="Large Size">
+	{#snippet template(args: Args)}
+		<Toaster size="lg" richColors />
+		<div class="flex flex-wrap gap-2">
+			<Button onclick={() => toast('Large default toast')}>Default</Button>
+			<Button color="success" onclick={() => toast.success('Large success toast', { description: 'Bigger text, padding, and icons' })}>Success</Button>
+			<Button color="danger" onclick={() => toast.error('Large error toast')}>Error</Button>
+		</div>
+	{/snippet}
+</Story>
+
+<!-- Combined Variant + Size -->
+<Story name="Filled Large">
+	{#snippet template(args: Args)}
+		<Toaster variant="filled" size="lg" richColors />
+		<div class="flex flex-wrap gap-2">
+			<Button color="success" onclick={() => toast.success('Large filled success', { description: 'Bold and attention-grabbing' })}>Success</Button>
+			<Button color="danger" onclick={() => toast.error('Large filled error', { description: 'Cannot be missed' })}>Error</Button>
+			<Button color="warning" onclick={() => toast.warning('Large filled warning')}>Warning</Button>
+		</div>
+	{/snippet}
+</Story>
+
+<Story name="Bordered Small">
+	{#snippet template(args: Args)}
+		<Toaster variant="bordered" size="sm" richColors />
+		<div class="flex flex-wrap gap-2">
+			<Button color="success" onclick={() => toast.success('Small bordered success')}>Success</Button>
+			<Button color="danger" onclick={() => toast.error('Small bordered error')}>Error</Button>
+			<Button color="info" onclick={() => toast.info('Small bordered info')}>Info</Button>
 		</div>
 	{/snippet}
 </Story>
