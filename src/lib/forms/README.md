@@ -18,6 +18,8 @@ A schema-first form system for Svelte 5 powered by [@effect/schema](https://gith
 - [Async Data Loading](#async-data-loading)
 - [Validation](#validation)
 - [Advanced Usage](#advanced-usage)
+- [Low-Level Components](#low-level-components)
+- [Standalone Validation Utilities](#standalone-validation-utilities)
 - [Troubleshooting](#troubleshooting)
 
 ---
@@ -231,13 +233,36 @@ The main component that renders your form.
     <h2>Custom Header</h2>
   {/snippet}
 
-  {#snippet footer({ isSubmitting, isValid, handleSubmit })}
-    <Button onclick={handleSubmit} disabled={isSubmitting}>
-      {isSubmitting ? "Saving..." : "Save"}
-    </Button>
+  {#snippet footer({ isSubmitting, isValid, isFirstStep, isLastStep, handleSubmit, handleNext, handlePrev })}
+    <div class="flex justify-between">
+      {#if !isFirstStep}
+        <Button variant="outline" onclick={handlePrev}>Back</Button>
+      {/if}
+      <Button onclick={isLastStep ? handleSubmit : handleNext} disabled={isSubmitting}>
+        {isLastStep ? "Save" : "Next"}
+      </Button>
+    </div>
   {/snippet}
 </SchemaForm>
 ```
+
+##### Footer snippet parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `isSubmitting` | `boolean` | True while form submission is in progress |
+| `isValid` | `boolean` | True when there are no validation errors |
+| `isFirstStep` | `boolean` | True when on the first step (always true for single-step forms) |
+| `isLastStep` | `boolean` | True when on the last step (always true for single-step forms) |
+| `handleSubmit` | `() => void` | Trigger form submission |
+| `handleNext` | `() => void` | Advance to next step (validates current step first) |
+| `handlePrev` | `() => void` | Go back to previous step |
+
+#### Keyboard Shortcuts
+
+| Shortcut | Action |
+|----------|--------|
+| `Ctrl+Enter` | Submit form or advance to next step |
 
 ### FormController
 
@@ -267,10 +292,9 @@ class FormController<A, I, R> {
   // Errors
   setFieldError(field: string, error: string): void;
   setErrors(errors: FieldErrors): void;
-  clearErrors(): void;
 
   // Steps (multi-step forms)
-  nextStep(): void;
+  nextStep(): boolean;  // Returns true if step was valid and navigation occurred
   prevStep(): void;
   goToStep(step: number): void;
 
@@ -279,6 +303,10 @@ class FormController<A, I, R> {
 
   // Reset
   reset(values?: Partial<A>): void;
+
+  // Field state
+  getFieldState(field: string): FieldState;
+  shouldShowError(field: string): boolean;
 }
 ```
 
@@ -308,6 +336,7 @@ interface FormState<T> {
   isDirty: boolean;
   submitCount: number;
   currentStep: number;
+  validationVersion: number; // Increments on every error/touched change — useful for derived reactive contexts
 }
 ```
 
@@ -324,12 +353,17 @@ withField({
   placeholder?: string;       // Input placeholder
   description?: string;       // Help text below field
   inputType?: InputType;      // Input type (auto-detected if not set)
-  options?: FieldOption[];    // For select/radio
-  optionGroups?: FieldOptionGroup[]; // Grouped options
+  options?: FieldOption[];    // For select/radio/combobox
+  optionGroups?: FieldOptionGroup[]; // Grouped options for select/combobox
   mask?: string;              // Input mask (e.g., "phone")
   autocomplete?: string;      // HTML autocomplete attribute
   disabled?: boolean;         // Disable field
   readonly?: boolean;         // Read-only field
+
+  // File input properties (inputType: "file" only)
+  fileMode?: 'drag-drop' | 'regular' | 'button-only'; // Display mode (default: "drag-drop")
+  multiple?: boolean;         // Allow multiple file selection
+  accept?: string;            // HTML accept attribute (e.g. "image/*", ".pdf,.docx")
 
   // Layout properties
   section?: string;           // Section ID
@@ -348,8 +382,8 @@ Form-level layout configuration:
 
 ```typescript
 withFormLayout({
-  columns?: number;           // Grid columns (default: 12)
-  gap?: "none" | "sm" | "md" | "lg"; // Gap between fields
+  columns?: number;           // Grid columns (default: 1)
+  gap?: "none" | "sm" | "md" | "lg"; // Gap between fields (default: "md")
   sections?: SectionConfig[];  // Section definitions
   steps?: StepConfig[];       // Step definitions (for multi-step)
 })
@@ -360,7 +394,7 @@ interface SectionConfig {
   description?: string;       // Section description
   order?: number;             // Sort order
   collapsible?: boolean;      // Make section collapsible
-  defaultCollapsed?: boolean; // Start collapsed
+  defaultCollapsed?: boolean; // Start collapsed (requires collapsible: true or sectionVariant="collapsible")
 }
 
 interface StepConfig {
@@ -388,10 +422,12 @@ SchemaForm automatically renders the appropriate input component based on the `i
 | `textarea` | Textarea | `Schema.String` |
 | `select` | Select | `Schema.String` |
 | `combobox` | Combobox | `Schema.String` |
-| `checkbox` | Checkbox | `Schema.Boolean` |
-| `switch` | Switch | `Schema.Boolean` |
+| `checkbox` | Checkbox | `RequiredCheckbox \| requiredCheckbox() \| Schema.Boolean` |
+| `switch` | Switch | `RequiredSwitch \| requiredSwitch() \| Schema.Boolean` |
 | `radio` | RadioGroup | `Schema.String` |
 | `date` | DatePicker | `Schema.String` |
+| `datetime` | DateTimePicker | `Schema.String` |
+| `file` | FileInput | `RequiredFile \| requiredFile() \| Schema.Any` |
 | `hidden` | Hidden input | Any |
 
 ### Auto-Detection
@@ -401,7 +437,8 @@ If `inputType` is not specified, it's inferred from the schema type:
 - `Schema.Boolean` → `checkbox`
 - `Schema.Number` → `number`
 - `Schema.String` → `text`
-- Union of string literals → `select` or `radio`
+- Union of ≤5 string literals → `radio`
+- Union of >5 string literals → `select`
 
 ---
 
@@ -450,6 +487,30 @@ const FormSchema = pipe(
 );
 ```
 
+### Collapsible Sections
+
+Sections can be individually made collapsible via the `SectionConfig`, or all sections can be made collapsible via `sectionVariant="collapsible"` on `SchemaForm`.
+
+```typescript
+withFormLayout({
+  columns: 12,
+  sections: [
+    {
+      id: "advanced",
+      title: "Advanced Settings",
+      collapsible: true,
+      defaultCollapsed: true  // Starts collapsed
+    },
+    {
+      id: "basic",
+      title: "Basic Settings",
+      collapsible: true,
+      defaultCollapsed: false // Starts open
+    }
+  ]
+})
+```
+
 ### Section Variants
 
 ```svelte
@@ -462,6 +523,31 @@ const FormSchema = pipe(
 <!-- Collapsible: accordion-style sections -->
 <SchemaForm {controller} sectionVariant="collapsible" />
 ```
+
+### Responsive Column Spans
+
+Use `colSpanSm`, `colSpanMd`, `colSpanLg` for responsive layouts. The grid must use enough columns (`columns: 12` is common).
+
+These use **Tailwind CSS v4 container queries** (`@sm:`, `@md:`, `@lg:`) scoped to the grid's own width — not the viewport. The grid div automatically receives `@container` so breakpoints respond to the form's rendered width regardless of where it is placed on the page.
+
+```typescript
+withField({
+  label: "Full Name",
+  colSpan: "full",   // Full width (default / narrow container)
+  colSpanMd: 6,      // Half width when container ≥ 768px
+  colSpanLg: 4       // One-third when container ≥ 1024px
+})
+```
+
+Breakpoint reference (container width, not viewport):
+
+| Annotation | Class emitted | Applies when container ≥ |
+|---|---|---|
+| `colSpanSm` | `@sm:col-span-X` | 640px |
+| `colSpanMd` | `@md:col-span-X` | 768px |
+| `colSpanLg` | `@lg:col-span-X` | 1024px |
+
+> **Note:** Column span classes are generated from static lookup maps, not dynamic string interpolation, so all classes are always included in the Tailwind CSS bundle.
 
 ---
 
@@ -533,8 +619,8 @@ Each step is validated before proceeding to the next:
 // Manually trigger step validation
 const isValid = controller.validateStep();
 
-// Manually navigate
-controller.nextStep();  // Validates current step first
+// Manually navigate (nextStep validates current step first, returns false if invalid)
+const advanced = controller.nextStep();
 controller.prevStep();  // No validation needed
 controller.goToStep(2); // Jump to specific step
 ```
@@ -659,6 +745,84 @@ acceptPrivacy: pipe(
 )
 ```
 
+### Required Switches
+
+For switches that must be enabled:
+
+```typescript
+import { RequiredSwitch, requiredSwitch } from "@kareyes/aether/forms";
+
+// Default message: "This field must be enabled"
+notifications: pipe(
+  RequiredSwitch,
+  withField({ label: "Enable notifications", inputType: "switch" })
+)
+
+// Custom message
+dataSharing: pipe(
+  requiredSwitch("You must enable data sharing to continue"),
+  withField({ label: "Allow data sharing", inputType: "switch" })
+)
+```
+
+### Required File Fields
+
+File fields default to `null` when nothing is selected. `Schema.Any` accepts `null`, so it should only be used for **optional** file fields. Use `RequiredFile` or `requiredFile()` to enforce a selection:
+
+```typescript
+import { RequiredFile, requiredFile } from "@kareyes/aether/forms";
+
+// Required — default message: "Please select a file"
+avatar: pipe(
+  RequiredFile,
+  withField({
+    label: "Profile Photo",
+    inputType: "file",
+    accept: "image/png,image/jpeg",
+    // fileMode defaults to "drag-drop"
+  })
+)
+
+// Required — custom message
+resume: pipe(
+  requiredFile("Please upload your resume"),
+  withField({
+    label: "Resume",
+    inputType: "file",
+    fileMode: "regular",
+    accept: ".pdf",
+  })
+)
+
+// Optional — null (no file selected) is valid
+attachments: pipe(
+  Schema.Any,
+  withField({
+    label: "Attachments",
+    inputType: "file",
+    fileMode: "button-only",
+    multiple: true,
+    description: "Optional"
+  })
+)
+```
+
+> `RequiredFile` checks `value instanceof FileList && value.length > 0` with a `typeof FileList !== "undefined"` guard for SSR safety.
+
+File fields store a `FileList | null` as their value. Upload the files inside `onSubmit`:
+
+```svelte
+<SchemaForm
+  {controller}
+  onSubmit={async (data) => {
+    const formData = new FormData();
+    if (data.avatar) formData.append("avatar", data.avatar[0]);
+    if (data.resume) formData.append("resume", data.resume[0]);
+    await fetch("/api/upload", { method: "POST", body: formData });
+  }}
+/>
+```
+
 ### Server-Side Errors
 
 Set errors from API responses:
@@ -681,6 +845,17 @@ async function handleSubmit(data) {
 }
 ```
 
+You can also throw a structured object from `onSubmit` to set a field error inline:
+
+```typescript
+onSubmit={async (data) => {
+  const res = await api.register(data);
+  if (!res.ok) {
+    throw { field: "email", message: "Email already taken" };
+  }
+}}
+```
+
 ---
 
 ## Advanced Usage
@@ -689,17 +864,20 @@ async function handleSubmit(data) {
 
 ```svelte
 <SchemaForm {controller} onSubmit={handleSubmit}>
-  {#snippet footer({ isSubmitting, isValid, isLastStep, handleSubmit, handlePrev })}
+  {#snippet footer({ isSubmitting, isValid, isFirstStep, isLastStep, handleSubmit, handleNext, handlePrev })}
     <div class="flex justify-between">
-      <Button variant="outline" onclick={handlePrev}>
-        Cancel
+      <Button variant="outline" onclick={handlePrev} disabled={isFirstStep}>
+        Back
       </Button>
       <div class="flex gap-2">
         <Button variant="outline" onclick={() => controller.reset()}>
           Reset
         </Button>
-        <Button onclick={handleSubmit} disabled={isSubmitting || !isValid}>
-          {isSubmitting ? "Saving..." : "Save"}
+        <Button
+          onclick={isLastStep ? handleSubmit : handleNext}
+          disabled={isSubmitting || !isValid}
+        >
+          {isSubmitting ? "Saving..." : isLastStep ? "Save" : "Next"}
         </Button>
       </div>
     </div>
@@ -742,8 +920,9 @@ if (!result.valid) {
 // Reset with new values
 controller.reset({ email: "", password: "" });
 
-// Clear all errors
-controller.clearErrors();
+// Set errors from external source
+controller.setFieldError("email", "Already taken");
+controller.setErrors({ email: "Already taken", username: "Already taken" });
 ```
 
 ### Input Masks
@@ -764,6 +943,75 @@ phone: pipe(
 
 ---
 
+## Low-Level Components
+
+The form system exposes its internal rendering components for advanced customisation:
+
+```typescript
+import {
+  SchemaField,    // Renders a single field based on FieldRenderContext
+  SchemaSection,  // Renders a section (grid of fields) based on SectionRenderContext
+  SchemaStep      // Renders a step (collection of sections) based on StepRenderContext
+} from "@kareyes/aether/forms";
+```
+
+You can also build render contexts manually to drive custom layouts:
+
+```typescript
+import {
+  createFieldContext,
+  createSectionContext,
+  createStepContext
+} from "@kareyes/aether/forms";
+
+const sectionCtx = createSectionContext(controller, section);
+const fieldCtx   = createFieldContext(controller, field);
+```
+
+---
+
+## Standalone Validation Utilities
+
+These can be used independently of the form components:
+
+```typescript
+import {
+  validateSync,       // Validate data against schema, returns ValidationResult
+  validate,           // Same but returns an Effect
+  validateField,      // Validate a single value against a schema
+  validateFields,     // Validate multiple fields, returns combined FieldErrors
+  createFieldValidator, // Create a reusable validator for a specific field
+  validateAsync,      // Async wrapper (for future async validators)
+  hasErrors,          // Check if a FieldErrors object has any errors
+  getFirstError       // Get the first error message from FieldErrors
+} from "@kareyes/aether/forms";
+
+// Standalone sync validation
+const result = validateSync(UserSchema, formData);
+if (result.valid) {
+  console.log(result.data);   // Typed, validated data
+} else {
+  console.log(result.errors); // { fieldName: "error message" }
+}
+
+// Effect-based validation (composable with other Effects)
+import { pipe } from "effect";
+import { Effect } from "effect";
+const program = pipe(
+  validate(UserSchema, formData),
+  Effect.flatMap((validData) => registerUser(validData))
+);
+
+// Per-field validator factory
+const validateEmail = createFieldValidator(UserSchema, "email");
+const error = validateEmail(emailValue); // string | undefined
+
+// Validate specific fields only
+const errors = validateFields(UserSchema, { email: emailValue, password: pwValue });
+```
+
+---
+
 ## Troubleshooting
 
 ### Common Issues
@@ -776,11 +1024,44 @@ Use `RequiredCheckbox` or `requiredCheckbox()` instead of `Schema.Boolean`:
 // ❌ Wrong - "false" is a valid boolean
 acceptTerms: Schema.Boolean
 
-// ✅ Correct - requires value to be "true"
+// ✅ Correct - requires value to be true
 acceptTerms: RequiredCheckbox
 ```
 
-#### 2. Infinite loop on form load
+#### 2. Switch shows "Invalid value" instead of custom error
+
+Same pattern — use `RequiredSwitch` or `requiredSwitch()`:
+
+```typescript
+// ❌ Wrong
+notifications: Schema.Boolean
+
+// ✅ Correct
+notifications: RequiredSwitch
+```
+
+#### 3. File input passes validation even when empty
+
+`Schema.Any` accepts `null`, so a file field using it will always pass — even when nothing is selected. Use `RequiredFile` or `requiredFile()` for required file fields:
+
+```typescript
+// ❌ Wrong - null (no file) passes validation
+avatar: pipe(Schema.Any, withField({ inputType: "file" }))
+
+// ✅ Correct - requires a file to be selected
+avatar: pipe(RequiredFile, withField({ inputType: "file" }))
+
+// ✅ Correct - custom error message
+avatar: pipe(requiredFile("Please upload a photo"), withField({ inputType: "file" }))
+```
+
+#### 4. col-span / grid columns not applying
+
+Dynamic Tailwind class names built with string interpolation (e.g. `` `col-span-${n}` ``) are purged at build time. This system avoids that by using static lookup maps, so all span classes (`col-span-1` through `col-span-12`, `col-span-full`, and container-query responsive variants `@sm:` / `@md:` / `@lg:`) are always in the CSS bundle.
+
+The grid div automatically includes `@container` so container queries are always active — no external `@container` wrapper is needed. If you extend `ColumnSpan` or add custom breakpoints, add the new literals to the corresponding lookup map in [layout.ts](./layout.ts).
+
+#### 5. Infinite loop on form load
 
 Ensure you're not tracking `formState.values` directly in effects:
 
@@ -797,7 +1078,7 @@ $effect(() => {
 });
 ```
 
-#### 3. Input mask not working
+#### 6. Input mask not working
 
 The mask is applied in the Input component. Ensure you're passing it through:
 
@@ -808,7 +1089,7 @@ withField({
 })
 ```
 
-#### 4. Select options not showing
+#### 7. Select options not showing
 
 Ensure options are provided in the annotation:
 
@@ -822,7 +1103,7 @@ withField({
 })
 ```
 
-#### 5. Validation not triggering
+#### 8. Validation not triggering
 
 Check your FormController configuration:
 
@@ -851,10 +1132,11 @@ Add console logging to track form state:
 
 For complete working examples, see:
 
-- **Basic Form**: `/forms/basic` - Simple login form
-- **Multi-Section**: `/forms/sections` - Profile form with multiple sections
-- **Multi-Step**: `/forms` - User registration wizard
-- **Async Data**: `/forms/pokemon` - PokéAPI integration with dynamic options
+- **Basic Form**: `/form-schema` - Simple login form
+- **Multi-Section**: `/form-schema` - Profile form with multiple sections (card variant)
+- **Multi-Step**: `/form-schema` - User registration wizard
+- **Input Types**: `/form-schema` - All supported input types showcase
+- **Validation**: `/form-schema` - Schema-level validation with custom messages
 
 ---
 

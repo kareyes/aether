@@ -20,6 +20,13 @@
 		 * - 'after': Label appears after the control (useful for Checkbox, Switch, etc.)
 		 */
 		labelPosition?: 'before' | 'after';
+		/**
+		 * Where the description renders relative to the input
+		 * - 'before': Description appears between label and input (default)
+		 * - 'after': Description appears below the input — use in multi-column grids
+		 *            to keep inputs visually aligned across rows
+		 */
+		descriptionPosition?: 'before' | 'after';
 		class?: string;
 		/**
 		 * The form control to render (Input, Textarea, Checkbox, Switch, Select, etc.)
@@ -39,6 +46,7 @@
 		disabled = false,
 		orientation = "vertical",
 		labelPosition = "before",
+		descriptionPosition = "before",
 		class: className,
 		children,
 		beforeLabel
@@ -56,23 +64,23 @@
 </script>
 
 
-{#snippet labelDescription()}
+{#snippet labelPart()}
 	{#if useContent}
 		<Content>
 			<Label>
 				{label}
 				{#if required}<span class="text-destructive">*</span>{/if}
 			</Label>
-		{#if description && !hasError}
-			<Description>{description}</Description>
-		{/if}
-	</Content>
+			{#if description && !hasError && descriptionPosition === 'before'}
+				<Description>{description}</Description>
+			{/if}
+		</Content>
 	{:else}
 		<Label>
 			{label}
 			{#if required}<span class="text-destructive">*</span>{/if}
 		</Label>
-		{#if description && !hasError}
+		{#if description && !hasError && descriptionPosition === 'before'}
 			<Description>{description}</Description>
 		{/if}
 	{/if}
@@ -84,11 +92,15 @@
 	{/if}
 
 	{#if labelPosition === 'before'}
-		{@render labelDescription()}
+		{@render labelPart()}
 		{@render children()}
 	{:else}
 		{@render children()}
-		{@render labelDescription()}
+		{@render labelPart()}
+	{/if}
+
+	{#if description && !hasError && descriptionPosition === 'after'}
+		<Description>{description}</Description>
 	{/if}
 
 	{#if hasError}

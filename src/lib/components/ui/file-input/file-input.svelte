@@ -1,17 +1,17 @@
 <script lang="ts">
-	import FileInputDragDrop from './file-input-drag-drop.svelte';
-	import FileInputRegular from './file-input-regular.svelte';
-	import FileInputButton from './file-input-button.svelte';
-	import type { FileInputProps } from './utils/file-input-types.js';
+	import FileInputDragDrop from "./file-input-drag-drop.svelte";
+	import FileInputRegular from "./file-input-regular.svelte";
+	import FileInputButton from "./file-input-button.svelte";
+	import type { FileInputProps } from "./utils/file-input-types.js";
 
 	let {
-		mode = 'drag-drop',
+		mode = "regular",
 		files = $bindable(null),
 		validation = {},
 		onFilesChange,
 		onError,
 		disabled = false,
-		class: className = '',
+		class: className = "",
 		id,
 		name,
 		multiple = false,
@@ -38,23 +38,14 @@
 		accept,
 		required,
 		form,
-		...restProps
+		...restProps,
 	};
 </script>
 
-{#if mode === 'drag-drop'}
-	<FileInputDragDrop
-		{...commonProps}
-		{...dragDropProps}
-	/>
-{:else if mode === 'regular'}
-	<FileInputRegular
-		{...commonProps}
-		{...regularProps}
-	/>
-{:else if mode === 'button-only'}
-	<FileInputButton
-		{...commonProps}
-		{...buttonProps}
-	/>
+{#if mode === "drag-drop"}
+	<FileInputDragDrop {...commonProps} {...dragDropProps} />
+{:else if mode === "regular"}
+	<FileInputRegular {...commonProps} {...regularProps} />
+{:else if mode === "button-only"}
+	<FileInputButton {...commonProps} {...buttonProps} />
 {/if}

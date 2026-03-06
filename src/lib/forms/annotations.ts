@@ -42,6 +42,9 @@ export interface FieldOptionGroup {
   readonly options: readonly FieldOption[];
 }
 
+/** File input display mode */
+export type FileInputMode = 'drag-drop' | 'regular' | 'button-only';
+
 /** UI-specific field metadata */
 export interface FieldUIAnnotation {
   readonly label: string;
@@ -54,6 +57,10 @@ export interface FieldUIAnnotation {
   readonly autocomplete?: string;
   readonly disabled?: boolean;
   readonly readonly?: boolean;
+  // File input options (only used when inputType === "file")
+  readonly fileMode?: FileInputMode;
+  readonly multiple?: boolean;
+  readonly accept?: string;
 }
 
 // ============================================================================
@@ -357,6 +364,56 @@ export const requiredSwitch = (message: string) =>
   Schema.Boolean.pipe(
     Schema.filter(
       (value): value is true => value === true,
+      {
+        message: () => message
+      }
+    )
+  );
+
+/**
+ * Schema for a required file input — value must be a non-empty FileList.
+ *
+ * Use this for file fields where a selection is mandatory.
+ * Default message: "Please select a file"
+ *
+ * @example
+ * ```ts
+ * avatar: pipe(
+ *   RequiredFile,
+ *   withField({ label: "Profile Photo", inputType: "file" })
+ * )
+ * ```
+ */
+export const RequiredFile = Schema.Any.pipe(
+  Schema.filter(
+    (value): value is FileList =>
+      typeof FileList !== "undefined" &&
+      value instanceof FileList &&
+      value.length > 0,
+    {
+      message: () => "Please select a file"
+    }
+  )
+);
+
+/**
+ * Create a required file input with a custom error message
+ *
+ * @example
+ * ```ts
+ * resume: pipe(
+ *   requiredFile("Please upload your resume"),
+ *   withField({ label: "Resume", inputType: "file" })
+ * )
+ * ```
+ */
+export const requiredFile = (message: string) =>
+  Schema.Any.pipe(
+    Schema.filter(
+      (value): value is FileList =>
+        typeof FileList !== "undefined" &&
+        value instanceof FileList &&
+        value.length > 0,
       {
         message: () => message
       }

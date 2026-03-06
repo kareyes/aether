@@ -61,6 +61,8 @@ export {
   requiredCheckbox,
   RequiredSwitch,
   requiredSwitch,
+  RequiredFile,
+  requiredFile,
   type InputType,
   type FieldOption,
   type FieldOptionGroup,

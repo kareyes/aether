@@ -11,6 +11,7 @@
 		Switch,
 		Select,
 		RadioGroup,
+		FileInput,
 	} from "$lib/index.js";
 	import type { FieldRenderContext } from "../renderer.js";
 	import type {
@@ -92,15 +93,13 @@
 		const target = e.target as HTMLTextAreaElement;
 		handleChange(target.value);
 	}
-	// $effect(() => {
-	// 	console.log('Rendering SchemaField for field:', field.name, field);
-	// });
 </script>
 
 {#if field.inputType === "text" || field.inputType === "email" || field.inputType === "password" || field.inputType === "tel" || field.inputType === "url" || field.inputType === "number"}
 	<Field
 		label={field.label}
 		description={field.description}
+		descriptionPosition="after"
 		{error}
 		required={field.required}
 		disabled={field.disabled}
@@ -122,6 +121,7 @@
 	<Field
 		label={field.label}
 		description={field.description}
+		descriptionPosition="after"
 		{error}
 		required={field.required}
 		disabled={field.disabled}
@@ -141,6 +141,7 @@
 	<Field
 		label={field.label}
 		description={field.description}
+		descriptionPosition="after"
 		{error}
 		required={field.required}
 		disabled={field.disabled}
@@ -160,6 +161,7 @@
 	<Field
 		label={field.label}
 		description={field.description}
+		descriptionPosition="after"
 		{error}
 		required={field.required}
 		disabled={field.disabled}
@@ -169,13 +171,15 @@
 			value={ctx.value ? parseDate(ctx.value as string) : undefined}
 			disabled={field.disabled}
 			error={showError && !!error}
-			onValueChange={(v: DateValue | undefined) => handleChange(v?.toString())}
+			onValueChange={(v: DateValue | undefined) =>
+				handleChange(v?.toString())}
 		/>
 	</Field>
 {:else if field.inputType === "checkbox"}
 	<Field
 		label={field.label}
 		description={field.description}
+		descriptionPosition="after"
 		{error}
 		required={field.required}
 		disabled={field.disabled}
@@ -193,6 +197,7 @@
 	<Field
 		label={field.label}
 		description={field.description}
+		descriptionPosition="after"
 		{error}
 		required={field.required}
 		disabled={field.disabled}
@@ -210,6 +215,7 @@
 	<Field
 		label={field.label}
 		description={field.description}
+		descriptionPosition="after"
 		{error}
 		required={field.required}
 		disabled={field.disabled}
@@ -222,6 +228,30 @@
 			onValueChange={(v) => handleChange(v)}
 		/>
 	</Field>
+{:else if field.inputType === "file"}
+	<Field
+		label={field.label}
+		description={field.description}
+		descriptionPosition="after"
+		{error}
+		required={field.required}
+		disabled={field.disabled}
+		class={className}
+	>
+		<FileInput
+			mode={field.fileMode ?? "drag-drop"}
+			files={ctx.value as FileList | null}
+			multiple={field.multiple}
+			accept={field.accept}
+			disabled={field.disabled}
+			error={showError && !!error}
+			onFilesChange={(files) => {
+				handleChange(files);
+				handleBlur();
+			}}
+			onblur={handleBlur}
+		/>
+	</Field>
 {:else if field.inputType === "hidden"}
 	<input
 		type="hidden"
@@ -232,6 +262,7 @@
 	<Field
 		label={field.label}
 		description={field.description}
+		descriptionPosition="after"
 		{error}
 		required={field.required}
 		disabled={field.disabled}

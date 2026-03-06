@@ -20,7 +20,8 @@ import {
   type InputType,
   type ColumnSpan,
   type FieldOption,
-  type FieldOptionGroup
+  type FieldOptionGroup,
+  type FileInputMode
 } from "./annotations.js";
 
 // ============================================================================
@@ -49,6 +50,10 @@ export interface ExtractedField {
   readonly colSpanMd?: ColumnSpan;
   readonly colSpanLg?: ColumnSpan;
   readonly defaultValue?: unknown;
+  // File input options (only used when inputType === "file")
+  readonly fileMode?: FileInputMode;
+  readonly multiple?: boolean;
+  readonly accept?: string;
 }
 
 /** Section with its fields */
@@ -204,7 +209,10 @@ const extractField = (
     colSpanSm: layout?.colSpanSm,
     colSpanMd: layout?.colSpanMd,
     colSpanLg: layout?.colSpanLg,
-    defaultValue: extractDefaultValue(ast)
+    defaultValue: extractDefaultValue(ast),
+    fileMode: ui?.fileMode,
+    multiple: ui?.multiple,
+    accept: ui?.accept
   };
 };
 
@@ -422,51 +430,51 @@ const COL_SPAN: Record<ColumnSpan, string> = {
 };
 
 const COL_SPAN_SM: Record<ColumnSpan, string> = {
-  full: "sm:col-span-full",
-  1: "sm:col-span-1",
-  2: "sm:col-span-2",
-  3: "sm:col-span-3",
-  4: "sm:col-span-4",
-  5: "sm:col-span-5",
-  6: "sm:col-span-6",
-  7: "sm:col-span-7",
-  8: "sm:col-span-8",
-  9: "sm:col-span-9",
-  10: "sm:col-span-10",
-  11: "sm:col-span-11",
-  12: "sm:col-span-12"
+  full: "@sm:col-span-full",
+  1: "@sm:col-span-1",
+  2: "@sm:col-span-2",
+  3: "@sm:col-span-3",
+  4: "@sm:col-span-4",
+  5: "@sm:col-span-5",
+  6: "@sm:col-span-6",
+  7: "@sm:col-span-7",
+  8: "@sm:col-span-8",
+  9: "@sm:col-span-9",
+  10: "@sm:col-span-10",
+  11: "@sm:col-span-11",
+  12: "@sm:col-span-12"
 };
 
 const COL_SPAN_MD: Record<ColumnSpan, string> = {
-  full: "md:col-span-full",
-  1: "md:col-span-1",
-  2: "md:col-span-2",
-  3: "md:col-span-3",
-  4: "md:col-span-4",
-  5: "md:col-span-5",
-  6: "md:col-span-6",
-  7: "md:col-span-7",
-  8: "md:col-span-8",
-  9: "md:col-span-9",
-  10: "md:col-span-10",
-  11: "md:col-span-11",
-  12: "md:col-span-12"
+  full: "@md:col-span-full",
+  1: "@md:col-span-1",
+  2: "@md:col-span-2",
+  3: "@md:col-span-3",
+  4: "@md:col-span-4",
+  5: "@md:col-span-5",
+  6: "@md:col-span-6",
+  7: "@md:col-span-7",
+  8: "@md:col-span-8",
+  9: "@md:col-span-9",
+  10: "@md:col-span-10",
+  11: "@md:col-span-11",
+  12: "@md:col-span-12"
 };
 
 const COL_SPAN_LG: Record<ColumnSpan, string> = {
-  full: "lg:col-span-full",
-  1: "lg:col-span-1",
-  2: "lg:col-span-2",
-  3: "lg:col-span-3",
-  4: "lg:col-span-4",
-  5: "lg:col-span-5",
-  6: "lg:col-span-6",
-  7: "lg:col-span-7",
-  8: "lg:col-span-8",
-  9: "lg:col-span-9",
-  10: "lg:col-span-10",
-  11: "lg:col-span-11",
-  12: "lg:col-span-12"
+  full: "@lg:col-span-full",
+  1: "@lg:col-span-1",
+  2: "@lg:col-span-2",
+  3: "@lg:col-span-3",
+  4: "@lg:col-span-4",
+  5: "@lg:col-span-5",
+  6: "@lg:col-span-6",
+  7: "@lg:col-span-7",
+  8: "@lg:col-span-8",
+  9: "@lg:col-span-9",
+  10: "@lg:col-span-10",
+  11: "@lg:col-span-11",
+  12: "@lg:col-span-12"
 };
 
 const GRID_COLS: Record<number, string> = {
@@ -501,7 +509,9 @@ export const getColSpanClasses = (field: ExtractedField): string => {
  * Generate grid container classes
  */
 export const getGridClasses = (layout: FormLayoutConfig): string => {
-  const classes = ["grid"];
+  // @container makes the grid its own container so @sm:/@md:/@lg: col-span
+  // classes on child fields respond to the grid's own width, not the viewport.
+  const classes = ["@container", "grid"];
 
   // Column count
   const cols = layout.columns ?? 1;
@@ -549,6 +559,9 @@ export const buildDefaultValues = <T extends Record<string, unknown>>(
           break;
         case "number":
           defaults[field.name] = undefined;
+          break;
+        case "file":
+          defaults[field.name] = null;
           break;
         default:
           defaults[field.name] = "";

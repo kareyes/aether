@@ -48,6 +48,9 @@ export interface BaseFileInputProps {
 
 	/** Whether to show error state */
 	error?: boolean;
+
+	/** Blur event handler — called when the interactive element loses focus */
+	onblur?: (event: FocusEvent) => void;
 }
 
 /**
