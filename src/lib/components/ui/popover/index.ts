@@ -11,6 +11,7 @@ import Trigger, {
 	type PopoverTriggerSize,
 	popoverTriggerVariants,
 } from "./popover-trigger.svelte";
+import PopoverImpl from "./popover-impl.svelte";
 
 const Root: Component = PopoverPrimitive.Root;
 const Close: Component = PopoverPrimitive.Close;
@@ -40,8 +41,10 @@ export {
 	Trigger,
 	Close,
 	Arrow,
-	//
-	Root as Popover,
+	// Declarative single-component API
+	PopoverImpl as Popover,
+	// Named aliases for primitive imports
+	Root as PopoverRoot,
 	Content as PopoverContent,
 	Trigger as PopoverTrigger,
 	Close as PopoverClose,

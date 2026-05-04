@@ -1,6 +1,6 @@
 {
   "name": "@kareyes/aether",
-  "version": "0.0.16",
+  "version": "0.0.17",
   "description": "A Svelte 5 UI component library built with Tailwind CSS",
   "type": "module",
   "license": "MIT",
@@ -78,9 +78,7 @@
     }
   },
   "dependencies": {
-    "@internationalized/date": "^3.10.0",
     "@tanstack/table-core": "^8.21.3",
-    "bits-ui": "^2.15.4",
     "clsx": "^2.1.1",
     "mode-watcher": "^1.1.0",
     "svelte-sonner": "^1.0.7",
@@ -90,8 +88,8 @@
   },
   "devDependencies": {
     "@biomejs/biome": "2.2.6",
-    "effect": "^3.19.15",
     "@chromatic-com/storybook": "^4.1.1",
+    "@internationalized/date": "^3.12.0",
     "@lucide/svelte": "^0.561.0",
     "@playwright/test": "^1.55.1",
     "@storybook/addon-a11y": "^9.1.10",
@@ -107,6 +105,8 @@
     "@types/node": "^22",
     "@vitest/browser": "3.2.4",
     "@vitest/coverage-v8": "3.2.4",
+    "bits-ui": "^2.16.4",
+    "effect": "^3.19.15",
     "formsnap": "^2.0.1",
     "playwright": "^1.56.0",
     "storybook": "^9.1.10",

@@ -2,6 +2,7 @@
 // All components export both Primitives (namespace with all parts) and shorthand (Root component)
 
 // Re-export primitives using `export * as` for better bundler compatibility
+export * as EmptyPrimitives from "./components/ui/empty/index.js";
 export * as AccordionPrimitives from "./components/ui/accordion/index.js";
 export * as AlertPrimitives from "./components/ui/alert/index.js";
 export * as AlertDialogPrimitives from "./components/ui/alert-dialog/index.js";
@@ -28,6 +29,7 @@ export * as InputOTPPrimitives from "./components/ui/input-otp/index.js";
 export * as LabelPrimitives from "./components/ui/label/index.js";
 export * as NumberSpinnerPrimitives from "./components/ui/number-spinner/index.js";
 export * as PopoverPrimitives from "./components/ui/popover/index.js";
+export * as ProgressPrimitives from "./components/ui/progress/index.js";
 export * as RadioGroupPrimitives from "./components/ui/radio/index.js";
 export * as RangeCalendarPrimitives from "./components/ui/range-calendar/index.js";
 export * as SelectPrimitives from "./components/ui/select/index.js";
@@ -59,7 +61,7 @@ import { Alert } from "./components/ui/alert/index.js";
 import { Root as AlertDialog } from "./components/ui/alert-dialog/index.js";
 import { Avatar } from "./components/ui/avatar/index.js";
 import { Badge } from "./components/ui/badge/index.js";
-import { Root as Breadcrumb } from "./components/ui/breadcrumb/index.js";
+import { Breadcrumb } from "./components/ui/breadcrumb/index.js";
 import { Button } from "./components/ui/button/index.js";
 import { ButtonGroup } from "./components/ui/button-group/index.js";
 import { Calendar } from "./components/ui/calendar/index.js";
@@ -74,13 +76,15 @@ import { DatePicker, DatePickerWithPresets, DateRangePicker,DateRangePickerWithP
 import { Root as Dialog } from "./components/ui/dialog/index.js";
 import { DropdownMenu } from "./components/ui/dropdown-menu/index.js";
 import { Field } from "./components/ui/field/index.js";
+import { Empty } from "./components/ui/empty/index.js";
 import { FileInput, FileInputButton, FileInputDragDrop, FileInputRegular } from "./components/ui/file-input/index.js";
 import { Input } from "./components/ui/input/index.js";
 import { Root as InputGroup } from "./components/ui/input-group/index.js";
 import { InputOTP } from "./components/ui/input-otp/index.js";
 import { Label } from "./components/ui/label/index.js";
 import { NumberSpinner } from "./components/ui/number-spinner/index.js";
-import { Root as Popover } from "./components/ui/popover/index.js";
+import { Popover } from "./components/ui/popover/index.js";
+import { Progress } from "./components/ui/progress/index.js";
 import { RadioGroup } from "./components/ui/radio/index.js";
 import { RangeCalendar } from "./components/ui/range-calendar/index.js";
 import { Select } from "./components/ui/select/index.js";
@@ -124,6 +128,7 @@ export {
 	DateRangePickerWithPresets,
 	Dialog,
 	DropdownMenu,
+	Empty,
 	Field,
 	FileInput,
 	FileInputButton,
@@ -135,6 +140,7 @@ export {
 	Label,
 	NumberSpinner,
 	Popover,
+	Progress,
 	RadioGroup,
 	RangeCalendar,
 	Select,

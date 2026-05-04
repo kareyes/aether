@@ -1,311 +1,258 @@
 # Popover Component
 
-A comprehensive, customizable popover component with multiple visual variants, sizes, and animation options built with Svelte 5 and bits-ui.
+A customizable popover component with multiple visual variants, sizes, and animation options built with Svelte 5 and bits-ui.
 
 ## Features
 
-- 🎨 **5 Visual Variants**: Default, Bordered, Elevated, Minimal, Ghost
-- 📏 **4 Size Options**: Small, Default, Large, Auto
-- ✨ **5 Animation Styles**: Default (combined), Fade, Scale, Slide, None
-- 🎯 **Trigger Variants**: Default, Button, Outline, Ghost, Link
-- ♿ **Fully Accessible**: Built on bits-ui primitives with keyboard navigation
-- 🎭 **Customizable**: Extensive styling options with Tailwind
-- 🔄 **Reactive**: Svelte 5 runes for optimal performance
-- 📍 **Smart Positioning**: Automatic collision detection and placement
+- **5 Visual Variants**: Default, Bordered, Elevated, Minimal, Ghost
+- **4 Size Options**: Small, Default, Large, Auto
+- **5 Animation Styles**: Default (combined), Fade, Scale, Slide, None
+- **5 Trigger Variants**: Default, Button, Outline, Ghost, Link
+- **Fully Accessible**: Built on bits-ui primitives with keyboard navigation
+- **Smart Positioning**: Automatic collision detection and placement
 
 ## Installation
-
-The Popover component is included in the `@kareyes/aether` package.
 
 ```bash
 pnpm add @kareyes/aether
 ```
 
-## Implementation Details
+---
 
-The Popover component is built using **tailwind-variants** (tv) for a robust variant system and **bits-ui** for accessible primitives.
+## Quick Start
 
-### Component Architecture
+```svelte
+<script lang="ts">
+  import { Popover } from "@kareyes/aether";
+</script>
 
-#### PopoverContent Component
-- Uses `tv()` function for variant management
-- 5 visual variants with distinct styling:
-  - **Default**: Standard shadow with border
-  - **Bordered**: Emphasized border with lighter shadow
-  - **Elevated**: No border with larger shadow
-  - **Minimal**: Subtle appearance with light border
-  - **Ghost**: Transparent background without shadow
-- 4 size options for flexible layouts
-- 5 animation options for different entry/exit effects
-- Exported types: `PopoverContentVariant`, `PopoverContentSize`, `PopoverContentAnimation`
+<Popover triggerText="Open">
+  <div class="space-y-2">
+    <h4 class="font-medium leading-none">Dimensions</h4>
+    <p class="text-sm text-muted-foreground">Set the dimensions for the layer.</p>
+  </div>
+</Popover>
+```
 
-#### PopoverTrigger Component
-- 5 trigger variants for different use cases:
-  - **Default**: Unstyled (for custom triggers)
-  - **Button**: Primary button style
-  - **Outline**: Outlined button style
-  - **Ghost**: Ghost button style
-  - **Link**: Link style with underline
-- 3 size options (sm, default, lg)
-- Exported types: `PopoverTriggerVariant`, `PopoverTriggerSize`
+---
+
+## Declarative API
+
+The `<Popover>` component is the primary way to use popovers. All content variants, trigger styles, positioning, and controlled state are available as props.
+
+### Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `triggerText` | `string` | `'Open'` | Label for the trigger button — used when no `trigger` snippet is provided |
+| `triggerVariant` | `'default' \| 'button' \| 'outline' \| 'ghost' \| 'link'` | `'button'` | Trigger visual style |
+| `triggerSize` | `'default' \| 'sm' \| 'lg'` | `'default'` | Trigger size |
+| `triggerClass` | `string` | — | Extra CSS classes on the trigger element |
+| `contentVariant` | `'default' \| 'bordered' \| 'elevated' \| 'minimal' \| 'ghost'` | `'default'` | Panel visual style |
+| `contentSize` | `'sm' \| 'default' \| 'lg' \| 'auto'` | `'default'` | Panel width / padding |
+| `animation` | `'default' \| 'fade' \| 'scale' \| 'slide' \| 'none'` | `'default'` | Entry/exit animation |
+| `contentClass` | `string` | — | Extra CSS classes on the content panel |
+| `side` | `'top' \| 'right' \| 'bottom' \| 'left'` | `'bottom'` | Preferred placement side |
+| `align` | `'start' \| 'center' \| 'end'` | `'center'` | Alignment relative to trigger |
+| `sideOffset` | `number` | `4` | Gap between trigger and panel in px |
+| `open` | `boolean` | — | Controlled open state |
+| `onOpenChange` | `(open: boolean) => void` | — | Callback when open state changes |
+| `portalProps` | `PopoverPrimitive.PortalProps` | — | Props forwarded to the portal |
+
+### Snippets
+
+| Snippet | Description |
+|---------|-------------|
+| `trigger` | Custom trigger content — overrides `triggerText` |
+| `children` | Popover panel content |
+
+---
 
 ## Usage
 
-### Basic Example
+### Basic
+
+```svelte
+<Popover triggerText="Open Popover">
+  <div class="space-y-2">
+    <h4 class="font-medium leading-none">Dimensions</h4>
+    <p class="text-sm text-muted-foreground">Set the dimensions for the layer.</p>
+  </div>
+</Popover>
+```
+
+### Custom Trigger
+
+Use the `trigger` snippet to replace the default button with any element.
 
 ```svelte
 <script lang="ts">
-  import { PopoverPrimitives } from "@kareyes/aether";
-  const { Popover, PopoverTrigger, PopoverContent } = PopoverPrimitives;
+  import { Popover } from "@kareyes/aether";
+  import Settings from "@lucide/svelte/icons/settings";
 </script>
 
-<Popover>
-  <PopoverTrigger variant="button">Open Popover</PopoverTrigger>
-  <PopoverContent>
-    <div class="space-y-2">
-      <h4 class="font-medium leading-none">Dimensions</h4>
-      <p class="text-sm text-muted-foreground">
-        Set the dimensions for the layer.
-      </p>
-    </div>
-  </PopoverContent>
+<Popover triggerVariant="outline" contentVariant="elevated" align="end">
+  {#snippet trigger()}
+    <Settings class="size-4 mr-2" />
+    Settings
+  {/snippet}
+  <p class="text-sm">Adjust your preferences.</p>
 </Popover>
 ```
 
-### With Custom Trigger
-
-```svelte
-<Popover>
-  <PopoverTrigger variant="default" class="rounded-full w-10 h-10 bg-primary text-primary-foreground">
-    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-      <circle cx="12" cy="12" r="1"/>
-      <circle cx="12" cy="5" r="1"/>
-      <circle cx="12" cy="19" r="1"/>
-    </svg>
-  </PopoverTrigger>
-  <PopoverContent variant="elevated" size="sm">
-    <p class="text-sm">Additional options</p>
-  </PopoverContent>
-</Popover>
-```
-
-### With Positioning
-
-```svelte
-<Popover>
-  <PopoverTrigger variant="outline">Open</PopoverTrigger>
-  <PopoverContent side="top" align="start" sideOffset={8}>
-    <p>This popover appears above the trigger</p>
-  </PopoverContent>
-</Popover>
-```
-
-### With Controlled State
+### Icon-only Trigger
 
 ```svelte
 <script lang="ts">
-  import { PopoverPrimitives } from "@kareyes/aether";
-  const { Popover, PopoverTrigger, PopoverContent, PopoverClose } = PopoverPrimitives;
-  import { Button } from "@kareyes/aether";
+  import { Popover } from "@kareyes/aether";
+  import EllipsisVertical from "@lucide/svelte/icons/ellipsis-vertical";
+</script>
+
+<Popover triggerVariant="ghost" triggerSize="sm">
+  {#snippet trigger()}
+    <EllipsisVertical class="size-4" />
+  {/snippet}
+  <div class="flex flex-col">
+    <button class="px-3 py-2 text-sm hover:bg-accent rounded text-left">Edit</button>
+    <button class="px-3 py-2 text-sm hover:bg-accent rounded text-left">Duplicate</button>
+    <button class="px-3 py-2 text-sm hover:bg-accent rounded text-left text-destructive">Delete</button>
+  </div>
+</Popover>
+```
+
+### Positioning
+
+```svelte
+<Popover triggerText="Open" side="top" align="start" sideOffset={8}>
+  <p>This popover appears above the trigger, aligned to the start.</p>
+</Popover>
+```
+
+### Controlled State
+
+Pass `open` and `onOpenChange` together to take control of the open state externally.
+
+```svelte
+<script lang="ts">
+  import { Popover } from "@kareyes/aether";
 
   let open = $state(false);
 </script>
 
-<Popover bind:open>
-  <PopoverTrigger variant="button">Toggle</PopoverTrigger>
-  <PopoverContent>
-    <div class="space-y-4">
-      <p class="text-sm">Popover is {open ? 'open' : 'closed'}</p>
-      <PopoverClose>
-        <Button variant="outline" size="sm">Close</Button>
-      </PopoverClose>
-    </div>
-  </PopoverContent>
+<button onclick={() => (open = true)}>Open externally</button>
+
+<Popover
+  {open}
+  onOpenChange={(v) => (open = v)}
+  triggerText="Toggle"
+  triggerVariant="outline"
+>
+  <p class="text-sm">Popover is {open ? "open" : "closed"}.</p>
 </Popover>
 ```
 
+---
+
 ## Content Variants
 
-### Default Variant
-The standard popover style with medium shadow and border.
+Control the panel appearance with `contentVariant`.
+
+| Variant | Description |
+|---------|-------------|
+| `default` | Standard shadow with border |
+| `bordered` | Emphasized border with lighter shadow |
+| `elevated` | No border, larger shadow — floating appearance |
+| `minimal` | Subtle, light border and small shadow |
+| `ghost` | Transparent background, no shadow — for custom styling |
 
 ```svelte
-<PopoverContent variant="default">
-  Standard popover appearance
-</PopoverContent>
+<Popover triggerText="Default" contentVariant="default">...</Popover>
+<Popover triggerText="Bordered" contentVariant="bordered">...</Popover>
+<Popover triggerText="Elevated" contentVariant="elevated">...</Popover>
+<Popover triggerText="Minimal" contentVariant="minimal">...</Popover>
+<Popover triggerText="Ghost" contentVariant="ghost" contentClass="bg-gradient-to-r from-purple-500 to-pink-500 text-white">...</Popover>
 ```
 
-### Bordered Variant
-Emphasized border with lighter shadow for a more defined look.
-
-```svelte
-<PopoverContent variant="bordered">
-  Popover with emphasized border
-</PopoverContent>
-```
-
-### Elevated Variant
-No border with larger shadow for a floating appearance.
-
-```svelte
-<PopoverContent variant="elevated">
-  Floating popover with elevation
-</PopoverContent>
-```
-
-### Minimal Variant
-Subtle appearance with light border and small shadow.
-
-```svelte
-<PopoverContent variant="minimal">
-  Minimal, understated popover
-</PopoverContent>
-```
-
-### Ghost Variant
-Transparent background without shadow for custom styling.
-
-```svelte
-<PopoverContent variant="ghost" class="bg-gradient-to-r from-purple-500 to-pink-500 text-white">
-  Custom styled popover
-</PopoverContent>
-```
+---
 
 ## Size Variants
 
-### Small
-Compact popover for minimal content.
+Control the panel width and padding with `contentSize`.
+
+| Size | Description |
+|------|-------------|
+| `sm` | Compact — tight padding, narrow width |
+| `default` | Standard — most use cases |
+| `lg` | Spacious — detailed content |
+| `auto` | Width follows content |
 
 ```svelte
-<PopoverContent size="sm">
+<Popover triggerText="Small" contentSize="sm">
   <p class="text-sm">Compact content</p>
-</PopoverContent>
-```
+</Popover>
 
-### Default
-Standard size for most use cases.
-
-```svelte
-<PopoverContent size="default">
-  <p>Standard content</p>
-</PopoverContent>
-```
-
-### Large
-Spacious popover for detailed content.
-
-```svelte
-<PopoverContent size="lg">
+<Popover triggerText="Large" contentSize="lg">
   <h3 class="text-lg font-semibold mb-2">Detailed Information</h3>
   <p>More content with extra space</p>
-</PopoverContent>
-```
+</Popover>
 
-### Auto
-Auto-width popover with default padding.
-
-```svelte
-<PopoverContent size="auto" class="w-auto">
+<Popover triggerText="Auto" contentSize="auto">
   <p>Content determines width</p>
-</PopoverContent>
+</Popover>
 ```
+
+---
 
 ## Animation Variants
 
-### Default Animation
-Combined fade, zoom, and slide animations.
+Control entry/exit animation with the `animation` prop.
+
+| Value | Effect |
+|-------|--------|
+| `default` | Combined fade + zoom + slide |
+| `fade` | Simple fade in/out |
+| `scale` | Zoom in/out |
+| `slide` | Slides from the placement side |
+| `none` | Instant show/hide |
 
 ```svelte
-<PopoverContent animation="default">
-  Smooth combined animation
-</PopoverContent>
+<Popover triggerText="Fade" animation="fade">...</Popover>
+<Popover triggerText="Scale" animation="scale">...</Popover>
+<Popover triggerText="Slide" animation="slide">...</Popover>
+<Popover triggerText="No animation" animation="none">...</Popover>
 ```
 
-### Fade Animation
-Simple fade in/out effect.
-
-```svelte
-<PopoverContent animation="fade">
-  Subtle fade animation
-</PopoverContent>
-```
-
-### Scale Animation
-Zoom in/out effect.
-
-```svelte
-<PopoverContent animation="scale">
-  Scale animation
-</PopoverContent>
-```
-
-### Slide Animation
-Slide from the direction of placement.
-
-```svelte
-<PopoverContent animation="slide">
-  Slide-in animation
-</PopoverContent>
-```
-
-### No Animation
-Instant show/hide without animation.
-
-```svelte
-<PopoverContent animation="none">
-  No animation
-</PopoverContent>
-```
+---
 
 ## Trigger Variants
 
-### Button Trigger
-Primary button style for prominent actions.
+Control the trigger button style with `triggerVariant`.
+
+| Variant | Use case |
+|---------|----------|
+| `button` | Primary action — default |
+| `outline` | Secondary action |
+| `ghost` | Subtle — icon buttons |
+| `link` | Inline text triggers |
+| `default` | Unstyled — fully custom |
 
 ```svelte
-<PopoverTrigger variant="button">
-  Click Me
-</PopoverTrigger>
+<Popover triggerText="Primary" triggerVariant="button">...</Popover>
+<Popover triggerText="Secondary" triggerVariant="outline">...</Popover>
+<Popover triggerText="Subtle" triggerVariant="ghost">...</Popover>
+<Popover triggerText="Learn more" triggerVariant="link">...</Popover>
 ```
 
-### Outline Trigger
-Outlined style for secondary actions.
+---
 
-```svelte
-<PopoverTrigger variant="outline">
-  More Options
-</PopoverTrigger>
-```
-
-### Ghost Trigger
-Subtle hover effect without background.
-
-```svelte
-<PopoverTrigger variant="ghost">
-  Hover Me
-</PopoverTrigger>
-```
-
-### Link Trigger
-Link style with underline on hover.
-
-```svelte
-<PopoverTrigger variant="link">
-  Learn More
-</PopoverTrigger>
-```
-
-## Advanced Examples
+## Realistic Examples
 
 ### Form in Popover
 
 ```svelte
 <script lang="ts">
-  import { PopoverPrimitives } from "@kareyes/aether";
-  const { Popover, PopoverTrigger, PopoverContent } = PopoverPrimitives;
-  import { Button } from "@kareyes/aether";
-  import { Input } from "@kareyes/aether";
-  import { Label } from "@kareyes/aether";
+  import { Popover } from "@kareyes/aether";
+  import { Input, Label, Button } from "@kareyes/aether";
 
   let width = $state("100%");
   let maxWidth = $state("300px");
@@ -313,36 +260,31 @@ Link style with underline on hover.
   let maxHeight = $state("none");
 </script>
 
-<Popover>
-  <PopoverTrigger variant="button">Open Dimensions</PopoverTrigger>
-  <PopoverContent class="w-80">
-    <div class="grid gap-4">
-      <div class="space-y-2">
-        <h4 class="font-medium leading-none">Dimensions</h4>
-        <p class="text-sm text-muted-foreground">
-          Set the dimensions for the layer.
-        </p>
+<Popover triggerText="Open Dimensions" contentClass="w-80">
+  <div class="grid gap-4">
+    <div class="space-y-2">
+      <h4 class="font-medium leading-none">Dimensions</h4>
+      <p class="text-sm text-muted-foreground">Set the dimensions for the layer.</p>
+    </div>
+    <div class="grid gap-2">
+      <div class="grid grid-cols-3 items-center gap-4">
+        <Label for="width">Width</Label>
+        <Input id="width" bind:value={width} class="col-span-2 h-8" />
       </div>
-      <div class="grid gap-2">
-        <div class="grid grid-cols-3 items-center gap-4">
-          <Label for="width">Width</Label>
-          <Input id="width" bind:value={width} class="col-span-2 h-8" />
-        </div>
-        <div class="grid grid-cols-3 items-center gap-4">
-          <Label for="maxWidth">Max. width</Label>
-          <Input id="maxWidth" bind:value={maxWidth} class="col-span-2 h-8" />
-        </div>
-        <div class="grid grid-cols-3 items-center gap-4">
-          <Label for="height">Height</Label>
-          <Input id="height" bind:value={height} class="col-span-2 h-8" />
-        </div>
-        <div class="grid grid-cols-3 items-center gap-4">
-          <Label for="maxHeight">Max. height</Label>
-          <Input id="maxHeight" bind:value={maxHeight} class="col-span-2 h-8" />
-        </div>
+      <div class="grid grid-cols-3 items-center gap-4">
+        <Label for="maxWidth">Max. width</Label>
+        <Input id="maxWidth" bind:value={maxWidth} class="col-span-2 h-8" />
+      </div>
+      <div class="grid grid-cols-3 items-center gap-4">
+        <Label for="height">Height</Label>
+        <Input id="height" bind:value={height} class="col-span-2 h-8" />
+      </div>
+      <div class="grid grid-cols-3 items-center gap-4">
+        <Label for="maxHeight">Max. height</Label>
+        <Input id="maxHeight" bind:value={maxHeight} class="col-span-2 h-8" />
       </div>
     </div>
-  </PopoverContent>
+  </div>
 </Popover>
 ```
 
@@ -350,200 +292,140 @@ Link style with underline on hover.
 
 ```svelte
 <script lang="ts">
-  import { PopoverPrimitives } from "@kareyes/aether";
-  const { Popover, PopoverTrigger, PopoverContent } = PopoverPrimitives;
-  import { Avatar } from "@kareyes/aether";
-  import { Button } from "@kareyes/aether";
+  import { Popover } from "@kareyes/aether";
+  import { Avatar, Button } from "@kareyes/aether";
 </script>
 
-<Popover>
-  <PopoverTrigger variant="default">
+<Popover triggerVariant="default" contentVariant="elevated" contentSize="sm" align="end">
+  {#snippet trigger()}
     <Avatar src="/avatar.jpg" alt="User" />
-  </PopoverTrigger>
-  <PopoverContent variant="elevated" size="sm" align="end">
-    <div class="flex flex-col gap-3">
-      <div class="flex items-center gap-3">
-        <Avatar src="/avatar.jpg" alt="User" class="h-12 w-12" />
-        <div>
-          <p class="font-medium">John Doe</p>
-          <p class="text-sm text-muted-foreground">john@example.com</p>
-        </div>
-      </div>
-      <div class="flex flex-col gap-1">
-        <Button variant="ghost" size="sm" class="justify-start">Profile</Button>
-        <Button variant="ghost" size="sm" class="justify-start">Settings</Button>
-        <Button variant="ghost" size="sm" class="justify-start">Sign out</Button>
+  {/snippet}
+  <div class="flex flex-col gap-3">
+    <div class="flex items-center gap-3">
+      <Avatar src="/avatar.jpg" alt="User" class="h-12 w-12" />
+      <div>
+        <p class="font-medium">John Doe</p>
+        <p class="text-sm text-muted-foreground">john@example.com</p>
       </div>
     </div>
-  </PopoverContent>
+    <div class="flex flex-col gap-1">
+      <Button variant="ghost" size="sm" class="justify-start">Profile</Button>
+      <Button variant="ghost" size="sm" class="justify-start">Settings</Button>
+      <Button variant="ghost" size="sm" class="justify-start">Sign out</Button>
+    </div>
+  </div>
 </Popover>
 ```
 
-### Action Menu Popover
+---
 
-```svelte
-<Popover>
-  <PopoverTrigger variant="ghost" size="sm">
-    <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-      <circle cx="12" cy="12" r="1"/>
-      <circle cx="12" cy="5" r="1"/>
-      <circle cx="12" cy="19" r="1"/>
-    </svg>
-  </PopoverTrigger>
-  <PopoverContent variant="minimal" size="auto" class="p-1 w-40">
-    <div class="flex flex-col">
-      <button class="px-3 py-2 text-sm hover:bg-accent rounded text-left">Edit</button>
-      <button class="px-3 py-2 text-sm hover:bg-accent rounded text-left">Duplicate</button>
-      <button class="px-3 py-2 text-sm hover:bg-accent rounded text-left">Archive</button>
-      <div class="h-px bg-border my-1"></div>
-      <button class="px-3 py-2 text-sm hover:bg-accent rounded text-left text-destructive">Delete</button>
-    </div>
-  </PopoverContent>
-</Popover>
-```
-
-## Props Reference
-
-### Popover (Root)
-
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `open` | `boolean` | `false` | Controlled open state |
-| `onOpenChange` | `(open: boolean) => void` | - | Callback when open state changes |
-| `...restProps` | `PopoverPrimitive.RootProps` | - | All bits-ui Popover.Root props |
-
-### PopoverTrigger
-
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `variant` | `'default' \| 'button' \| 'outline' \| 'ghost' \| 'link'` | `'default'` | Trigger visual style |
-| `size` | `'default' \| 'sm' \| 'lg'` | `'default'` | Trigger size |
-| `class` | `string` | - | Additional CSS classes |
-| `ref` | `HTMLButtonElement \| null` | `null` | Reference to the trigger element |
-| `...restProps` | `PopoverPrimitive.TriggerProps` | - | All bits-ui Popover.Trigger props |
-
-### PopoverContent
-
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `variant` | `'default' \| 'bordered' \| 'elevated' \| 'minimal' \| 'ghost'` | `'default'` | Content visual style |
-| `size` | `'sm' \| 'default' \| 'lg' \| 'auto'` | `'default'` | Content size |
-| `animation` | `'default' \| 'fade' \| 'scale' \| 'slide' \| 'none'` | `'default'` | Entry/exit animation |
-| `side` | `'top' \| 'right' \| 'bottom' \| 'left'` | `'bottom'` | Preferred placement side |
-| `align` | `'start' \| 'center' \| 'end'` | `'center'` | Alignment relative to trigger |
-| `sideOffset` | `number` | `4` | Distance from trigger in pixels |
-| `alignOffset` | `number` | `0` | Offset along alignment axis |
-| `class` | `string` | - | Additional CSS classes |
-| `ref` | `HTMLDivElement \| null` | `null` | Reference to the content element |
-| `portalProps` | `PopoverPrimitive.PortalProps` | - | Props for the portal component |
-| `...restProps` | `PopoverPrimitive.ContentProps` | - | All bits-ui Popover.Content props |
-
-### PopoverClose
-
-Inherits all props from `bits-ui` Popover.Close. Typically used as a wrapper around buttons or interactive elements to close the popover.
-
-### PopoverArrow
-
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `class` | `string` | - | Additional CSS classes |
-| `...restProps` | `PopoverPrimitive.ArrowProps` | - | All bits-ui Popover.Arrow props |
-
-## Accessibility
-
-The Popover component follows WAI-ARIA guidelines:
-
-### Keyboard Navigation
-
-- **Tab**: Move focus to/from the trigger
-- **Space/Enter**: Open/close the popover when trigger is focused
-- **Escape**: Close the popover when content is open
-- **Tab** (when open): Trap focus within popover or allow cycling based on configuration
-
-### Screen Reader Support
-
-- Proper ARIA attributes (`aria-haspopup`, `aria-expanded`, `aria-controls`)
-- Content is announced when popover opens
-- Focus management handles proper announcements
-- Trigger-content relationship is clearly communicated
-
-### Best Practices
-
-1. **Descriptive Triggers**: Use clear, descriptive text or labels
-2. **Focus Management**: Ensure focus returns to trigger on close
-3. **Keyboard Accessible**: All interactive elements should be keyboard accessible
-4. **Sufficient Contrast**: Ensure content meets WCAG contrast requirements
-5. **Mobile Friendly**: Consider touch targets and mobile interactions
-
-## Styling Tips
+## Styling
 
 ### Custom Width
 
 ```svelte
-<PopoverContent size="auto" class="w-96">
+<Popover triggerText="Wide" contentSize="auto" contentClass="w-96">
   Custom width content
-</PopoverContent>
+</Popover>
 ```
 
 ### Custom Colors
 
 ```svelte
-<PopoverContent variant="ghost" class="bg-blue-500 text-white border border-blue-600">
+<Popover triggerText="Colored" contentVariant="ghost" contentClass="bg-blue-500 text-white border border-blue-600">
   Custom colored popover
-</PopoverContent>
+</Popover>
 ```
 
 ### No Padding
 
 ```svelte
-<PopoverContent class="p-0">
-  <img src="/image.jpg" alt="Full bleed image" class="rounded-md" />
-</PopoverContent>
+<Popover triggerText="Image" contentClass="p-0">
+  <img src="/image.jpg" alt="Full bleed" class="rounded-md" />
+</Popover>
 ```
 
-### With Arrow
+---
+
+## Compositional API
+
+Use the primitives directly when you need structural control unavailable in the declarative API — for example, placing an `Arrow`, embedding a `Close` button inside content, or building a custom trigger outside the popover tree.
 
 ```svelte
 <script lang="ts">
   import { PopoverPrimitives } from "@kareyes/aether";
-  const { Popover, PopoverTrigger, PopoverContent, PopoverArrow } = PopoverPrimitives;
+  const { Root, Trigger, Content, Close, Arrow } = PopoverPrimitives;
+  import { Button } from "@kareyes/aether";
 </script>
 
-<Popover>
-  <PopoverTrigger variant="button">Show Arrow</PopoverTrigger>
-  <PopoverContent>
-    <PopoverArrow class="fill-popover" />
-    <p>Popover with arrow indicator</p>
-  </PopoverContent>
-</Popover>
+<!-- With arrow indicator -->
+<Root>
+  <Trigger variant="button">Open</Trigger>
+  <Content>
+    <Arrow class="fill-popover" />
+    <p class="text-sm">Popover with arrow</p>
+  </Content>
+</Root>
+
+<!-- With explicit Close button inside content -->
+<Root>
+  <Trigger variant="outline">Open</Trigger>
+  <Content>
+    <p class="text-sm mb-4">Take an action before closing.</p>
+    <Close>
+      <Button variant="outline" size="sm">Dismiss</Button>
+    </Close>
+  </Content>
+</Root>
 ```
 
-## Common Patterns
+### Primitives Reference
 
-### Dropdown Menu Alternative
+| Export | Description |
+|--------|-------------|
+| `PopoverPrimitives.Root` | Popover root (controlled via `open` / `onOpenChange`) |
+| `PopoverPrimitives.Trigger` | Trigger button (`variant`, `size`, `class`) |
+| `PopoverPrimitives.Content` | Panel (`variant`, `size`, `animation`, `side`, `align`, `sideOffset`) |
+| `PopoverPrimitives.Close` | Wrapper that closes the popover on click |
+| `PopoverPrimitives.Arrow` | Arrow indicator (style with `class="fill-popover"`) |
 
-Use popover for custom dropdown menus with more control than standard dropdowns.
+### PopoverTrigger Props
 
-### Contextual Help
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `variant` | `'default' \| 'button' \| 'outline' \| 'ghost' \| 'link'` | `'default'` | Visual style |
+| `size` | `'default' \| 'sm' \| 'lg'` | `'default'` | Size |
+| `class` | `string` | — | Additional CSS classes |
 
-Display additional information or help text without navigating away.
+### PopoverContent Props
 
-### Quick Actions
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `variant` | `'default' \| 'bordered' \| 'elevated' \| 'minimal' \| 'ghost'` | `'default'` | Visual style |
+| `size` | `'sm' \| 'default' \| 'lg' \| 'auto'` | `'default'` | Panel size |
+| `animation` | `'default' \| 'fade' \| 'scale' \| 'slide' \| 'none'` | `'default'` | Entry/exit animation |
+| `side` | `'top' \| 'right' \| 'bottom' \| 'left'` | `'bottom'` | Placement side |
+| `align` | `'start' \| 'center' \| 'end'` | `'center'` | Alignment |
+| `sideOffset` | `number` | `4` | Distance from trigger in px |
+| `class` | `string` | — | Additional CSS classes |
+| `portalProps` | `PopoverPrimitive.PortalProps` | — | Portal props |
 
-Show action buttons or forms in a compact overlay.
+---
 
-### User Previews
+## Accessibility
 
-Display user information on hover or click of avatars/names.
+- **Tab** — move focus to/from the trigger
+- **Space / Enter** — open/close when trigger is focused
+- **Escape** — close the popover
+- Proper ARIA attributes: `aria-haspopup`, `aria-expanded`, `aria-controls`
+- Focus returns to trigger on close
 
-### Settings Panels
-
-Small configuration panels that don't warrant a full modal.
+---
 
 ## Related Components
 
-- **Dropdown Menu**: For standard menu interactions
-- **Dialog**: For modal dialogs that require user attention
-- **Tooltip**: For simple hover hints
-- **Sheet**: For larger side panels
-- **Context Menu**: For right-click contextual actions
+- **Dropdown Menu** — for standard menu interactions
+- **Dialog** — for modal dialogs requiring full user attention
+- **Tooltip** — for simple hover hints
+- **Sheet** — for larger side panels
+- **Context Menu** — for right-click contextual actions
