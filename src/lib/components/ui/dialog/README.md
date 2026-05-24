@@ -15,8 +15,8 @@ A comprehensive modal dialog component with variants, sizes, and extensive custo
     DialogDescription,
     DialogFooter,
     DialogClose
-  } from "@kareyes/aether";
-  import { Button } from "@kareyes/aether";
+  } from "@kareyes/aether-ui";
+  import { Button } from "@kareyes/aether-ui";
 </script>
 
 <Dialog>

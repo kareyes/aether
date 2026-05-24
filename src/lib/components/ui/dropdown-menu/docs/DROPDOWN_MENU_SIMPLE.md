@@ -14,17 +14,17 @@ A simplified dropdown menu component that wraps all the complexity of the standa
 
 ## Installation
 
-The DropdownMenu component is included in the `@kareyes/aether` package.
+The DropdownMenu component is included in the `@kareyes/aether-ui` package.
 
 ```bash
-pnpm add @kareyes/aether
+pnpm add @kareyes/aether-ui
 ```
 
 ## Basic Usage
 
 ```svelte
 <script lang="ts">
-  import { DropdownMenu } from "@kareyes/aether";
+  import { DropdownMenu } from "@kareyes/aether-ui";
   import User from "@lucide/svelte/icons/user";
   import Settings from "@lucide/svelte/icons/settings";
   import LogOut from "@lucide/svelte/icons/log-out";

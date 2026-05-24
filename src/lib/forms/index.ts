@@ -17,7 +17,7 @@
  *   FormController,
  *   extractForm,
  *   validateSync
- * } from '@kareyes/aether/forms';
+ * } from '@kareyes/aether-ui/forms';
  *
  * // Define schema with annotations
  * const UserSchema = pipe(

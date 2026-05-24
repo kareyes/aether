@@ -14,10 +14,10 @@ A collection of links for navigating websites, with support for dropdowns, icons
 
 ## Installation
 
-The Navigation Menu component is included in the `@kareyes/aether` package.
+The Navigation Menu component is included in the `@kareyes/aether-ui` package.
 
 ```bash
-pnpm add @kareyes/aether
+pnpm add @kareyes/aether-ui
 ```
 
 ## Usage
@@ -26,7 +26,7 @@ pnpm add @kareyes/aether
 
 ```svelte
 <script lang="ts">
-  import * as NavigationMenu from "@kareyes/aether";
+  import * as NavigationMenu from "@kareyes/aether-ui";
 </script>
 
 <NavigationMenu.Root>
@@ -52,7 +52,7 @@ pnpm add @kareyes/aether
 
 ```svelte
 <script lang="ts">
-  import { NavigationMenuPrimitives } from "@kareyes/aether";
+  import { NavigationMenuPrimitives } from "@kareyes/aether-ui";
 </script>
 
 <NavigationMenuPrimitives.Root>
@@ -164,8 +164,8 @@ For consistent styling when using plain links (without dropdowns), import and us
 
 ```svelte
 <script lang="ts">
-  import * as NavigationMenu from "@kareyes/aether";
-  import { navigationMenuTriggerStyle } from "@kareyes/aether/components/ui/navigation-menu";
+  import * as NavigationMenu from "@kareyes/aether-ui";
+  import { navigationMenuTriggerStyle } from "@kareyes/aether-ui/components/ui/navigation-menu";
 </script>
 
 <NavigationMenu.Root>

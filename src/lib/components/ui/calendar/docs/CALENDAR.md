@@ -6,7 +6,7 @@ A fully-featured calendar component for displaying and selecting dates. Built on
 
 ```svelte
 <script>
-  import { Calendar } from "@kareyes/aether";
+  import { Calendar } from "@kareyes/aether-ui";
   import type { DateValue } from "@internationalized/date";
 
   let value = $state<DateValue | undefined>();
@@ -100,7 +100,7 @@ type CalendarEvent = {
 ### Basic Events
 ```svelte
 <script>
-  import { Calendar, type CalendarEvent } from "@kareyes/aether";
+  import { Calendar, type CalendarEvent } from "@kareyes/aether-ui";
 
   const events: CalendarEvent[] = [
     { date: "2024-12-05", color: "#ef4444", label: "Meeting" },
@@ -186,7 +186,7 @@ Display multiple months side by side.
 
 ```svelte
 <script>
-  import { Calendar } from "@kareyes/aether";
+  import { Calendar } from "@kareyes/aether-ui";
   import { today, getLocalTimeZone } from "@internationalized/date";
 
   const now = today(getLocalTimeZone());
@@ -201,7 +201,7 @@ Display multiple months side by side.
 
 ```svelte
 <script>
-  import { Calendar } from "@kareyes/aether";
+  import { Calendar } from "@kareyes/aether-ui";
   import { isWeekend } from "@internationalized/date";
 
   // Disable weekends
@@ -215,7 +215,7 @@ Display multiple months side by side.
 
 ```svelte
 <script>
-  import { Calendar } from "@kareyes/aether";
+  import { Calendar } from "@kareyes/aether-ui";
 
   // Mark certain dates as unavailable (shown with strikethrough)
   const bookedDates = [5, 10, 15, 20];
@@ -231,8 +231,8 @@ Use the `day` snippet to customize how each day cell is rendered.
 
 ```svelte
 <script>
-  import { Calendar } from "@kareyes/aether";
-  import * as CalendarPrimitives from "@kareyes/aether";
+  import { Calendar } from "@kareyes/aether-ui";
+  import * as CalendarPrimitives from "@kareyes/aether-ui";
 
   const events = {
     5: "Meeting",
@@ -259,7 +259,7 @@ Provide a specific range of years for the dropdown.
 
 ```svelte
 <script>
-  import { Calendar } from "@kareyes/aether";
+  import { Calendar } from "@kareyes/aether-ui";
 
   // Generate years from 2020 to 2030
   const years = Array.from({ length: 11 }, (_, i) => ({
@@ -296,7 +296,7 @@ The Calendar uses `@internationalized/date` for date handling:
 
 ```svelte
 <script>
-  import { Calendar } from "@kareyes/aether";
+  import { Calendar } from "@kareyes/aether-ui";
   import {
     CalendarDate,
     today,
@@ -371,7 +371,7 @@ For advanced customization, use the Calendar primitives directly:
 
 ```svelte
 <script>
-  import * as CalendarPrimitives from "@kareyes/aether";
+  import * as CalendarPrimitives from "@kareyes/aether-ui";
 </script>
 
 <CalendarPrimitives.Calendar>

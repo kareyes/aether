@@ -17,10 +17,10 @@ A fully-featured slider component with support for variants, sizes, step indicat
 
 ## Installation
 
-The Slider component is included in the `@kareyes/aether` package.
+The Slider component is included in the `@kareyes/aether-ui` package.
 
 ```bash
-pnpm add @kareyes/aether
+pnpm add @kareyes/aether-ui
 ```
 
 ## Basic Usage
@@ -29,7 +29,7 @@ pnpm add @kareyes/aether
 
 ```svelte
 <script lang="ts">
-  import { Slider } from "@kareyes/aether";
+  import { Slider } from "@kareyes/aether-ui";
 
   let value = $state([50]);
 </script>
@@ -41,7 +41,7 @@ pnpm add @kareyes/aether
 
 ```svelte
 <script lang="ts">
-  import { SliderPrimitives } from "@kareyes/aether";
+  import { SliderPrimitives } from "@kareyes/aether-ui";
 </script>
 
 <SliderPrimitives.Root value={[50]} min={0} max={100} step={1}>

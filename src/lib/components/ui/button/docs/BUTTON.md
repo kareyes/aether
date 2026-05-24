@@ -13,10 +13,10 @@ An enhanced button component with support for icons, loading states, variants, a
 
 ## Installation
 
-The Button component is included in the `@kareyes/aether` package.
+The Button component is included in the `@kareyes/aether-ui` package.
 
 ```bash
-pnpm add @kareyes/aether
+pnpm add @kareyes/aether-ui
 ```
 
 ## Usage
@@ -25,7 +25,7 @@ pnpm add @kareyes/aether
 
 ```svelte
 <script lang="ts">
-  import { Button } from "@kareyes/aether";
+  import { Button } from "@kareyes/aether-ui";
 </script>
 
 <Button>Click me</Button>
@@ -35,7 +35,7 @@ pnpm add @kareyes/aether
 
 ```svelte
 <script lang="ts">
-  import { ButtonPrimitives } from "@kareyes/aether";
+  import { ButtonPrimitives } from "@kareyes/aether-ui";
 </script>
 
 <ButtonPrimitives.Root>Click me</ButtonPrimitives.Root>
@@ -51,7 +51,7 @@ pnpm add @kareyes/aether
 
 ```svelte
 <script lang="ts">
-  import { Button } from "@kareyes/aether";
+  import { Button } from "@kareyes/aether-ui";
   import PlusIcon from "@lucide/svelte/icons/plus";
 </script>
 
@@ -124,7 +124,7 @@ pnpm add @kareyes/aether
 
 ```svelte
 <script lang="ts">
-  import { Button } from "@kareyes/aether";
+  import { Button } from "@kareyes/aether-ui";
   import DownloadIcon from "@lucide/svelte/icons/download";
 </script>
 
@@ -139,7 +139,7 @@ pnpm add @kareyes/aether
 
 ```svelte
 <script lang="ts">
-  import { Button } from "@kareyes/aether";
+  import { Button } from "@kareyes/aether-ui";
   import SaveIcon from "@lucide/svelte/icons/save";
 </script>
 
@@ -150,7 +150,7 @@ pnpm add @kareyes/aether
 
 ```svelte
 <script lang="ts">
-  import { Button } from "@kareyes/aether";
+  import { Button } from "@kareyes/aether-ui";
   import SaveIcon from "@lucide/svelte/icons/save";
 
   let saving = $state(false);
@@ -187,7 +187,7 @@ The component maintains backwards compatibility with children content:
 
 ```svelte
 <script lang="ts">
-  import { Button } from "@kareyes/aether";
+  import { Button } from "@kareyes/aether-ui";
   import PlusIcon from "@lucide/svelte/icons/plus";
 </script>
 
@@ -201,7 +201,7 @@ The component maintains backwards compatibility with children content:
 
 ```svelte
 <script lang="ts">
-  import { Button, ButtonGroup } from "@kareyes/aether";
+  import { Button, ButtonGroup } from "@kareyes/aether-ui";
 </script>
 
 <ButtonGroup>

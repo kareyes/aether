@@ -15,7 +15,7 @@ Displays a horizontal bar indicating how far along a task or metric is. Supports
 ## Installation
 
 ```bash
-pnpm add @kareyes/aether
+pnpm add @kareyes/aether-ui
 ```
 
 ---
@@ -24,7 +24,7 @@ pnpm add @kareyes/aether
 
 ```svelte
 <script lang="ts">
-  import { Progress } from "@kareyes/aether";
+  import { Progress } from "@kareyes/aether-ui";
 </script>
 
 <Progress value={65} />
@@ -141,7 +141,7 @@ Pass `value={null}` to show an animated loading bar with no specific position.
 
 ```svelte
 <script lang="ts">
-  import { Progress } from "@kareyes/aether";
+  import { Progress } from "@kareyes/aether-ui";
   let uploaded = $state(0);
 
   async function upload(file: File) {
@@ -166,7 +166,7 @@ Use `ProgressPrimitives.Root` directly for full style control — useful for gra
 
 ```svelte
 <script lang="ts">
-  import { ProgressPrimitives } from "@kareyes/aether";
+  import { ProgressPrimitives } from "@kareyes/aether-ui";
   const { Root } = ProgressPrimitives;
 </script>
 
@@ -197,7 +197,7 @@ Extends bits-ui `Progress.Root`. Key props:
 ## Type Exports
 
 ```ts
-import type { ProgressVariant, ProgressSize, ProgressRadius } from "@kareyes/aether";
+import type { ProgressVariant, ProgressSize, ProgressRadius } from "@kareyes/aether-ui";
 
 // ProgressVariant = 'default' | 'success' | 'warning' | 'destructive' | 'secondary' | 'accent'
 // ProgressSize    = 'xs' | 'sm' | 'default' | 'lg' | 'xl'

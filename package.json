@@ -1,16 +1,16 @@
 {
-  "name": "@kareyes/aether",
-  "version": "0.0.18",
+  "name": "@kareyes/aether-ui",
+  "version": "0.0.19",
   "description": "A Svelte 5 UI component library built with Tailwind CSS",
   "type": "module",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/kareyes/aether.git"
+    "url": "https://github.com/kareyes/aether-ui.git"
   },
-  "homepage": "https://github.com/kareyes/aether",
+  "homepage": "https://github.com/kareyes/aether-ui",
   "bugs": {
-    "url": "https://github.com/kareyes/aether/issues"
+    "url": "https://github.com/kareyes/aether-ui/issues"
   },
   "keywords": [
     "svelte",

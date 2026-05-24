@@ -14,10 +14,10 @@ An enhanced avatar component for displaying user profile images with support for
 
 ## Installation
 
-The Avatar component is included in the `@kareyes/aether` package.
+The Avatar component is included in the `@kareyes/aether-ui` package.
 
 ```bash
-pnpm add @kareyes/aether
+pnpm add @kareyes/aether-ui
 ```
 
 ## Usage
@@ -26,7 +26,7 @@ pnpm add @kareyes/aether
 
 ```svelte
 <script lang="ts">
-  import { Avatar } from "@kareyes/aether";
+  import { Avatar } from "@kareyes/aether-ui";
 </script>
 
 <Avatar
@@ -40,7 +40,7 @@ pnpm add @kareyes/aether
 
 ```svelte
 <script lang="ts">
-  import { AvatarPrimitives } from "@kareyes/aether";
+  import { AvatarPrimitives } from "@kareyes/aether-ui";
 </script>
 
 <AvatarPrimitives.Root>
@@ -184,7 +184,7 @@ Available for fallback backgrounds:
 
 ```svelte
 <script lang="ts">
-  import { Avatar, AvatarGroup } from "@kareyes/aether";
+  import { Avatar, AvatarGroup } from "@kareyes/aether-ui";
 
   const users = [
     { image: "/avatar1.jpg", name: "User 1" },
@@ -212,7 +212,7 @@ Available for fallback backgrounds:
 
 ```svelte
 <script lang="ts">
-  import { Avatar } from "@kareyes/aether";
+  import { Avatar } from "@kareyes/aether-ui";
 </script>
 
 <div class="flex items-center gap-4">
@@ -245,7 +245,7 @@ Available for fallback backgrounds:
 
 ```svelte
 <script lang="ts">
-  import { Avatar } from "@kareyes/aether";
+  import { Avatar } from "@kareyes/aether-ui";
 </script>
 
 <div class="grid grid-cols-4 gap-4">

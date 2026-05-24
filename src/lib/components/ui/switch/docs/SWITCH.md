@@ -14,10 +14,10 @@ A toggle switch component for binary on/off states. Built with accessibility in 
 
 ## Installation
 
-The Switch component is included in the `@kareyes/aether` package.
+The Switch component is included in the `@kareyes/aether-ui` package.
 
 ```bash
-pnpm add @kareyes/aether
+pnpm add @kareyes/aether-ui
 ```
 
 ## Basic Usage
@@ -26,7 +26,7 @@ pnpm add @kareyes/aether
 
 ```svelte
 <script>
-  import { Switch } from "@kareyes/aether";
+  import { Switch } from "@kareyes/aether-ui";
   
   let enabled = $state(false);
 </script>
@@ -38,8 +38,8 @@ pnpm add @kareyes/aether
 
 ```svelte
 <script>
-  import { Switch } from "@kareyes/aether";
-  import { Field } from "@kareyes/aether";
+  import { Switch } from "@kareyes/aether-ui";
+  import { Field } from "@kareyes/aether-ui";
   
   let notifications = $state(true);
 </script>
@@ -159,8 +159,8 @@ The Field component provides a consistent way to add labels, descriptions, and e
 
 ```svelte
 <script>
-  import { Switch } from "@kareyes/aether";
-  import { Field } from "@kareyes/aether";
+  import { Switch } from "@kareyes/aether-ui";
+  import { Field } from "@kareyes/aether-ui";
   
   let autoSave = $state(true);
 </script>
@@ -182,8 +182,8 @@ The Field component provides a consistent way to add labels, descriptions, and e
 
 ```svelte
 <script>
-  import { Switch } from "@kareyes/aether";
-  import { Field } from "@kareyes/aether";
+  import { Switch } from "@kareyes/aether-ui";
+  import { Field } from "@kareyes/aether-ui";
   
   let termsAccepted = $state(false);
   let error = $derived(!termsAccepted);
@@ -208,8 +208,8 @@ The Field component provides a consistent way to add labels, descriptions, and e
 
 ```svelte
 <script>
-  import { Switch } from "@kareyes/aether";
-  import { FieldPrimitives , Field} from "@kareyes/aether";
+  import { Switch } from "@kareyes/aether-ui";
+  import { FieldPrimitives , Field} from "@kareyes/aether-ui";
   
   let settings = $state({
     email: true,

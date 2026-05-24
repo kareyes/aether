@@ -236,8 +236,8 @@ The Field component provides a consistent way to add labels, descriptions, and e
 
 ```svelte
 <script>
-  import { Checkbox } from "@kareyes/aether";
-  import { Field } from "@kareyes/aether";
+  import { Checkbox } from "@kareyes/aether-ui";
+  import { Field } from "@kareyes/aether-ui";
   
   let acceptTerms = $state(false);
 </script>
@@ -258,8 +258,8 @@ The Field component provides a consistent way to add labels, descriptions, and e
 
 ```svelte
 <script>
-  import { Checkbox } from "@kareyes/aether";
-  import { FieldPrimitives } from "@kareyes/aether";
+  import { Checkbox } from "@kareyes/aether-ui";
+  import { FieldPrimitives } from "@kareyes/aether-ui";
   
   let notifications = $state(false);
   let marketing = $state(false);
@@ -298,8 +298,8 @@ The Field component provides a consistent way to add labels, descriptions, and e
 
 ```svelte
 <script>
-  import { Checkbox } from "@kareyes/aether";
-  import { FieldPrimitives } from "@kareyes/aether";
+  import { Checkbox } from "@kareyes/aether-ui";
+  import { FieldPrimitives } from "@kareyes/aether-ui";
   
   let acceptTerms = $state(false);
   let error = $derived(!acceptTerms);
@@ -322,8 +322,8 @@ The Field component provides a consistent way to add labels, descriptions, and e
 
 ```svelte
 <script>
-  import { Checkbox } from "@kareyes/aether";
-  import { FieldPrimitives } from "@kareyes/aether";
+  import { Checkbox } from "@kareyes/aether-ui";
+  import { FieldPrimitives } from "@kareyes/aether-ui";
   
   let tasks = $state({
     design: false,
@@ -379,9 +379,9 @@ The Field component provides a consistent way to add labels, descriptions, and e
 
 ```svelte
 <script>
-  import { Checkbox } from "@kareyes/aether";
-  import { FieldPrimitives } from "@kareyes/aether";
-  import { Button } from "@kareyes/aether";
+  import { Checkbox } from "@kareyes/aether-ui";
+  import { FieldPrimitives } from "@kareyes/aether-ui";
+  import { Button } from "@kareyes/aether-ui";
   
   let formData = $state({
     acceptTerms: false,

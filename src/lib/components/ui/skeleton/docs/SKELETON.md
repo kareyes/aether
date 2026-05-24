@@ -16,10 +16,10 @@ A versatile skeleton loading component with multiple variants, animations, shape
 
 ## Installation
 
-The Skeleton component is included in the `@kareyes/aether` package.
+The Skeleton component is included in the `@kareyes/aether-ui` package.
 
 ```bash
-pnpm add @kareyes/aether
+pnpm add @kareyes/aether-ui
 ```
 
 ```svelte
@@ -30,7 +30,7 @@ pnpm add @kareyes/aether
     SkeletonAvatar,
     SkeletonCard,
     SkeletonTable
-  } from "@kareyes/aether";
+  } from "@kareyes/aether-ui";
 </script>
 ```
 

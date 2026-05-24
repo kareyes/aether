@@ -14,7 +14,6 @@ export {
 	Link,
 	List,
 	Page,
-	//
 	Root as Breadcrumb,
 	Ellipsis as BreadcrumbEllipsis,
 	Item as BreadcrumbItem,
@@ -42,3 +41,4 @@ export type {
 export type {
 	BreadcrumbPageVariant
 } from "./breadcrumb-page.svelte";
+

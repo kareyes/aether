@@ -6,7 +6,7 @@ A versatile code block component for displaying code snippets with copy-to-clipb
 
 ```svelte
 <script>
-  import { CodeBlock } from "@kareyes/aether";
+  import { CodeBlock } from "@kareyes/aether-ui";
 
   const code = `function hello() {
   console.log("Hello, World!");
@@ -150,7 +150,7 @@ The copy button is shown by default. Click it to copy the code to clipboard.
 ### Minimal Inline Command
 
 ```svelte
-<CodeBlock code="npm install @kareyes/aether" />
+<CodeBlock code="npm install @kareyes/aether-ui" />
 ```
 
 ### Full Featured

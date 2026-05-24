@@ -19,10 +19,10 @@ A flexible stepper component for displaying multi-step processes, workflows, and
 
 ## Installation
 
-The Stepper component is included in the `@kareyes/aether` package.
+The Stepper component is included in the `@kareyes/aether-ui` package.
 
 ```bash
-pnpm add @kareyes/aether
+pnpm add @kareyes/aether-ui
 ```
 
 ## Implementation Details
@@ -59,7 +59,7 @@ The Stepper component provides a flexible system for displaying step-by-step pro
 
 ```svelte
 <script lang="ts">
-  import { Stepper } from "@kareyes/aether";
+  import { Stepper } from "@kareyes/aether-ui";
 
   let currentStep = $state(0);
 </script>
@@ -108,7 +108,7 @@ Use `StepperRoot` when you need icon snippets or children inside individual step
 
 ```svelte
 <script lang="ts">
-  import { StepperRoot, StepperStep, StepperSeparator } from "@kareyes/aether";
+  import { StepperRoot, StepperStep, StepperSeparator } from "@kareyes/aether-ui";
   import { User, CreditCard, CheckCircle } from "@lucide/svelte";
 
   let currentStep = $state(0);
@@ -247,8 +247,8 @@ Horizontal progress bar style with labels above.
 
 ```svelte
 <script lang="ts">
-  import { Stepper } from "@kareyes/aether";
-  import { Button } from "@kareyes/aether";
+  import { Stepper } from "@kareyes/aether-ui";
+  import { Button } from "@kareyes/aether-ui";
 
   let currentStep = $state(0);
 </script>
@@ -278,8 +278,8 @@ Horizontal progress bar style with labels above.
 
 ```svelte
 <script lang="ts">
-  import { Stepper } from "@kareyes/aether";
-  import { Button, Input, Label } from "@kareyes/aether";
+  import { Stepper } from "@kareyes/aether-ui";
+  import { Button, Input, Label } from "@kareyes/aether-ui";
 
   let currentStep = $state(0);
   let formData = $state({ name: "", email: "", address: "" });
@@ -318,7 +318,7 @@ Pass any Svelte component (e.g. a Lucide icon) as the `icon` field in the `steps
 
 ```svelte
 <script lang="ts">
-  import { Stepper } from "@kareyes/aether";
+  import { Stepper } from "@kareyes/aether-ui";
   import { ShoppingCart, Truck, CreditCard, CheckCircle } from "@lucide/svelte";
 
   let step = $state(0);
@@ -344,7 +344,7 @@ Use `StepperRoot` when you need icon snippets combined with inline children per 
 
 ```svelte
 <script lang="ts">
-  import { StepperRoot, StepperStep, StepperSeparator } from "@kareyes/aether";
+  import { StepperRoot, StepperStep, StepperSeparator } from "@kareyes/aether-ui";
   import { ShoppingCart, CreditCard, Package, CheckCircle } from "@lucide/svelte";
 
   let currentStep = $state(1);
@@ -443,7 +443,7 @@ Tapping the ring opens a bottom Sheet listing all steps with their state (comple
 
 ```svelte
 <script lang="ts">
-  import { Stepper } from "@kareyes/aether";
+  import { Stepper } from "@kareyes/aether-ui";
 
   let step = $state(0);
 </script>

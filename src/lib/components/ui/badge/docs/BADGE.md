@@ -13,10 +13,10 @@ A versatile badge component with multiple variants, colors, sizes, and interacti
 
 ## Installation
 
-The Badge component is included in the `@kareyes/aether` package.
+The Badge component is included in the `@kareyes/aether-ui` package.
 
 ```bash
-pnpm add @kareyes/aether
+pnpm add @kareyes/aether-ui
 ```
 
 ## Usage
@@ -25,7 +25,7 @@ pnpm add @kareyes/aether
 
 ```svelte
 <script lang="ts">
-  import { Badge } from "@kareyes/aether";
+  import { Badge } from "@kareyes/aether-ui";
 </script>
 
 <Badge text="Default Badge" />
@@ -35,7 +35,7 @@ pnpm add @kareyes/aether
 
 ```svelte
 <script lang="ts">
-  import { BadgePrimitives } from "@kareyes/aether";
+  import { BadgePrimitives } from "@kareyes/aether-ui";
 </script>
 
 <BadgePrimitives.Root variant="success">Success</BadgePrimitives.Root>
@@ -131,7 +131,7 @@ pnpm add @kareyes/aether
 
 ```svelte
 <script lang="ts">
-  import { Badge } from "@kareyes/aether";
+  import { Badge } from "@kareyes/aether-ui";
   import CheckIcon from "@lucide/svelte/icons/check";
   import StarIcon from "@lucide/svelte/icons/star";
 </script>
@@ -153,7 +153,7 @@ pnpm add @kareyes/aether
 
 ```svelte
 <script lang="ts">
-  import { Badge } from "@kareyes/aether";
+  import { Badge } from "@kareyes/aether-ui";
 
   let isProcessing = $state(true);
 </script>
@@ -173,7 +173,7 @@ pnpm add @kareyes/aether
 
 ```svelte
 <script lang="ts">
-  import { Badge } from "@kareyes/aether";
+  import { Badge } from "@kareyes/aether-ui";
 
   function handleClick() {
     alert('Badge clicked!');
@@ -191,7 +191,7 @@ pnpm add @kareyes/aether
 
 ```svelte
 <script lang="ts">
-  import { Badge } from "@kareyes/aether";
+  import { Badge } from "@kareyes/aether-ui";
 
   let tags = $state(['Design', 'Development', 'Marketing']);
 
@@ -225,7 +225,7 @@ pnpm add @kareyes/aether
 
 ```svelte
 <script lang="ts">
-  import { Badge } from "@kareyes/aether";
+  import { Badge } from "@kareyes/aether-ui";
   import CheckIcon from "@lucide/svelte/icons/check";
   import AlertCircleIcon from "@lucide/svelte/icons/alert-circle";
 </script>
@@ -255,7 +255,7 @@ pnpm add @kareyes/aether
 
 ```svelte
 <script lang="ts">
-  import { Badge } from "@kareyes/aether";
+  import { Badge } from "@kareyes/aether-ui";
 
   let availableTags = ['React', 'Vue', 'Svelte', 'Angular'];
   let selectedTags = $state(['React', 'Svelte']);
@@ -302,7 +302,7 @@ pnpm add @kareyes/aether
 
 ```svelte
 <script lang="ts">
-  import { Badge } from "@kareyes/aether";
+  import { Badge } from "@kareyes/aether-ui";
 </script>
 
 <div class="border rounded-lg p-4">
@@ -325,7 +325,7 @@ pnpm add @kareyes/aether
 
 ```svelte
 <script lang="ts">
-  import { Badge } from "@kareyes/aether";
+  import { Badge } from "@kareyes/aether-ui";
 </script>
 
 <div class="flex items-start gap-4">

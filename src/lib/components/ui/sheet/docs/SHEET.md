@@ -15,10 +15,10 @@ A sliding panel component (drawer/side sheet) that overlays content from the edg
 
 ## Installation
 
-The Sheet component is included in the `@kareyes/aether` package.
+The Sheet component is included in the `@kareyes/aether-ui` package.
 
 ```bash
-pnpm add @kareyes/aether
+pnpm add @kareyes/aether-ui
 ```
 
 ## Implementation Details
@@ -82,8 +82,8 @@ The Sheet component is built on top of bits-ui's Dialog primitive, providing a f
     SheetTitle,
     SheetDescription,
     SheetClose
-  } from "@kareyes/aether";
-  import { Button } from "@kareyes/aether";
+  } from "@kareyes/aether-ui";
+  import { Button } from "@kareyes/aether-ui";
 </script>
 
 <Sheet>
@@ -114,8 +114,8 @@ The Sheet component is built on top of bits-ui's Dialog primitive, providing a f
 
 ```svelte
 <script lang="ts">
-  import { Sheet, SheetContent, SheetTrigger } from "@kareyes/aether";
-  import { Button } from "@kareyes/aether";
+  import { Sheet, SheetContent, SheetTrigger } from "@kareyes/aether-ui";
+  import { Button } from "@kareyes/aether-ui";
   
   let open = $state(false);
   
@@ -190,10 +190,10 @@ The Sheet component is built on top of bits-ui's Dialog primitive, providing a f
     SheetDescription,
     SheetFooter,
     SheetClose
-  } from "@kareyes/aether";
-  import { Button } from "@kareyes/aether";
-  import { Input } from "@kareyes/aether";
-  import { Label } from "@kareyes/aether";
+  } from "@kareyes/aether-ui";
+  import { Button } from "@kareyes/aether-ui";
+  import { Input } from "@kareyes/aether-ui";
+  import { Label } from "@kareyes/aether-ui";
   
   let name = $state("");
   let email = $state("");
@@ -244,8 +244,8 @@ The Sheet component is built on top of bits-ui's Dialog primitive, providing a f
     SheetContent,
     SheetHeader,
     SheetTitle
-  } from "@kareyes/aether";
-  import { Button } from "@kareyes/aether";
+  } from "@kareyes/aether-ui";
+  import { Button } from "@kareyes/aether-ui";
   import { Menu } from "@lucide/svelte";
   
   const navItems = [
@@ -288,9 +288,9 @@ The Sheet component is built on top of bits-ui's Dialog primitive, providing a f
     SheetHeader,
     SheetTitle,
     SheetDescription
-  } from "@kareyes/aether";
-  import { Button } from "@kareyes/aether";
-  import { TabsPrimitives } from "@kareyes/aether";
+  } from "@kareyes/aether-ui";
+  import { Button } from "@kareyes/aether-ui";
+  import { TabsPrimitives } from "@kareyes/aether-ui";
   const { Tabs, TabsList, TabsTrigger, TabsContent } = TabsPrimitives;
   import { Settings } from "@lucide/svelte";
 </script>
@@ -343,8 +343,8 @@ The Sheet component is built on top of bits-ui's Dialog primitive, providing a f
     SheetContent,
     SheetHeader,
     SheetTitle
-  } from "@kareyes/aether";
-  import { Button } from "@kareyes/aether";
+  } from "@kareyes/aether-ui";
+  import { Button } from "@kareyes/aether-ui";
   import { Bell } from "@lucide/svelte";
   
   const notifications = [

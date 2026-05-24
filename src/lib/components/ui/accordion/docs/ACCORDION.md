@@ -14,10 +14,10 @@ A vertically stacked set of interactive headings that reveal or hide sections of
 
 ## Installation
 
-The Accordion component is included in the `@kareyes/aether` package.
+The Accordion component is included in the `@kareyes/aether-ui` package.
 
 ```bash
-pnpm add @kareyes/aether
+pnpm add @kareyes/aether-ui
 ```
 
 ## Usage
@@ -26,7 +26,7 @@ pnpm add @kareyes/aether
 
 ```svelte
 <script lang="ts">
-  import * as Accordion from "@kareyes/aether";
+  import * as Accordion from "@kareyes/aether-ui";
 </script>
 
 <Accordion.Root type="single">
@@ -49,7 +49,7 @@ pnpm add @kareyes/aether
 
 ```svelte
 <script lang="ts">
-  import { AccordionPrimitives } from "@kareyes/aether";
+  import { AccordionPrimitives } from "@kareyes/aether-ui";
 </script>
 
 <AccordionPrimitives.Root type="single">

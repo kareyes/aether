@@ -15,10 +15,10 @@ A comprehensive dark mode switcher component suite with multiple variants, sizes
 
 ## Installation
 
-The Dark Mode component is included in the `@kareyes/aether` package.
+The Dark Mode component is included in the `@kareyes/aether-ui` package.
 
 ```bash
-pnpm add @kareyes/aether
+pnpm add @kareyes/aether-ui
 ```
 
 **Note**: The package includes `mode-watcher` as a dependency, which handles the actual theme switching logic.
@@ -44,7 +44,7 @@ A simple button that toggles between light and dark modes.
 
 ```svelte
 <script>
-  import { DarkModeToggle } from "@kareyes/aether";
+  import { DarkModeToggle } from "@kareyes/aether-ui";
 </script>
 
 <DarkModeToggle />
@@ -56,7 +56,7 @@ A switch-style toggle with sun/moon icons.
 
 ```svelte
 <script>
-  import { DarkModeSwitch } from "@kareyes/aether";
+  import { DarkModeSwitch } from "@kareyes/aether-ui";
 </script>
 
 <DarkModeSwitch />
@@ -68,7 +68,7 @@ A dropdown menu with light, dark, and system options.
 
 ```svelte
 <script>
-  import { DarkModeDropdown } from "@kareyes/aether";
+  import { DarkModeDropdown } from "@kareyes/aether-ui";
 </script>
 
 <DarkModeDropdown />
@@ -80,7 +80,7 @@ A dropdown menu with light, dark, and system options.
 
 ```svelte
 <script>
-  import { DarkModeToggle } from "@kareyes/aether";
+  import { DarkModeToggle } from "@kareyes/aether-ui";
 </script>
 
 <!-- Default -->
@@ -162,7 +162,7 @@ A dropdown menu with light, dark, and system options.
 
 ```svelte
 <script>
-  import { DarkModeSwitch } from "@kareyes/aether";
+  import { DarkModeSwitch } from "@kareyes/aether-ui";
 </script>
 
 <!-- Default -->
@@ -208,7 +208,7 @@ A dropdown menu with light, dark, and system options.
 
 ```svelte
 <script>
-  import { DarkModeDropdown } from "@kareyes/aether";
+  import { DarkModeDropdown } from "@kareyes/aether-ui";
 </script>
 
 <!-- Default -->
@@ -282,7 +282,7 @@ You can control the theme programmatically using the exported utilities:
 
 ```svelte
 <script>
-  import { mode, setMode, toggleMode, resetMode } from "@kareyes/aether";
+  import { mode, setMode, toggleMode, resetMode } from "@kareyes/aether-ui";
 
   function handleSetLight() {
     setMode("light");
@@ -320,7 +320,7 @@ For more control, use the primitives namespace:
 
 ```svelte
 <script>
-  import { DarkModePrimitives } from "@kareyes/aether";
+  import { DarkModePrimitives } from "@kareyes/aether-ui";
 </script>
 
 <DarkModePrimitives.Toggle variant="ghost" size="lg" />
@@ -334,7 +334,7 @@ For more control, use the primitives namespace:
 
 ```svelte
 <script>
-  import { DarkModeToggle } from "@kareyes/aether";
+  import { DarkModeToggle } from "@kareyes/aether-ui";
 </script>
 
 <header class="flex items-center justify-between p-4 border-b">
@@ -347,7 +347,7 @@ For more control, use the primitives namespace:
 
 ```svelte
 <script>
-  import { DarkModeDropdown, FieldPrimitives } from "@kareyes/aether";
+  import { DarkModeDropdown, FieldPrimitives } from "@kareyes/aether-ui";
 </script>
 
 <FieldPrimitives.Field
@@ -363,7 +363,7 @@ For more control, use the primitives namespace:
 
 ```svelte
 <script>
-  import { DarkModeSwitch } from "@kareyes/aether";
+  import { DarkModeSwitch } from "@kareyes/aether-ui";
 </script>
 
 <div class="flex items-center justify-between p-4">
@@ -376,7 +376,7 @@ For more control, use the primitives namespace:
 
 ```svelte
 <script>
-  import { DarkModeToggle, DarkModeSwitch, DarkModeDropdown } from "@kareyes/aether";
+  import { DarkModeToggle, DarkModeSwitch, DarkModeDropdown } from "@kareyes/aether-ui";
 </script>
 
 <div class="flex items-center gap-4">
@@ -440,7 +440,7 @@ import type {
   DarkModeSwitchSize,
   DarkModeDropdownVariant,
   DarkModeDropdownSize,
-} from "@kareyes/aether";
+} from "@kareyes/aether-ui";
 ```
 
 ## Related

@@ -14,10 +14,10 @@ A versatile alert component for displaying important messages with various style
 
 ## Installation
 
-The Alert component is included in the `@kareyes/aether` package.
+The Alert component is included in the `@kareyes/aether-ui` package.
 
 ```bash
-pnpm add @kareyes/aether
+pnpm add @kareyes/aether-ui
 ```
 
 ## Usage
@@ -26,7 +26,7 @@ pnpm add @kareyes/aether
 
 ```svelte
 <script lang="ts">
-  import { Alert } from "@kareyes/aether";
+  import { Alert } from "@kareyes/aether-ui";
 </script>
 
 <Alert
@@ -40,7 +40,7 @@ pnpm add @kareyes/aether
 
 ```svelte
 <script lang="ts">
-  import { AlertPrimitives } from "@kareyes/aether";
+  import { AlertPrimitives } from "@kareyes/aether-ui";
 </script>
 
 <AlertPrimitives.Root variant="success">
@@ -169,7 +169,7 @@ Each variant has an automatic icon:
 
 ```svelte
 <script lang="ts">
-  import { Alert } from "@kareyes/aether";
+  import { Alert } from "@kareyes/aether-ui";
   import MyCustomIcon from "@lucide/svelte/icons/star";
 </script>
 
@@ -192,7 +192,7 @@ Each variant has an automatic icon:
 
 ```svelte
 <script lang="ts">
-  import { Alert, Button } from "@kareyes/aether";
+  import { Alert, Button } from "@kareyes/aether-ui";
 </script>
 
 <Alert
@@ -211,7 +211,7 @@ Each variant has an automatic icon:
 
 ```svelte
 <script lang="ts">
-  import { Alert } from "@kareyes/aether";
+  import { Alert } from "@kareyes/aether-ui";
 
   let showAlert = $state(true);
 </script>
@@ -248,7 +248,7 @@ For complete control, use the primitive components:
 
 ```svelte
 <script lang="ts">
-  import { AlertPrimitives } from "@kareyes/aether";
+  import { AlertPrimitives } from "@kareyes/aether-ui";
   import CheckIcon from "@lucide/svelte/icons/check";
 </script>
 
@@ -274,7 +274,7 @@ For complete control, use the primitive components:
 
 ```svelte
 <script lang="ts">
-  import { Alert } from "@kareyes/aether";
+  import { Alert } from "@kareyes/aether-ui";
 </script>
 
 <Alert
@@ -294,7 +294,7 @@ For complete control, use the primitive components:
 
 ```svelte
 <script lang="ts">
-  import { Alert, Button } from "@kareyes/aether";
+  import { Alert, Button } from "@kareyes/aether-ui";
 
   function handleDelete() {
     // Handle delete

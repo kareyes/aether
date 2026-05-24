@@ -19,7 +19,7 @@ A powerful component for managing multiple related checkboxes with shared state 
 ### Simple Checkbox Group
 ```svelte
 <script>
-  import { CheckboxGroup } from "@kareyes/aether";
+  import { CheckboxGroup } from "@kareyes/aether-ui";
   
   let selectedValues = $state([]);
   
@@ -117,9 +117,9 @@ A powerful component for managing multiple related checkboxes with shared state 
 ### With Field Component
 ```svelte
 <script>
-  import { CheckboxGroup } from "@kareyes/aether";
-  import type { CheckboxGroupOption } from "@kareyes/aether";
-  import { Field } from "@kareyes/aether";
+  import { CheckboxGroup } from "@kareyes/aether-ui";
+  import type { CheckboxGroupOption } from "@kareyes/aether-ui";
+  import { Field } from "@kareyes/aether-ui";
   
   let interests = $state([]);
   
@@ -147,8 +147,8 @@ A powerful component for managing multiple related checkboxes with shared state 
 ### Multiple CheckboxGroups with Field.Set
 ```svelte
 <script>
-  import { CheckboxGroup } from "@kareyes/aether";
-  import { FieldPrimitives } from "@kareyes/aether";
+  import { CheckboxGroup } from "@kareyes/aether-ui";
+  import { FieldPrimitives } from "@kareyes/aether-ui";
   
   let communication = $state(["email"]);
   let interests = $state([]);
@@ -197,8 +197,8 @@ A powerful component for managing multiple related checkboxes with shared state 
 ### With Validation
 ```svelte
 <script>
-  import { CheckboxGroup } from "@kareyes/aether";
-  import { FieldPrimitives } from "@kareyes/aether";
+  import { CheckboxGroup } from "@kareyes/aether-ui";
+  import { FieldPrimitives } from "@kareyes/aether-ui";
   
   let permissions = $state([]);
   let error = $derived(permissions.length === 0);

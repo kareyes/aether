@@ -33,7 +33,7 @@ const storybookProject: TestProjectConfiguration = {
 export default defineConfig({
   plugins: [tailwindcss(), sveltekit()],
     optimizeDeps: {
-    exclude: ['@kareyes/aether']
+    exclude: ['@kareyes/aether-ui']
   },
 
   build: {

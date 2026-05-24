@@ -60,7 +60,7 @@ Import the single `Empty` component:
 
 ```svelte
 <script lang="ts">
-  import { Empty, Button } from "@kareyes/aether";
+  import { Empty, Button } from "@kareyes/aether-ui";
   import InboxIcon from "@tabler/icons-svelte/icons/inbox";
 </script>
 
@@ -163,7 +163,7 @@ For full structural control, import from `EmptyPrimitives`:
 
 ```svelte
 <script lang="ts">
-  import { EmptyPrimitives, Button } from "@kareyes/aether";
+  import { EmptyPrimitives, Button } from "@kareyes/aether-ui";
   import UsersIcon from "@tabler/icons-svelte/icons/users";
 </script>
 
@@ -207,7 +207,7 @@ import {
   EmptyTitle,
   EmptyDescription,
   EmptyContent,
-} from "@kareyes/aether";
+} from "@kareyes/aether-ui";
 ```
 
 ---

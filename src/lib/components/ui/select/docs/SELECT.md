@@ -13,10 +13,10 @@ A unified Select component that combines all select functionality into a single,
 
 ## Installation
 
-The Select component is included in the `@kareyes/aether` package.
+The Select component is included in the `@kareyes/aether-ui` package.
 
 ```bash
-pnpm add @kareyes/aether
+pnpm add @kareyes/aether-ui
 ```
 
 ## Usage
@@ -25,7 +25,7 @@ pnpm add @kareyes/aether
 
 ```svelte
 <script lang="ts">
-  import { Select } from "@kareyes/aether";
+  import { Select } from "@kareyes/aether-ui";
 
   let value = $state("");
 
@@ -48,7 +48,7 @@ pnpm add @kareyes/aether
 
 ```svelte
 <script lang="ts">
-  import { SelectPrimitives } from "@kareyes/aether";
+  import { SelectPrimitives } from "@kareyes/aether-ui";
 </script>
 
 <SelectPrimitives.Root bind:value>
@@ -128,7 +128,7 @@ type SelectSize = "sm" | "default" | "lg";
 
 ```svelte
 <script lang="ts">
-  import { Select } from "@kareyes/aether";
+  import { Select } from "@kareyes/aether-ui";
 
   let selectedFrameworks = $state<string[]>([]);
 
@@ -152,7 +152,7 @@ type SelectSize = "sm" | "default" | "lg";
 
 ```svelte
 <script lang="ts">
-  import { Select } from "@kareyes/aether";
+  import { Select } from "@kareyes/aether-ui";
 
   let selectedFramework = $state("");
 
@@ -204,7 +204,7 @@ type SelectSize = "sm" | "default" | "lg";
 
 ```svelte
 <script lang="ts">
-  import { Select } from "@kareyes/aether";
+  import { Select } from "@kareyes/aether-ui";
 
   function handleSelectionChange(value: string) {
     console.log('Selection changed:', value);
@@ -221,7 +221,7 @@ type SelectSize = "sm" | "default" | "lg";
 
 ```svelte
 <script lang="ts">
-  import { Field, Select } from "@kareyes/aether";
+  import { Field, Select } from "@kareyes/aether-ui";
 
   let country = $state('');
 
@@ -249,7 +249,7 @@ type SelectSize = "sm" | "default" | "lg";
 
 ```svelte
 <script lang="ts">
-  import { Field, Select } from "@kareyes/aether";
+  import { Field, Select } from "@kareyes/aether-ui";
 
   let framework = $state('');
   let errors = $state<Record<string, string>>({});
@@ -289,7 +289,7 @@ type SelectSize = "sm" | "default" | "lg";
 
 ```svelte
 <script lang="ts">
-  import { Field, Select, Button } from "@kareyes/aether";
+  import { Field, Select, Button } from "@kareyes/aether-ui";
 
   let formData = $state({
     country: '',

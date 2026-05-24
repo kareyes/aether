@@ -14,10 +14,10 @@ A comprehensive, customizable tabs component with multiple visual variants, size
 
 ## Installation
 
-The Tabs component is included in the `@kareyes/aether` package.
+The Tabs component is included in the `@kareyes/aether-ui` package.
 
 ```bash
-pnpm add @kareyes/aether
+pnpm add @kareyes/aether-ui
 ```
 
 ## Implementation Details
@@ -55,7 +55,7 @@ The Tabs component is built using **tailwind-variants** (tv) for a robust varian
 
 ```svelte
 <script lang="ts">
-  import { Tabs, TabsList, TabsTrigger, TabsContent } from "@kareyes/aether";
+  import { Tabs, TabsList, TabsTrigger, TabsContent } from "@kareyes/aether-ui";
 </script>
 
 <Tabs value="account">
@@ -338,7 +338,7 @@ For screens where even scrolling tabs feel cluttered, you can convert tabs to a 
 
 ```svelte
 <script lang="ts">
-  import type { TabItem } from "@kareyes/aether";
+  import type { TabItem } from "@kareyes/aether-ui";
 
   const tabs: TabItem[] = [
     { value: "general", label: "General" },

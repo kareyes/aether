@@ -14,10 +14,10 @@ A versatile card component with multiple variants, padding options, and interact
 
 ## Installation
 
-The Card component is included in the `@kareyes/aether` package.
+The Card component is included in the `@kareyes/aether-ui` package.
 
 ```bash
-pnpm add @kareyes/aether
+pnpm add @kareyes/aether-ui
 ```
 
 ## Usage
@@ -26,7 +26,7 @@ pnpm add @kareyes/aether
 
 ```svelte
 <script lang="ts">
-  import { Card } from "@kareyes/aether";
+  import { Card } from "@kareyes/aether-ui";
 </script>
 
 <Card title="Card Title" description="Card description">
@@ -38,7 +38,7 @@ pnpm add @kareyes/aether
 
 ```svelte
 <script lang="ts">
-  import { CardPrimitives } from "@kareyes/aether";
+  import { CardPrimitives } from "@kareyes/aether-ui";
 </script>
 
 <CardPrimitives.Root>
@@ -170,7 +170,7 @@ Card with filled background:
 
 ```svelte
 <script lang="ts">
-  import { Card } from "@kareyes/aether";
+  import { Card } from "@kareyes/aether-ui";
 
   function handleCardClick() {
     alert('Card clicked!');
@@ -191,7 +191,7 @@ Card with filled background:
 
 ```svelte
 <script lang="ts">
-  import { Card, Button } from "@kareyes/aether";
+  import { Card, Button } from "@kareyes/aether-ui";
 </script>
 
 <Card title="Edit Profile" description="Update your information">
@@ -207,7 +207,7 @@ Card with filled background:
 
 ```svelte
 <script lang="ts">
-  import { Card, Button } from "@kareyes/aether";
+  import { Card, Button } from "@kareyes/aether-ui";
 </script>
 
 <Card title="Confirm Action" description="This requires confirmation">
@@ -224,7 +224,7 @@ Card with filled background:
 
 ```svelte
 <script lang="ts">
-  import { Card, Button, Badge, Field, Input } from "@kareyes/aether";
+  import { Card, Button, Badge, Field, Input } from "@kareyes/aether-ui";
 </script>
 
 <Card
@@ -257,7 +257,7 @@ For more control, use the native card components:
 
 ```svelte
 <script lang="ts">
-  import { CardPrimitives } from "@kareyes/aether";
+  import { CardPrimitives } from "@kareyes/aether-ui";
 </script>
 
 <CardPrimitives.Root class="border rounded-xl shadow-sm">
@@ -283,7 +283,7 @@ For more control, use the native card components:
 
 ```svelte
 <script lang="ts">
-  import { Card, Field, Switch } from "@kareyes/aether";
+  import { Card, Field, Switch } from "@kareyes/aether-ui";
 </script>
 
 <Card
@@ -315,7 +315,7 @@ For more control, use the native card components:
 
 ```svelte
 <script lang="ts">
-  import { Card, Button } from "@kareyes/aether";
+  import { Card, Button } from "@kareyes/aether-ui";
 </script>
 
 <Card

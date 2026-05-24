@@ -119,13 +119,13 @@ export interface FormLayoutConfig {
 // ============================================================================
 
 /** Symbol for field UI annotations */
-export const FieldUISymbol = Symbol.for("@aether/forms/FieldUI");
+export const FieldUISymbol = Symbol.for("@aether-ui/forms/FieldUI");
 
 /** Symbol for field layout annotations */
-export const FieldLayoutSymbol = Symbol.for("@aether/forms/FieldLayout");
+export const FieldLayoutSymbol = Symbol.for("@aether-ui/forms/FieldLayout");
 
 /** Symbol for form layout configuration */
-export const FormLayoutSymbol = Symbol.for("@aether/forms/FormLayout");
+export const FormLayoutSymbol = Symbol.for("@aether-ui/forms/FormLayout");
 
 // ============================================================================
 // Schema Annotation Helpers

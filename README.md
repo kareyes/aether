@@ -15,7 +15,7 @@ A modern, accessible Svelte 5 UI component library built with Tailwind CSS v4.
 
 ## Documentation
 
-https://aether-svelte.web.app/
+https://aether-ui-svelte.web.app/
 
 
 ## Installation
@@ -36,13 +36,13 @@ Create a `.npmrc` file in your project root:
 ```bash
 pnpm add svelte @lucide/svelte tailwindcss
 
-pnpm add @kareyes/aether
+pnpm add @kareyes/aether-ui
 
 # or
 
 npm install svelte @lucide/svelte tailwindcss
 
-npm install @kareyes/aether
+npm install @kareyes/aether-ui
 ```
 
 ### 3. Configure Styles
@@ -51,10 +51,10 @@ Add the following to your main CSS file (e.g., `src/app.css`):
 
 ```css
 @import "tailwindcss";
-@import "@kareyes/aether/styles";
+@import "@kareyes/aether-ui/styles";
 
 /* Scan Aether components for Tailwind classes */
-@source "../node_modules/@kareyes/aether/dist/**/*.{svelte,js}";
+@source "../node_modules/@kareyes/aether-ui/dist/**/*.{svelte,js}";
 ```
 
 ### 3.2 Import `app.css` in Layout
@@ -82,7 +82,7 @@ Add the following to your main CSS file (e.g., `src/app.css`):
 
 ```svelte
 <script>
-  import { Button, Card, Input } from '@kareyes/aether';
+  import { Button, Card, Input } from '@kareyes/aether-ui';
 </script>
 
 <Card title="Welcome to Aether" description="A beautiful UI component library">
@@ -180,7 +180,7 @@ Merge Tailwind classes with proper precedence:
 
 ```svelte
 <script>
-  import { cn } from '@kareyes/aether/utils';
+  import { cn } from '@kareyes/aether-ui/utils';
 </script>
 
 <div class={cn("p-4 bg-primary", someCondition && "bg-secondary")}>

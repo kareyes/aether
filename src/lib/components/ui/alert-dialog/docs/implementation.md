@@ -32,7 +32,7 @@ Wrap your app or page with `AlertDialogProvider`:
 
 ```svelte
 <script lang="ts">
-  import { AlertDialogProvider } from "@kareyes/aether";
+  import { AlertDialogProvider } from "@kareyes/aether-ui";
 </script>
 
 <AlertDialogProvider>
@@ -44,11 +44,11 @@ Wrap your app or page with `AlertDialogProvider`:
 
 ```svelte
 <script lang="ts">
-  import { Button } from "@kareyes/aether";
+  import { Button } from "@kareyes/aether-ui";
   import { 
     AlertDialogProvider, 
     getAlertDialogContext 
-  } from "@kareyes/aether";
+  } from "@kareyes/aether-ui";
   import { Trash2 } from "lucide-svelte";
 </script>
 
@@ -238,7 +238,7 @@ For full customization, use the base components directly:
     AlertDialogFooter,
     AlertDialogAction,
     AlertDialogCancel
-  } from "@kareyes/aether";
+  } from "@kareyes/aether-ui";
 </script>
 
 <AlertDialog>

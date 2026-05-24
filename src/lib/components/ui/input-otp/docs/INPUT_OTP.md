@@ -16,10 +16,10 @@ An accessible one-time password (OTP) input component with copy/paste functional
 
 ## Installation
 
-The InputOTP component is included in the `@kareyes/aether` package.
+The InputOTP component is included in the `@kareyes/aether-ui` package.
 
 ```bash
-pnpm add @kareyes/aether
+pnpm add @kareyes/aether-ui
 ```
 
 ## Usage
@@ -28,7 +28,7 @@ pnpm add @kareyes/aether
 
 ```svelte
 <script lang="ts">
-  import { InputOTP } from "@kareyes/aether";
+  import { InputOTP } from "@kareyes/aether-ui";
 
   let value = $state("");
 </script>
@@ -76,7 +76,7 @@ Restrict input to specific character patterns using regex strings:
 
 ```svelte
 <script lang="ts">
-  import { InputOTP } from "@kareyes/aether";
+  import { InputOTP } from "@kareyes/aether-ui";
   import { REGEXP_ONLY_DIGITS, REGEXP_ONLY_DIGITS_AND_CHARS } from "bits-ui";
 </script>
 
@@ -96,7 +96,7 @@ Get notified when all OTP slots are filled:
 
 ```svelte
 <script lang="ts">
-  import { InputOTP } from "@kareyes/aether";
+  import { InputOTP } from "@kareyes/aether-ui";
 
   let otpValue = $state("");
   
@@ -120,7 +120,7 @@ Display validation errors with visual feedback:
 
 ```svelte
 <script lang="ts">
-  import { InputOTP } from "@kareyes/aether";
+  import { InputOTP } from "@kareyes/aether-ui";
 
   let otpValue = $state("");
   let hasError = $state(false);
@@ -154,7 +154,7 @@ Track every value change:
 
 ```svelte
 <script lang="ts">
-  import { InputOTP } from "@kareyes/aether";
+  import { InputOTP } from "@kareyes/aether-ui";
 
   let otpValue = $state("");
   
@@ -195,7 +195,7 @@ For more control, you can use the primitive components directly:
 
 ```svelte
 <script lang="ts">
-  import { InputOTPPrimitives } from "@kareyes/aether";
+  import { InputOTPPrimitives } from "@kareyes/aether-ui";
 </script>
 
 <InputOTPPrimitives.Root maxlength={6} variant="default" size="default">
@@ -253,7 +253,7 @@ The Field component provides a consistent way to add labels, descriptions, and e
 
 ```svelte
 <script lang="ts">
-  import { InputOTP, Field } from "@kareyes/aether";
+  import { InputOTP, Field } from "@kareyes/aether-ui";
 
   let code = $state("");
 </script>
@@ -270,7 +270,7 @@ The Field component provides a consistent way to add labels, descriptions, and e
 
 ```svelte
 <script lang="ts">
-  import { InputOTP, Field } from "@kareyes/aether";
+  import { InputOTP, Field } from "@kareyes/aether-ui";
   import { REGEXP_ONLY_DIGITS } from "bits-ui";
 
   let code = $state("");
@@ -297,7 +297,7 @@ The Field component provides a consistent way to add labels, descriptions, and e
 
 ```svelte
 <script lang="ts">
-  import { InputOTP, Field } from "@kareyes/aether";
+  import { InputOTP, Field } from "@kareyes/aether-ui";
 </script>
 
 <Field
@@ -328,7 +328,7 @@ The Field component provides a consistent way to add labels, descriptions, and e
 
 ```svelte
 <script lang="ts">
-  import { InputOTP, FieldPrimitives, Field, Button } from "@kareyes/aether";
+  import { InputOTP, FieldPrimitives, Field, Button } from "@kareyes/aether-ui";
   import { REGEXP_ONLY_DIGITS, REGEXP_ONLY_DIGITS_AND_CHARS } from "bits-ui";
 
   let verificationCode = $state("");

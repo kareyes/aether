@@ -15,10 +15,10 @@ A simplified combobox component that combines a text input with a searchable dro
 
 ## Installation
 
-The Combobox component is included in the `@kareyes/aether` package.
+The Combobox component is included in the `@kareyes/aether-ui` package.
 
 ```bash
-pnpm add @kareyes/aether
+pnpm add @kareyes/aether-ui
 ```
 
 ## Usage
@@ -27,7 +27,7 @@ pnpm add @kareyes/aether
 
 ```svelte
 <script lang="ts">
-  import { Combobox } from "@kareyes/aether";
+  import { Combobox } from "@kareyes/aether-ui";
 
 	const frameworks = [
 		{ value: "sveltekit", label: "SvelteKit" },
@@ -206,7 +206,7 @@ pnpm add @kareyes/aether
 
 ```svelte
 <script lang="ts">
-  import { Combobox, PopoverPrimitives, Button } from "@kareyes/aether";
+  import { Combobox, PopoverPrimitives, Button } from "@kareyes/aether-ui";
   import ChevronsUpDown from "@lucide/svelte/icons/chevrons-up-down";
 
 	let selectedFramework = $state("");

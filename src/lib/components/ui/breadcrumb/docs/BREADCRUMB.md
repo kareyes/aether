@@ -1,678 +1,307 @@
 # Breadcrumb Component
 
-A flexible breadcrumb navigation component with multiple visual variants, sizes, and customizable separators built with Svelte 5.
+A navigation trail showing the user's current location in a page hierarchy, built with Svelte 5 and semantic HTML.
 
 ## Features
 
-- 🎨 **Multiple Variants**: Default, Solid, Subtle, Bold styles
-- 📏 **3 Size Options**: Small, Default, Large
-- 🔗 **Link Variants**: Default, Underline, Bold, Subtle
-- ➡️ **4 Separator Styles**: Chevron, Slash, Dot, Arrow
-- ♿ **Fully Accessible**: Proper ARIA attributes and semantic HTML
-- 🎯 **Type-Safe**: Full TypeScript support
-- 🎭 **Customizable**: Extensive styling options with Tailwind
-- 🔄 **Reactive**: Svelte 5 runes for optimal performance
+- **4 List Variants**: Default, Solid, Subtle, Bold (text color)
+- **3 Sizes**: Small, Default, Large
+- **3 Spacing Options**: Compact, Default, Relaxed
+- **4 Link Variants**: Default, Underline, Bold, Subtle
+- **4 Separator Styles**: Chevron (default), Slash, Dot, Arrow
+- **4 Page Variants**: Default, Bold, Muted, Accent
+- **Fully Accessible**: `aria-label`, `aria-current="page"`, `role` attributes built-in
 
 ## Installation
 
-The Breadcrumb component is included in the `@kareyes/aether` package.
-
 ```bash
-pnpm add @kareyes/aether
+pnpm add @kareyes/aether-ui
 ```
 
-## Implementation Details
+---
 
-The Breadcrumb component is built using **tailwind-variants** (tv) for a robust variant system:
-
-### Component Architecture
-
-#### BreadcrumbList Component
-- Controls overall breadcrumb styling
-- 4 visual variants (default, solid, subtle, bold)
-- 3 size options (sm, default, lg)
-- 3 spacing options (compact, default, relaxed)
-- Exported types: `BreadcrumbListVariant`, `BreadcrumbListSize`, `BreadcrumbListSpacing`
-
-#### BreadcrumbLink Component
-- Interactive link styling
-- 4 link variants (default, underline, bold, subtle)
-- Hover transitions and effects
-- Exported types: `BreadcrumbLinkVariant`
-
-#### BreadcrumbSeparator Component
-- 4 separator styles (chevron, slash, dot, arrow)
-- Size control independent of list
-- Custom separator support
-- Exported types: `BreadcrumbSeparatorVariant`, `BreadcrumbSeparatorSize`
-
-#### BreadcrumbPage Component
-- Current page indicator
-- 4 styling variants (default, bold, muted, accent)
-- Non-interactive by design
-- Exported types: `BreadcrumbPageVariant`
-
-## Usage
-
-### Basic Example
+## Quick Start
 
 ```svelte
 <script lang="ts">
-  import { BreadcrumbPrimitives } from "@kareyes/aether";
-  const {
-    Breadcrumb,
-    BreadcrumbList,
-    BreadcrumbItem,
-    BreadcrumbLink,
-    BreadcrumbSeparator,
-    BreadcrumbPage
-  } = BreadcrumbPrimitives;
+  import { Breadcrumb } from "@kareyes/aether-ui";
 </script>
 
-<Breadcrumb>
-  <BreadcrumbList>
-    <BreadcrumbItem>
-      <BreadcrumbLink href="/">Home</BreadcrumbLink>
-    </BreadcrumbItem>
-    <BreadcrumbSeparator />
-    <BreadcrumbItem>
-      <BreadcrumbLink href="/components">Components</BreadcrumbLink>
-    </BreadcrumbItem>
-    <BreadcrumbSeparator />
-    <BreadcrumbItem>
-      <BreadcrumbPage>Breadcrumb</BreadcrumbPage>
-    </BreadcrumbItem>
-  </BreadcrumbList>
-</Breadcrumb>
+<Breadcrumb
+  items={[
+    { label: "Home", href: "/" },
+    { label: "Documents", href: "/documents" },
+    { label: "Report" },
+  ]}
+/>
 ```
 
-## Variants
+The last item in the `items` array is always rendered as the current page (non-linked, `aria-current="page"`). All other items with an `href` are rendered as links.
 
-### List Variants
+---
 
-#### Default Variant
-Standard muted text style.
+## Declarative API
 
-```svelte
-<BreadcrumbList variant="default">
-  <!-- items -->
-</BreadcrumbList>
+### Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `items` | `BreadcrumbItemDef[]` | required | Ordered breadcrumb trail — last item is the current page |
+| `listVariant` | `'default' \| 'solid' \| 'subtle' \| 'bold'` | `'default'` | Text color style of the list |
+| `listSize` | `'sm' \| 'default' \| 'lg'` | `'default'` | Text size and gap |
+| `listSpacing` | `'compact' \| 'default' \| 'relaxed'` | `'default'` | Gap between items |
+| `linkVariant` | `'default' \| 'underline' \| 'bold' \| 'subtle'` | `'default'` | Link hover style |
+| `separatorVariant` | `'default' \| 'slash' \| 'dot' \| 'arrow'` | `'default'` | Separator icon |
+| `separatorSize` | `'sm' \| 'default' \| 'lg'` | `'default'` | Separator icon size |
+| `pageVariant` | `'default' \| 'bold' \| 'muted' \| 'accent'` | `'default'` | Current page text style |
+| `class` | `string` | — | Extra CSS classes on the root `<nav>` element |
+
+### BreadcrumbItemDef
+
+```ts
+type BreadcrumbItemDef = {
+  label: string;   // Display text
+  href?: string;   // Navigation target — omit for the current page
+};
 ```
 
-#### Solid Variant
-More prominent with foreground color.
+---
+
+## Usage
+
+### Basic
 
 ```svelte
-<BreadcrumbList variant="solid">
-  <!-- items -->
-</BreadcrumbList>
-```
-
-#### Subtle Variant
-More subdued with reduced opacity.
-
-```svelte
-<BreadcrumbList variant="subtle">
-  <!-- items -->
-</BreadcrumbList>
-```
-
-#### Bold Variant
-Emphasized with medium font weight.
-
-```svelte
-<BreadcrumbList variant="bold">
-  <!-- items -->
-</BreadcrumbList>
-```
-
-### Link Variants
-
-#### Default Link
-Simple hover effect.
-
-```svelte
-<BreadcrumbLink variant="default" href="/">Home</BreadcrumbLink>
-```
-
-#### Underline Link
-Shows underline on hover.
-
-```svelte
-<BreadcrumbLink variant="underline" href="/">Home</BreadcrumbLink>
-```
-
-#### Bold Link
-Medium font weight.
-
-```svelte
-<BreadcrumbLink variant="bold" href="/">Home</BreadcrumbLink>
-```
-
-#### Subtle Link
-Subdued hover effect.
-
-```svelte
-<BreadcrumbLink variant="subtle" href="/">Home</BreadcrumbLink>
+<Breadcrumb
+  items={[
+    { label: "Home", href: "/" },
+    { label: "Documents", href: "/documents" },
+    { label: "Report" },
+  ]}
+/>
 ```
 
 ### Separator Variants
 
-#### Chevron (Default)
-Standard right-pointing chevron.
-
 ```svelte
-<BreadcrumbSeparator variant="default" />
+<Breadcrumb items={items} separatorVariant="default" />  <!-- chevron -->
+<Breadcrumb items={items} separatorVariant="slash" />
+<Breadcrumb items={items} separatorVariant="dot" />
+<Breadcrumb items={items} separatorVariant="arrow" />
 ```
 
-#### Slash
-Forward slash separator.
+### List Variants
 
 ```svelte
-<BreadcrumbSeparator variant="slash" />
+<Breadcrumb items={items} listVariant="default" />  <!-- muted text -->
+<Breadcrumb items={items} listVariant="solid" />    <!-- foreground text -->
+<Breadcrumb items={items} listVariant="subtle" />   <!-- dimmed text -->
+<Breadcrumb items={items} listVariant="bold" />     <!-- foreground + medium weight -->
 ```
 
-#### Dot
-Small circular dot.
+### Sizes
 
 ```svelte
-<BreadcrumbSeparator variant="dot" />
+<Breadcrumb items={items} listSize="sm" />
+<Breadcrumb items={items} listSize="default" />
+<Breadcrumb items={items} listSize="lg" />
 ```
 
-#### Arrow
-Right-pointing arrow.
+### Link Variants
 
 ```svelte
-<BreadcrumbSeparator variant="arrow" />
+<Breadcrumb items={items} linkVariant="default" />    <!-- hover to foreground -->
+<Breadcrumb items={items} linkVariant="underline" />  <!-- underline on hover -->
+<Breadcrumb items={items} linkVariant="bold" />       <!-- medium weight -->
+<Breadcrumb items={items} linkVariant="subtle" />     <!-- subtle hover -->
 ```
 
-#### Custom Separator
-Provide your own content.
+### Current Page Variants
 
 ```svelte
-<BreadcrumbSeparator>
-  <span>→</span>
-</BreadcrumbSeparator>
+<Breadcrumb items={items} pageVariant="default" />  <!-- normal foreground -->
+<Breadcrumb items={items} pageVariant="bold" />     <!-- semibold -->
+<Breadcrumb items={items} pageVariant="muted" />    <!-- muted -->
+<Breadcrumb items={items} pageVariant="accent" />   <!-- primary color -->
 ```
 
-### Page Variants
+---
 
-#### Default Page
-Normal text style.
+## Realistic Examples
 
-```svelte
-<BreadcrumbPage variant="default">Current Page</BreadcrumbPage>
-```
-
-#### Bold Page
-Emphasized current page.
+### File System Path
 
 ```svelte
-<BreadcrumbPage variant="bold">Current Page</BreadcrumbPage>
-```
-
-#### Muted Page
-Subdued current page.
-
-```svelte
-<BreadcrumbPage variant="muted">Current Page</BreadcrumbPage>
-```
-
-#### Accent Page
-Primary color emphasis.
-
-```svelte
-<BreadcrumbPage variant="accent">Current Page</BreadcrumbPage>
-```
-
-## Sizes
-
-### Small
-Compact size for dense layouts.
-
-```svelte
-<BreadcrumbList size="sm">
-  <BreadcrumbItem>
-    <BreadcrumbLink href="/">Home</BreadcrumbLink>
-  </BreadcrumbItem>
-  <BreadcrumbSeparator size="sm" />
-  <BreadcrumbItem>
-    <BreadcrumbPage>Page</BreadcrumbPage>
-  </BreadcrumbItem>
-</BreadcrumbList>
-```
-
-### Default
-Standard size for most use cases.
-
-```svelte
-<BreadcrumbList size="default">
-  <!-- items -->
-</BreadcrumbList>
-```
-
-### Large
-Larger size for better visibility.
-
-```svelte
-<BreadcrumbList size="lg">
-  <BreadcrumbItem>
-    <BreadcrumbLink href="/">Home</BreadcrumbLink>
-  </BreadcrumbItem>
-  <BreadcrumbSeparator size="lg" />
-  <BreadcrumbItem>
-    <BreadcrumbPage>Page</BreadcrumbPage>
-  </BreadcrumbItem>
-</BreadcrumbList>
-```
-
-## Spacing
-
-Control the gap between breadcrumb items.
-
-```svelte
-<!-- Compact spacing -->
-<BreadcrumbList spacing="compact">
-  <!-- items -->
-</BreadcrumbList>
-
-<!-- Default spacing -->
-<BreadcrumbList spacing="default">
-  <!-- items -->
-</BreadcrumbList>
-
-<!-- Relaxed spacing -->
-<BreadcrumbList spacing="relaxed">
-  <!-- items -->
-</BreadcrumbList>
-```
-
-## With Icons
-
-Enhance breadcrumbs with icons.
-
-```svelte
-<script>
-  import { Home, Folder, File } from "@lucide/svelte";
-</script>
-
-<BreadcrumbList>
-  <BreadcrumbItem>
-    <BreadcrumbLink href="/">
-      <Home class="size-4" />
-      <span>Home</span>
-    </BreadcrumbLink>
-  </BreadcrumbItem>
-  <BreadcrumbSeparator />
-  <BreadcrumbItem>
-    <BreadcrumbLink href="/documents">
-      <Folder class="size-4" />
-      <span>Documents</span>
-    </BreadcrumbLink>
-  </BreadcrumbItem>
-  <BreadcrumbSeparator />
-  <BreadcrumbItem>
-    <BreadcrumbPage>
-      <File class="size-4" />
-      <span>readme.md</span>
-    </BreadcrumbPage>
-  </BreadcrumbItem>
-</BreadcrumbList>
-```
-
-## With Dropdown
-
-Show collapsed items with a dropdown.
-
-```svelte
-<script>
-  import { BreadcrumbEllipsis } from "@kareyes/aether";
-  import {
-    DropdownMenu,
-    DropdownMenuTrigger,
-    DropdownMenuContent,
-    DropdownMenuItem
-  } from "@kareyes/aether";
-</script>
-
-<BreadcrumbList>
-  <BreadcrumbItem>
-    <BreadcrumbLink href="/">Home</BreadcrumbLink>
-  </BreadcrumbItem>
-  <BreadcrumbSeparator />
-  <BreadcrumbItem>
-    <DropdownMenu>
-      <DropdownMenuTrigger>
-        <BreadcrumbEllipsis />
-      </DropdownMenuTrigger>
-      <DropdownMenuContent>
-        <DropdownMenuItem href="/docs">Documentation</DropdownMenuItem>
-        <DropdownMenuItem href="/themes">Themes</DropdownMenuItem>
-        <DropdownMenuItem href="/examples">Examples</DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
-  </BreadcrumbItem>
-  <BreadcrumbSeparator />
-  <BreadcrumbItem>
-    <BreadcrumbPage>Breadcrumb</BreadcrumbPage>
-  </BreadcrumbItem>
-</BreadcrumbList>
-```
-
-## API Reference
-
-### Breadcrumb (Root)
-
-The root breadcrumb container.
-
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `class` | `string` | - | Additional CSS classes |
-
-### BreadcrumbList
-
-Container for breadcrumb items.
-
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `variant` | `"default" \| "solid" \| "subtle" \| "bold"` | `"default"` | Visual style variant |
-| `size` | `"sm" \| "default" \| "lg"` | `"default"` | Size of the breadcrumb list |
-| `spacing` | `"compact" \| "default" \| "relaxed"` | `"default"` | Gap between items |
-| `class` | `string` | - | Additional CSS classes |
-
-### BreadcrumbItem
-
-Individual breadcrumb item container.
-
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `class` | `string` | - | Additional CSS classes |
-
-### BreadcrumbLink
-
-Clickable breadcrumb link.
-
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `href` | `string` | - | Link destination |
-| `variant` | `"default" \| "underline" \| "bold" \| "subtle"` | `"default"` | Visual style variant |
-| `class` | `string` | - | Additional CSS classes |
-
-### BreadcrumbPage
-
-Current page indicator (non-interactive).
-
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `variant` | `"default" \| "bold" \| "muted" \| "accent"` | `"default"` | Visual style variant |
-| `class` | `string` | - | Additional CSS classes |
-
-### BreadcrumbSeparator
-
-Visual separator between items.
-
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `variant` | `"default" \| "slash" \| "dot" \| "arrow"` | `"default"` | Separator icon style |
-| `size` | `"sm" \| "default" \| "lg"` | `"default"` | Size of the separator icon |
-| `class` | `string` | - | Additional CSS classes |
-
-Can accept custom children to override the default separator icon.
-
-### BreadcrumbEllipsis
-
-Ellipsis indicator for collapsed items.
-
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `class` | `string` | - | Additional CSS classes |
-
-## Advanced Examples
-
-### Dynamic Breadcrumbs
-
-```svelte
-<script lang="ts">
-  type PathSegment = {
-    label: string;
-    href?: string;
-  };
-
-  let segments: PathSegment[] = $state([
+<Breadcrumb
+  items={[
     { label: "Home", href: "/" },
-    { label: "Products", href: "/products" },
-    { label: "Electronics", href: "/products/electronics" },
-    { label: "Laptops" }
-  ]);
-</script>
-
-<Breadcrumb>
-  <BreadcrumbList>
-    {#each segments as segment, i}
-      <BreadcrumbItem>
-        {#if segment.href}
-          <BreadcrumbLink href={segment.href}>{segment.label}</BreadcrumbLink>
-        {:else}
-          <BreadcrumbPage>{segment.label}</BreadcrumbPage>
-        {/if}
-      </BreadcrumbItem>
-      {#if i < segments.length - 1}
-        <BreadcrumbSeparator />
-      {/if}
-    {/each}
-  </BreadcrumbList>
-</Breadcrumb>
-```
-
-### Responsive Breadcrumbs
-
-```svelte
-<Breadcrumb>
-  <BreadcrumbList>
-    <BreadcrumbItem>
-      <BreadcrumbLink href="/">Home</BreadcrumbLink>
-    </BreadcrumbItem>
-    <BreadcrumbSeparator />
-    
-    <!-- Hide on mobile, show on desktop -->
-    <BreadcrumbItem class="hidden md:inline-flex">
-      <BreadcrumbLink href="/products">Products</BreadcrumbLink>
-    </BreadcrumbItem>
-    <BreadcrumbSeparator class="hidden md:inline-flex" />
-    
-    <BreadcrumbItem>
-      <BreadcrumbPage>Current</BreadcrumbPage>
-    </BreadcrumbItem>
-  </BreadcrumbList>
-</Breadcrumb>
-```
-
-### Custom Link Component
-
-Use with SvelteKit's enhanced links or custom routers.
-
-```svelte
-<script>
-  import { goto } from "$app/navigation";
-</script>
-
-<BreadcrumbLink
-  href="/custom"
-  child={({ props }) => (
-    <a {...props} data-sveltekit-preload-data>
-      Custom Link
-    </a>
-  )}
+    { label: "Projects", href: "/projects" },
+    { label: "Aether UI", href: "/projects/aether-ui" },
+    { label: "breadcrumb.svelte" },
+  ]}
+  listVariant="solid"
+  separatorVariant="slash"
+  linkVariant="underline"
+  pageVariant="bold"
 />
 ```
 
-## Best Practices
-
-### Variant Consistency
-
-Keep variants consistent across the breadcrumb:
+### Dashboard Navigation
 
 ```svelte
-<!-- ✅ Good -->
-<BreadcrumbList variant="bold">
-  <BreadcrumbLink variant="bold" href="/">Home</BreadcrumbLink>
-</BreadcrumbList>
-
-<!-- ⚠️ Mixed (intentional styling) -->
-<BreadcrumbList variant="default">
-  <BreadcrumbLink variant="bold" href="/">Home</BreadcrumbLink>
-</BreadcrumbList>
+<Breadcrumb
+  items={[
+    { label: "Dashboard", href: "/dashboard" },
+    { label: "Payroll", href: "/dashboard/payroll" },
+    { label: "March 2026" },
+  ]}
+  listSize="sm"
+  separatorVariant="arrow"
+  pageVariant="accent"
+/>
 ```
 
-### Size Consistency
-
-Match separator sizes with list sizes:
+### Dynamic Items from Router
 
 ```svelte
-<!-- ✅ Good -->
-<BreadcrumbList size="lg">
-  <BreadcrumbSeparator size="lg" />
-</BreadcrumbList>
+<script lang="ts">
+  import { Breadcrumb, type BreadcrumbItemDef } from "@kareyes/aether-ui";
+  import { page } from "$app/stores";
 
-<!-- ❌ Bad -->
-<BreadcrumbList size="lg">
-  <BreadcrumbSeparator size="sm" />
-</BreadcrumbList>
+  const crumbs = $derived<BreadcrumbItemDef[]>(
+    $page.url.pathname
+      .split("/")
+      .filter(Boolean)
+      .map((segment, i, arr) => ({
+        label: segment.replace(/-/g, " "),
+        href: i < arr.length - 1 ? "/" + arr.slice(0, i + 1).join("/") : undefined,
+      }))
+  );
+</script>
+
+<Breadcrumb items={crumbs} />
 ```
 
-### Accessible Labels
+---
 
-Always provide meaningful text:
+## Compositional API
+
+Use the primitives directly when you need icons, an ellipsis for collapsed items, or a custom link renderer (e.g. SvelteKit `<a>` with `data-sveltekit-preload-data`).
 
 ```svelte
-<!-- ✅ Good -->
-<BreadcrumbLink href="/products">Products</BreadcrumbLink>
+<script lang="ts">
+  import { BreadcrumbPrimitives } from "@kareyes/aether-ui";
+  const { Root, List, Item, Link, Separator, Page, Ellipsis } = BreadcrumbPrimitives;
+  import Home from "@lucide/svelte/icons/home";
+  import Folder from "@lucide/svelte/icons/folder";
+</script>
 
-<!-- ❌ Bad -->
-<BreadcrumbLink href="/p">P</BreadcrumbLink>
+<!-- With icons -->
+<Root>
+  <List>
+    <Item>
+      <Link href="/">
+        <Home class="size-4" />
+        Home
+      </Link>
+    </Item>
+    <Separator />
+    <Item>
+      <Link href="/documents">
+        <Folder class="size-4" />
+        Documents
+      </Link>
+    </Item>
+    <Separator />
+    <Item>
+      <Page>Report.pdf</Page>
+    </Item>
+  </List>
+</Root>
+
+<!-- With collapsed ellipsis -->
+<Root>
+  <List>
+    <Item><Link href="/">Home</Link></Item>
+    <Separator />
+    <Item><Ellipsis /></Item>
+    <Separator />
+    <Item><Link href="/components">Components</Link></Item>
+    <Separator />
+    <Item><Page>Breadcrumb</Page></Item>
+  </List>
+</Root>
+
+<!-- Custom link renderer (SvelteKit) -->
+<Root>
+  <List>
+    <Item>
+      <Link href="/">
+        {#snippet child({ props })}
+          <a {...props} data-sveltekit-preload-data>Home</a>
+        {/snippet}
+      </Link>
+    </Item>
+    <Separator />
+    <Item><Page>Current Page</Page></Item>
+  </List>
+</Root>
 ```
 
-### Limit Depth
+### Primitives Reference
 
-For deep hierarchies, consider collapsing:
+| Export | Description |
+|--------|-------------|
+| `BreadcrumbPrimitives.Root` | Root `<nav aria-label="breadcrumb">` element |
+| `BreadcrumbPrimitives.List` | `<ol>` with `listVariant`, `listSize`, `listSpacing` |
+| `BreadcrumbPrimitives.Item` | `<li>` wrapper |
+| `BreadcrumbPrimitives.Link` | `<a>` with `variant`, supports `child` snippet for custom renderers |
+| `BreadcrumbPrimitives.Separator` | `<li>` separator icon — `variant` controls icon style |
+| `BreadcrumbPrimitives.Page` | `<span aria-current="page">` for the current page |
+| `BreadcrumbPrimitives.Ellipsis` | Collapsed items indicator (…) |
 
-```svelte
-<!-- ✅ Good - Collapsed middle items -->
-<BreadcrumbList>
-  <BreadcrumbItem>
-    <BreadcrumbLink href="/">Home</BreadcrumbLink>
-  </BreadcrumbItem>
-  <BreadcrumbSeparator />
-  <BreadcrumbItem>
-    <BreadcrumbEllipsis />
-  </BreadcrumbItem>
-  <BreadcrumbSeparator />
-  <BreadcrumbItem>
-    <BreadcrumbPage>Current</BreadcrumbPage>
-  </BreadcrumbItem>
-</BreadcrumbList>
-```
+### BreadcrumbList Props
 
-## Styling
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `variant` | `'default' \| 'solid' \| 'subtle' \| 'bold'` | `'default'` | Text color |
+| `size` | `'sm' \| 'default' \| 'lg'` | `'default'` | Text size and gap |
+| `spacing` | `'compact' \| 'default' \| 'relaxed'` | `'default'` | Item gap |
 
-### CSS Variables
+### BreadcrumbLink Props
 
-The component uses the following CSS custom properties:
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `href` | `string` | — | Navigation target |
+| `variant` | `'default' \| 'underline' \| 'bold' \| 'subtle'` | `'default'` | Hover style |
+| `child` | `Snippet<[{ props }]>` | — | Custom link renderer — receives all anchor props |
 
-- `--foreground` - Default text color
-- `--muted-foreground` - Muted text color
-- `--primary` - Primary accent color
-- `--border` - Border color
+### BreadcrumbSeparator Props
 
-### Tailwind Classes
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `variant` | `'default' \| 'slash' \| 'dot' \| 'arrow'` | `'default'` | Icon style |
+| `size` | `'sm' \| 'default' \| 'lg'` | `'default'` | Icon size |
 
-You can customize any component with Tailwind classes:
+### BreadcrumbPage Props
 
-```svelte
-<BreadcrumbList class="bg-muted p-2 rounded-lg">
-  <BreadcrumbLink class="text-blue-600 hover:text-blue-800">
-    Custom Link
-  </BreadcrumbLink>
-</BreadcrumbList>
-```
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `variant` | `'default' \| 'bold' \| 'muted' \| 'accent'` | `'default'` | Text style |
+
+---
 
 ## Accessibility
 
-The Breadcrumb component provides:
+- Root renders `<nav aria-label="breadcrumb">` — landmark for screen readers
+- Current page renders `<span role="link" aria-disabled="true" aria-current="page">`
+- Separators render `<li role="presentation" aria-hidden="true">` — hidden from screen readers
+- Ellipsis renders `<span role="presentation" aria-hidden="true">` with `.sr-only` "More" text
 
-- **Semantic HTML**: Uses `<nav>` with `aria-label="breadcrumb"`
-- **Ordered List**: Proper `<ol>` structure for screen readers
-- **ARIA Current**: `aria-current="page"` on current page
-- **Hidden Separators**: Separators are `aria-hidden="true"`
-- **Keyboard Navigation**: Standard link navigation with Tab key
-
-### Screen Reader Support
-
-The breadcrumb is announced as "breadcrumb navigation" and items are read in order. The current page is identified with "current page".
-
-## Demo & Storybook
-
-### Demo Page
-Visit [/breadcrumb-demo](/breadcrumb-demo) for an interactive demonstration showcasing:
-- All list variants (default, solid, subtle, bold)
-- All link variants (default, underline, bold, subtle)
-- All separator styles (chevron, slash, dot, arrow)
-- Size options (sm, default, lg)
-- Spacing options (compact, default, relaxed)
-- Page variants (default, bold, muted, accent)
-- With icons
-- With dropdowns
-- Dynamic breadcrumbs
-
-### Storybook Stories
-The component includes comprehensive Storybook stories at:
-`src/lib/components/ui/breadcrumb/docs/breadcrumb.stories.svelte`
+---
 
 ## Related Components
 
-- [Button](../button) - For action items in breadcrumbs
-- [DropdownMenu](../dropdown-menu) - For collapsed breadcrumb items
-- [Link](../link) - Alternative navigation component
-
-## Technical Implementation
-
-### File Structure
-```
-breadcrumb/
-├── index.ts                      # Exports and type definitions
-├── breadcrumb.svelte            # Root container
-├── breadcrumb-list.svelte       # List with variants
-├── breadcrumb-item.svelte       # Item container
-├── breadcrumb-link.svelte       # Interactive link
-├── breadcrumb-page.svelte       # Current page indicator
-├── breadcrumb-separator.svelte  # Visual separator
-├── breadcrumb-ellipsis.svelte   # Collapse indicator
-├── BREADCRUMB.md                # This documentation
-└── docs/
-    └── breadcrumb.stories.svelte # Storybook stories
-```
-
-### Type Exports
-All variant types are properly exported for TypeScript users:
-- `BreadcrumbListVariant`, `BreadcrumbListSize`, `BreadcrumbListSpacing`
-- `BreadcrumbLinkVariant`
-- `BreadcrumbSeparatorVariant`, `BreadcrumbSeparatorSize`
-- `BreadcrumbPageVariant`
-
-## Changelog
-
-### Version 1.0.0 (January 2026)
-- Initial release with comprehensive variant system
-- 4 list variants (default, solid, subtle, bold)
-- 4 link variants (default, underline, bold, subtle)
-- 4 separator styles (chevron, slash, dot, arrow)
-- 4 page variants (default, bold, muted, accent)
-- 3 size options (sm, default, lg)
-- 3 spacing options (compact, default, relaxed)
-- Full TypeScript support with exported types
-- Comprehensive documentation and examples
-- Storybook integration
-- Demo page with all features
-- Built with Svelte 5 runes
-- Uses tailwind-variants (tv) for variant management
-- Full accessibility with ARIA support
+- **Tabs** — for switching between sibling views at the same level
+- **Pagination** — for navigating between pages of content
+- **Sidebar** — for persistent hierarchical navigation

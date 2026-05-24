@@ -13,10 +13,10 @@ A flexible button group component that allows you to group related buttons toget
 
 ## Installation
 
-The ButtonGroup component is included in the `@kareyes/aether` package.
+The ButtonGroup component is included in the `@kareyes/aether-ui` package.
 
 ```bash
-pnpm add @kareyes/aether
+pnpm add @kareyes/aether-ui
 ```
 
 ## Usage
@@ -25,7 +25,7 @@ pnpm add @kareyes/aether
 
 ```svelte
 <script>
-  import { ButtonGroup, Button } from "@kareyes/aether";
+  import { ButtonGroup, Button } from "@kareyes/aether-ui";
 </script>
 
 <ButtonGroup variant="bg">
@@ -39,7 +39,7 @@ pnpm add @kareyes/aether
 
 ```svelte
 <script>
-  import { ButtonGroup, ButtonGroupText, Button } from "@kareyes/aether";
+  import { ButtonGroup, ButtonGroupText, Button } from "@kareyes/aether-ui";
 </script>
 
 <ButtonGroup variant="bg">
@@ -54,7 +54,7 @@ pnpm add @kareyes/aether
 
 ```svelte
 <script>
-  import { ButtonGroup, ButtonGroupSeparator, Button } from "@kareyes/aether";
+  import { ButtonGroup, ButtonGroupSeparator, Button } from "@kareyes/aether-ui";
 </script>
 
 <ButtonGroup variant="bg">
@@ -216,7 +216,7 @@ The component uses Tailwind CSS and tailwind-variants for styling. You can custo
 import type {
   ButtonGroupVariant,
   ButtonGroupOrientation
-} from "@kareyes/aether";
+} from "@kareyes/aether-ui";
 
 // Variant type
 type Variant = ButtonGroupVariant; // "bg" | "ghost"
